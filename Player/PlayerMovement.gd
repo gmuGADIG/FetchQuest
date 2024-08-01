@@ -8,6 +8,5 @@ func _physics_process(delta):
 	var vertical := Input.get_axis("move_up", "move_down")
 	
 	player.velocity = Vector2(horizontal, vertical).normalized() * move_speed
-	print(player.velocity.length())
 	
 	player.move_and_slide()
