@@ -1,5 +1,9 @@
 extends Node
 @onready var currInteractable: TalkingInteractable = null
+@onready var style: DialogicStyle = preload("res://Example Scenes/ExampleDialogueStyleBubble.tres")
+
+func _ready():
+	style.prepare()
 
 func set_interactable(interactable: Node2D) -> void:
 	currInteractable = interactable
