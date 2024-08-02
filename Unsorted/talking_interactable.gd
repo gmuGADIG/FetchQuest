@@ -3,6 +3,10 @@ class_name TalkingInteractable
 
 ##The Dialogic Timeline to play when interacting
 @export var timeline: Array[DialogicTimeline]
+
+##The Dialogic Character being interacted with
+@export var character: DialogicCharacter
+
 ## If set to true, the interactable will not repeat its dialogue
 ## after going through all of its timelines.
 ## Otherwise, the dialogue will repeat on continual interactions.
@@ -15,6 +19,7 @@ var player: CharacterBody2D
 
 func _ready() -> void:
 	Dialogic.timeline_ended.connect(_on_timeline_ended)
+	
 
 func _input(event) -> void:
 	if Dialogic.current_timeline != null:
@@ -26,7 +31,8 @@ func _input(event) -> void:
 	if playerInRange && event.is_action_pressed("interact"):
 		player.inDialogue = true
 		DialogueManager.set_interactable(self)
-		Dialogic.start(timeline[currTimelineIndex])
+		var layout := Dialogic.start(timeline[currTimelineIndex])
+		layout.register_character(character, get_parent())
 		get_viewport().set_input_as_handled()
 
 func _on_timeline_ended() -> void:

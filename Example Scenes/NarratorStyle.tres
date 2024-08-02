@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="DialogicStyle" load_steps=5 format=3 uid="uid://d2o544wcm54d2"]
+
+[ext_resource type="PackedScene" uid="uid://bquja8jyk8kbr" path="res://addons/dialogic/Modules/DefaultLayoutParts/Layer_VN_Textbox/vn_textbox_layer.tscn" id="1_ljyrj"]
+[ext_resource type="Script" path="res://addons/dialogic/Resources/dialogic_style.gd" id="1_ry3vn"]
+[ext_resource type="Script" path="res://addons/dialogic/Resources/dialogic_style_layer.gd" id="2_3g305"]
+
+[sub_resource type="Resource" id="Resource_ptr6k"]
+script = ExtResource("2_3g305")
+scene = ExtResource("1_ljyrj")
+overrides = {
+"name_label_custom_font_size": "11.0",
+"typing_sounds_enabled": "false"
+}
+
+[resource]
+script = ExtResource("1_ry3vn")
+name = "NarratorStyle"
+base_overrides = {}
+layers = Array[ExtResource("2_3g305")]([SubResource("Resource_ptr6k")])
+metadata/_latest_layer = 0

@@ -2,22 +2,17 @@ join demoCharacterSignPost 2
 demoCharacterSignPost (default): Hello I'm Mr. Sign Post.
 demoCharacterSignPost: Who's a good boy?
 - Me!
-	You sure are!
+	demoCharacterSignPost: You sure are!
 - I don't know
-	Well, go find me someone who's a good boy.
-	leave demoCharacterSignPost
+	demoCharacterSignPost: Well, go find me someone who's a good boy.
 	do DialogueManager.rewindProgress()
 	[end_timeline]
-demoCharacterSignPost: What is your name, good boy?
-[text_input var="ExampleSceneVars.name"]
-demoCharacterSignPost: Okay {ExampleSceneVars.name}, do you want a treat, for being such a good boy?
+demoCharacterSignPost: Okay, do you want a treat, for being such a good boy?
 - Yes
 	demoCharacterSignPost: Here, catch.
-	leave demoCharacterSignPost
-	You jump expectantly in the air to catch a treat that never comes.
-	After the wave of disappointment you realize that the signpost's lack of limbs and mobility prevent it from throwing anything, much less a delicious treat.
-	You also realize that sign posts are unable to speak, just as you are unable to read.
+	demoCharacterSignPost: [i]You jump expectantly in the air to catch a treat that never comes.[/i]
+	demoCharacterSignPost: [i]After the wave of disappointment you realize that the signpost's lack of limbs and mobility prevent it from throwing anything, much less a delicious treat.[/i]
+	demoCharacterSignPost: [i]You also realize that sign posts are unable to speak, just as you are unable to read.[/i]
 - No
-	leave demoCharacterSignPost
-	Your unexpected and contrarian response has caused the sign post to shut up entirely.
-	You will surely spend many painful and lonely nights wishing you weren't so obtuse and emotionally dishonest.
+	demoCharacterSignPost: [i]Your unexpected and contrarian response has caused the sign post to shut up entirely.[/i]
+	demoCharacterSignPost: [i]You will surely spend many painful and lonely nights wishing you weren't so obtuse and emotionally dishonest.[/i]
