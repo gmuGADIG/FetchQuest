@@ -26,7 +26,7 @@ func _input(event) -> void:
 	if Dialogic.current_timeline != null:
 		return
 	
-	if oneTime && timesPlayed > timeline.size()-1:
+	if not is_active():
 		return
 	
 	if playerInRange && event.is_action_pressed("interact"):
@@ -41,12 +41,20 @@ func _on_timeline_ended() -> void:
 	currTimelineIndex += 1
 	currTimelineIndex %= timeline.size()
 	timesPlayed += 1
+	if not is_active():
+		player.canInteract = false
 
 func _on_body_entered(body) -> void:
 	if body.name == "Player":
 		playerInRange = true
 		player = body
+		if is_active():
+			body.canInteract = true
 
 func _on_body_exited(body) -> void:
 	if body.name == "Player":
+		body.canInteract = false
 		playerInRange = false
+
+func is_active() -> bool:
+	return not (oneTime && timesPlayed > timeline.size()-1)
