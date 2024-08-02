@@ -1,4 +1,5 @@
 extends Area2D
+class_name TalkingInteractable
 
 ##The Dialogic Timeline to play when interacting
 @export var timeline: Array[DialogicTimeline]
@@ -24,13 +25,14 @@ func _input(event) -> void:
 	
 	if playerInRange && event.is_action_pressed("interact"):
 		player.inDialogue = true
+		DialogueManager.set_interactable(self)
 		Dialogic.start(timeline[currTimelineIndex])
-		currTimelineIndex += 1
-		currTimelineIndex %= timeline.size()
 		get_viewport().set_input_as_handled()
 
 func _on_timeline_ended() -> void:
 	player.inDialogue = false
+	currTimelineIndex += 1
+	currTimelineIndex %= timeline.size()
 	timesPlayed += 1
 
 func _on_body_entered(body) -> void:
