@@ -1,4 +1,4 @@
-[gd_scene load_steps=74 format=3 uid="uid://yth6mbf0pmt6"]
+[gd_scene load_steps=78 format=3 uid="uid://yth6mbf0pmt6"]
 
 [ext_resource type="PackedScene" uid="uid://brn8fso1rbtx6" path="res://Player/player.tscn" id="1_tddsu"]
 [ext_resource type="Script" path="res://addons/rmsmartshape/shapes/shape.gd" id="2_uxdia"]
@@ -17,6 +17,8 @@
 [ext_resource type="Texture2D" uid="uid://636bjd84igwe" path="res://Example Scenes/Level Example Textures/hole_fill.png" id="15_6k82u"]
 [ext_resource type="Texture2D" uid="uid://ba18r4nl1b4is" path="res://Example Scenes/Level Example Textures/Fences.png" id="16_4hkvb"]
 [ext_resource type="Texture2D" uid="uid://dvelfiy6doeqa" path="res://Example Scenes/Level Example Textures/well.png" id="17_kgxb3"]
+[ext_resource type="Texture2D" uid="uid://di4ivc8myym02" path="res://Example Scenes/Level Example Textures/Sign post.png" id="18_lgwyq"]
+[ext_resource type="PackedScene" uid="uid://clm7tpy2ilrii" path="res://Unsorted/talking_interactable.tscn" id="19_c18gv"]
 
 [sub_resource type="Resource" id="Resource_hiipi"]
 script = ExtResource("3_iabbl")
@@ -93,7 +95,7 @@ width = 1.0
 script = ExtResource("4_dpa0d")
 position = Vector2(392.691, 812.005)
 point_in = Vector2(147.245, -130.255)
-point_out = Vector2(-147.245, 130.255)
+point_out = Vector2(-139.245, 128.255)
 properties = SubResource("Resource_oekro")
 
 [sub_resource type="Resource" id="Resource_5ae0r"]
@@ -602,6 +604,12 @@ sources/0 = SubResource("TileSetAtlasSource_jein8")
 [sub_resource type="CircleShape2D" id="CircleShape2D_u7k0v"]
 radius = 32.0156
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k4mmi"]
+size = Vector2(43, 37)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ogtxt"]
+size = Vector2(96, 81)
+
 [node name="LevelDesignExample" type="Node2D"]
 y_sort_enabled = true
 
@@ -685,3 +693,21 @@ texture = ExtResource("17_kgxb3")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Well"]
 position = Vector2(0, -38)
 shape = SubResource("CircleShape2D_u7k0v")
+
+[node name="SignPost" type="StaticBody2D" parent="."]
+position = Vector2(303, -36)
+
+[node name="SignPost" type="Sprite2D" parent="SignPost"]
+position = Vector2(-2, 1)
+scale = Vector2(2.49568, 2.49568)
+texture = ExtResource("18_lgwyq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SignPost"]
+position = Vector2(-0.5, 20.5)
+shape = SubResource("RectangleShape2D_k4mmi")
+
+[node name="TalkingInteractable" parent="SignPost" instance=ExtResource("19_c18gv")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SignPost/TalkingInteractable"]
+position = Vector2(-5, 45.5)
+shape = SubResource("RectangleShape2D_ogtxt")

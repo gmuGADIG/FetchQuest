@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://clm7tpy2ilrii"]
+
+[ext_resource type="Script" path="res://Unsorted/talking_interactable.gd" id="1_pqds5"]
+[ext_resource type="Resource" path="res://Example Scenes/demoTimeline.dtl" id="2_3evtf"]
+
+[node name="TalkingInteractable" type="Area2D"]
+process_mode = 3
+script = ExtResource("1_pqds5")
+timeline = ExtResource("2_3evtf")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

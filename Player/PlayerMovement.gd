@@ -4,6 +4,8 @@ extends Node2D
 
 
 func _physics_process(_delta):
+	if player.inDialogue:
+		return
 	var horizontal := Input.get_axis("move_left", "move_right")
 	var vertical := Input.get_axis("move_up", "move_down")
 	
