@@ -22,6 +22,8 @@ func _ready() -> void:
 	Dialogic.timeline_ended.connect(_on_timeline_ended)
 	for t in timeline:
 		Dialogic.preload_timeline(t)
+	if character == null:
+		push_warning("The dialogic character for " + get_parent().name + "has not been assigned.")
 
 func _input(event) -> void:
 	if Dialogic.current_timeline != null:
