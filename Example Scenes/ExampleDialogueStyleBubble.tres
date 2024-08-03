@@ -1,9 +1,10 @@
-[gd_resource type="Resource" script_class="DialogicStyle" load_steps=8 format=3 uid="uid://cv8koh10fgjyq"]
+[gd_resource type="Resource" script_class="DialogicStyle" load_steps=10 format=3 uid="uid://cv8koh10fgjyq"]
 
 [ext_resource type="PackedScene" uid="uid://syki6k0e6aac" path="res://addons/dialogic/Modules/DefaultLayoutParts/Base_TextBubble/text_bubble_base.tscn" id="1_nmgwd"]
 [ext_resource type="PackedScene" uid="uid://cn674foxwedqu" path="res://addons/dialogic/Modules/DefaultLayoutParts/Layer_Input/full_advance_input_layer.tscn" id="2_privv"]
 [ext_resource type="Script" path="res://addons/dialogic/Resources/dialogic_style_layer.gd" id="3_ckpkn"]
 [ext_resource type="PackedScene" uid="uid://d2it0xiap3gnt" path="res://addons/dialogic/Modules/DefaultLayoutParts/Layer_Textbubble/text_bubble_layer.tscn" id="4_1r35e"]
+[ext_resource type="PackedScene" uid="uid://bquja8jyk8kbr" path="res://addons/dialogic/Modules/DefaultLayoutParts/Layer_VN_Textbox/vn_textbox_layer.tscn" id="5_2oc03"]
 [ext_resource type="Script" path="res://addons/dialogic/Resources/dialogic_style.gd" id="5_ahvyk"]
 
 [sub_resource type="Resource" id="Resource_lxpbs"]
@@ -18,10 +19,33 @@ overrides = {
 "box_wobble_detail": "0.22"
 }
 
+[sub_resource type="Resource" id="Resource_d8sye"]
+script = ExtResource("3_ckpkn")
+scene = ExtResource("5_2oc03")
+overrides = {
+"autoadvance_progressbar": "false",
+"box_animation_in": "0",
+"box_animation_out": "0",
+"box_color_custom": "Color(0, 0, 0, 0)",
+"box_color_use_global": "false",
+"name_label_box_modulate": "Color(0, 0, 0, 0)",
+"name_label_box_use_global_color": "false",
+"name_label_custom_color": "Color(1, 1, 1, 0)",
+"name_label_custom_font_size": "0.0",
+"name_label_use_character_color": "false",
+"name_label_use_global_color": "false",
+"name_label_use_global_font_size": "false",
+"next_indicator_enabled": "false",
+"text_custom_color": "Color(1, 1, 1, 0)",
+"text_size": "0.0",
+"text_use_global_color": "false",
+"text_use_global_size": "false"
+}
+
 [resource]
 script = ExtResource("5_ahvyk")
 name = "ExampleDialogueStyleBubble"
 base_scene = ExtResource("1_nmgwd")
 base_overrides = {}
-layers = Array[ExtResource("3_ckpkn")]([SubResource("Resource_lxpbs"), SubResource("Resource_jpp2l")])
+layers = Array[ExtResource("3_ckpkn")]([SubResource("Resource_lxpbs"), SubResource("Resource_jpp2l"), SubResource("Resource_d8sye")])
 metadata/_latest_layer = 2
