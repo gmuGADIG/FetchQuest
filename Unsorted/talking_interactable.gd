@@ -20,6 +20,8 @@ var player: CharacterBody2D
 func _ready() -> void:
 	Dialogic.timeline_started.connect(_on_timeline_started)
 	Dialogic.timeline_ended.connect(_on_timeline_ended)
+	body_entered.connect(_on_body_entered)
+	body_exited.connect(_on_body_exited)
 	for t in timeline:
 		Dialogic.preload_timeline(t)
 	if character == null:
@@ -44,15 +46,16 @@ func _on_timeline_started() -> void:
 	#This should be able to allow for dialogue scenes with multiple talking npcs
 	#at once.
 	if DialogueManager.layout.has_method("register_character") && character != null:
-		DialogueManager.layout.register_character(character, get_parent())
+		DialogueManager.layout.register_character(character, self)
 
 func _on_timeline_ended() -> void:
-	player.inDialogue = false
-	currTimelineIndex += 1
-	currTimelineIndex %= timeline.size()
-	timesPlayed += 1
-	if not is_active():
-		player.canInteract = false
+	if DialogueManager.currInteractable == self:
+		player.inDialogue = false
+		currTimelineIndex += 1
+		currTimelineIndex %= timeline.size()
+		timesPlayed += 1
+		if not is_active():
+			player.canInteract = false
 
 func _on_body_entered(body) -> void:
 	if body.name == "Player":

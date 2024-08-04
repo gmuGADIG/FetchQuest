@@ -1,14 +1,11 @@
 [gd_scene load_steps=5 format=3 uid="uid://clm7tpy2ilrii"]
 
 [ext_resource type="Script" path="res://Unsorted/talking_interactable.gd" id="1_pqds5"]
-[ext_resource type="Resource" path="res://Example Scenes/demoTimeline.dtl" id="2_3evtf"]
-[ext_resource type="Resource" path="res://Example Scenes/demoTimeline2.dtl" id="3_3jtf1"]
-[ext_resource type="Resource" path="res://Example Scenes/demoTimeline3.dtl" id="4_py1l4"]
+[ext_resource type="Resource" path="res://Example Scenes/Example Timelines/demoTimeline.dtl" id="2_3evtf"]
+[ext_resource type="Resource" path="res://Example Scenes/Example Timelines/demoTimeline2.dtl" id="3_3jtf1"]
+[ext_resource type="Resource" path="res://Example Scenes/Example Timelines/demoTimeline3.dtl" id="4_py1l4"]
 
 [node name="TalkingInteractable" type="Area2D"]
 process_mode = 3
 script = ExtResource("1_pqds5")
 timeline = Array[Resource("res://addons/dialogic/Resources/timeline.gd")]([ExtResource("2_3evtf"), ExtResource("3_3jtf1"), ExtResource("4_py1l4")])
-
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]
-[connection signal="body_exited" from="." to="." method="_on_body_exited"]
