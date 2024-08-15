@@ -185,5 +185,3 @@ func bubble_apply_overrides(bubble:TextBubble) -> void:
 	choice_theme.set_color(&'font_focus_color', &'Button', choices_text_color_focus)
 	choice_theme.set_color(&'font_disabled_color', &'Button', choices_text_color_disabled)
 	bubble.choice_container.theme = choice_theme
-
-
