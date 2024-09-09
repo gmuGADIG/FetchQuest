@@ -27,7 +27,7 @@ func _ready() -> void:
 	if character == null:
 		push_warning("The dialogic character for " + get_parent().name + "has not been assigned.")
 
-func _input(event) -> void:
+func _input(event: InputEvent) -> void:
 	if Dialogic.current_timeline != null:
 		return
 	
@@ -57,14 +57,14 @@ func _on_timeline_ended() -> void:
 		if not is_active():
 			player.canInteract = false
 
-func _on_body_entered(body) -> void:
+func _on_body_entered(body: PhysicsBody2D) -> void:
 	if body.name == "Player":
 		playerInRange = true
 		player = body
 		if is_active():
 			body.canInteract = true
 
-func _on_body_exited(body) -> void:
+func _on_body_exited(body: PhysicsBody2D) -> void:
 	if body.name == "Player":
 		body.canInteract = false
 		playerInRange = false
