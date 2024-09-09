@@ -7,8 +7,8 @@ extends ScrollContainer
 
 enum DragTypes {NOTHING, NEW_EVENT, EXISTING_EVENTS}
 
-var drag_type : DragTypes = DragTypes.NOTHING
-var drag_data : Variant
+var drag_type: DragTypes = DragTypes.NOTHING
+var drag_data: Variant
 var drag_to_position := 0
 var dragging := false
 
@@ -59,7 +59,7 @@ func _process(delta:float) -> void:
 				queue_redraw()
 
 
-func finish_dragging():
+func finish_dragging() -> void:
 	dragging = false
 	if get_global_rect().has_point(get_global_mouse_position()):
 		drag_completed.emit(drag_type, drag_to_position, drag_data)
@@ -82,7 +82,7 @@ func _draw() -> void:
 
 	## Draw Event Lines
 	for idx in range($Timeline.get_child_count()):
-		var block : Control = $Timeline.get_child(idx)
+		var block: Control = $Timeline.get_child(idx)
 
 		if not "resource" in block:
 			continue

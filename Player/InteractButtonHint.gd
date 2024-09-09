@@ -1,6 +1,6 @@
 extends Sprite2D
-@onready var keyboard_image = preload("res://Player/Placeholder_Interact_Button_Keyboard.png")
-@onready var controller_image = preload("res://Player/Placeholder_Interact_Button_Controller.png")
+@onready var keyboard_image = preload("uid://cc75mo1x1ung5")
+@onready var controller_image = preload("uid://bi1qauk62f03d")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):

@@ -8,28 +8,15 @@ var editors_manager: Control = null
 
 var editor_file_dialog: EditorFileDialog
 
-## Styling
-@export var editor_tab_bg := StyleBoxFlat.new()
-
 
 func _ready() -> void:
 	if get_parent() is SubViewport:
 		return
 
 	## REFERENCES
-	editors_manager = $Margin/EditorsManager
-	var button :Button = editors_manager.add_icon_button(get_theme_icon("MakeFloating", "EditorIcons"), 'Make floating')
+	editors_manager = $EditorsManager
+	var button: Button = editors_manager.add_icon_button(get_theme_icon("MakeFloating", "EditorIcons"), 'Make floating')
 	button.pressed.connect(toggle_floating_window)
-
-
-
-	## STYLING
-	$BG.color = get_theme_color("base_color", "Editor")
-	editor_tab_bg.border_color = get_theme_color("base_color", "Editor")
-	editor_tab_bg.bg_color = get_theme_color("dark_color_2", "Editor")
-	$Margin/EditorsManager.editors_holder.add_theme_stylebox_override('panel', editor_tab_bg)
-	$Margin.set("theme_override_constants/margin_right", get_theme_constant("base_margin", "Editor") * DialogicUtil.get_editor_scale())
-	$Margin.set("theme_override_constants/margin_bottom", get_theme_constant("base_margin", "Editor") * DialogicUtil.get_editor_scale())
 
 	# File dialog
 	editor_file_dialog = EditorFileDialog.new()
@@ -44,9 +31,25 @@ func _ready() -> void:
 	$SaveConfirmationDialog.add_button('No Saving Please!', true, 'nosave')
 	$SaveConfirmationDialog.hide()
 	update_theme_additions()
+	EditorInterface.get_base_control().theme_changed.connect(update_theme_additions)
 
 
-func update_theme_additions():
+func update_theme_additions() -> void:
+	add_theme_stylebox_override("panel", DCSS.inline({
+		'background': get_theme_color("base_color", "Editor"),
+		'padding': [5*DialogicUtil.get_editor_scale(), 5*DialogicUtil.get_editor_scale()],
+		}))
+	var holder_panel := DCSS.inline({
+		'border-radius':5,
+		#'border': 2,
+		#'border-color': get_theme_color("base_color", "Editor"),
+		'background': get_theme_color("dark_color_2", "Editor"),
+		'padding': [5*DialogicUtil.get_editor_scale(), 5*DialogicUtil.get_editor_scale()],
+		})
+	holder_panel.border_width_top = 0
+	holder_panel.corner_radius_top_left = 0
+	editors_manager.editors_holder.add_theme_stylebox_override('panel', holder_panel)
+
 	if theme == null:
 		theme = Theme.new()
 	theme.clear()
@@ -66,8 +69,6 @@ func update_theme_additions():
 	theme.set_type_variation('DialogicPanelA', 'PanelContainer')
 	var panel_style := DCSS.inline({
 		'border-radius': 10,
-		'border': 0,
-		'border_color':get_theme_color("dark_color_3", "Editor"),
 		'background': get_theme_color("base_color", "Editor"),
 		'padding': [5, 5],
 	})
@@ -85,10 +86,10 @@ func update_theme_additions():
 
 	# panel used for example for portrait previews in character editor
 	theme.set_type_variation('DialogicPanelB', 'PanelContainer')
-	var side_panel :StyleBoxFlat= panel_style.duplicate()
+	var side_panel: StyleBoxFlat = panel_style.duplicate()
 	side_panel.corner_radius_top_left = 0
 	side_panel.corner_radius_bottom_left = 0
-	side_panel.expand_margin_left = 8
+	side_panel.expand_margin_left = get_theme_constant("separation", "SplitContainer")
 	side_panel.bg_color = get_theme_color("dark_color_2", "Editor")
 	side_panel.set_border_width_all(1)
 	side_panel.border_width_left = 0
@@ -156,13 +157,32 @@ func update_theme_additions():
 	}))
 	theme.set_constant('separation', 'DialogicMegaSeparator', 50)
 
+	theme.set_type_variation('DialogicTextEventTextEdit', 'CodeEdit')
+	var editor_settings := plugin_reference.get_editor_interface().get_editor_settings()
+	var text_panel := DCSS.inline({
+		'border-radius': 8,
+		'background': editor_settings.get_setting("text_editor/theme/highlighting/background_color").lerp(
+							editor_settings.get_setting("text_editor/theme/highlighting/text_color"), 0.05),
+		'padding': [8, 8],
+	})
+	text_panel.content_margin_bottom = 5
+	text_panel.content_margin_left = 13
+	theme.set_stylebox('normal', 'DialogicTextEventTextEdit', text_panel)
 
+	var event_field_group_panel := DCSS.inline({
+		'border-radius': 8,
+		"border":1,
+		"padding":2,
+		"boder-color": get_theme_color("property_color", "Editor"),
+		"background":"none"})
+	theme.set_type_variation("DialogicEventEditGroup", "PanelContainer")
+	theme.set_stylebox("panel", "DialogicEventEditGroup", event_field_group_panel)
 
 	theme.set_icon('Plugin', 'Dialogic', load("res://addons/dialogic/Editor/Images/plugin-icon.svg"))
 
 
 ## Switches from floating window mode to embedded mode based on current mode
-func toggle_floating_window():
+func toggle_floating_window() -> void:
 	if get_parent() is Window:
 		swap_to_embedded_editor()
 	else:
@@ -170,7 +190,7 @@ func toggle_floating_window():
 
 
 ## Removes the main control from it's parent and adds it to a new Window node
-func swap_to_floating_window():
+func swap_to_floating_window() -> void:
 	if get_parent() is Window:
 		return
 
@@ -194,7 +214,7 @@ func swap_to_floating_window():
 
 ## Removes the main control from the window node and adds it to it's grandparent
 ##  which is the original owner.
-func swap_to_embedded_editor():
+func swap_to_embedded_editor() -> void:
 	if not get_parent() is Window:
 		return
 
@@ -231,4 +251,3 @@ func godot_file_dialog(callable:Callable, filter:String, mode := EditorFileDialo
 		editor_file_dialog.dir_selected.connect(callable)
 		editor_file_dialog.file_selected.connect(callable)
 	return editor_file_dialog
-

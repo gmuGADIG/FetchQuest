@@ -12,7 +12,7 @@ config_version=5
 
 config/name="Fetch Quest"
 config/features=PackedStringArray("4.3", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="res://Player/player_art_final.png"
 
 [autoload]
 
@@ -23,20 +23,20 @@ Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
 [dialogic]
 
 directories/dch_directory={
-"Franklin": "res://Example Scenes/Example Characters/Franklin.dch",
-"Michael": "res://Example Scenes/Example Characters/Michael.dch",
-"Rupert": "res://Example Scenes/Example Characters/Rupert.dch",
-"demoCharacterSignPost": "res://Example Scenes/Example Characters/Mr SignPost.dch"
+"Franklin": "res://dialogic_example/Example Characters/Franklin.dch",
+"Michael": "res://dialogic_example/Example Characters/Michael.dch",
+"Mr SignPost": "res://dialogic_example/Example Characters/Mr SignPost.dch",
+"Rupert": "res://dialogic_example/Example Characters/Rupert.dch"
 }
 directories/dtl_directory={
-"demo3Cats": "res://Example Scenes/Example Timelines/demo3Cats.dtl",
-"demoTimeline": "res://Example Scenes/Example Timelines/demoTimeline.dtl",
-"demoTimeline2": "res://Example Scenes/Example Timelines/demoTimeline2.dtl",
-"demoTimeline3": "res://Example Scenes/Example Timelines/demoTimeline3.dtl"
+"demo3Cats": "res://dialogic_example/Example Timelines/demo3Cats.dtl",
+"demoTimeline": "res://dialogic_example/Example Timelines/demoTimeline.dtl",
+"demoTimeline2": "res://dialogic_example/Example Timelines/demoTimeline2.dtl",
+"demoTimeline3": "res://dialogic_example/Example Timelines/demoTimeline3.dtl"
 }
 glossary/default_case_sensitive=true
-layout/style_list=["res://Example Scenes/ExampleDialogueStyleBubble.tres"]
-layout/default_style="res://Example Scenes/ExampleDialogueStyleBubble.tres"
+layout/style_list=["res://dialogic_example/NarratorStyle.tres", "res://dialogic_example/ExampleDialogueStyleVN.tres", "res://dialogic_example/ExampleDialogueStyleBubble.tres", "res://dialogic_example/ExampleDialogueStyleBox.tres"]
+layout/default_style="res://dialogic_example/ExampleDialogueStyleBubble.tres"
 glossary/glossary_files=[]
 variables={
 "ExampleSceneVars": {
@@ -60,10 +60,22 @@ choices/reveal_by_input=false
 save/autosave_delay=60.0
 save/encryption_on_exports_only=true
 text/autopauses={}
+extensions_folder="res://addons/dialogic_additions"
+animations/cross_fade_default_length=0.5
+
+[display]
+
+window/stretch/mode="canvas_items"
 
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/dialogic/plugin.cfg", "res://addons/rmsmartshape/plugin.cfg")
+
+[global_group]
+
+Player=""
+Enemy=""
+Item="Something the player can pick up"
 
 [input]
 
@@ -197,6 +209,14 @@ look_right={
 "events": [Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":-1,"axis":2,"axis_value":1.0,"script":null)
 ]
 }
+
+[layer_names]
+
+2d_physics/layer_1="Terrain"
+2d_physics/layer_2="Player"
+2d_physics/layer_3="Enemy"
+2d_physics/layer_4="Hole"
+2d_physics/layer_5="Item"
 
 [rendering]
 
