@@ -3,7 +3,7 @@ extends Node2D
 @onready var player: CharacterBody2D = get_parent()
 
 
-func _physics_process(_delta):
+func _physics_process(_delta: float) -> void:
 	if player.inDialogue:
 		return
 	var horizontal := Input.get_axis("move_left", "move_right")

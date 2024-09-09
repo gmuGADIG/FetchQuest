@@ -3,7 +3,7 @@ extends Node
 @onready var style: DialogicStyle = preload("uid://cv8koh10fgjyq")
 @onready var layout: DialogicLayoutBase = null
 
-func _ready():
+func _ready() -> void:
 	style.prepare()
 
 func set_interactable(interactable: Node2D) -> void:
