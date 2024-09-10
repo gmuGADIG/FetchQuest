@@ -1,0 +1,30 @@
+[gd_scene load_steps=6 format=3 uid="uid://uj2rytnj1h4"]
+
+[ext_resource type="PackedScene" uid="uid://blpi4x6if673v" path="res://enemy/base_enemy.tscn" id="1_oqpld"]
+[ext_resource type="Script" path="res://enemy/test_enemy/test_enemy.gd" id="2_yeqgq"]
+[ext_resource type="Texture2D" uid="uid://dq0jtqefea64o" path="res://enemy/test_enemy/test_enemy.svg" id="3_72tns"]
+[ext_resource type="PackedScene" uid="uid://bsho3haby5vw4" path="res://health/hitbox.tscn" id="4_vvqyb"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_71t7f"]
+size = Vector2(96, 96)
+
+[node name="TestEnemy" instance=ExtResource("1_oqpld")]
+script = ExtResource("2_yeqgq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="0"]
+shape = SubResource("RectangleShape2D_71t7f")
+
+[node name="TestEnemy" type="Sprite2D" parent="." index="1"]
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("3_72tns")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox" index="0"]
+shape = SubResource("RectangleShape2D_71t7f")
+
+[node name="Hitbox" parent="." index="4" instance=ExtResource("4_vvqyb")]
+collision_layer = 4
+damage = 0.5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" index="0"]
+shape = SubResource("RectangleShape2D_71t7f")
+debug_color = Color(0.997602, 0, 0.162264, 0.42)

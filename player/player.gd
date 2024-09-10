@@ -1,6 +1,11 @@
 class_name Player extends CharacterBody2D
 
+static var instance: Player
+
 @export var move_speed: float = 500.0
+
+func _ready() -> void:
+	instance = self
 
 ## Returns a normalized vector in the direction the player is aiming
 func get_aim() -> Vector2:

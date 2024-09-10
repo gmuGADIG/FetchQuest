@@ -1,7 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://c7ck7ril2jix2"]
+[gd_scene load_steps=6 format=3 uid="uid://c7ck7ril2jix2"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_x43mx"]
 [ext_resource type="Texture2D" uid="uid://dymucenpxmluo" path="res://icon.svg" id="2_7k0oq"]
+[ext_resource type="PackedScene" uid="uid://bbncdilf5pdec" path="res://health/health.tscn" id="3_8dlxf"]
+[ext_resource type="PackedScene" uid="uid://bie4uy71h2of8" path="res://health/hurt_box.tscn" id="4_uwna0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0vmvj"]
 size = Vector2(128, 128)
@@ -15,4 +17,13 @@ script = ExtResource("1_x43mx")
 texture = ExtResource("2_7k0oq")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_0vmvj")
+
+[node name="Health" parent="." instance=ExtResource("3_8dlxf")]
+
+[node name="HurtBox" parent="." node_paths=PackedStringArray("health") instance=ExtResource("4_uwna0")]
+collision_mask = 4
+health = NodePath("../Health")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
 shape = SubResource("RectangleShape2D_0vmvj")
