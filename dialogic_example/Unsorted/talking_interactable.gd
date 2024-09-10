@@ -10,11 +10,11 @@ class_name TalkingInteractable
 ## If set to true, the interactable will not repeat its dialogue
 ## after going through all of its timelines.
 ## Otherwise, the dialogue will repeat on continual interactions.
-@export var oneTime: bool = false
+@export var one_time: bool = false
 
-@onready var currTimelineIndex: int = 0
-@onready var timesPlayed: int = 0
-@onready var playerInRange: bool = false
+@onready var curr_timeline_index: int = 0
+@onready var times_played: int = 0
+@onready var player_in_range: bool = false
 var player: CharacterBody2D
 
 func _ready() -> void:
@@ -34,10 +34,10 @@ func _input(event: InputEvent) -> void:
 	if not is_active():
 		return
 	
-	if playerInRange && event.is_action_pressed("interact"):
-		player.inDialogue = true #Prevent player movement
+	if player_in_range && event.is_action_pressed("interact"):
+		player.in_dialogue = true #Prevent player movement
 		DialogueManager.set_interactable(self) #Give the Dialogue Manager access to the interactable
-		DialogueManager.layout = Dialogic.start(timeline[currTimelineIndex])
+		DialogueManager.layout = Dialogic.start(timeline[curr_timeline_index])
 		get_viewport().set_input_as_handled()
 
 func _on_timeline_started() -> void:
@@ -49,26 +49,26 @@ func _on_timeline_started() -> void:
 		DialogueManager.layout.register_character(character, self)
 
 func _on_timeline_ended() -> void:
-	if DialogueManager.currInteractable == self:
-		player.inDialogue = false
-		currTimelineIndex += 1
-		currTimelineIndex %= timeline.size()
-		timesPlayed += 1
+	if DialogueManager.curr_interactable == self:
+		player.in_dialogue = false
+		curr_timeline_index += 1
+		curr_timeline_index %= timeline.size()
+		times_played += 1
 		if not is_active():
-			player.canInteract = false
+			player.can_interact = false
 
 func _on_body_entered(body: PhysicsBody2D) -> void:
 	if body.name == "Player":
-		playerInRange = true
+		player_in_range = true
 		player = body
 		if is_active():
-			body.canInteract = true
+			body.can_interact = true
 
 func _on_body_exited(body: PhysicsBody2D) -> void:
 	if body.name == "Player":
-		body.canInteract = false
-		playerInRange = false
+		body.can_interact = false
+		player_in_range = false
 
 #Returns true if the interactable still has more dialogue
 func is_active() -> bool:
-	return not (oneTime && timesPlayed > timeline.size()-1)
+	return not (one_time && times_played > timeline.size()-1)

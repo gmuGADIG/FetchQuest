@@ -1,5 +1,5 @@
 extends Node
-@onready var currInteractable: TalkingInteractable = null
+@onready var curr_interactable: TalkingInteractable = null
 @onready var style: DialogicStyle = preload("uid://cv8koh10fgjyq")
 @onready var layout: DialogicLayoutBase = null
 
@@ -7,10 +7,10 @@ func _ready() -> void:
 	style.prepare()
 
 func set_interactable(interactable: Node2D) -> void:
-	currInteractable = interactable
+	curr_interactable = interactable
 	
-func rewindProgress() -> void:
-	if currInteractable == null:
+func rewind_progress() -> void:
+	if curr_interactable == null:
 		return
-	currInteractable.timesPlayed -= 1
-	currInteractable.currTimelineIndex -= 1
+	curr_interactable.times_played -= 1
+	curr_interactable.curr_timeline_index -= 1
