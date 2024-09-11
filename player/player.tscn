@@ -1,0 +1,37 @@
+[gd_scene load_steps=7 format=3 uid="uid://kljk7vplnm1n"]
+
+[ext_resource type="Script" path="res://player/player.gd" id="1_vu41d"]
+[ext_resource type="Texture2D" uid="uid://0ba17120df4x" path="res://dialogic_example/player/player_art_final.png" id="2_kilip"]
+[ext_resource type="PackedScene" uid="uid://bie4uy71h2of8" path="res://health/hurtable_box.tscn" id="3_cc1fm"]
+[ext_resource type="Script" path="res://health/health.gd" id="4_s23hl"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_klsvv"]
+radius = 90.3549
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8eqsj"]
+radius = 63.7887
+
+[node name="Player" type="CharacterBody2D"]
+position = Vector2(596, 325)
+collision_layer = 2
+script = ExtResource("1_vu41d")
+speed = 500.0
+throw_speed = 700.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.280374, 0.280374)
+texture = ExtResource("2_kilip")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_klsvv")
+
+[node name="HurtBox" parent="." node_paths=PackedStringArray("health") instance=ExtResource("3_cc1fm")]
+collision_mask = 4
+health = NodePath("../Health")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+shape = SubResource("CircleShape2D_8eqsj")
+debug_color = Color(0.701961, 0.490196, 0, 0.129412)
+
+[node name="Health" type="Node" parent="."]
+script = ExtResource("4_s23hl")

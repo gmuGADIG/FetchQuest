@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://bk2i6bf8fgcr2"]
+
+[ext_resource type="PackedScene" uid="uid://kljk7vplnm1n" path="res://player/player.tscn" id="1_1g0hp"]
+[ext_resource type="PackedScene" uid="uid://bubm8p4o1x1wt" path="res://enemy/enemy.tscn" id="2_bb21m"]
+
+[node name="World" type="Node2D"]
+
+[node name="Player" parent="." groups=["Player"] instance=ExtResource("1_1g0hp")]
+motion_mode = 1
+platform_on_leave = 2
+
+[node name="Enemy" parent="." groups=["Enemy"] instance=ExtResource("2_bb21m")]
+motion_mode = 1
+platform_on_leave = 2

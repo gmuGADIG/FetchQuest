@@ -1,0 +1,49 @@
+[gd_scene load_steps=9 format=3 uid="uid://bubm8p4o1x1wt"]
+
+[ext_resource type="Script" path="res://enemy/enemy.gd" id="1_nh1y4"]
+[ext_resource type="Texture2D" uid="uid://deern6512fesn" path="res://demo_art/test_enemy.svg" id="2_4cxw8"]
+[ext_resource type="PackedScene" uid="uid://bie4uy71h2of8" path="res://health/hurtable_box.tscn" id="3_h360h"]
+[ext_resource type="PackedScene" uid="uid://bsho3haby5vw4" path="res://health/hitting_box.tscn" id="4_t2tjf"]
+[ext_resource type="PackedScene" uid="uid://bbncdilf5pdec" path="res://health/health.tscn" id="5_qppuh"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7yurc"]
+radius = 49.0408
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_c42yk"]
+radius = 116.211
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_nqetn"]
+radius = 50.0899
+
+[node name="Enemy" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 3
+script = ExtResource("1_nh1y4")
+walk_speed = 300.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.739485, 0.739485)
+texture = ExtResource("2_4cxw8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_7yurc")
+
+[node name="HurtableBox" parent="." node_paths=PackedStringArray("health") instance=ExtResource("3_h360h")]
+collision_mask = 2
+health = NodePath("../Health")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtableBox"]
+shape = SubResource("CircleShape2D_c42yk")
+debug_color = Color(0.996078, 0, 0.180392, 0.0392157)
+
+[node name="Hittingbox" parent="." instance=ExtResource("4_t2tjf")]
+collision_layer = 4
+damage = 1.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hittingbox"]
+shape = SubResource("CircleShape2D_nqetn")
+debug_color = Color(0.788235, 0.431373, 0, 0.109804)
+
+[node name="Health" parent="." instance=ExtResource("5_qppuh")]
+
+[connection signal="died" from="Health" to="." method="_on_health_died"]
