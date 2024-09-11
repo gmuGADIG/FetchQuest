@@ -1,4 +1,4 @@
-name: Move new issues into Triage
+name: Update Task Status
 
 on:
   issues:
@@ -8,8 +8,11 @@ jobs:
   automate-project-columns:
     runs-on: ubuntu-latest
     steps:
-      - uses: alex-page/github-project-automation-plus@v0.8.3
+      - uses: EndBug/project-fields@v2
         with:
-          project: Fetch Quest Fall 2024 Project
-          column: In Progress
-          repo-token: ${{ secrets.MOVE_ASSIGNED_TASKS_TOKEN }}
+          operation: set
+          fields: Status
+          values: In Progress
+          github_token: ${{ secrets.MOVE_ASSIGNED_TASKS_TOKEN }}
+          project_url: https://github.com/orgs/gmuGADIG/projects/9
+          
