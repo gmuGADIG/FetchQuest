@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://bie4uy71h2of8"]
+
+[ext_resource type="Script" path="res://health/hurtable_box.gd" id="1_j8b4q"]
+
+[node name="HurtableBox" type="Area2D"]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_j8b4q")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
