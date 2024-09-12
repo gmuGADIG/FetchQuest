@@ -1,6 +1,6 @@
 extends Node
 @onready var curr_interactable: TalkingInteractable = null
-@onready var style: DialogicStyle = preload("uid://cv8koh10fgjyq")
+@onready var style: DialogicStyle = preload("res://dialogic_example/ExampleDialogueStyleBubble.tres")
 @onready var layout: DialogicLayoutBase = null
 
 func _ready() -> void:
