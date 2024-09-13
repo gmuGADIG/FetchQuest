@@ -6,9 +6,9 @@ extends Node
 ## Points balance, the number of bombs the player has, and the player's max health and 
 ## stamina. 
 ## [br][br]
-## However, this autoload can also store arbitrary _items, retrieved with a 
-## string key. These arbitrary _items are of type [InventoryItem] and are registered into
-## the system by adding them to this autoloaded scene's [member _items] list in the 
+## However, this autoload can also store arbitrary items, retrieved with a 
+## string key. These arbitrary items are of type [InventoryItem] and are registered into
+## the system by adding them to this autoloaded scene's [member items] list in the 
 ## inspector. For example:
 ##
 ## [codeblock]
@@ -60,13 +60,13 @@ signal item_updated(key: String)
 		max_stamina = v
 		max_stamina_updated.emit()
 
-## The various _items the player can have
-@export var _items: Array[InventoryItem]
+## The various items the player can have
+@export var items: Array[InventoryItem]
 
 var _key_to_item: Dictionary = {}
 
 func _ready() -> void:
-	for item in _items:
+	for item in items:
 		_key_to_item[item.key] = item
 
 ## Returns the number of an item the player is holding.
