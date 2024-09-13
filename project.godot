@@ -19,6 +19,7 @@ config/icon="res://dialogic_example/player/player_art_final.png"
 ControllerManager="*res://autoloads/controller_manager.gd"
 DialogueManager="*res://dialogic_example/dialogue_manager.gd"
 Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
+PlayerInventory="*res://autoloads/player_inventory/player_inventory.tscn"
 
 [debug]
 
@@ -74,6 +75,13 @@ window/stretch/mode="canvas_items"
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/dialogic/plugin.cfg", "res://addons/rmsmartshape/plugin.cfg")
+
+[file_customization]
+
+folder_colors={
+"res://dialogic_example/": "gray",
+"res://test_scenes/": "gray"
+}
 
 [global_group]
 
@@ -221,6 +229,10 @@ look_right={
 2d_physics/layer_3="Enemy"
 2d_physics/layer_4="Hole"
 2d_physics/layer_5="Item"
+
+[physics]
+
+common/physics_interpolation=true
 
 [rendering]
 
