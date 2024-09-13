@@ -15,3 +15,8 @@ func _physics_process(_delta: float) -> void:
 	move_and_slide()
 
 	look_at(_player.global_position)
+
+func _on_hitting_area_body_entered(body: Node2D) -> void:
+	var player := body as Player
+	if player != null:
+		player.health -= 1

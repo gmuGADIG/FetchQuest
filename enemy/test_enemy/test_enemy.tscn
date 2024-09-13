@@ -3,10 +3,12 @@
 [ext_resource type="PackedScene" uid="uid://blpi4x6if673v" path="res://enemy/base_enemy.tscn" id="1_oqpld"]
 [ext_resource type="Script" path="res://enemy/test_enemy/test_enemy.gd" id="2_yeqgq"]
 [ext_resource type="Texture2D" uid="uid://dq0jtqefea64o" path="res://enemy/test_enemy/test_enemy.svg" id="3_72tns"]
-[ext_resource type="PackedScene" uid="uid://bsho3haby5vw4" path="res://health/hitbox.tscn" id="4_vvqyb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_71t7f"]
 size = Vector2(96, 96)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0i45s"]
+size = Vector2(97, 98)
 
 [node name="TestEnemy" instance=ExtResource("1_oqpld")]
 script = ExtResource("2_yeqgq")
@@ -18,13 +20,12 @@ shape = SubResource("RectangleShape2D_71t7f")
 scale = Vector2(0.75, 0.75)
 texture = ExtResource("3_72tns")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox" index="0"]
-shape = SubResource("RectangleShape2D_71t7f")
+[node name="HittingArea" type="Area2D" parent="." index="2"]
+collision_layer = 0
+collision_mask = 2
 
-[node name="Hitbox" parent="." index="4" instance=ExtResource("4_vvqyb")]
-collision_layer = 4
-damage = 0.5
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HittingArea" index="0"]
+position = Vector2(-0.5, 0)
+shape = SubResource("RectangleShape2D_0i45s")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" index="0"]
-shape = SubResource("RectangleShape2D_71t7f")
-debug_color = Color(0.997602, 0, 0.162264, 0.42)
+[connection signal="body_entered" from="HittingArea" to="." method="_on_hitting_area_body_entered"]
