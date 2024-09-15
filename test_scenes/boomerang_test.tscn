@@ -1,0 +1,157 @@
+[gd_scene load_steps=7 format=3 uid="uid://cc006bwpd7yv7"]
+
+[ext_resource type="Script" path="res://player/player.gd" id="1_qk3e4"]
+[ext_resource type="PackedScene" uid="uid://b53bkta583hrj" path="res://sword/thrown_sword.tscn" id="2_5jj7q"]
+[ext_resource type="Texture2D" uid="uid://0ba17120df4x" path="res://dialogic_example/player/player_art_final.png" id="3_h7671"]
+[ext_resource type="Texture2D" uid="uid://dymucenpxmluo" path="res://icon.svg" id="4_owqiy"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_krk6c"]
+size = Vector2(129.5, 126)
+
+[sub_resource type="GDScript" id="GDScript_blxci"]
+script/source = "extends Node2D
+class_name ScreenShaker
+# How quickly to move through the noise
+@export var NOISE_SHAKE_SPEED: float = 30.0
+# Multiplier for lerping the shake strength to zero
+@export var SHAKE_DECAY_RATE: float = 5.0
+
+var camera: Camera2D
+@onready var rand: RandomNumberGenerator = RandomNumberGenerator.new()
+@onready var noise: FastNoiseLite = FastNoiseLite.new()
+
+# Used to keep track of where we are in the noise
+# so that we can smoothly move through it
+var noise_i: float = 0.0
+
+var shake_strength: float = 0.0
+
+func _ready() -> void:
+	camera = get_viewport().get_camera_2d()
+	rand.randomize()
+	# Randomize the generated noise
+	noise.seed = rand.randi()
+	# Period affects how quickly the noise changes values
+	noise.frequency = 2
+
+func apply_noise_shake(noise_strength: float) -> void:
+	camera = get_viewport().get_camera_2d()
+	shake_strength = noise_strength
+
+func _process(delta: float) -> void:
+	# Fade out the intensity over time
+	shake_strength = lerp(shake_strength, 0.0, SHAKE_DECAY_RATE * delta)
+
+	# Shake by adjusting camera.offset so we can move the camera around the level via it's position
+	camera.offset = get_noise_offset(delta)
+
+func get_noise_offset(delta: float) -> Vector2:
+	noise_i += delta * NOISE_SHAKE_SPEED
+	# Set the x values of each call to 'get_noise_2d' to a different value
+	# so that our x and y vectors will be reading from unrelated areas of noise
+	return Vector2(
+		noise.get_noise_2d(1, noise_i) * shake_strength,
+		noise.get_noise_2d(100, noise_i) * shake_strength
+	)
+"
+
+[node name="TestScene" type="Node2D"]
+
+[node name="Player" type="CharacterBody2D" parent="."]
+z_index = 1
+position = Vector2(587, 338)
+scale = Vector2(0.5, 0.5)
+collision_layer = 2
+script = ExtResource("1_qk3e4")
+move_speed = 250.0
+sword_prefab = ExtResource("2_5jj7q")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+position = Vector2(-2.25, -2)
+shape = SubResource("RectangleShape2D_krk6c")
+
+[node name="Sprite2D" type="Sprite2D" parent="Player"]
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("3_h7671")
+
+[node name="Node2D" type="StaticBody2D" parent="." groups=["Wall"]]
+z_index = 1
+position = Vector2(590, 4)
+scale = Vector2(10, 1)
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D"]
+position = Vector2(-1.1, 0)
+shape = SubResource("RectangleShape2D_krk6c")
+
+[node name="Sprite2D" type="Sprite2D" parent="Node2D"]
+texture = ExtResource("4_owqiy")
+
+[node name="Node2D2" type="StaticBody2D" parent="." groups=["Wall"]]
+z_index = 1
+position = Vector2(581, 662)
+scale = Vector2(10, 1)
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2"]
+position = Vector2(-1, 0)
+shape = SubResource("RectangleShape2D_krk6c")
+
+[node name="Sprite2D" type="Sprite2D" parent="Node2D2"]
+texture = ExtResource("4_owqiy")
+
+[node name="Node2D3" type="StaticBody2D" parent="." groups=["Wall"]]
+z_index = 1
+position = Vector2(1165, 346)
+scale = Vector2(1, 6)
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D3"]
+position = Vector2(-1, 0)
+shape = SubResource("RectangleShape2D_krk6c")
+
+[node name="Sprite2D" type="Sprite2D" parent="Node2D3"]
+texture = ExtResource("4_owqiy")
+
+[node name="Node2D4" type="StaticBody2D" parent="." groups=["Wall"]]
+z_index = 1
+position = Vector2(-3, 344)
+scale = Vector2(1, 6)
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D4"]
+position = Vector2(-1, 0)
+shape = SubResource("RectangleShape2D_krk6c")
+
+[node name="Sprite2D" type="Sprite2D" parent="Node2D4"]
+texture = ExtResource("4_owqiy")
+
+[node name="Node2D5" type="StaticBody2D" parent="." groups=["Wall"]]
+z_index = 1
+position = Vector2(858, 343)
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D5"]
+position = Vector2(-1, 0)
+shape = SubResource("RectangleShape2D_krk6c")
+
+[node name="Sprite2D" type="Sprite2D" parent="Node2D5"]
+texture = ExtResource("4_owqiy")
+
+[node name="Node2D6" type="StaticBody2D" parent="." groups=["Wall"]]
+z_index = 1
+position = Vector2(301, 343)
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D6"]
+position = Vector2(-1, 0)
+shape = SubResource("RectangleShape2D_krk6c")
+
+[node name="Sprite2D" type="Sprite2D" parent="Node2D6"]
+texture = ExtResource("4_owqiy")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(591, 342)
+
+[node name="ScreenShaker" type="Node2D" parent="."]
+script = SubResource("GDScript_blxci")

@@ -1,0 +1,73 @@
+[gd_scene load_steps=10 format=3 uid="uid://b53bkta583hrj"]
+
+[ext_resource type="Script" path="res://sword/thrown_sword.gd" id="1_4xd43"]
+[ext_resource type="Texture2D" uid="uid://c7x4k10b1mvt4" path="res://demo_art/player_sword.png" id="2_7nce8"]
+[ext_resource type="Script" path="res://sword/constant_rotation.gd" id="3_6bcqb"]
+[ext_resource type="Script" path="res://sword/sword_trail.gd" id="4_loxev"]
+[ext_resource type="Script" path="res://sword/sparks_on_collide.gd" id="5_bsfwj"]
+[ext_resource type="Script" path="res://sword/bounce_shaker.gd" id="6_vmapu"]
+
+[sub_resource type="Curve" id="Curve_g4qvv"]
+max_value = 20.0
+_data = [Vector2(0, 5.4945), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_fhysv"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.180392)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6my70"]
+size = Vector2(26, 25)
+
+[node name="ThrownSword" type="CharacterBody2D" node_paths=PackedStringArray("sprite")]
+z_index = 2
+collision_layer = 2
+motion_mode = 1
+wall_min_slide_angle = 0.0
+floor_stop_on_slope = false
+floor_block_on_wall = false
+script = ExtResource("1_4xd43")
+acceleration = -3000.0
+max_distance = 350.0
+min_throw_speed = 200.0
+sprite = NodePath("Sprite2D")
+max_bounces = 3
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("2_7nce8")
+script = ExtResource("3_6bcqb")
+angular_speed = 20.0
+
+[node name="Line2D" type="Line2D" parent="."]
+top_level = true
+z_index = 1
+width = 5.0
+width_curve = SubResource("Curve_g4qvv")
+gradient = SubResource("Gradient_fhysv")
+script = ExtResource("4_loxev")
+trail_size = 20
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_6my70")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="." node_paths=PackedStringArray("thrown_sword")]
+z_as_relative = false
+emitting = false
+amount = 15
+explosiveness = 0.74
+randomness = 0.59
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 448.29
+initial_velocity_max = 498.79
+scale_amount_min = 3.0
+scale_amount_max = 3.0
+script = ExtResource("5_bsfwj")
+thrown_sword = NodePath("..")
+max_velocity = 600.0
+
+[node name="BounceShaker" type="Node2D" parent="." node_paths=PackedStringArray("thrown_sword")]
+script = ExtResource("6_vmapu")
+thrown_sword = NodePath("..")
+max_shake_strength = 10.0
