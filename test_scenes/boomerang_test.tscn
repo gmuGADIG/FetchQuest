@@ -1,9 +1,13 @@
-[gd_scene load_steps=7 format=3 uid="uid://cc006bwpd7yv7"]
+[gd_scene load_steps=14 format=3 uid="uid://cc006bwpd7yv7"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_qk3e4"]
 [ext_resource type="PackedScene" uid="uid://b53bkta583hrj" path="res://sword/thrown_sword.tscn" id="2_5jj7q"]
 [ext_resource type="Texture2D" uid="uid://0ba17120df4x" path="res://dialogic_example/player/player_art_final.png" id="3_h7671"]
 [ext_resource type="Texture2D" uid="uid://dymucenpxmluo" path="res://icon.svg" id="4_owqiy"]
+[ext_resource type="Texture2D" uid="uid://deern6512fesn" path="res://demo_art/test_enemy.svg" id="5_6u4yp"]
+[ext_resource type="Script" path="res://environment/item.gd" id="5_x7haa"]
+[ext_resource type="Script" path="res://environment/trigger_area.gd" id="6_2ipst"]
+[ext_resource type="Script" path="res://environment/switch.gd" id="8_ucjop"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_krk6c"]
 size = Vector2(129.5, 126)
@@ -55,6 +59,14 @@ func get_noise_offset(delta: float) -> Vector2:
 	)
 "
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cmpvh"]
+size = Vector2(126, 129.667)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g5j0c"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qb36a"]
+size = Vector2(59, 63)
+
 [node name="TestScene" type="Node2D"]
 
 [node name="Player" type="CharacterBody2D" parent="."]
@@ -74,84 +86,131 @@ shape = SubResource("RectangleShape2D_krk6c")
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("3_h7671")
 
-[node name="Node2D" type="StaticBody2D" parent="." groups=["Wall"]]
-z_index = 1
-position = Vector2(590, 4)
-scale = Vector2(10, 1)
-collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D"]
-position = Vector2(-1.1, 0)
-shape = SubResource("RectangleShape2D_krk6c")
-
-[node name="Sprite2D" type="Sprite2D" parent="Node2D"]
-texture = ExtResource("4_owqiy")
-
-[node name="Node2D2" type="StaticBody2D" parent="." groups=["Wall"]]
-z_index = 1
-position = Vector2(581, 662)
-scale = Vector2(10, 1)
-collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2"]
-position = Vector2(-1, 0)
-shape = SubResource("RectangleShape2D_krk6c")
-
-[node name="Sprite2D" type="Sprite2D" parent="Node2D2"]
-texture = ExtResource("4_owqiy")
-
-[node name="Node2D3" type="StaticBody2D" parent="." groups=["Wall"]]
-z_index = 1
-position = Vector2(1165, 346)
-scale = Vector2(1, 6)
-collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D3"]
-position = Vector2(-1, 0)
-shape = SubResource("RectangleShape2D_krk6c")
-
-[node name="Sprite2D" type="Sprite2D" parent="Node2D3"]
-texture = ExtResource("4_owqiy")
-
-[node name="Node2D4" type="StaticBody2D" parent="." groups=["Wall"]]
-z_index = 1
-position = Vector2(-3, 344)
-scale = Vector2(1, 6)
-collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D4"]
-position = Vector2(-1, 0)
-shape = SubResource("RectangleShape2D_krk6c")
-
-[node name="Sprite2D" type="Sprite2D" parent="Node2D4"]
-texture = ExtResource("4_owqiy")
-
-[node name="Node2D5" type="StaticBody2D" parent="." groups=["Wall"]]
-z_index = 1
-position = Vector2(858, 343)
-collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D5"]
-position = Vector2(-1, 0)
-shape = SubResource("RectangleShape2D_krk6c")
-
-[node name="Sprite2D" type="Sprite2D" parent="Node2D5"]
-texture = ExtResource("4_owqiy")
-
-[node name="Node2D6" type="StaticBody2D" parent="." groups=["Wall"]]
-z_index = 1
-position = Vector2(301, 343)
-collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D6"]
-position = Vector2(-1, 0)
-shape = SubResource("RectangleShape2D_krk6c")
-
-[node name="Sprite2D" type="Sprite2D" parent="Node2D6"]
-texture = ExtResource("4_owqiy")
-
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(591, 342)
 
 [node name="ScreenShaker" type="Node2D" parent="."]
 script = SubResource("GDScript_blxci")
+
+[node name="Walls" type="Node2D" parent="."]
+
+[node name="Node2D" type="StaticBody2D" parent="Walls" groups=["Wall"]]
+z_index = 1
+position = Vector2(590, 4)
+scale = Vector2(10, 1)
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Node2D"]
+position = Vector2(-1.1, 0)
+shape = SubResource("RectangleShape2D_krk6c")
+
+[node name="Sprite2D" type="Sprite2D" parent="Walls/Node2D"]
+texture = ExtResource("4_owqiy")
+
+[node name="Node2D2" type="StaticBody2D" parent="Walls" groups=["Wall"]]
+z_index = 1
+position = Vector2(581, 662)
+scale = Vector2(10, 1)
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Node2D2"]
+position = Vector2(-1, 0)
+shape = SubResource("RectangleShape2D_krk6c")
+
+[node name="Sprite2D" type="Sprite2D" parent="Walls/Node2D2"]
+texture = ExtResource("4_owqiy")
+
+[node name="Node2D3" type="StaticBody2D" parent="Walls" groups=["Wall"]]
+z_index = 1
+position = Vector2(1165, 346)
+scale = Vector2(1, 6)
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Node2D3"]
+position = Vector2(-1, 0)
+shape = SubResource("RectangleShape2D_krk6c")
+
+[node name="Sprite2D" type="Sprite2D" parent="Walls/Node2D3"]
+texture = ExtResource("4_owqiy")
+
+[node name="Node2D4" type="StaticBody2D" parent="Walls" groups=["Wall"]]
+z_index = 1
+position = Vector2(-3, 344)
+scale = Vector2(1, 6)
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Node2D4"]
+position = Vector2(-1, 0)
+shape = SubResource("RectangleShape2D_krk6c")
+
+[node name="Sprite2D" type="Sprite2D" parent="Walls/Node2D4"]
+texture = ExtResource("4_owqiy")
+
+[node name="Node2D5" type="StaticBody2D" parent="Walls" groups=["Wall"]]
+z_index = 1
+position = Vector2(858, 343)
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Node2D5"]
+position = Vector2(-1, 0)
+shape = SubResource("RectangleShape2D_krk6c")
+
+[node name="Sprite2D" type="Sprite2D" parent="Walls/Node2D5"]
+texture = ExtResource("4_owqiy")
+
+[node name="Node2D6" type="StaticBody2D" parent="Walls" groups=["Wall"]]
+z_index = 1
+position = Vector2(301, 343)
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Node2D6"]
+position = Vector2(-1, 0)
+shape = SubResource("RectangleShape2D_krk6c")
+
+[node name="Sprite2D" type="Sprite2D" parent="Walls/Node2D6"]
+texture = ExtResource("4_owqiy")
+
+[node name="Item" type="RigidBody2D" parent="."]
+position = Vector2(688, 210)
+collision_layer = 4
+gravity_scale = 0.0
+linear_damp = 15.0
+angular_damp = 30.0
+script = ExtResource("5_x7haa")
+can_be_collected = false
+
+[node name="Sprite2D" type="Sprite2D" parent="Item"]
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("5_6u4yp")
+
+[node name="PickupArea" type="Area2D" parent="Item"]
+collision_layer = 4
+collision_mask = 7
+script = ExtResource("6_2ipst")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Item/PickupArea"]
+scale = Vector2(0.3, 0.3)
+shape = SubResource("RectangleShape2D_cmpvh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Item"]
+shape = SubResource("RectangleShape2D_g5j0c")
+
+[node name="Switch" type="Node2D" parent="."]
+position = Vector2(79, 338)
+script = ExtResource("8_ucjop")
+on_texture = ExtResource("5_6u4yp")
+off_texture = ExtResource("4_owqiy")
+interact_action = "attack"
+
+[node name="ToggleArea" type="Area2D" parent="Switch"]
+collision_layer = 4
+collision_mask = 7
+script = ExtResource("6_2ipst")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Switch/ToggleArea"]
+position = Vector2(0.5, -0.5)
+shape = SubResource("RectangleShape2D_qb36a")
+
+[node name="Sprite2D" type="Sprite2D" parent="Switch"]
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("5_6u4yp")

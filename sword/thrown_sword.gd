@@ -3,12 +3,13 @@ class_name ThrownSword
 
 # Exported variables for external control and tuning in the editor
 @export var target: Vector2          # Target position for the sword to be thrown at
-@export var thrower: Player          # Reference to the player who throws the sword
+@onready var thrower: Player = Player.instance # Reference to the player who throws the sword
 @export var acceleration: float      # Acceleration factor applied to the sword movement
 @export var max_distance: float      # Maximum distance the sword can travel before returning
 @export var min_throw_speed: float   # Minimum initial throw speed for the sword
 @export var sprite: Sprite2D         # The sprite representing the sword
 @export var max_bounces: int         # Maximum allowed bounces before returning
+@export var carrying_capacity: float # Maximum weight the boomerang can pick up in one swoop
 
 # Internal state variables
 var initial_speed: float = 0         # Speed of the sword when thrown
@@ -38,6 +39,8 @@ func _ready() -> void:
 	velocity = direction / distance * initial_speed
 	local_acceleration = acceleration
 
+func pickup_item(body: PhysicsBody2D) -> void:
+	print(body)
 # Initiates the sword's return to the player
 func return_sword() -> void:
 	set_collision_mask_value(1, false)  # Disable collision with certain layers (layer 1)
@@ -73,7 +76,10 @@ func _physics_process(delta: float) -> void:
 	if returning:
 		direction = player_dist  # Update direction toward the player
 		var speed: float = velocity.length() + local_acceleration * delta
-		velocity = (velocity + direction.normalized() * speed / 1.25).normalized() * speed
+		if num_bounces > 0:
+			velocity = (velocity + direction.normalized() * speed / 2.0).normalized() * speed
+		else:
+			velocity = direction.normalized() * speed
 	else:
 		velocity += direction.normalized() * local_acceleration * delta
 		if velocity.length() <= 100:
