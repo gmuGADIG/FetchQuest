@@ -18,7 +18,7 @@ colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.180392)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6my70"]
 size = Vector2(26, 25)
 
-[node name="ThrownSword" type="CharacterBody2D" node_paths=PackedStringArray("sprite")]
+[node name="ThrownSword" type="CharacterBody2D"]
 z_index = 2
 collision_layer = 2
 motion_mode = 1
@@ -29,7 +29,6 @@ script = ExtResource("1_4xd43")
 acceleration = -3000.0
 max_distance = 350.0
 min_throw_speed = 200.0
-sprite = NodePath("Sprite2D")
 max_bounces = 3
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -71,3 +70,11 @@ max_velocity = 600.0
 script = ExtResource("6_vmapu")
 thrown_sword = NodePath("..")
 max_shake_strength = 10.0
+
+[node name="BounceTimer" type="Timer" parent="."]
+wait_time = 1.5
+
+[node name="Lifespan" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+autostart = true

@@ -77,6 +77,7 @@ collision_layer = 2
 script = ExtResource("1_qk3e4")
 move_speed = 250.0
 sword_prefab = ExtResource("2_5jj7q")
+max_throw_distance = 400.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
 position = Vector2(-2.25, -2)
@@ -85,6 +86,9 @@ shape = SubResource("RectangleShape2D_krk6c")
 [node name="Sprite2D" type="Sprite2D" parent="Player"]
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("3_h7671")
+
+[node name="SwordCooldown" type="Timer" parent="Player"]
+wait_time = 0.5
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(591, 342)
@@ -177,7 +181,6 @@ gravity_scale = 0.0
 linear_damp = 15.0
 angular_damp = 30.0
 script = ExtResource("5_x7haa")
-can_be_collected = false
 
 [node name="Sprite2D" type="Sprite2D" parent="Item"]
 scale = Vector2(0.3, 0.3)

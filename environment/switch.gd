@@ -1,15 +1,18 @@
 extends Node2D
 class_name Switch
 
-@export var on_texture: Resource
-@export var off_texture: Resource
-@export var interact_action: String
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var toggle_area: TriggerArea = $ToggleArea
 
+@export var on_texture: Resource
+@export var off_texture: Resource
+@export var interact_action: String
+
 var is_on: bool = false
 var player_in_range: bool = false
+
 signal toggled(new_value: bool)
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	toggle_area.touched_by.connect(toggle_enter)

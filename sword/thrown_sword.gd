@@ -1,15 +1,18 @@
 extends CharacterBody2D
 class_name ThrownSword
 
+# Variables that are initialized at runtime
+@onready var thrower: Player = Player.instance  # Reference to the player who throws the sword
+@onready var lifespan: Timer = $Lifespan        # The max lifespan of the sword
+@onready var bounce_timer: Timer = $BounceTimer # The time for the max time between bounces
+@onready var sprite: Sprite2D = $Sprite2D       # The sprite representing the sword
+
 # Exported variables for external control and tuning in the editor
 @export var target: Vector2          # Target position for the sword to be thrown at
-@onready var thrower: Player = Player.instance # Reference to the player who throws the sword
 @export var acceleration: float      # Acceleration factor applied to the sword movement
 @export var max_distance: float      # Maximum distance the sword can travel before returning
 @export var min_throw_speed: float   # Minimum initial throw speed for the sword
-@export var sprite: Sprite2D         # The sprite representing the sword
 @export var max_bounces: int         # Maximum allowed bounces before returning
-@export var carrying_capacity: float # Maximum weight the boomerang can pick up in one swoop
 
 # Internal state variables
 var initial_speed: float = 0         # Speed of the sword when thrown
@@ -18,9 +21,6 @@ var num_bounces: int                 # Number of bounces off walls or surfaces
 var direction: Vector2               # Direction vector of the sword
 var player_dist: Vector2             # Distance vector from the sword to the player
 var local_acceleration: float        # Local acceleration applied to the sword (adjustable)
-var time_since_bounce: float = 0     # Time since the last bounce
-var lifespan: float = 4.0            # Total lifespan of the sword (before returning automatically)
-var time: float = 0                  # Total time the sword has been active
 
 # Signal emitted when the sword bounces, providing bounce intensity
 signal bounce_sword(intensity: float)
@@ -38,9 +38,15 @@ func _ready() -> void:
 	# Set the sword's velocity based on direction and initial speed
 	velocity = direction / distance * initial_speed
 	local_acceleration = acceleration
+	
+	# Return the sword if it is out too long
+	lifespan.timeout.connect(return_sword)
+	bounce_timer.timeout.connect(return_sword)
 
-func pickup_item(body: PhysicsBody2D) -> void:
-	print(body)
+# Makes items follow the boomerang
+func pickup_item(item: Item) -> void:
+	item.glue_to(self, 200.0)
+	
 # Initiates the sword's return to the player
 func return_sword() -> void:
 	set_collision_mask_value(1, false)  # Disable collision with certain layers (layer 1)
@@ -53,15 +59,7 @@ func _input(event: InputEvent) -> void:
 		return_sword()  # Return the sword when the player clicks
 
 # Handles the physics update process (called every frame)
-func _physics_process(delta: float) -> void:
-	# Update time counters for bounce and lifespan
-	time_since_bounce += delta
-	time += delta
-
-	# Return the sword if it's stopped accelerating or its lifespan has ended
-	if (local_acceleration == 0 and time_since_bounce >= 1.25) or time >= lifespan:
-		return_sword()
-	
+func _physics_process(delta: float) -> void:	
 	# Calculate distance between sword and player
 	var old_player_dist: Vector2 = player_dist
 	player_dist = thrower.position - position
@@ -92,9 +90,9 @@ func _physics_process(delta: float) -> void:
 		_on_collision(collision)
 
 # Handles sword ricochet off surfaces
-func sword_ricochet() -> void:
-	num_bounces += 1  # Increment bounce count
-	time_since_bounce = 0  # Reset bounce timer
+func sword_bounce() -> void:
+	num_bounces += 1     # Increment bounce count
+	bounce_timer.start() # Reset bounce timer
 	
 	# Calculate max velocity based on acceleration and max distance
 	var max_velocity: float = velocity.length() * 1.2 if acceleration == 0 else sqrt(-2 * acceleration * max_distance)
@@ -103,7 +101,7 @@ func sword_ricochet() -> void:
 	bounce_sword.emit(velocity.length() / max_velocity)
 	
 	# If max bounces are reached, return the sword to the player
-	if num_bounces >= max_bounces:
+	if num_bounces > max_bounces:
 		return_sword()
 
 # Handles collision detection and response
@@ -115,4 +113,4 @@ func _on_collision(collision: KinematicCollision2D) -> void:
 		# Reflect the sword's velocity based on collision normal
 		velocity = velocity.bounce(collision_normal)
 		direction = velocity  # Update direction after bounce
-		sword_ricochet()      # Handle ricochet logic
+		sword_bounce()        # Handle ricochet logic
