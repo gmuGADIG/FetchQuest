@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://kygpb8xgqefl"]
+
+[ext_resource type="Script" path="res://character_body_2d.gd" id="1_h61y5"]
+[ext_resource type="Texture2D" uid="uid://ndmjrpk41eo4" path="res://addons/dialogic/Example Assets/portraits/Portrait1.png" id="1_qfxr3"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1ig6k"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rfi3v"]
+
+[node name="Node2D" type="Node2D"]
+position = Vector2(10, -25)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_1ig6k")
+
+[node name="Fuck" type="Node" parent="."]
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+position = Vector2(608, 301)
+scale = Vector2(5.27415, 2.72)
+script = ExtResource("1_h61y5")
+speed = Vector2(3, 10)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+shape = SubResource("CircleShape2D_rfi3v")
+one_way_collision_margin = 1.5
+
+[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
+texture = ExtResource("1_qfxr3")
