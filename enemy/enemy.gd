@@ -4,22 +4,17 @@
 
 class_name Enemy extends CharacterBody2D
 
-signal died
-signal health_changed(old_health: int)
-
 @export var max_health: int = 3
-var dead := false
-var health := max_health:
-	set(v):
-		if dead: return
+@onready var health := max_health
 
-		var old_health := health
-		health = v
-		health_changed.emit(old_health)
+## Damages the enemy, killing it if its health drops below zero.
+## This should be called by the player's attacks when they hit an enemy.
+func hurt(damage: float) -> void:
+	if health <= 0: return # don't die twice
 
-		print("Enemy '%s' health was set to %s." % [get_path(), health])
+	health -= damage
 
-		if health <= 0:
-			dead = true
-			died.emit()
-			queue_free()
+	print("Enemy.gd: Health of '%s' was lowered to %s/%s" % [get_path(), health, max_health])
+
+	if health <= 0:
+		queue_free()

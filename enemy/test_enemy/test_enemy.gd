@@ -1,3 +1,7 @@
+# NOTE: This script exists for testing enemy interactions, as well as to
+# give an idea how an enemy might be programmed. Once higher quality enemies
+# are made, they should be in their own scripts, and this should be ignored.
+
 class_name TestEnemy extends Enemy
 
 var _player: Player
@@ -19,4 +23,4 @@ func _physics_process(_delta: float) -> void:
 func _on_hitting_area_body_entered(body: Node2D) -> void:
 	var player := body as Player
 	if player != null:
-		player.health -= 1
+		player.hurt(1)

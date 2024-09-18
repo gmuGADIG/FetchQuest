@@ -4,24 +4,11 @@ static var instance: Player
 
 @export var move_speed: float = 500.0
 
-signal died
-signal health_changed(old_health: int)
-
 @export var max_health: int = 3
-var dead := false
-var health := max_health:
-	set(v):
-		if dead: return
+@onready var health := max_health
 
-		var old_health := health
-		health = v
-		health_changed.emit(old_health)
-
-		print("player's health is now: ", health)
-
-		if health <= 0:
-			dead = true
-			died.emit()
+## On controller, if the aim stick isn't held in any direction, the last non-zero aim will be used
+var last_aim_direction := Vector2.RIGHT
 
 func _ready() -> void:
 	instance = self
@@ -30,13 +17,26 @@ func _ready() -> void:
 func get_aim() -> Vector2:
 	match ControllerManager.mode:
 		ControllerManager.ControlMode.KEYBOARD_MODE:
-			return (get_global_mouse_position() - global_position).normalized()
+			last_aim_direction = (get_global_mouse_position() - global_position).normalized()
 		ControllerManager.ControlMode.CONTROLLER_MODE:
-			return Input.get_vector("look_left", "look_right", "look_up", "look_down")
+			var input := Input.get_vector("look_left", "look_right", "look_up", "look_down")
+			if input != Vector2.ZERO:
+				last_aim_direction = input.normalized()
 		_:
 			assert(false) # we shouldn't be here!
-			return Vector2.ZERO
+	
+	return last_aim_direction
 
 func _physics_process(_delta: float) -> void:
 	velocity = Input.get_vector("move_left", "move_right", "move_up", "move_down") * move_speed
 	move_and_slide()
+
+## Damages the player, lowering its health.
+func hurt(damage: float) -> void:
+	if health <= 0: return # don't die twice
+
+	health -= damage
+	print("player.gd: Health lowered to %s/%s" % [health, max_health])
+
+	if health <= 0:
+		pass # player death is not yet implemented

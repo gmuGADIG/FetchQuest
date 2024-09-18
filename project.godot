@@ -11,6 +11,7 @@ config_version=5
 [application]
 
 config/name="Fetch Quest"
+run/main_scene="res://world/latest_demo.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://dialogic_example/player/player_art_final.png"
 
@@ -27,8 +28,18 @@ gdscript/warnings/untyped_declaration=2
 
 [dialogic]
 
-directories/dch_directory={}
-directories/dtl_directory={}
+directories/dch_directory={
+"Franklin": "res://dialogic_example/example_characters/Franklin.dch",
+"Michael": "res://dialogic_example/example_characters/Michael.dch",
+"Mr SignPost": "res://dialogic_example/example_characters/Mr SignPost.dch",
+"Rupert": "res://dialogic_example/example_characters/Rupert.dch"
+}
+directories/dtl_directory={
+"demo3Cats": "res://dialogic_example/example_timelines/demo3Cats.dtl",
+"demoTimeline": "res://dialogic_example/example_timelines/demoTimeline.dtl",
+"demoTimeline2": "res://dialogic_example/example_timelines/demoTimeline2.dtl",
+"demoTimeline3": "res://dialogic_example/example_timelines/demoTimeline3.dtl"
+}
 glossary/default_case_sensitive=true
 layout/style_list=["res://dialogic_example/NarratorStyle.tres", "res://dialogic_example/ExampleDialogueStyleVN.tres", "res://dialogic_example/ExampleDialogueStyleBubble.tres", "res://dialogic_example/ExampleDialogueStyleBox.tres"]
 layout/default_style="res://dialogic_example/ExampleDialogueStyleBubble.tres"
@@ -69,8 +80,12 @@ enabled=PackedStringArray("res://addons/dialogic/plugin.cfg", "res://addons/rmsm
 [file_customization]
 
 folder_colors={
+"res://addons/": "gray",
 "res://dialogic_example/": "gray",
-"res://test_scenes/": "gray"
+"res://enemy/": "red",
+"res://player/": "blue",
+"res://test_scenes/": "gray",
+"res://world/": "green"
 }
 
 [global_group]
