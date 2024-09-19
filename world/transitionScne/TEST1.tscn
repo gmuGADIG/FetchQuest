@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://dmg74v7wq4ifp"]
+
+[ext_resource type="PackedScene" uid="uid://bwo5q4wroaigc" path="res://world/transitionScne/transition_scene.tscn" id="1_cqioa"]
+[ext_resource type="PackedScene" uid="uid://dwlubtrqck818" path="res://world/transitionScne/TEST2.tscn" id="2_wdh7i"]
+[ext_resource type="PackedScene" uid="uid://c7ck7ril2jix2" path="res://player/player.tscn" id="3_quvbb"]
+[ext_resource type="Texture2D" uid="uid://dymucenpxmluo" path="res://icon.svg" id="4_dnw2g"]
+
+[node name="Test1" type="Node2D"]
+
+[node name="TransitionScene" parent="." instance=ExtResource("1_cqioa")]
+position = Vector2(596, 175)
+scale = Vector2(20, 20)
+scene = ExtResource("2_wdh7i")
+
+[node name="Player" parent="." instance=ExtResource("3_quvbb")]
+position = Vector2(377, 470)
+
+[node name="Icon" type="Sprite2D" parent="."]
+position = Vector2(823, 395)
+texture = ExtResource("4_dnw2g")
