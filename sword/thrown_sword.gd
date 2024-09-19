@@ -28,7 +28,8 @@ signal bounce_sword(intensity: float)
 # Called when the sword is ready (spawned)
 func _ready() -> void:
 	# Calculate initial direction and speed based on target and position
-	direction = (target - position) + ((target - position).normalized() * 50)
+	direction = (target - position).normalized() * max_distance
+	# direction = (target - position) + ((target-position).normalized() * 50) # If you want the sword to only go to the mouse location
 	var distance: float = direction.length()
 	
 	# Calculate initial speed based on acceleration and distance to the target
