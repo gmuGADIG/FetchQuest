@@ -39,4 +39,5 @@ func hurt(damage: float) -> void:
 	print("player.gd: Health lowered to %s/%s" % [health, max_health])
 
 	if health <= 0:
+		get_tree().change_scene_to_file("res://UI/Game_over_screen.tscn")
 		pass # player death is not yet implemented
