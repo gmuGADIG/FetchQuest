@@ -7,6 +7,8 @@ static var instance: Player
 @export var max_health: int = 3
 @onready var health := max_health
 
+@onready var bombScene := preload("bomb.tscn")
+
 ## On controller, if the aim stick isn't held in any direction, the last non-zero aim will be used
 var last_aim_direction := Vector2.RIGHT
 
@@ -30,6 +32,13 @@ func get_aim() -> Vector2:
 func _physics_process(_delta: float) -> void:
 	velocity = Input.get_vector("move_left", "move_right", "move_up", "move_down") * move_speed
 	move_and_slide()
+
+func _input(event: InputEvent) -> void:
+	if(event.is_action_pressed("throw_bomb")):
+		var bombInstance := bombScene.instantiate()
+		bombInstance.position = position
+		bombInstance.set_velocity(get_aim() * 1000)
+		add_sibling(bombInstance)
 
 ## Damages the player, lowering its health.
 func hurt(damage: float) -> void:
