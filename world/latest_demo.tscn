@@ -1,22 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://3sqp1m0iowsi"]
+[gd_scene load_steps=3 format=3 uid="uid://3sqp1m0iowsi"]
 
 [ext_resource type="PackedScene" uid="uid://uj2rytnj1h4" path="res://enemy/test_enemy/test_enemy.tscn" id="1_h18tn"]
-[ext_resource type="PackedScene" uid="uid://gp1o7iklljk2" path="res://DungeonPuzzles/red_coin_(area_2d).tscn" id="2_uy5fu"]
 [ext_resource type="PackedScene" uid="uid://c7ck7ril2jix2" path="res://player/player.tscn" id="2_vi53h"]
-[ext_resource type="Script" path="res://DungeonPuzzles/red_coin_manager.gd" id="4_310ug"]
 
 [node name="LatestDemo" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("2_vi53h")]
 position = Vector2(534, 261)
 
-[node name="RedCoin (area2D)" parent="." instance=ExtResource("2_uy5fu")]
-
-[node name="RedCoin (area2D)2" parent="." instance=ExtResource("2_uy5fu")]
-position = Vector2(549, 80)
-
 [node name="TestEnemy" parent="." instance=ExtResource("1_h18tn")]
 position = Vector2(115, 256)
-
-[node name="RedCoinManager" type="Node2D" parent="."]
-script = ExtResource("4_310ug")
