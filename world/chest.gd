@@ -36,6 +36,7 @@ func open_chest() -> void:
 	print("Opening chest: ", self)
 	texture = opened_texture
 	
+	# Picks a random item from the list and spawns it at the chest.
 	var item : PackedScene = loot_table.pick_random()
 	var spawned := item.instantiate()
 	add_sibling(spawned)
