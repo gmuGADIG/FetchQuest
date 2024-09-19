@@ -1,11 +1,14 @@
-[gd_scene load_steps=5 format=3 uid="uid://c7ck7ril2jix2"]
+[gd_scene load_steps=7 format=3 uid="uid://c7ck7ril2jix2"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_x43mx"]
 [ext_resource type="Texture2D" uid="uid://0ba17120df4x" path="res://dialogic_example/player/player_art_final.png" id="2_ts2mf"]
 [ext_resource type="Script" path="res://player/speak.gd" id="3_ne4cx"]
+[ext_resource type="Texture2D" uid="uid://bia80uevpiajx" path="res://player/Abilities/Menacing.png" id="4_22v1d"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0vmvj"]
 size = Vector2(128, 128)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_r42l4"]
 
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 collision_layer = 2
@@ -21,3 +24,20 @@ shape = SubResource("RectangleShape2D_0vmvj")
 
 [node name="Speak" type="Node2D" parent="."]
 script = ExtResource("3_ne4cx")
+
+[node name="Aura" type="Area2D" parent="Speak"]
+scale = Vector2(10, 10)
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Speak/Aura"]
+shape = SubResource("CircleShape2D_r42l4")
+
+[node name="Menacing1" type="Sprite2D" parent="Speak/Aura"]
+position = Vector2(-3.1, -3)
+scale = Vector2(0.017, 0.017)
+texture = ExtResource("4_22v1d")
+
+[node name="Menacing2" type="Sprite2D" parent="Speak/Aura"]
+position = Vector2(2.5, 2.2)
+scale = Vector2(0.017, 0.017)
+texture = ExtResource("4_22v1d")
