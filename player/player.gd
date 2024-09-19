@@ -10,6 +10,12 @@ static var instance: Player
 ## On controller, if the aim stick isn't held in any direction, the last non-zero aim will be used
 var last_aim_direction := Vector2.RIGHT
 
+
+
+
+
+
+
 func _ready() -> void:
 	instance = self
 
@@ -24,7 +30,7 @@ func get_aim() -> Vector2:
 				last_aim_direction = input.normalized()
 		_:
 			assert(false) # we shouldn't be here!
-	
+	print("Pain")
 	return last_aim_direction
 
 func _physics_process(_delta: float) -> void:
