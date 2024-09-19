@@ -22,4 +22,8 @@ func _on_resume_pressed() -> void:
 	# When resume is pressed, we simply unpause.
 	get_tree().paused = false
 	
+func _on_quit_pressed() -> void:
+	# TODO: Go to main menu.
+	assert(!"There is no main menu >:(")
+	
 	
