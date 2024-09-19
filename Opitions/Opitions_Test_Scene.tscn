@@ -1,0 +1,61 @@
+[gd_scene load_steps=2 format=3 uid="uid://dflfvpjufhfln"]
+
+[ext_resource type="Script" path="res://Opitions/Volume_Controller.gd" id="1_vu5ua"]
+
+[node name="Node2D" type="Node2D"]
+position = Vector2(600, 0)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Title" type="RichTextLabel" parent="CanvasLayer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -150.0
+offset_right = 150.0
+offset_bottom = 50.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+bbcode_enabled = true
+text = "[center]Opitions Menu[/center]"
+fit_content = true
+
+[node name="Back_To_Menu" type="Button" parent="CanvasLayer"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -150.038
+offset_top = -50.0
+offset_right = 150.037
+grow_horizontal = 2
+grow_vertical = 0
+text = "Back to Menu"
+
+[node name="Volume_Slider_Name" type="RichTextLabel" parent="CanvasLayer"]
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 50.0
+offset_top = -74.0
+offset_right = 350.0
+offset_bottom = -24.0
+grow_vertical = 2
+bbcode_enabled = true
+text = "[center][b]Test Volume Slider[/b][/center]"
+
+[node name="Volume_Slider" type="HSlider" parent="CanvasLayer"]
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 50.0
+offset_top = -25.0
+offset_right = 350.0
+offset_bottom = 25.0
+grow_vertical = 2
+script = ExtResource("1_vu5ua")
+
+[connection signal="mouse_exited" from="CanvasLayer/Volume_Slider" to="CanvasLayer/Volume_Slider" method="release_focus"]
+[connection signal="value_changed" from="CanvasLayer/Volume_Slider" to="CanvasLayer/Volume_Slider" method="_on_value_changed"]
