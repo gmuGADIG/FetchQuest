@@ -14,7 +14,6 @@ static var instance: Player
 var sword_ready: bool = true                # Flag to determine if the player can throw the sword
 var cooldown_ended: bool = true
 
-<<<<<<< chayes22/test_boomerang_scene
 signal died
 signal health_changed(old_health: int)
 signal throw_sword
@@ -53,13 +52,6 @@ func cast_ray_to_wall(target: Vector2) -> Node2D:
 	var query: PhysicsRayQueryParameters2D = PhysicsRayQueryParameters2D.create(global_position, target)
 	var result: Dictionary = space_state.intersect_ray(query)
 	return null if result.is_empty() else result.collider
-=======
-@export var max_health: int = 3
-@onready var health := max_health
-
-## On controller, if the aim stick isn't held in any direction, the last non-zero aim will be used
-var last_aim_direction := Vector2.RIGHT
->>>>>>> main
 
 # Instantiates the sword at the player's position and sets its properties based on the target and collision result
 func instantiate_sword(target: Vector2, hit_wall: bool) -> void:
