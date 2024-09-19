@@ -1,0 +1,174 @@
+[gd_scene load_steps=11 format=3 uid="uid://d2hakxnwblfja"]
+
+[ext_resource type="Script" path="res://UI/codex/codex.gd" id="1_hin5s"]
+[ext_resource type="Texture2D" uid="uid://cb6fpdy555v3i" path="res://UI/codex/Images/Blue Pig.png" id="1_m1pnh"]
+[ext_resource type="Shader" path="res://UI/codex/codex.gdshader" id="2_1kil2"]
+[ext_resource type="Texture2D" uid="uid://h4unja5ki1hw" path="res://UI/codex/Images/Codex_book.svg" id="2_817q6"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8uvpn"]
+shader = ExtResource("2_1kil2")
+shader_parameter/lod = 0.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s1v5c"]
+bg_color = Color(0.901961, 0.470588, 0.392157, 1)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4qs6o"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4oyuf"]
+bg_color = Color(0.426599, 0.584157, 0.955834, 1)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rxtxt"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5twju"]
+bg_color = Color(0, 0, 0, 1)
+
+[node name="CodexMenu" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 4.0
+offset_bottom = 7.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_hin5s")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_8uvpn")
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 642.0
+
+[node name="PlayerCodexButtonBox" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 763.0
+offset_top = -24.0
+offset_right = 1177.0
+offset_bottom = 266.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_s1v5c")
+
+[node name="CodexFrame" type="Panel" parent="PlayerCodexButtonBox"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 36.0
+offset_top = -128.0
+offset_right = 387.0
+offset_bottom = 129.0
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_4qs6o")
+
+[node name="CodexImage" type="TextureRect" parent="PlayerCodexButtonBox/CodexFrame"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -157.0
+offset_top = -108.0
+offset_right = 145.0
+offset_bottom = 121.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_m1pnh")
+expand_mode = 1
+
+[node name="PlayerCodexInfoBox" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0164931
+anchor_top = 0.0168971
+anchor_right = 0.368924
+anchor_bottom = 0.162826
+offset_bottom = -1.52588e-05
+grow_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_4oyuf")
+metadata/_edit_use_anchors_ = true
+
+[node name="BookText" type="TextureRect" parent="PlayerCodexInfoBox"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 16.0
+offset_top = -32.5
+offset_right = 102.0
+offset_bottom = 35.5
+grow_vertical = 2
+texture = ExtResource("2_817q6")
+expand_mode = 1
+
+[node name="CodexProgressText" type="Label" parent="PlayerCodexInfoBox"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -301.0
+offset_top = -31.5
+offset_right = -20.0
+offset_bottom = 3.5
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_font_sizes/font_size = 25
+text = "Codex Progress: 0/100
+"
+
+[node name="CodexProgressBar" type="ProgressBar" parent="PlayerCodexInfoBox"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 107.0
+offset_top = -43.0
+offset_right = -19.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.987727, 0.218232, 0.183159, 1)
+theme_override_styles/background = SubResource("StyleBoxFlat_rxtxt")
+theme_override_styles/fill = SubResource("StyleBoxFlat_5twju")
+step = 1.0
+
+[node name="IncreaseCodexButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -177.0
+offset_top = -121.5
+offset_right = 167.0
+offset_bottom = 119.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "PRESSMEPLZ
+"
+
+[connection signal="pressed" from="IncreaseCodexButton" to="." method="_on_increase_codex_button_pressed"]
