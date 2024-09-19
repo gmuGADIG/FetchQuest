@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://dbewnfb1psf22"]
+
+[ext_resource type="Texture2D" uid="uid://c1pqhbpu2i4uu" path="res://world/objects/pushable_block/pushable_block.png" id="1_2qh20"]
+[ext_resource type="Script" path="res://world/objects/pushable_block/pushable_block.gd" id="1_m8s5g"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c06d2"]
+
+[node name="pushable_block" type="CharacterBody2D"]
+disable_mode = 2
+collision_mask = 2
+motion_mode = 1
+script = ExtResource("1_m8s5g")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(3, 3)
+shape = SubResource("RectangleShape2D_c06d2")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_2qh20")
+
+[node name="Area2D" type="Area2D" parent="."]
+scale = Vector2(0.839999, 0.839999)
+disable_mode = 2
+collision_mask = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+scale = Vector2(4.5, 4.5)
+shape = SubResource("RectangleShape2D_c06d2")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_pushing_area_body_entered"]
