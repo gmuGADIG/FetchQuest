@@ -1,0 +1,69 @@
+[gd_scene load_steps=2 format=3 uid="uid://be0wx1bwh443q"]
+
+[ext_resource type="Script" path="res://ui/pause_menu/pause_menu.gd" id="1_6mimi"]
+
+[node name="PauseMenu" type="CanvasLayer"]
+script = ExtResource("1_6mimi")
+
+[node name="Panel" type="Panel" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Panel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -238.0
+offset_top = 30.0
+offset_right = 238.0
+offset_bottom = 120.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 65
+text = "PAUSED QUEST"
+
+[node name="Resume" type="Button" parent="Panel"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -227.0
+offset_top = -130.0
+offset_right = 227.0
+offset_bottom = -53.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 48
+text = "Resume"
+
+[node name="_Options_" type="Panel" parent="Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -221.0
+offset_top = -179.0
+offset_right = 221.0
+offset_bottom = 129.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Panel/_Options_"]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 9.0
+offset_right = 433.0
+offset_bottom = 297.0
+theme_override_font_sizes/font_size = 42
+text = "TODO REPLACE THIS NODE WITH THE \"OPTIONS\" SCENE"
+autowrap_mode = 2
+metadata/_edit_lock_ = true
+
+[connection signal="pressed" from="Panel/Resume" to="." method="_on_resume_pressed"]
