@@ -8,6 +8,7 @@ size = Vector2(128, 128)
 
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 collision_layer = 2
+collision_mask = 41
 motion_mode = 1
 script = ExtResource("1_x43mx")
 
@@ -17,3 +18,9 @@ texture = ExtResource("2_ts2mf")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_0vmvj")
+
+[node name="RollTimer" type="Timer" parent="."]
+wait_time = 0.75
+one_shot = true
+
+[connection signal="timeout" from="RollTimer" to="." method="stop_roll"]
