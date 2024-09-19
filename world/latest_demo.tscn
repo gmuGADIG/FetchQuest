@@ -1,10 +1,12 @@
-[gd_scene load_steps=6 format=3 uid="uid://3sqp1m0iowsi"]
+[gd_scene load_steps=8 format=3 uid="uid://3sqp1m0iowsi"]
 
 [ext_resource type="PackedScene" uid="uid://uj2rytnj1h4" path="res://enemy/test_enemy/test_enemy.tscn" id="1_h18tn"]
 [ext_resource type="PackedScene" uid="uid://c7ck7ril2jix2" path="res://player/player.tscn" id="2_vi53h"]
 [ext_resource type="Texture2D" uid="uid://c3s0qtshmkl5v" path="res://demo_art/chest_closed.png" id="3_rsaia"]
 [ext_resource type="Script" path="res://world/chest.gd" id="4_qasrf"]
 [ext_resource type="Texture2D" uid="uid://bm1v64xlmk4w0" path="res://demo_art/chest_open.png" id="5_owtqb"]
+[ext_resource type="PackedScene" uid="uid://bmua445ktga4l" path="res://demo_art/player_sword.tscn" id="6_sr4di"]
+[ext_resource type="PackedScene" uid="uid://b2bxxuuc3qgex" path="res://demo_art/tre_test_item.tscn" id="7_2gmg5"]
 
 [node name="LatestDemo" type="Node2D"]
 
@@ -21,4 +23,4 @@ texture = ExtResource("3_rsaia")
 script = ExtResource("4_qasrf")
 closed_texture = ExtResource("3_rsaia")
 opened_texture = ExtResource("5_owtqb")
-loot_table = [ExtResource("5_owtqb"), ExtResource("3_rsaia")]
+loot_table = Array[PackedScene]([ExtResource("6_sr4di"), ExtResource("7_2gmg5")])

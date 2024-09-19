@@ -10,7 +10,7 @@ var collider : Area2D
 
 # Assign one item for it to drop always,
 # or assign multiple for a random chance drop, if needed.
-@export var loot_table : Array
+@export var loot_table : Array[PackedScene]
 @export var min_distance := 100
 
 # Called when the node enters the scene tree for the first time.
@@ -36,6 +36,8 @@ func open_chest() -> void:
 	print("Opening chest: ", self)
 	texture = opened_texture
 	
-	var item : Variant = loot_table.pick_random()
+	var item : PackedScene = loot_table.pick_random()
+	var spawned := item.instantiate()
+	add_sibling(spawned)
+	spawned.position = position
 	
-	print(item)
