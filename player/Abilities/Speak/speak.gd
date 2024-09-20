@@ -11,7 +11,7 @@ extends Node2D
 #The time in seconds the AOE should last
 @export var speak_time: float = 1.0
 #The time in seconds between barks. This time is independent from bark_time
-@export var cooldown_time: float = 1.0
+@export var cooldown_time: float = 1.5
 #A multiplier applied to the player movemnet speed when speaking
 @export var movement_multiplier: float = 0.2
 
@@ -45,26 +45,34 @@ func speak() -> void:
 	add_child(speak_timer)
 	speak_timer.wait_time = speak_time
 	speak_timer.one_shot = true
-	speak_timer.timeout.connect(_on_unspeak.bind([speak_instance]))  # Connect the timeout signal
+	var unspeak_call: Callable = Callable(self, "_on_unspeak").bind(speak_timer, speak_instance)
+	speak_timer.timeout.connect(unspeak_call)
 	speak_timer.start()
 	
 	var cooldown_timer := Timer.new()
 	add_child(cooldown_timer)
 	cooldown_timer.wait_time = cooldown_time
 	cooldown_timer.one_shot = true
-	cooldown_timer.timeout.connect(_end_cooldown)  # Connect the timeout signal
-	cooldown_timer.start()
+	var end_cooldown_call: Callable = Callable(self, "_end_cooldown").bind(cooldown_timer)
+	cooldown_timer.timeout.connect(end_cooldown_call)  # Connect the timeout signal
+	cooldown_timer.start()	
 	
 	
-func _on_unspeak(speak_instance: Area2D) -> void:
+
+func _on_unspeak(speak_timer: Timer, speak_instance: Area2D) -> void:
 	_is_speaking = false
+	assert(is_instance_valid(speak_timer))
+	speak_timer.queue_free()
 	assert(is_instance_valid(speak_instance))
 	speak_instance.queue_free()
 	
+	
 		
-func _end_cooldown() -> void:
+func _end_cooldown(cooldown_timer: Timer) -> void:
 	#toggle off the aura
 	_on_cooldown = false
+	assert(is_instance_valid(cooldown_timer))
+	cooldown_timer.queue_free()
 	pass
 	
 func is_speaking() -> bool:
