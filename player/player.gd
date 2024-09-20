@@ -15,8 +15,9 @@ func _ready() -> void:
 	
 	
 func _process(delta: float) -> void:
-	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
-		$Speak.unspeak()
+	if Input.is_key_pressed(KEY_SPACE):
+		if !$Speak.on_cooldown():
+			$Speak.speak()
 	
 	pass
 
@@ -36,7 +37,7 @@ func get_aim() -> Vector2:
 
 func _physics_process(_delta: float) -> void:
 	velocity = Input.get_vector("move_left", "move_right", "move_up", "move_down") * move_speed
-	if($Speak.is_active()):
+	if($Speak.is_speaking()):
 		velocity *= $Speak.movement_multiplier
 	move_and_slide()
 
