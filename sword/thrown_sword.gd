@@ -46,7 +46,7 @@ func _ready() -> void:
 
 # Makes items follow the boomerang
 func pickup_item(item: Item) -> void:
-	item.glue_to(self, 200.0)
+	item.glue_to(self, 400.0)
 	
 # Initiates the sword's return to the player
 func return_sword() -> void:

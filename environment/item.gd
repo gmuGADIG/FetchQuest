@@ -1,4 +1,4 @@
-extends RigidBody2D
+extends CharacterBody2D
 class_name Item
 
 @onready var pickup_area: TriggerArea = $PickupArea # This is the area that determines where the item can be picked up from
@@ -20,6 +20,7 @@ func initiate_pickup(body: Node2D) -> void:
 # This function is called by the node that collected the item to make the item follow it.
 func glue_to(body: Node2D, glue_strength: float) -> void:
 	physics_state = "following"
+	print("statement")
 	speed = glue_strength
 	acceleration = 0
 	target = body
@@ -39,4 +40,13 @@ func _physics_process(delta: float) -> void:
 	match physics_state:
 		"following":
 			if target and is_instance_valid(target):
-				apply_central_force((target.position - position) * speed)
+				velocity = (target.position - position) * speed * delta
+			else:
+				speed = velocity.length()/delta
+				acceleration = pow(speed, 2)/20000
+				physics_state = "idle"
+		"idle":
+			if (speed > 0):
+				speed -= acceleration * delta
+			velocity = velocity.normalized() * speed * delta
+	move_and_slide()
