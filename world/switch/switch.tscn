@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://b60qs6jc07tbj"]
+
+[ext_resource type="Script" path="res://world/switch/switch.gd" id="1_8l6ln"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_myfof"]
+
+[sub_resource type="Gradient" id="Gradient_ty8p1"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_iplme"]
+gradient = SubResource("Gradient_ty8p1")
+
+[node name="Switch" type="Area2D"]
+script = ExtResource("1_8l6ln")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_myfof")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("GradientTexture2D_iplme")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
