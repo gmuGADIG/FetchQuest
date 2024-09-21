@@ -2,81 +2,73 @@ class_name Player extends CharacterBody2D
 
 static var instance: Player
 
-@onready var sword_cooldown: Timer = $SwordCooldown
-@export var move_speed: float = 500.0
-@export var sword_prefab: Resource          # Sword prefab resource to be instantiated
-@export var max_throw_distance: float
-@export var max_health: int = 3
+@onready var sword_cooldown: Timer = $SwordCooldown ## The timer object that stores the cooldown for throwing the sword
+@export var move_speed: float = 500.0               ## The player's move speed (in pixels per second)
+@export var sword_prefab: Resource                  ## Sword prefab resource to be instantiated
+@export var max_throw_distance: float               ## The player's max throw distance (in pixels)
+@export var max_health: int = 3                     ## The player's max health
 
-@onready var health: int = max_health
+@onready var health: int = max_health               ## The player's health value
+var sword_ready: bool = true                        ## Flag to determine if the player can throw the sword
+var active_sword: ThrownSword                       ## The currently active player sword
 
-# Internal state variables                
-var sword_ready: bool = true                # Flag to determine if the player can throw the sword
-var cooldown_ended: bool = true
-
-signal died
-signal health_changed(old_health: int)
-signal throw_sword
+signal died                            ## This signal is emitted when the player dies.     
+signal health_changed(old_health: int) ## This signal is emitted when the player's health changes.
+signal sword_thrown                    ## This signal is emitted when the player throws their sword.
+signal sword_returned                  ## This signal is emitted when the player's sword returns.
 
 ## On controller, if the aim stick isn't held in any direction, the last non-zero aim will be used
 var last_aim_direction := Vector2.RIGHT
 
+## Called when the player spawns in
 func _ready() -> void:
-	sword_cooldown.timeout.connect(cooldown_end)
 	instance = self
-	
-func cooldown_end() -> void:
-	cooldown_ended = true
-	
+	sword_returned.connect(on_sword_return)
+
+## This function gets called when the player's sword is returned after a throw
+func on_sword_return() -> void:
+	active_sword = null
+
+## The player's pickup_item function is called when they make contact with an item
 func pickup_item(item: Item) -> void:
 	print(item)
+	
+## Throws a given sword instance. Mainly used to reset cooldowns
+func throw_sword(sword: ThrownSword) -> void:
+	sword_ready = false
+	sword_cooldown.start()
+	active_sword = sword
+	get_parent().add_child(sword)
 
-# Handles player input, specifically mouse button events for throwing the sword
-func _input(event: InputEvent) -> void:
-	if event is InputEventMouseButton and event.is_pressed():
-		var mouse_pos: Vector2 = get_viewport().canvas_transform.affine_inverse() * event.position
-		if sword_ready and cooldown_ended:
-			var body: Node2D = cast_ray_to_wall(mouse_pos)  # Cast a ray towards the mouse position to detect walls
-			if body:
-				instantiate_sword(mouse_pos, body.is_in_group("Wall"))
-				return
-			instantiate_sword(mouse_pos, false)
-
-# Called when the sword returns to the player, enabling another throw
-func sword_returned() -> void:
-	sword_ready = true
-
-# Casts a ray from the player to the target position to detect any wall collisions
-func cast_ray_to_wall(target: Vector2) -> Node2D:
+## Casts a ray from the player to the target position to detect any wall collisions
+func cast_ray_to_wall(direction: Vector2) -> Node2D:
 	var space_state: PhysicsDirectSpaceState2D = get_world_2d().direct_space_state
-	var query: PhysicsRayQueryParameters2D = PhysicsRayQueryParameters2D.create(global_position, target)
+	var destination: Vector2 = global_position + (direction.normalized() * max_throw_distance)
+	var query: PhysicsRayQueryParameters2D = PhysicsRayQueryParameters2D.create(global_position, destination)
 	var result: Dictionary = space_state.intersect_ray(query)
 	return null if result.is_empty() else result.collider
 
-# Instantiates the sword at the player's position and sets its properties based on the target and collision result
-func instantiate_sword(target: Vector2, hit_wall: bool) -> void:
-	var sword: Node = sword_prefab.instantiate()  # Create an instance of the sword prefab
+## Instantiates the sword at the player's position and sets its properties based on the target and collision result
+func instantiate_sword(target: Vector2, as_direction: bool = true) -> ThrownSword:
+	var sword: ThrownSword = sword_prefab.instantiate()  # Create an instance of the sword prefab
 	sword.thrower = self                         # Set the player as the thrower of the sword
-	sword.target = target                        # Set the target position for the sword
-	sword.position = position                    # Set the sword's initial position at the player
 	sword.max_distance = max_throw_distance
-	
-	# Calculate the distance between the player and the target
-	var distance: float = (position - target).length()
-	
-	# If the ray hit a wall and the distance is within the sword's max range
-	if hit_wall and distance <= sword.max_distance:
-		sword.initial_speed = sqrt(-sword.acceleration * distance)  # Set initial speed for bouncing
-		sword.acceleration = 0                                      # Stop acceleration for wall bounces
+	sword.position = position
+	var body: Node2D = cast_ray_to_wall(target)
+		
+	# If the target is being treated as a direction, not a destination
+	if as_direction:
+		sword.setup_in_direction(target, max_throw_distance)
 	else:
-		sword.initial_speed = 0  # Set to 0 if there's no wall hit or out of range
-	
-	# Add the sword to the scene as a child of the player's parent node
-	get_parent().add_child(sword)
-	sword_ready = false
-	cooldown_ended = false
-	sword_cooldown.start()
-	throw_sword.emit()
+		sword.setup_to_target(target)
+		
+	# If the ray hit a wall
+	if body and body.is_in_group("Wall"):
+		var distance: float = (position - body.position).length()
+		sword.initial_speed = sqrt(-sword.acceleration * distance)  # Set initial speed for bouncing
+		sword.local_acceleration = 0
+
+	return sword
 
 ## Returns a normalized vector in the direction the player is aiming
 func get_aim() -> Vector2:
@@ -91,6 +83,16 @@ func get_aim() -> Vector2:
 			assert(false) # we shouldn't be here!
 	
 	return last_aim_direction
+	
+func _process(delta: float) -> void:
+	get_aim()
+	if Input.is_action_just_pressed("attack"):
+		if active_sword == null:
+			if sword_cooldown.is_stopped():
+				var sword: ThrownSword = instantiate_sword(last_aim_direction)
+				throw_sword(sword)
+		else:
+			active_sword.return_sword()
 
 func _physics_process(_delta: float) -> void:
 	velocity = Input.get_vector("move_left", "move_right", "move_up", "move_down") * move_speed

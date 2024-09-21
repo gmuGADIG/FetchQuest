@@ -1,15 +1,15 @@
 extends CPUParticles2D
 
 # Exported variables for external tuning in the editor
-@export var thrown_sword: ThrownSword   # Reference to the thrown sword object
-@export var max_velocity: float         # Maximum velocity for the particle burst
+@export var thrown_sword: ThrownSword   ## Reference to the thrown sword object
+@export var max_velocity: float         ## Maximum velocity for the particle burst
 
-# Called when the node enters the scene tree for the first time
+## Called when the node enters the scene tree for the first time
 func _ready() -> void:
 	# Connect the sword's bounce signal to trigger the spark function
-	thrown_sword.bounce_sword.connect(spark)
+	thrown_sword.sword_bounced.connect(spark)
 
-# Function to create a burst of particles (sparks) when the sword bounces
+## Function to create a burst of particles (sparks) when the sword bounces
 func spark(intensity: float) -> void:
 	# Set the particles to emit a burst
 	emitting = true

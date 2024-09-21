@@ -26,7 +26,7 @@ func _ready() -> void:
 	rand.randomize()                         # Randomize the seed for noise generation
 	noise.seed = rand.randi()                # Seed the noise generator
 	noise.frequency = 2                      # Set the frequency of the noise pattern
-	thrown_sword.bounce_sword.connect(apply_noise_shake)  # Connect the bounce signal to shake the camera
+	thrown_sword.sword_bounced.connect(apply_noise_shake)  # Connect the bounce signal to shake the camera
 
 # Applies a noise shake effect when the sword bounces
 func apply_noise_shake(intensity: float) -> void:
