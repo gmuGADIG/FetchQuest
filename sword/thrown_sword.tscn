@@ -5,7 +5,7 @@
 [ext_resource type="Script" path="res://sword/sword_rotate.gd" id="3_6bcqb"]
 [ext_resource type="Script" path="res://sword/sword_trail.gd" id="4_loxev"]
 [ext_resource type="Script" path="res://sword/sparks_on_collide.gd" id="5_bsfwj"]
-[ext_resource type="Script" path="res://sword/bounce_shaker.gd" id="6_vmapu"]
+[ext_resource type="Script" path="res://sword/sword_screen_shake.tres.gd" id="6_1yein"]
 
 [sub_resource type="Curve" id="Curve_g4qvv"]
 max_value = 20.0
@@ -69,9 +69,10 @@ thrown_sword = NodePath("..")
 max_velocity = 600.0
 
 [node name="BounceShaker" type="Node2D" parent="." node_paths=PackedStringArray("thrown_sword")]
-script = ExtResource("6_vmapu")
+script = ExtResource("6_1yein")
 thrown_sword = NodePath("..")
-max_shake_strength = 10.0
+shake_strength = 25.0
+shake_duration = 0.02
 
 [node name="BounceTimer" type="Timer" parent="."]
 wait_time = 1.5

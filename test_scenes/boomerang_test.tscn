@@ -1,58 +1,12 @@
 [gd_scene load_steps=12 format=3 uid="uid://rf8m4b5ybrcj"]
 
 [ext_resource type="PackedScene" uid="uid://c7ck7ril2jix2" path="res://player/player.tscn" id="1_vbyjc"]
+[ext_resource type="PackedScene" uid="uid://ch344rluh4xbs" path="res://world/camera/main_cam.tscn" id="2_nb3vp"]
 [ext_resource type="Texture2D" uid="uid://dymucenpxmluo" path="res://icon.svg" id="4_owqiy"]
 [ext_resource type="Texture2D" uid="uid://deern6512fesn" path="res://demo_art/test_enemy.svg" id="5_6u4yp"]
 [ext_resource type="Script" path="res://environment/item.gd" id="5_x7haa"]
 [ext_resource type="Script" path="res://environment/trigger_area.gd" id="6_2ipst"]
 [ext_resource type="Script" path="res://environment/switch.gd" id="8_ucjop"]
-
-[sub_resource type="GDScript" id="GDScript_blxci"]
-script/source = "extends Node2D
-class_name ScreenShaker
-# How quickly to move through the noise
-@export var NOISE_SHAKE_SPEED: float = 30.0
-# Multiplier for lerping the shake strength to zero
-@export var SHAKE_DECAY_RATE: float = 5.0
-
-var camera: Camera2D
-@onready var rand: RandomNumberGenerator = RandomNumberGenerator.new()
-@onready var noise: FastNoiseLite = FastNoiseLite.new()
-
-# Used to keep track of where we are in the noise
-# so that we can smoothly move through it
-var noise_i: float = 0.0
-
-var shake_strength: float = 0.0
-
-func _ready() -> void:
-	camera = get_viewport().get_camera_2d()
-	rand.randomize()
-	# Randomize the generated noise
-	noise.seed = rand.randi()
-	# Period affects how quickly the noise changes values
-	noise.frequency = 2
-
-func apply_noise_shake(noise_strength: float) -> void:
-	camera = get_viewport().get_camera_2d()
-	shake_strength = noise_strength
-
-func _process(delta: float) -> void:
-	# Fade out the intensity over time
-	shake_strength = lerp(shake_strength, 0.0, SHAKE_DECAY_RATE * delta)
-
-	# Shake by adjusting camera.offset so we can move the camera around the level via it's position
-	camera.offset = get_noise_offset(delta)
-
-func get_noise_offset(delta: float) -> Vector2:
-	noise_i += delta * NOISE_SHAKE_SPEED
-	# Set the x values of each call to 'get_noise_2d' to a different value
-	# so that our x and y vectors will be reading from unrelated areas of noise
-	return Vector2(
-		noise.get_noise_2d(1, noise_i) * shake_strength,
-		noise.get_noise_2d(100, noise_i) * shake_strength
-	)
-"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_krk6c"]
 size = Vector2(129.5, 126)
@@ -70,11 +24,7 @@ size = Vector2(59, 63)
 [node name="Player" parent="." instance=ExtResource("1_vbyjc")]
 position = Vector2(500, 300)
 
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(591, 342)
-
-[node name="ScreenShaker" type="Node2D" parent="."]
-script = SubResource("GDScript_blxci")
+[node name="Camera2D" parent="." instance=ExtResource("2_nb3vp")]
 
 [node name="Walls" type="Node2D" parent="."]
 
