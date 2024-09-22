@@ -17,13 +17,17 @@ signal health_changed(old_health: int) ## This signal is emitted when the player
 signal sword_thrown                    ## This signal is emitted when the player throws their sword.
 signal sword_returned                  ## This signal is emitted when the player's sword returns.
 
-## On controller, if the aim stick isn't held in any direction, the last non-zero aim will be used
-var last_aim_direction := Vector2.RIGHT
-
 ## Called when the player spawns in
 func _ready() -> void:
 	instance = self
 	sword_returned.connect(on_sword_return)
+
+## Returns a normalized vector in the direction the player is aiming.
+func get_aim() -> Vector2:
+	if ControllerManager.is_controller:
+		return ControllerManager.get_joystick_aim()
+	else:
+		return global_position.direction_to(get_global_mouse_position())
 
 ## This function gets called when the player's sword is returned after a throw
 func on_sword_return() -> void:
@@ -70,26 +74,11 @@ func instantiate_sword(target: Vector2, as_direction: bool = true) -> ThrownSwor
 
 	return sword
 
-## Returns a normalized vector in the direction the player is aiming
-func get_aim() -> Vector2:
-	match ControllerManager.mode:
-		ControllerManager.ControlMode.KEYBOARD_MODE:
-			last_aim_direction = (get_global_mouse_position() - global_position).normalized()
-		ControllerManager.ControlMode.CONTROLLER_MODE:
-			var input := Input.get_vector("look_left", "look_right", "look_up", "look_down")
-			if input != Vector2.ZERO:
-				last_aim_direction = input.normalized()
-		_:
-			assert(false) # we shouldn't be here!
-	
-	return last_aim_direction
-	
 func _process(delta: float) -> void:
-	get_aim()
 	if Input.is_action_just_pressed("attack"):
 		if active_sword == null:
 			if sword_cooldown.is_stopped():
-				var sword: ThrownSword = instantiate_sword(last_aim_direction)
+				var sword: ThrownSword = instantiate_sword(get_aim())
 				throw_sword(sword)
 		else:
 			active_sword.return_sword()
