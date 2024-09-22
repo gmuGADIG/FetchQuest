@@ -1,11 +1,11 @@
 [gd_scene load_steps=10 format=3 uid="uid://b53bkta583hrj"]
 
-[ext_resource type="Script" path="res://sword/thrown_sword.gd" id="1_4xd43"]
+[ext_resource type="Script" path="res://player/sword/thrown_sword.gd" id="1_4xd43"]
 [ext_resource type="Texture2D" uid="uid://c7x4k10b1mvt4" path="res://demo_art/player_sword.png" id="2_7nce8"]
-[ext_resource type="Script" path="res://sword/sword_rotate.gd" id="3_6bcqb"]
-[ext_resource type="Script" path="res://sword/sword_trail.gd" id="4_loxev"]
-[ext_resource type="Script" path="res://sword/sparks_on_collide.gd" id="5_bsfwj"]
-[ext_resource type="Script" path="res://sword/sword_screen_shake.tres.gd" id="6_1yein"]
+[ext_resource type="Script" path="res://player/sword/sword_rotate.gd" id="3_6bcqb"]
+[ext_resource type="Script" path="res://player/sword/sword_trail.gd" id="4_loxev"]
+[ext_resource type="Script" path="res://player/sword/sparks_on_collide.gd" id="5_bsfwj"]
+[ext_resource type="Script" path="res://player/sword/sword_screen_shake.tres.gd" id="6_1yein"]
 
 [sub_resource type="Curve" id="Curve_g4qvv"]
 max_value = 20.0
@@ -26,10 +26,8 @@ wall_min_slide_angle = 0.0
 floor_stop_on_slope = false
 floor_block_on_wall = false
 script = ExtResource("1_4xd43")
+throw_distance = 350.0
 acceleration = -2000.0
-max_distance = 350.0
-min_throw_speed = 100.0
-max_bounces = 3
 
 [node name="Sprite2D" type="Sprite2D" parent="." node_paths=PackedStringArray("sword")]
 scale = Vector2(0.2, 0.2)
@@ -74,10 +72,9 @@ thrown_sword = NodePath("..")
 shake_strength = 25.0
 shake_duration = 0.02
 
-[node name="BounceTimer" type="Timer" parent="."]
-wait_time = 1.5
-
-[node name="Lifespan" type="Timer" parent="."]
+[node name="LifespanTimer" type="Timer" parent="."]
 wait_time = 10.0
 one_shot = true
 autostart = true
+
+[node name="BounceTimer" type="Timer" parent="."]

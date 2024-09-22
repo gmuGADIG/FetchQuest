@@ -3,15 +3,13 @@ class_name ThrownSword
 
 # Variables that are initialized at runtime
 @onready var thrower: Player = Player.instance  ## Reference to the player who throws the sword
-@onready var lifespan: Timer = $Lifespan        ## The max lifespan of the sword
+@onready var lifespan_timer: Timer = $LifespanTimer   ## The max lifespan of the sword
 @onready var bounce_timer: Timer = $BounceTimer ## The time for the max time between bounces
 @onready var sprite: Sprite2D = $Sprite2D       ## The sprite representing the sword
 
 # Exported variables for external control and tuning in the editor
+@export var throw_distance: float    ## Ideal throw distance. used to calculate the initial and max velocity
 @export var acceleration: float      ## Acceleration factor applied to the sword movement
-@export var max_distance: float      ## Maximum distance the sword can travel before returning
-@export var min_throw_speed: float   ## Minimum initial throw speed for the sword
-@export var max_bounces: int         ## Maximum allowed bounces before returning
 
 # Internal state variables
 var returning: bool = false          ## Is the sword returning to the player?
@@ -25,26 +23,17 @@ var local_acceleration: float        ## Local acceleration applied to the sword 
 signal sword_bounced(intensity: float)
 
 ## Called when the sword is ready (spawned)
-func _ready() -> void:
-	velocity = direction.normalized() * initial_speed
-	
-	lifespan.timeout.connect(return_sword)
+func _ready() -> void:	
+	lifespan_timer.timeout.connect(return_sword)
 	bounce_timer.timeout.connect(return_sword)
 
-## Initializes the sword to be thrown a certain distance in a given direction
-func setup_in_direction(throw_direction: Vector2, throw_distance: float) -> void:
-	initial_speed = max(min_throw_speed, sqrt(2 * abs(acceleration) * throw_distance))
+## Called by the player as soon as the sword is thrown.
+## Sets up initial speed and direction
+func throw(throw_direction: Vector2) -> void:
+	initial_speed = sqrt(2 * abs(acceleration) * throw_distance)
 	direction = throw_direction.normalized() * initial_speed
 	local_acceleration = acceleration
-	
-## Initializes the sword to reach a given target
-func setup_to_target(target: Vector2) -> void:
-	direction = target - position
-	# direction = target - position + ((target-position).normalized() * 50) # If you want the sword to overshoot a bit
-	var distance: float = direction.length()
-	# Calculate initial speed based on acceleration and distance to the target
-	initial_speed = max(min_throw_speed, sqrt(2 * abs(acceleration) * min(distance, max_distance)))
-	local_acceleration = acceleration
+	velocity = direction.normalized() * initial_speed
 	
 ## The sword's pickup_item function is called whenever an item interacts with it.
 func pickup_item(item: Item) -> void:
@@ -73,10 +62,7 @@ func _physics_process(delta: float) -> void:
 	if returning:
 		direction = player_dist  # Update direction toward the player
 		var speed: float = velocity.length() + local_acceleration * delta
-		if num_bounces > 0:
-			velocity = (velocity.normalized()/1.25 + direction.normalized()).normalized() * speed
-		else:
-			velocity = direction.normalized() * speed
+		velocity = direction.normalized() * speed
 	else:
 		velocity += direction.normalized() * local_acceleration * delta
 		if velocity.length() <= 100:
@@ -93,23 +79,17 @@ func sword_bounce() -> void:
 	bounce_timer.start() # Reset bounce timer
 	
 	# Calculate max velocity based on acceleration and max distance
-	var max_velocity: float = initial_speed if acceleration == 0 else sqrt(2 * abs(acceleration) * max_distance)
+	var max_velocity: float = initial_speed if acceleration == 0 else sqrt(2 * abs(acceleration) * throw_distance)
 	
 	# Emit the bounce intensity signal
 	sword_bounced.emit(velocity.length() / max_velocity)
-	velocity -= velocity/(max_bounces * 2)
-	
-	# If max bounces are reached, return the sword to the player
-	if num_bounces > max_bounces:
-		return_sword()
 
 ## Handles collision detection and response
 func _on_collision(collision: KinematicCollision2D) -> void:
-	if collision.get_collider().is_in_group("Wall"):
-		var collision_normal: Vector2 = collision.get_normal()  # Get the normal of the surface hit
-		local_acceleration = 0  # Stop acceleration on impact
-		
-		# Reflect the sword's velocity based on collision normal
-		velocity = velocity.bounce(collision_normal)
-		direction = velocity  # Update direction after bounce
-		sword_bounce()        # Handle ricochet logic
+	var collision_normal: Vector2 = collision.get_normal()  # Get the normal of the surface hit
+	
+	# Reflect the sword's velocity based on collision normal
+	return_sword()
+	velocity = velocity.bounce(collision_normal)
+	direction = velocity  # Update direction after bounce
+	sword_bounce()        # Handle ricochet logic
