@@ -1,12 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://rf8m4b5ybrcj"]
+[gd_scene load_steps=11 format=3 uid="uid://rf8m4b5ybrcj"]
 
 [ext_resource type="PackedScene" uid="uid://c7ck7ril2jix2" path="res://player/player.tscn" id="1_vbyjc"]
 [ext_resource type="PackedScene" uid="uid://ch344rluh4xbs" path="res://world/camera/main_cam.tscn" id="2_nb3vp"]
 [ext_resource type="Texture2D" uid="uid://dymucenpxmluo" path="res://icon.svg" id="4_owqiy"]
 [ext_resource type="Texture2D" uid="uid://deern6512fesn" path="res://demo_art/test_enemy.svg" id="5_6u4yp"]
-[ext_resource type="Script" path="res://environment/item.gd" id="5_x7haa"]
-[ext_resource type="Script" path="res://environment/trigger_area.gd" id="6_2ipst"]
-[ext_resource type="Script" path="res://environment/switch.gd" id="8_ucjop"]
+[ext_resource type="Script" path="res://world/environment/item.gd" id="5_x7haa"]
+[ext_resource type="Script" path="res://world/environment/switch.gd" id="8_ucjop"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_krk6c"]
 size = Vector2(129.5, 126)
@@ -116,7 +115,6 @@ texture = ExtResource("5_6u4yp")
 [node name="PickupArea" type="Area2D" parent="Item"]
 collision_layer = 4
 collision_mask = 7
-script = ExtResource("6_2ipst")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Item/PickupArea"]
 scale = Vector2(0.3, 0.3)
@@ -135,7 +133,6 @@ interact_action = "attack"
 [node name="ToggleArea" type="Area2D" parent="Switch"]
 collision_layer = 4
 collision_mask = 7
-script = ExtResource("6_2ipst")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Switch/ToggleArea"]
 position = Vector2(0.5, -0.5)

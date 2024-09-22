@@ -1,7 +1,7 @@
 extends CharacterBody2D
 class_name Item
 
-@onready var pickup_area: TriggerArea = $PickupArea ## This is the area that determines where the item can be picked up from
+@onready var pickup_area: Area2D = $PickupArea ## This is the area that determines where the item can be picked up from
 
 var collector: Node2D              ## The node that is currently collecting the item
 
@@ -12,7 +12,7 @@ var target: Node2D                 ## The target of the item for following/gluin
 
 ## Called whenever the pickup area is spawned.
 func _ready() -> void:
-	pickup_area.touched_by.connect(initiate_pickup)
+	pickup_area.body_entered.connect(initiate_pickup)
 
 ## This function is called when a node enters the Area2D that defines its pickup area
 func initiate_pickup(body: Node2D) -> void:

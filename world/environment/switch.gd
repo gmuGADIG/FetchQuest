@@ -2,7 +2,7 @@ extends Node2D
 class_name Switch
 
 @onready var sprite: Sprite2D = $Sprite2D           ## The sprite that displays whether the switch is toggled or not.
-@onready var toggle_area: TriggerArea = $ToggleArea ## The area the switch can be toggled from.
+@onready var toggle_area: Area2D = $ToggleArea ## The area the switch can be toggled from.
 
 @export var on_texture: Resource    ## The texture to display when the switch is toggled on
 @export var off_texture: Resource   ## The texture to display when the switch is toggled off
@@ -15,8 +15,8 @@ signal toggled(new_value: bool)     ## Signal emitted when the switch is toggled
 
 ## Called when switch is spawned.
 func _ready() -> void:
-	toggle_area.touched_by.connect(toggle_enter)
-	toggle_area.object_left.connect(toggle_exit)
+	toggle_area.body_entered.connect(toggle_enter)
+	toggle_area.body_exited.connect(toggle_exit)
 	set_texture(is_on)
 	
 ## Called when a node enters the trigger area
@@ -31,7 +31,7 @@ func toggle() -> void:
 	is_on = not is_on
 	set_texture(is_on)
 	toggled.emit(is_on)
-		
+			
 ## Called when a node exits the toggle's area
 func toggle_exit(body: Node2D) -> void:
 	if body is Player:
