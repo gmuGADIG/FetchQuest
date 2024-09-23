@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://bom8mopkckp5y"]
+
+[ext_resource type="Texture2D" uid="uid://c3s0qtshmkl5v" path="res://demo_art/chest_closed.png" id="1_32wps"]
+[ext_resource type="Script" path="res://world/chest/chest.gd" id="2_w6wbf"]
+[ext_resource type="Texture2D" uid="uid://bm1v64xlmk4w0" path="res://demo_art/chest_open.png" id="3_pis7v"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_13dwe"]
+radius = 100.0
+
+[node name="Chest" type="Area2D"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("2_w6wbf")
+
+[node name="OpenSprite" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+scale = Vector2(0.24, 0.24)
+texture = ExtResource("3_pis7v")
+
+[node name="ClosedSprite" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+scale = Vector2(0.24, 0.24)
+texture = ExtResource("1_32wps")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_13dwe")
