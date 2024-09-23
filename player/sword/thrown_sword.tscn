@@ -1,0 +1,92 @@
+[gd_scene load_steps=11 format=3 uid="uid://b53bkta583hrj"]
+
+[ext_resource type="Script" path="res://player/sword/thrown_sword.gd" id="1_4xd43"]
+[ext_resource type="Texture2D" uid="uid://c7x4k10b1mvt4" path="res://demo_art/player_sword.png" id="2_7nce8"]
+[ext_resource type="Script" path="res://player/sword/sword_rotate.gd" id="3_6bcqb"]
+[ext_resource type="Script" path="res://player/sword/sword_trail.gd" id="4_loxev"]
+[ext_resource type="Script" path="res://player/sword/sparks_on_collide.gd" id="5_bsfwj"]
+[ext_resource type="Script" path="res://player/sword/sword_screen_shake.tres.gd" id="6_1yein"]
+
+[sub_resource type="Curve" id="Curve_g4qvv"]
+max_value = 20.0
+_data = [Vector2(0, 5.4945), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_fhysv"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.180392)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6my70"]
+size = Vector2(26, 25)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fxohi"]
+radius = 39.0
+
+[node name="ThrownSword" type="CharacterBody2D"]
+z_index = 2
+collision_layer = 2
+motion_mode = 1
+wall_min_slide_angle = 0.0
+floor_stop_on_slope = false
+floor_block_on_wall = false
+script = ExtResource("1_4xd43")
+throw_distance = 350.0
+acceleration = -2000.0
+
+[node name="Sprite2D" type="Sprite2D" parent="." node_paths=PackedStringArray("sword")]
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("2_7nce8")
+script = ExtResource("3_6bcqb")
+max_angular_speed = 15.0
+min_angular_speed = 5.0
+sword = NodePath("..")
+
+[node name="Line2D" type="Line2D" parent="."]
+top_level = true
+z_index = 1
+width = 5.0
+width_curve = SubResource("Curve_g4qvv")
+gradient = SubResource("Gradient_fhysv")
+script = ExtResource("4_loxev")
+trail_size = 20
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_6my70")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="." node_paths=PackedStringArray("thrown_sword")]
+z_as_relative = false
+emitting = false
+amount = 15
+explosiveness = 0.74
+randomness = 0.59
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 448.29
+initial_velocity_max = 498.79
+scale_amount_min = 3.0
+scale_amount_max = 3.0
+script = ExtResource("5_bsfwj")
+thrown_sword = NodePath("..")
+max_velocity = 600.0
+
+[node name="BounceShaker" type="Node2D" parent="." node_paths=PackedStringArray("thrown_sword")]
+script = ExtResource("6_1yein")
+thrown_sword = NodePath("..")
+shake_strength = 25.0
+shake_duration = 0.02
+
+[node name="LifespanTimer" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+autostart = true
+
+[node name="BounceTimer" type="Timer" parent="."]
+
+[node name="GrabArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GrabArea"]
+shape = SubResource("CircleShape2D_fxohi")
+
+[connection signal="body_entered" from="GrabArea" to="." method="_on_grab_area_body_entered"]
