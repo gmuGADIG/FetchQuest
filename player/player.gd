@@ -28,6 +28,7 @@ func expend_stamina() -> bool:
 	stamina = max(float(int_stamina - 1), 0.0)
 	return true
 
+# recovers stamina by stamina_recovery_rate up to the max
 func recover_stamina(delta: float) -> void:
 	stamina += delta * stamina_recovery_rate
 	if stamina > max_stamina:
@@ -95,7 +96,6 @@ func _physics_process(_delta: float) -> void:
 		velocity = roll_speed * roll_vector
 	
 	recover_stamina(_delta)
-	print(stamina)
 	
 	if (Input.is_action_just_pressed("dog_roll")):
 		start_roll()
