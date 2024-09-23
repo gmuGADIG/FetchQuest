@@ -8,15 +8,9 @@ static var instance: Player
 @onready var health: int = max_health ## Current health
 var active_sword: ThrownSword ## The active thrown sword. Null if the player is currently holding the sword
 
-signal died                            ## This signal is emitted when the player dies.     
-signal health_changed(old_health: int) ## This signal is emitted when the player's health changes.
-signal sword_thrown                    ## This signal is emitted when the player throws their sword.
-signal sword_returned                  ## This signal is emitted when the player's sword returns.
-
 ## Called when the player spawns in
 func _ready() -> void:
 	instance = self
-	sword_returned.connect(on_sword_return)
 
 ## Returns a normalized vector in the direction the player is aiming.
 func get_aim() -> Vector2:
@@ -24,10 +18,6 @@ func get_aim() -> Vector2:
 		return ControllerManager.get_joystick_aim()
 	else:
 		return global_position.direction_to(get_global_mouse_position())
-
-## This function gets called when the player's sword is returned after a throw
-func on_sword_return() -> void:
-	active_sword = null
 
 ## The player's pickup_item function is called when they make contact with an item
 func pickup_item(item: Item) -> void:
