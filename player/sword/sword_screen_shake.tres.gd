@@ -7,5 +7,5 @@ extends Node2D
 func _ready() -> void:
 	thrown_sword.sword_bounced.connect(_on_sword_bounced)  # Connect the bounce signal to shake the camera
 
-func _on_sword_bounced(_intensity: float) -> void:
-	MainCam.shake(shake_strength, shake_duration)
+func _on_sword_bounced(intensity: float) -> void:
+	MainCam.shake(shake_strength * intensity, shake_duration)
