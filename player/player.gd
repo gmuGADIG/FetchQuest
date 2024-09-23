@@ -9,11 +9,30 @@ static var instance: Player
 @export var max_health: int = 3
 @onready var health := max_health
 
+@export var max_stamina: float = 3.0
+@onready var stamina: float = max_stamina
+@export var stamina_recovery_rate: float = 1.0
+
 ## On controller, if the aim stick isn't held in any direction, the last non-zero aim will be used
 var last_aim_direction := Vector2.RIGHT
 
 var rolling: bool = false
 var roll_vector: Vector2 = Vector2(0, 0)
+
+# returns true if a stamina pip was used, false otherwise
+func expend_stamina() -> bool:
+	var int_stamina: int = int(stamina)
+	if int_stamina < 1:
+		return false
+	
+	stamina = max(float(int_stamina - 1), 0.0)
+	return true
+
+func recover_stamina(delta: float) -> void:
+	stamina += delta * stamina_recovery_rate
+	if stamina > max_stamina:
+		stamina = max_stamina
+
 
 func get_roll_speed() -> float:
 	# this can be edited to make the roll speed more dynamic
@@ -25,6 +44,9 @@ func start_roll() -> void:
 	if (rolling): # obviously we don't want to roll twice over
 		return
 	
+	if (not expend_stamina()):
+		return
+		
 	rolling = true
 	# get direction for the roll
 	roll_vector = Input.get_vector("move_left", "move_right", "move_up", "move_down").normalized()
@@ -33,7 +55,6 @@ func start_roll() -> void:
 	self.set_collision_mask_value(4, false)
 	# make the timer go
 	$RollTimer.start(0.15)
-	#TODO: consume a stamina pip
 
 # callback from roll timer. reverts changes made by start_roll
 func stop_roll() -> void:
@@ -67,6 +88,9 @@ func _physics_process(_delta: float) -> void:
 		velocity = Input.get_vector("move_left", "move_right", "move_up", "move_down") * move_speed
 	else:
 		velocity = roll_speed * roll_vector
+	
+	recover_stamina(_delta)
+	print(stamina)
 	
 	if (Input.is_action_just_pressed("dog_roll")):
 		start_roll()
