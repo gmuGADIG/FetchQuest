@@ -35,11 +35,6 @@ func throw(throw_direction: Vector2) -> void:
 	local_acceleration = acceleration
 	velocity = direction.normalized() * initial_speed
 	
-## The sword's pickup_item function is called whenever an item interacts with it.
-func pickup_item(item: Item) -> void:
-	# Causes the item to follow the player
-	item.glue_to(self, 20.0)
-	
 ## Initiates the sword's return to the player
 func return_sword() -> void:
 	set_collision_mask_value(1, false)  # Disable collision with terrain
@@ -92,3 +87,14 @@ func _on_collision(collision: KinematicCollision2D) -> void:
 	velocity = velocity.bounce(collision_normal)
 	direction = velocity  # Update direction after bounce
 	sword_bounce()        # Handle ricochet logic
+
+## Grab items when they enter the grab area
+func _on_grab_area_body_entered(body: Node2D) -> void:
+	if not body.is_in_group("Item"): return
+	
+	var reparent_fn := func() -> void:
+		body.position = Vector2.ZERO
+		body.reparent(self)
+	
+	# it's bad to change the tree in response to a physics signal, so defer this call
+	reparent_fn.call_deferred()
