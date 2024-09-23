@@ -18,10 +18,6 @@ func get_aim() -> Vector2:
 		return ControllerManager.get_joystick_aim()
 	else:
 		return global_position.direction_to(get_global_mouse_position())
-
-## The player's pickup_item function is called when they make contact with an item
-func pickup_item(item: Item) -> void:
-	print(item)
 	
 ## Instantiates a sword and throws it in the aim direction
 func throw_sword() -> void:

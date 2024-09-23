@@ -1,10 +1,14 @@
-[gd_scene load_steps=6 format=3 uid="uid://3sqp1m0iowsi"]
+[gd_scene load_steps=8 format=3 uid="uid://3sqp1m0iowsi"]
 
 [ext_resource type="PackedScene" uid="uid://uj2rytnj1h4" path="res://enemy/test_enemy/test_enemy.tscn" id="1_h18tn"]
 [ext_resource type="PackedScene" uid="uid://c7ck7ril2jix2" path="res://player/player.tscn" id="2_vi53h"]
 [ext_resource type="PackedScene" uid="uid://bom8mopkckp5y" path="res://world/environment/chest/chest.tscn" id="3_iuoyy"]
-[ext_resource type="PackedScene" path="res://test_scenes/test_chest_items/player_sword.tscn" id="6_sr4di"]
-[ext_resource type="PackedScene" path="res://test_scenes/test_chest_items/tre_test_item.tscn" id="7_2gmg5"]
+[ext_resource type="PackedScene" uid="uid://bdniv62roo8ov" path="res://world/environment/pickups/item_temp_1.tscn" id="4_05emf"]
+[ext_resource type="PackedScene" uid="uid://ct0hhpvj42coh" path="res://world/environment/pickups/item_temp_2.tscn" id="5_xiks4"]
+[ext_resource type="Texture2D" uid="uid://dymucenpxmluo" path="res://icon.svg" id="8_umcft"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2fj35"]
+size = Vector2(129.5, 126)
 
 [node name="LatestDemo" type="Node2D"]
 
@@ -15,13 +19,25 @@ position = Vector2(192, 532)
 position = Vector2(534, 261)
 
 [node name="Chest" parent="." instance=ExtResource("3_iuoyy")]
-position = Vector2(134, 119)
-loot_table = Array[PackedScene]([ExtResource("6_sr4di"), ExtResource("7_2gmg5")])
+position = Vector2(155, 234)
+loot_table = Array[PackedScene]([ExtResource("4_05emf")])
 
 [node name="Chest2" parent="." instance=ExtResource("3_iuoyy")]
 position = Vector2(547, 537)
-loot_table = Array[PackedScene]([ExtResource("6_sr4di")])
+loot_table = Array[PackedScene]([ExtResource("5_xiks4")])
 
-[node name="Chest3" parent="." instance=ExtResource("3_iuoyy")]
-position = Vector2(991, 121)
-loot_table = Array[PackedScene]([ExtResource("7_2gmg5")])
+[node name="Wall" type="StaticBody2D" parent="."]
+z_index = 1
+position = Vector2(590, 4)
+scale = Vector2(10, 1)
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall"]
+position = Vector2(-1.1, 0)
+shape = SubResource("RectangleShape2D_2fj35")
+
+[node name="Sprite2D" type="Sprite2D" parent="Wall"]
+texture = ExtResource("8_umcft")
+
+[node name="ItemTemp1" parent="." instance=ExtResource("4_05emf")]
+position = Vector2(1006, 174)
