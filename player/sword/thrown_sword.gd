@@ -42,7 +42,7 @@ func return_sword() -> void:
 	local_acceleration = abs(acceleration)  # Adjust acceleration for return phase
 
 ## Handles the physics update process (called every frame)
-func _physics_process(delta: float) -> void:	
+func _physics_process(delta: float) -> void:
 	# Calculate distance between sword and player
 	var old_player_dist: Vector2 = player_dist
 	player_dist = thrower.position - position
@@ -83,7 +83,7 @@ func _on_collision(collision: KinematicCollision2D) -> void:
 	var collision_normal: Vector2 = collision.get_normal()  # Get the normal of the surface hit
 	
 	# Reflect the sword's velocity based on collision normal
-	return_sword()
+	# return_sword()
 	velocity = velocity.bounce(collision_normal)
 	direction = velocity  # Update direction after bounce
 	sword_bounce()        # Handle ricochet logic
