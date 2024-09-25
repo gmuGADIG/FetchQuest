@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://ch344rluh4xbs"]
+
+[ext_resource type="Script" path="res://world/camera/main_cam.gd" id="1_36152"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_chbor"]
+frequency = 0.0079
+
+[node name="MainCam" type="Camera2D"]
+position = Vector2(591, 342)
+script = ExtResource("1_36152")
+shake_noise = SubResource("FastNoiseLite_chbor")
