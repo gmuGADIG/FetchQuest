@@ -11,3 +11,4 @@ func _ready() -> void:
 
 func _on_value_changed(value: float) -> void:
 	AudioServer.set_bus_volume_db(_bus, linear_to_db(value))
+	#print("Bus '%s' has volume %s" % [audio_bus_name, value])

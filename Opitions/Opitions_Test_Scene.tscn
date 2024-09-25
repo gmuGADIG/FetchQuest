@@ -34,7 +34,7 @@ grow_horizontal = 2
 grow_vertical = 0
 text = "Back to Menu"
 
-[node name="Volume_Slider_Name" type="RichTextLabel" parent="CanvasLayer"]
+[node name="Volume_Slider_Master_Text" type="RichTextLabel" parent="CanvasLayer"]
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
@@ -44,9 +44,9 @@ offset_right = 350.0
 offset_bottom = -24.0
 grow_vertical = 2
 bbcode_enabled = true
-text = "[center][b]Test Volume Slider[/b][/center]"
+text = "[center][b]Master Slider[/b][/center]"
 
-[node name="Volume_Slider" type="HSlider" parent="CanvasLayer"]
+[node name="Volume_Slider_Master2" type="HSlider" parent="CanvasLayer"]
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
@@ -55,7 +55,77 @@ offset_top = -25.0
 offset_right = 350.0
 offset_bottom = 25.0
 grow_vertical = 2
+min_value = -80.0
+max_value = 6.0
 script = ExtResource("1_vu5ua")
 
-[connection signal="mouse_exited" from="CanvasLayer/Volume_Slider" to="CanvasLayer/Volume_Slider" method="release_focus"]
-[connection signal="value_changed" from="CanvasLayer/Volume_Slider" to="CanvasLayer/Volume_Slider" method="_on_value_changed"]
+[node name="Volume_Slider_Music_Text" type="RichTextLabel" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -74.0
+offset_right = 150.0
+offset_bottom = -24.0
+grow_horizontal = 2
+grow_vertical = 2
+bbcode_enabled = true
+text = "[center][b]Music Slider[/b][/center]"
+
+[node name="Volume_Slider2_Music" type="HSlider" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -25.0
+offset_right = 150.0
+offset_bottom = 25.0
+grow_horizontal = 2
+grow_vertical = 2
+min_value = -80.0
+max_value = 6.0
+script = ExtResource("1_vu5ua")
+audio_bus_name = "Music"
+
+[node name="Volume_Slider_SFX_Text" type="RichTextLabel" parent="CanvasLayer"]
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -299.0
+offset_top = -74.0
+offset_right = 1.0
+offset_bottom = -24.0
+grow_horizontal = 0
+grow_vertical = 2
+bbcode_enabled = true
+text = "[center][b]SFX Slider[/b][/center]"
+
+[node name="Volume_Slider_SFX" type="HSlider" parent="CanvasLayer"]
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -299.0
+offset_top = -25.0
+offset_right = 1.0
+offset_bottom = 25.0
+grow_horizontal = 0
+grow_vertical = 2
+min_value = -80.0
+max_value = 6.0
+script = ExtResource("1_vu5ua")
+audio_bus_name = "SFX"
+
+[connection signal="mouse_exited" from="CanvasLayer/Volume_Slider_Master2" to="CanvasLayer/Volume_Slider_Master2" method="release_focus"]
+[connection signal="value_changed" from="CanvasLayer/Volume_Slider_Master2" to="CanvasLayer/Volume_Slider_Master2" method="_on_value_changed"]
+[connection signal="mouse_exited" from="CanvasLayer/Volume_Slider2_Music" to="CanvasLayer/Volume_Slider2_Music" method="release_focus"]
+[connection signal="value_changed" from="CanvasLayer/Volume_Slider2_Music" to="CanvasLayer/Volume_Slider2_Music" method="_on_value_changed"]
+[connection signal="mouse_exited" from="CanvasLayer/Volume_Slider_SFX" to="CanvasLayer/Volume_Slider_SFX" method="release_focus"]
+[connection signal="value_changed" from="CanvasLayer/Volume_Slider_SFX" to="CanvasLayer/Volume_Slider_SFX" method="_on_value_changed"]
