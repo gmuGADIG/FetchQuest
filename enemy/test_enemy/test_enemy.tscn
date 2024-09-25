@@ -4,28 +4,29 @@
 [ext_resource type="Script" path="res://enemy/test_enemy/test_enemy.gd" id="2_yeqgq"]
 [ext_resource type="Texture2D" uid="uid://deern6512fesn" path="res://demo_art/test_enemy.svg" id="3_72tns"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_71t7f"]
-size = Vector2(96, 96)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0i45s"]
 size = Vector2(97, 98)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6fsdk"]
+size = Vector2(117, 107)
 
 [node name="TestEnemy" instance=ExtResource("1_oqpld")]
 script = ExtResource("2_yeqgq")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="0"]
-shape = SubResource("RectangleShape2D_71t7f")
-
-[node name="TestEnemy" type="Sprite2D" parent="." index="1"]
+[node name="TestEnemy" type="Sprite2D" parent="." index="0"]
 scale = Vector2(0.75, 0.75)
 texture = ExtResource("3_72tns")
 
-[node name="HittingArea" type="Area2D" parent="." index="2"]
+[node name="HittingArea" type="Area2D" parent="." index="1"]
 collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HittingArea" index="0"]
 position = Vector2(-0.5, 0)
 shape = SubResource("RectangleShape2D_0i45s")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="2"]
+position = Vector2(2.5, 2.5)
+shape = SubResource("RectangleShape2D_6fsdk")
 
 [connection signal="body_entered" from="HittingArea" to="." method="_on_hitting_area_body_entered"]
