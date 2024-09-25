@@ -1,13 +1,18 @@
-[gd_scene load_steps=3 format=3 uid="uid://rehfi715uqwl"]
+[gd_scene load_steps=4 format=3 uid="uid://rehfi715uqwl"]
 
 [ext_resource type="PackedScene" uid="uid://dbewnfb1psf22" path="res://world/objects/pushable_block/pushable_block.tscn" id="1_65m3q"]
 [ext_resource type="PackedScene" uid="uid://c7ck7ril2jix2" path="res://player/player.tscn" id="2_6kdv3"]
+[ext_resource type="PackedScene" uid="uid://b5bscusffqp5h" path="res://world/objects/pressure_plate/pressure_plate.tscn" id="3_xmbpc"]
 
 [node name="BlocksAndPlates" type="Node2D"]
 
+[node name="PressurePlate" parent="." instance=ExtResource("3_xmbpc")]
+position = Vector2(573, 517)
+scale = Vector2(3.08, 3.08)
+
 [node name="Player" parent="." instance=ExtResource("2_6kdv3")]
-position = Vector2(822, 280)
+position = Vector2(569, 84)
 
 [node name="pushable_block" parent="." instance=ExtResource("1_65m3q")]
-position = Vector2(290, 278)
+position = Vector2(568, 245)
 scale = Vector2(2.0412, 2.0412)
