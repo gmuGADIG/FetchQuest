@@ -67,6 +67,7 @@ func stop_roll() -> void:
 ## Called when the player spawns in
 func _ready() -> void:
 	instance = self
+	
 
 ## Returns a normalized vector in the direction the player is aiming.
 func get_aim() -> Vector2:
