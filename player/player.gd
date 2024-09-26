@@ -115,3 +115,10 @@ func hurt(damage: float) -> void:
 
 	if health <= 0:
 		pass # player death is not yet implemented
+
+## Does the opposite.
+func heal(gained: float) -> void:
+	if health>=max_health: return
+	
+	health+=gained
+	print("player.gd: Health raised to %s/%s" % [health, max_health])
