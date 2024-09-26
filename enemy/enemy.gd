@@ -9,11 +9,12 @@ class_name Enemy extends CharacterBody2D
 
 ## Damages the enemy, killing it if its health drops below zero.
 ## This should be called by the player's attacks when they hit an enemy.
-func hurt(damage: float) -> void:
+func hurt(event: DamageEvent) -> void:
 	if health <= 0: return # don't die twice
 
-	health -= damage
-
+	health -= event.damage
+	position = position + DamageEvent.calculate_force_vector(event,self.position)
+	
 	print("Enemy.gd: Health of '%s' was lowered to %s/%s" % [get_path(), health, max_health])
 
 	if health <= 0:
