@@ -11,6 +11,7 @@ position = Vector2(325, 260)
 collision_layer = 3
 collision_mask = 3
 script = ExtResource("1_7hdjs")
+label_visible_time = 0.6
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_4gm5v")
@@ -18,5 +19,12 @@ shape = SubResource("CircleShape2D_4gm5v")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.03, 0.03)
 texture = ExtResource("2_r1boj")
+
+[node name="Label" type="Label" parent="."]
+offset_left = -19.0
+offset_top = -59.0
+offset_right = 21.0
+offset_bottom = -36.0
+horizontal_alignment = 1
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

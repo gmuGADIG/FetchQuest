@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://c7ck7ril2jix2" path="res://player/player.tscn" id="1_2h7sl"]
 [ext_resource type="PackedScene" uid="uid://gp1o7iklljk2" path="res://DungeonPuzzles/red_coin_(area_2d).tscn" id="2_r1aat"]
-[ext_resource type="PackedScene" uid="uid://uj2rytnj1h4" path="res://enemy/test_enemy/test_enemy.tscn" id="3_ehoc4"]
+[ext_resource type="PackedScene" uid="uid://bdniv62roo8ov" path="res://world/environment/pickups/item_temp_1.tscn" id="4_j1rhs"]
 [ext_resource type="Script" path="res://DungeonPuzzles/red_coin_manager.gd" id="4_sbblk"]
 
 [node name="red_coin_test_scene" type="Node2D"]
@@ -14,11 +14,14 @@ position = Vector2(534, 261)
 [node name="RedCoin (area2D)" parent="." instance=ExtResource("2_r1aat")]
 
 [node name="RedCoin (area2D)2" parent="." instance=ExtResource("2_r1aat")]
-position = Vector2(549, 80)
+position = Vector2(560, 82)
 
-[node name="TestEnemy" parent="." instance=ExtResource("3_ehoc4")]
-position = Vector2(115, 256)
+[node name="RedCoin (area2D)3" parent="." instance=ExtResource("2_r1aat")]
+position = Vector2(906, 266)
 
 [node name="RedCoinManager" type="Node2D" parent="." node_paths=PackedStringArray("reward")]
 script = ExtResource("4_sbblk")
-reward = NodePath("../TestEnemy")
+reward = NodePath("../ItemTemp1")
+
+[node name="ItemTemp1" parent="." instance=ExtResource("4_j1rhs")]
+position = Vector2(706, 263)
