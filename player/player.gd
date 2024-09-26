@@ -105,11 +105,16 @@ func _physics_process(_delta: float) -> void:
 	move_and_slide()
 
 func _input(event: InputEvent) -> void:
+	#TODO: REMOVE THIS
+	PlayerInventory.bombs = 314159
+	
 	if(event.is_action_pressed("throw_bomb")):
-		var bombInstance := bombScene.instantiate()
-		bombInstance.position = position
-		bombInstance.set_velocity(get_aim() * 1000)
-		add_sibling(bombInstance)
+		if PlayerInventory.bombs > 0:
+			var bombInstance := bombScene.instantiate()
+			bombInstance.position = position
+			bombInstance.set_velocity(get_aim() * 1000)
+			add_sibling(bombInstance)
+			PlayerInventory.bombs-=1
 
 ## Damages the player, lowering its health.
 func hurt(damage: float) -> void:

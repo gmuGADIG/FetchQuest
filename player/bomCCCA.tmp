@@ -8,24 +8,28 @@ radius = 30.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vqrqm"]
 
-[node name="Bomb" type="CharacterBody2D" groups=["Enemy", "Hittable"]]
-collision_layer = 2
+[node name="Bomb" type="CharacterBody2D"]
+collision_layer = 0
 script = ExtResource("1_vvkgt")
 
-[node name="BombSize" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 3)
 scale = Vector2(0.82, 0.91)
 shape = SubResource("CircleShape2D_343g1")
 
-[node name="BombSprite" type="Sprite2D" parent="."]
+[node name="BombImage" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(1, 0)
 scale = Vector2(0.0603314, 0.0603314)
 texture = ExtResource("1_1ul4s")
 
-[node name="ExplosionArea" type="Area2D" parent="."]
-collision_layer = 0
-collision_mask = 6
+[node name="BombImageTEMP" type="Sprite2D" parent="."]
+position = Vector2(2, -15.125)
+scale = Vector2(0.19, 0.16625)
+texture = ExtResource("1_1ul4s")
 
-[node name="ExplosionAreaShape" type="CollisionShape2D" parent="ExplosionArea"]
+[node name="BombArea" type="Area2D" parent="."]
+
+[node name="BombAreaShape" type="CollisionShape2D" parent="BombArea"]
 scale = Vector2(8, 8)
 shape = SubResource("CircleShape2D_vqrqm")

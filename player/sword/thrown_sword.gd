@@ -100,9 +100,8 @@ func _on_grab_area_body_entered(body: Node2D) -> void:
 	reparent_fn.call_deferred()
 
 func _on_damage_area_body_entered(body: Node2D) -> void:
-	if not body.is_in_group("Enemy"):
-		return
-	print("You have hit the enemy")
-	var enemy: Enemy = body as Enemy
-	enemy.hurt(1)
+	if body.is_in_group("Hittable"):
+		if body.has_method("hurt"):
+			body.hurt(1)
+
 	
