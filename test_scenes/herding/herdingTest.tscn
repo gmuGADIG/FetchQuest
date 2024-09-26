@@ -1,0 +1,125 @@
+[gd_scene load_steps=13 format=3 uid="uid://w4sfdvkxpsfk"]
+
+[ext_resource type="PackedScene" uid="uid://c7ck7ril2jix2" path="res://player/player.tscn" id="1_3v2cw"]
+[ext_resource type="Script" path="res://test_scenes/herding/cameraFollowPlayer.gd" id="2_k3ve4"]
+[ext_resource type="Texture2D" uid="uid://dymucenpxmluo" path="res://icon.svg" id="3_304ut"]
+[ext_resource type="PackedScene" uid="uid://bds0ikjjcxwqf" path="res://test_scenes/herding/animal.tscn" id="4_c2y2t"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_d1cfu"]
+normal = Vector2(-0.00390114, -0.999992)
+distance = -837.215
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_x0a3x"]
+normal = Vector2(1, 0)
+distance = -1024.0
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_60xt6"]
+normal = Vector2(0, 1)
+distance = -530.65
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_e34ul"]
+normal = Vector2(-1, 0)
+distance = -1024.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fmhbt"]
+size = Vector2(40.5, 336)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_iobfs"]
+size = Vector2(481, 47)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_idjem"]
+size = Vector2(46, 306)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f1b63"]
+size = Vector2(463, 210)
+
+[node name="HerdingTest" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource("1_3v2cw")]
+position = Vector2(354, -261)
+
+[node name="camera" type="Camera2D" parent="." node_paths=PackedStringArray("to_follow")]
+zoom = Vector2(0.515, 0.515)
+script = ExtResource("2_k3ve4")
+to_follow = NodePath("../Player")
+
+[node name="Wall" type="StaticBody2D" parent="."]
+collision_mask = 118
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall"]
+shape = SubResource("WorldBoundaryShape2D_d1cfu")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Wall"]
+shape = SubResource("WorldBoundaryShape2D_x0a3x")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Wall"]
+shape = SubResource("WorldBoundaryShape2D_60xt6")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="Wall"]
+shape = SubResource("WorldBoundaryShape2D_e34ul")
+
+[node name="Sprite2D" type="Sprite2D" parent="Wall"]
+position = Vector2(1091, 111)
+scale = Vector2(1, 12.8906)
+texture = ExtResource("3_304ut")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Wall"]
+position = Vector2(104.5, 905)
+scale = Vector2(20.7578, 1)
+texture = ExtResource("3_304ut")
+
+[node name="Sprite2D3" type="Sprite2D" parent="Wall"]
+position = Vector2(-1085, 151.5)
+scale = Vector2(1, 13.5234)
+texture = ExtResource("3_304ut")
+
+[node name="Sprite2D4" type="Sprite2D" parent="Wall"]
+position = Vector2(6.00006, -593)
+scale = Vector2(20.5781, 1)
+texture = ExtResource("3_304ut")
+
+[node name="CollisionShape2D5" type="CollisionShape2D" parent="Wall"]
+position = Vector2(144, 410)
+shape = SubResource("RectangleShape2D_fmhbt")
+
+[node name="CollisionShape2D6" type="CollisionShape2D" parent="Wall"]
+position = Vector2(388.5, 568.5)
+shape = SubResource("RectangleShape2D_iobfs")
+
+[node name="CollisionShape2D7" type="CollisionShape2D" parent="Wall"]
+position = Vector2(619, 400)
+shape = SubResource("RectangleShape2D_idjem")
+
+[node name="Pen Area" type="Area2D" parent="."]
+position = Vector2(379, 395)
+collision_layer = 128
+collision_mask = 64
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Pen Area"]
+position = Vector2(-2.5, 53)
+shape = SubResource("RectangleShape2D_f1b63")
+
+[node name="Sprite2D" type="Sprite2D" parent="Pen Area"]
+modulate = Color(0, 1, 0, 1)
+position = Vector2(2.5, 50.5)
+scale = Vector2(3.36719, 1.58594)
+texture = ExtResource("3_304ut")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Pen Area"]
+position = Vector2(-238.5, 15)
+scale = Vector2(0.320313, 2.64062)
+texture = ExtResource("3_304ut")
+
+[node name="Sprite2D3" type="Sprite2D" parent="Pen Area"]
+position = Vector2(242, 9.99998)
+scale = Vector2(0.320313, 2.64062)
+texture = ExtResource("3_304ut")
+
+[node name="Sprite2D4" type="Sprite2D" parent="Pen Area"]
+position = Vector2(9.00002, 178)
+scale = Vector2(3.57813, 0.390625)
+texture = ExtResource("3_304ut")
+
+[node name="Animal" parent="." node_paths=PackedStringArray("pen_object") instance=ExtResource("4_c2y2t")]
+position = Vector2(-330, 287)
+pen_object = NodePath("../Pen Area")
