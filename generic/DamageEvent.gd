@@ -7,40 +7,40 @@ enum KnockbackType {
 }
 
 var damage: int						## The amount of damage (in half hearts) the damage event should deal
-var force_type: KnockbackType
+var knockback_type: KnockbackType
 var damage_origin: Vector2			## Used for KnockbackType.RELATIVE, enemies are pushed relative to this position
-var force_direction: Vector2		## Used for KnockbackType.FIXED, the direction that enemies should be pushed
-var force: float
+var knockback_direction: Vector2	## Used for KnockbackType.FIXED, the direction that enemies should be pushed
+var knockback_power: float				## A scalar that will be multiplied with the knockback direction
 
 
 
 ## Called when the DamageEvent is instantiated. Defines the nessesary values for the behavior of the KnockbackType 
-func _init(damage: int, force_type: KnockbackType, vector: Vector2, force: float) -> void:
+func _init(damage: int, knockback_type: KnockbackType, vector: Vector2, knockback_power: float) -> void:
 	self.damage = damage
-	self.force_type = force_type
+	self.knockback_type = knockback_type
 	
-	match force_type:
+	match knockback_type:
 		KnockbackType.RELATIVE:
 			damage_origin = vector;
 		KnockbackType.FIXED:
-			force_direction = vector.normalized()
+			knockback_direction = vector.normalized()
 	
-	self.force = force
+	self.knockback_power = knockback_power
 	
 	
 ## Calculates how the caller should be pushed.
-static func calculate_force_vector(event: DamageEvent, target_location: Vector2) -> Vector2:
-	if event.force_type == KnockbackType.NONE:
+static func calculate_knockback_vector(event: DamageEvent, target_location: Vector2) -> Vector2:
+	if event.knockback_type == KnockbackType.NONE:
 		return Vector2.ZERO
 	
-	if event.force_type == KnockbackType.RELATIVE:
+	if event.knockback_type == KnockbackType.RELATIVE:
 		var direction :Vector2 = (target_location-event.damage_origin).normalized()
-		return direction*event.force
+		return direction*event.knockback_power
 		
-	if event.force_type == KnockbackType.FIXED:
-		return event.force_direction*event.force
+	if event.knockback_type == KnockbackType.FIXED:
+		return event.knockback_direction*event.knockback_power
 	
-	printerr("Error: force calculation had an unexpected force type")
+	printerr("Error: knockback calculation had an unexpected knockback type")
 	return Vector2.ZERO
 		
 	

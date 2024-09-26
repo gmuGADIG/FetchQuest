@@ -13,7 +13,7 @@ func hurt(event: DamageEvent) -> void:
 	if health <= 0: return # don't die twice
 
 	health -= event.damage
-	position = position + DamageEvent.calculate_force_vector(event,self.position)
+	position = position + DamageEvent.calculate_knockback_vector(event,self.position)
 	
 	print("Enemy.gd: Health of '%s' was lowered to %s/%s" % [get_path(), health, max_health])
 
