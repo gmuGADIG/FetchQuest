@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://be0wx1bwh443q"]
+[gd_scene load_steps=33 format=3 uid="uid://be0wx1bwh443q"]
 
 [ext_resource type="Script" path="res://ui/pause_menu/pause_menu.gd" id="1_6mimi"]
 [ext_resource type="Texture2D" uid="uid://by02hyx0mbhyv" path="res://ui/kenney_input_prompts/xbox_stick_l.svg" id="2_76ohk"]
@@ -30,6 +30,8 @@
 [ext_resource type="Texture2D" uid="uid://csyq4jcoorlwf" path="res://ui/kenney_input_prompts/playstation3_button_select.svg" id="28_hm4v5"]
 [ext_resource type="Texture2D" uid="uid://cdu2wb8lljumv" path="res://ui/kenney_input_prompts/keyboard_q.svg" id="29_utr1d"]
 [ext_resource type="Texture2D" uid="uid://dlhf4l3x6nyee" path="res://ui/kenney_input_prompts/keyboard_tab.svg" id="30_kjn5g"]
+[ext_resource type="Script" path="res://ui/options/open_options_menu_button.gd" id="31_n2d0o"]
+[ext_resource type="PackedScene" uid="uid://dflfvpjufhfln" path="res://ui/options/options_menu.tscn" id="32_pok70"]
 
 [node name="PauseMenu" type="CanvasLayer"]
 script = ExtResource("1_6mimi")
@@ -291,6 +293,19 @@ texture = ExtResource("7_jae00")
 [node name="KeyboardTab" type="Sprite2D" parent="Panel/ControlsOverview/VBoxContainer/Map"]
 position = Vector2(125, 32)
 texture = ExtResource("30_kjn5g")
+
+[node name="OptionsMenuButton" type="Button" parent="Panel" node_paths=PackedStringArray("options_menu")]
+layout_mode = 0
+offset_left = 82.0
+offset_top = 195.0
+offset_right = 440.0
+offset_bottom = 278.0
+text = "Options"
+script = ExtResource("31_n2d0o")
+options_menu = NodePath("../../OptionsMenu")
+
+[node name="OptionsMenu" parent="." instance=ExtResource("32_pok70")]
+visible = false
 
 [connection signal="pressed" from="Panel/Resume" to="." method="_on_resume_pressed"]
 [connection signal="pressed" from="Panel/Quit" to="." method="_on_quit_pressed"]
