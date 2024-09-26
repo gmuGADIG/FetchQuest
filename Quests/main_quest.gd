@@ -3,8 +3,7 @@ extends "res://Quests/quest.gd"
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	quest_ID = 0
-	quest_accept = true
-	quest_complete = false
+	accept_quest()
 	quest_name = "Cat Chase"
 	quest_description = "Defeat the cats in the area"
 
