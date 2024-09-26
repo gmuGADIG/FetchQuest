@@ -19,7 +19,7 @@ var rolling: bool = false
 var roll_vector: Vector2 = Vector2(0, 0)
 @export var roll_speed: float = 2200.0
 
-signal player_hurt
+signal health_changed
 
 # returns true if a stamina pip was used, false otherwise
 func expend_stamina() -> bool:
@@ -115,7 +115,7 @@ func hurt(damage: float) -> void:
 	health -= damage
 	print("player.gd: Health lowered to %s/%s" % [health, max_health])
 	
-	player_hurt.emit()
+	health_changed.emit()
 	
 	if health <= 0:
 		pass # player death is not yet implemented

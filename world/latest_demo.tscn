@@ -48,12 +48,32 @@ position = Vector2(1006, 174)
 [node name="MainCam" parent="." instance=ExtResource("7_7fnsb")]
 position = Vector2(575, 320)
 
-[node name="HeartContainer" type="HBoxContainer" parent="."]
+[node name="HUD" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="ContainerContainer" type="HBoxContainer" parent="HUD"]
+layout_mode = 0
+
+[node name="HeartContainer" type="HBoxContainer" parent="HUD/ContainerContainer"]
 z_index = 100
-offset_right = 392.0
-offset_bottom = 128.0
-scale = Vector2(0.5, 0.5)
-size_flags_horizontal = 0
-size_flags_vertical = 0
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 4
 script = ExtResource("8_nosot")
-heart = ExtResource("9_nq70u")
+
+[node name="Heart" parent="HUD/ContainerContainer/HeartContainer" instance=ExtResource("9_nq70u")]
+layout_mode = 2
+
+[node name="Heart2" parent="HUD/ContainerContainer/HeartContainer" instance=ExtResource("9_nq70u")]
+layout_mode = 2
+
+[node name="Heart3" parent="HUD/ContainerContainer/HeartContainer" instance=ExtResource("9_nq70u")]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="HUD/ContainerContainer"]
+z_index = 100
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+texture = ExtResource("8_umcft")
