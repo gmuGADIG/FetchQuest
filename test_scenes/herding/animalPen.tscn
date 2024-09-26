@@ -1,20 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://5rqrvbvt11ld"]
+[gd_scene load_steps=2 format=3 uid="uid://5rqrvbvt11ld"]
 
 [ext_resource type="Script" path="res://test_scenes/herding/animal_pen.gd" id="1_4w0lq"]
-[ext_resource type="Texture2D" uid="uid://dymucenpxmluo" path="res://icon.svg" id="2_4p4kq"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_tdp7x"]
-size = Vector2(450, 300)
 
 [node name="Pen Area" type="Area2D"]
 collision_layer = 128
 collision_mask = 64
 script = ExtResource("1_4w0lq")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_tdp7x")
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-modulate = Color(0, 1, 0, 1)
-scale = Vector2(3.56, 2.313)
-texture = ExtResource("2_4p4kq")

@@ -10,7 +10,7 @@ var safe: bool = false
 @export var panic_speed: float = 600.0
 @export var panic_interval: float = 1.0
 
-@export var pen_object: Area2D
+@export var pen_object: AnimalPen
 
 func panic_from_position(pos: Vector2) -> void:
 	if (panic or safe):
@@ -65,9 +65,9 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 
 # entered the safe area
 func _on_entered_safe_area(body: Node2D) -> void:
-	print("hello?????")
 	if (safe):
 		return
+	pen_object.animal_entered(self)
 	safe = true
 	calm()
 	self.set_collision_mask_value(2, false)

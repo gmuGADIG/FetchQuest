@@ -1,9 +1,14 @@
-extends Area2D
+class_name AnimalPen extends Area2D
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
+@export var animals: Array[Animal] = []
+var animals_inside: Array[Animal] = []
+var complete: bool = false
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+func animal_entered(animal: Animal) -> void:
+	print(animals_inside)
+	if (animals_inside.has(animal)):
+		return
+	animals_inside.push_back(animal)
+	if (animals_inside.size() == animals.size()):
+		complete = true
+		print("yippee!!!!!!!")
