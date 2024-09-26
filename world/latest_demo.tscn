@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://ch344rluh4xbs" path="res://world/camera/main_cam.tscn" id="7_7fnsb"]
 [ext_resource type="Script" path="res://world/heart_display.gd" id="8_nosot"]
 [ext_resource type="Texture2D" uid="uid://dymucenpxmluo" path="res://icon.svg" id="8_umcft"]
-[ext_resource type="PackedScene" uid="uid://crx66rsu01asx" path="res://UI/HUD/heart.tscn" id="9_nq70u"]
+[ext_resource type="Texture2D" uid="uid://deern6512fesn" path="res://demo_art/test_enemy.svg" id="10_rdptc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2fj35"]
 size = Vector2(129.5, 126)
@@ -54,6 +54,10 @@ anchors_preset = 0
 
 [node name="ContainerContainer" type="HBoxContainer" parent="HUD"]
 layout_mode = 0
+offset_right = 2304.0
+offset_bottom = 128.0
+scale = Vector2(0.5, 0.5)
+alignment = 1
 
 [node name="HeartContainer" type="HBoxContainer" parent="HUD/ContainerContainer"]
 z_index = 100
@@ -62,18 +66,20 @@ size_flags_horizontal = 2
 size_flags_vertical = 4
 script = ExtResource("8_nosot")
 
-[node name="Heart" parent="HUD/ContainerContainer/HeartContainer" instance=ExtResource("9_nq70u")]
+[node name="GBPContainer" type="CenterContainer" parent="HUD/ContainerContainer"]
 layout_mode = 2
 
-[node name="Heart2" parent="HUD/ContainerContainer/HeartContainer" instance=ExtResource("9_nq70u")]
-layout_mode = 2
-
-[node name="Heart3" parent="HUD/ContainerContainer/HeartContainer" instance=ExtResource("9_nq70u")]
-layout_mode = 2
-
-[node name="TextureRect" type="TextureRect" parent="HUD/ContainerContainer"]
+[node name="GoodBoyIcon" type="TextureRect" parent="HUD/ContainerContainer/GBPContainer"]
 z_index = 100
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 4
-texture = ExtResource("8_umcft")
+texture = ExtResource("10_rdptc")
+
+[node name="Counter" type="Label" parent="HUD/ContainerContainer/GBPContainer"]
+z_index = 101
+layout_mode = 2
+theme_override_font_sizes/font_size = 58
+text = "128"
+horizontal_alignment = 1
+vertical_alignment = 1
