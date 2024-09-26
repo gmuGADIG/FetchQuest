@@ -27,9 +27,9 @@
 [ext_resource type="Texture2D" uid="uid://eqnpx4i3jjy4" path="res://ui/kenney_input_prompts/keyboard_arrow_up.svg" id="24_npbsq"]
 [ext_resource type="Texture2D" uid="uid://cjppdph3vaq46" path="res://ui/kenney_input_prompts/mouse_move.svg" id="25_a13ku"]
 [ext_resource type="Texture2D" uid="uid://c63k1k41080ts" path="res://ui/kenney_input_prompts/xbox_button_start.svg" id="28_h66p8"]
+[ext_resource type="Texture2D" uid="uid://csyq4jcoorlwf" path="res://ui/kenney_input_prompts/playstation3_button_select.svg" id="28_hm4v5"]
 [ext_resource type="Texture2D" uid="uid://cdu2wb8lljumv" path="res://ui/kenney_input_prompts/keyboard_q.svg" id="29_utr1d"]
 [ext_resource type="Texture2D" uid="uid://dlhf4l3x6nyee" path="res://ui/kenney_input_prompts/keyboard_tab.svg" id="30_kjn5g"]
-[ext_resource type="Texture2D" uid="uid://n62fpxov0ixi" path="res://ui/kenney_input_prompts/playstation3_button_start.svg" id="30_nc1qj"]
 
 [node name="PauseMenu" type="CanvasLayer"]
 script = ExtResource("1_6mimi")
@@ -126,6 +126,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="RichTextLabel" type="RichTextLabel" parent="Panel/ControlsOverview"]
+visible = false
 layout_mode = 0
 offset_left = 11.0
 offset_top = 8.0
@@ -142,180 +143,177 @@ text = "Player Controls
 • Look: Right Joystick
 • Pause: Escape, Start"
 
-[node name="MovementButtons" type="Control" parent="Panel/ControlsOverview"]
-visible = false
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/ControlsOverview"]
+layout_mode = 0
+offset_right = 433.0
+offset_bottom = 644.0
 
-[node name="KeyboardW" type="Sprite2D" parent="Panel/ControlsOverview/MovementButtons"]
-position = Vector2(274, 2)
+[node name="MovementButtons" type="Label" parent="Panel/ControlsOverview/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 42
+text = "Move
+
+"
+
+[node name="KeyboardW" type="Sprite2D" parent="Panel/ControlsOverview/VBoxContainer/MovementButtons"]
+position = Vector2(152, 27)
 texture = ExtResource("8_5ayw7")
 
-[node name="KeyboardA" type="Sprite2D" parent="Panel/ControlsOverview/MovementButtons"]
-position = Vector2(325, 2)
+[node name="KeyboardA" type="Sprite2D" parent="Panel/ControlsOverview/VBoxContainer/MovementButtons"]
+position = Vector2(203, 27)
 texture = ExtResource("9_m3r3h")
 
-[node name="KeyboardS" type="Sprite2D" parent="Panel/ControlsOverview/MovementButtons"]
-position = Vector2(376, 2)
+[node name="KeyboardS" type="Sprite2D" parent="Panel/ControlsOverview/VBoxContainer/MovementButtons"]
+position = Vector2(254, 27)
 texture = ExtResource("10_qb2qo")
 
-[node name="KeyboardD" type="Sprite2D" parent="Panel/ControlsOverview/MovementButtons"]
-position = Vector2(427, 2)
+[node name="KeyboardD" type="Sprite2D" parent="Panel/ControlsOverview/VBoxContainer/MovementButtons"]
+position = Vector2(305, 27)
 texture = ExtResource("11_4qm1m")
 
-[node name="KeyboardArrowDown" type="Sprite2D" parent="Panel/ControlsOverview/MovementButtons"]
-position = Vector2(631, 2)
+[node name="KeyboardArrowDown" type="Sprite2D" parent="Panel/ControlsOverview/VBoxContainer/MovementButtons"]
+position = Vector2(254, 85)
 texture = ExtResource("21_owsat")
 
-[node name="KeyboardArrowLeft" type="Sprite2D" parent="Panel/ControlsOverview/MovementButtons"]
-position = Vector2(691, 3)
+[node name="KeyboardArrowLeft" type="Sprite2D" parent="Panel/ControlsOverview/VBoxContainer/MovementButtons"]
+position = Vector2(305, 85)
 texture = ExtResource("22_4txx3")
 
-[node name="KeyboardArrowRight" type="Sprite2D" parent="Panel/ControlsOverview/MovementButtons"]
-position = Vector2(575, 3)
+[node name="KeyboardArrowRight" type="Sprite2D" parent="Panel/ControlsOverview/VBoxContainer/MovementButtons"]
+position = Vector2(203, 85)
 texture = ExtResource("23_2hiw3")
 
-[node name="KeyboardArrowUp" type="Sprite2D" parent="Panel/ControlsOverview/MovementButtons"]
-position = Vector2(520, 2)
+[node name="KeyboardArrowUp" type="Sprite2D" parent="Panel/ControlsOverview/VBoxContainer/MovementButtons"]
+position = Vector2(152, 85)
 texture = ExtResource("24_npbsq")
 
-[node name="XboxStickL" type="Sprite2D" parent="Panel/ControlsOverview/MovementButtons"]
-position = Vector2(549, 13)
+[node name="XboxStickL" type="Sprite2D" parent="Panel/ControlsOverview/VBoxContainer/MovementButtons"]
+position = Vector2(379, 54)
 texture = ExtResource("2_76ohk")
 
-[node name="AimButtons" type="Control" parent="Panel/ControlsOverview"]
-visible = false
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="AimButtons" type="Label" parent="Panel/ControlsOverview/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 42
+text = "Aim"
 
-[node name="XboxStickR" type="Sprite2D" parent="Panel/ControlsOverview/AimButtons"]
-position = Vector2(376, 224)
+[node name="XboxStickR" type="Sprite2D" parent="Panel/ControlsOverview/VBoxContainer/AimButtons"]
+position = Vector2(177, 31)
 texture = ExtResource("3_6tfxa")
 
-[node name="MouseMove" type="Sprite2D" parent="Panel/ControlsOverview/AimButtons"]
-position = Vector2(480, 214)
+[node name="MouseMove" type="Sprite2D" parent="Panel/ControlsOverview/VBoxContainer/AimButtons"]
+position = Vector2(114, 31)
 texture = ExtResource("25_a13ku")
 
-[node name="InteractButtons" type="Control" parent="Panel/ControlsOverview"]
-visible = false
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="InteractButtons" type="Label" parent="Panel/ControlsOverview/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 42
+text = "Interact"
 
-[node name="KeyboardE" type="Sprite2D" parent="Panel/ControlsOverview/InteractButtons"]
-position = Vector2(430, 216)
+[node name="KeyboardE" type="Sprite2D" parent="Panel/ControlsOverview/VBoxContainer/InteractButtons"]
+position = Vector2(193, 31)
 texture = ExtResource("23_avcjd")
 
-[node name="SwitchButtonsDown" type="Sprite2D" parent="Panel/ControlsOverview/InteractButtons"]
-position = Vector2(441, 211)
+[node name="SwitchButtonsDown" type="Sprite2D" parent="Panel/ControlsOverview/VBoxContainer/InteractButtons"]
+position = Vector2(259, 32)
 texture = ExtResource("5_c4k42")
 
-[node name="ThrowSword" type="Control" parent="Panel/ControlsOverview"]
-visible = false
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="ThrowSword" type="Label" parent="Panel/ControlsOverview/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 42
+text = "Throw Sword"
 
-[node name="MouseLeft" type="Sprite2D" parent="Panel/ControlsOverview/ThrowSword"]
-position = Vector2(169, 185)
+[node name="MouseLeft" type="Sprite2D" parent="Panel/ControlsOverview/VBoxContainer/ThrowSword"]
+position = Vector2(297, 31)
 texture = ExtResource("17_wr3qw")
 
-[node name="XboxRt" type="Sprite2D" parent="Panel/ControlsOverview/ThrowSword"]
-position = Vector2(293, 192)
+[node name="XboxRt" type="Sprite2D" parent="Panel/ControlsOverview/VBoxContainer/ThrowSword"]
+position = Vector2(356, 31)
 texture = ExtResource("15_hauyt")
 
-[node name="ThrowBomb" type="Control" parent="Panel/ControlsOverview"]
-visible = false
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="ThrowBomb" type="Label" parent="Panel/ControlsOverview/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 42
+text = "Throw Bomb"
 
-[node name="MouseRight" type="Sprite2D" parent="Panel/ControlsOverview/ThrowBomb"]
-position = Vector2(146, 120)
+[node name="MouseRight" type="Sprite2D" parent="Panel/ControlsOverview/VBoxContainer/ThrowBomb"]
+position = Vector2(287, 31)
 texture = ExtResource("18_prw7i")
 
-[node name="XboxRb" type="Sprite2D" parent="Panel/ControlsOverview/ThrowBomb"]
-position = Vector2(411, 120)
+[node name="XboxRb" type="Sprite2D" parent="Panel/ControlsOverview/VBoxContainer/ThrowBomb"]
+position = Vector2(349, 28)
 texture = ExtResource("13_ovqbh")
 
-[node name="DogRoll" type="Control" parent="Panel/ControlsOverview"]
-visible = false
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="DogRoll" type="Label" parent="Panel/ControlsOverview/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 42
+text = "Dog Roll"
 
-[node name="KeyboardSpace" type="Sprite2D" parent="Panel/ControlsOverview/DogRoll"]
-position = Vector2(110, 85)
+[node name="KeyboardSpace" type="Sprite2D" parent="Panel/ControlsOverview/VBoxContainer/DogRoll"]
+position = Vector2(197, 28)
 texture = ExtResource("16_60kv8")
 
-[node name="XboxLt" type="Sprite2D" parent="Panel/ControlsOverview/DogRoll"]
-position = Vector2(328, 86)
+[node name="XboxLt" type="Sprite2D" parent="Panel/ControlsOverview/VBoxContainer/DogRoll"]
+position = Vector2(262, 29)
 texture = ExtResource("14_d66xe")
 
-[node name="SwitchButtonsRight" type="Sprite2D" parent="Panel/ControlsOverview/DogRoll"]
-position = Vector2(511, 206)
+[node name="SwitchButtonsRight" type="Sprite2D" parent="Panel/ControlsOverview/VBoxContainer/DogRoll"]
+position = Vector2(326, 26)
 texture = ExtResource("6_uhnds")
 
-[node name="Speak" type="Control" parent="Panel/ControlsOverview"]
-visible = false
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="Speak" type="Label" parent="Panel/ControlsOverview/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 42
+text = "Speak"
 
-[node name="KeyboardShift" type="Sprite2D" parent="Panel/ControlsOverview/Speak"]
-position = Vector2(399, 276)
+[node name="KeyboardShift" type="Sprite2D" parent="Panel/ControlsOverview/VBoxContainer/Speak"]
+position = Vector2(157, 27)
 texture = ExtResource("24_lfpmi")
 
-[node name="XboxLb" type="Sprite2D" parent="Panel/ControlsOverview/Speak"]
-position = Vector2(354, 120)
+[node name="XboxLb" type="Sprite2D" parent="Panel/ControlsOverview/VBoxContainer/Speak"]
+position = Vector2(220, 25)
 texture = ExtResource("12_7vbxo")
 
-[node name="Pause" type="Control" parent="Panel/ControlsOverview"]
-visible = false
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="Pause" type="Label" parent="Panel/ControlsOverview/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 42
+text = "Pause"
 
-[node name="KeyboardEscape" type="Sprite2D" parent="Panel/ControlsOverview/Pause"]
-position = Vector2(96, 262)
+[node name="KeyboardEscape" type="Sprite2D" parent="Panel/ControlsOverview/VBoxContainer/Pause"]
+position = Vector2(156, 29)
 texture = ExtResource("20_aweq0")
 
-[node name="KeyboardP" type="Sprite2D" parent="Panel/ControlsOverview/Pause"]
-position = Vector2(195, 266)
+[node name="KeyboardP" type="Sprite2D" parent="Panel/ControlsOverview/VBoxContainer/Pause"]
+position = Vector2(210, 29)
 texture = ExtResource("19_8etw3")
 
-[node name="XboxButtonStart" type="Sprite2D" parent="Panel/ControlsOverview/Pause"]
-position = Vector2(449, 271)
+[node name="XboxButtonStart" type="Sprite2D" parent="Panel/ControlsOverview/VBoxContainer/Pause"]
+position = Vector2(267, 31)
 texture = ExtResource("28_h66p8")
 
-[node name="QuestLog" type="Control" parent="Panel/ControlsOverview"]
-visible = false
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="QuestLog" type="Label" parent="Panel/ControlsOverview/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 42
+text = "Quest Log"
 
-[node name="KeyboardQ" type="Sprite2D" parent="Panel/ControlsOverview/QuestLog"]
-position = Vector2(415, 234)
+[node name="KeyboardQ" type="Sprite2D" parent="Panel/ControlsOverview/VBoxContainer/QuestLog"]
+position = Vector2(241, 33)
 texture = ExtResource("29_utr1d")
 
-[node name="Playstation3ButtonStart" type="Sprite2D" parent="Panel/ControlsOverview/QuestLog"]
-position = Vector2(653, 339)
-texture = ExtResource("30_nc1qj")
+[node name="Playstation3ButtonSelect" type="Sprite2D" parent="Panel/ControlsOverview/VBoxContainer/QuestLog"]
+position = Vector2(298, 33)
+texture = ExtResource("28_hm4v5")
 
-[node name="Map" type="Control" parent="Panel/ControlsOverview"]
-visible = false
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="Map" type="Label" parent="Panel/ControlsOverview/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 42
+text = "Map"
 
-[node name="SwitchButtonsUp" type="Sprite2D" parent="Panel/ControlsOverview/Map"]
-position = Vector2(574, -34)
+[node name="SwitchButtonsUp" type="Sprite2D" parent="Panel/ControlsOverview/VBoxContainer/Map"]
+position = Vector2(184, 31)
 texture = ExtResource("7_jae00")
 
-[node name="KeyboardTab" type="Sprite2D" parent="Panel/ControlsOverview/Map"]
-position = Vector2(641, -32)
+[node name="KeyboardTab" type="Sprite2D" parent="Panel/ControlsOverview/VBoxContainer/Map"]
+position = Vector2(125, 32)
 texture = ExtResource("30_kjn5g")
 
 [connection signal="pressed" from="Panel/Resume" to="." method="_on_resume_pressed"]
