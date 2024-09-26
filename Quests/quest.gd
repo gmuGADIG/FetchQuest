@@ -3,6 +3,10 @@ class_name Quest extends Resource
 ## Quest identifier
 @export var quest_ID:int = 0
 
+## If the quest is available
+@export var available:bool = false
+
+##@explort var requirements:Array[Object]
 ## If the quest is accepted
 var quest_accept:bool = false
 ## If the quest is complete
