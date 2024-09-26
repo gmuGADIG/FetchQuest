@@ -124,17 +124,16 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -19.5
-offset_top = -184.5
-offset_right = 20.5
-offset_bottom = -144.5
+offset_left = -132.5
+offset_top = -195.5
+offset_right = -97.5
+offset_bottom = -155.5
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="CodexEnemiesLabel" type="Label" parent="CodexPagesBox/CodexEnemyControl"]
 layout_mode = 1
-offset_left = -148.0
-offset_right = -66.0
+offset_right = 82.0
 offset_bottom = 28.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 20
@@ -144,17 +143,10 @@ text = "Enemies
 [node name="BoxEnemyButton" type="Button" parent="CodexPagesBox/CodexEnemyControl" groups=["PageButtons"]]
 unique_name_in_owner = true
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -156.0
-offset_top = 12.0
-offset_right = 159.0
-offset_bottom = 37.0
-grow_horizontal = 2
-grow_vertical = 2
+offset_top = 26.0
+offset_right = 233.0
+offset_bottom = 43.0
+scale = Vector2(1, 0.96)
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/icon_normal_color = Color(1, 1, 1, 0)
 theme_override_font_sizes/font_size = 12
@@ -166,17 +158,9 @@ script = ExtResource("3_efddu")
 [node name="BoxEnemyButton2" type="Button" parent="CodexPagesBox/CodexEnemyControl" groups=["PageButtons"]]
 unique_name_in_owner = true
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -157.0
-offset_top = 35.0
-offset_right = 158.0
-offset_bottom = 60.0
-grow_horizontal = 2
-grow_vertical = 2
+offset_top = 43.0
+offset_right = 315.0
+offset_bottom = 68.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/icon_normal_color = Color(1, 1, 1, 0)
 theme_override_font_sizes/font_size = 12
@@ -185,5 +169,21 @@ text = "Box Enemy 2..............................................2"
 alignment = 0
 script = ExtResource("3_efddu")
 
+[node name="BoxEnemyButton3" type="Button" parent="CodexPagesBox/CodexEnemyControl" groups=["PageButtons"]]
+unique_name_in_owner = true
+layout_mode = 1
+offset_top = 65.0
+offset_right = 315.0
+offset_bottom = 90.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_normal_color = Color(1, 1, 1, 0)
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxFlat_hhkaa")
+text = "Box Enemy 3...............................................3
+"
+alignment = 0
+script = ExtResource("3_efddu")
+
 [connection signal="codexButtonPressed" from="CodexPagesBox/CodexEnemyControl/BoxEnemyButton" to="." method="_on_table_contents_button_pressed"]
 [connection signal="codexButtonPressed" from="CodexPagesBox/CodexEnemyControl/BoxEnemyButton2" to="." method="_on_table_contents_button_pressed"]
+[connection signal="codexButtonPressed" from="CodexPagesBox/CodexEnemyControl/BoxEnemyButton3" to="." method="_on_table_contents_button_pressed"]

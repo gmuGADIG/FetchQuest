@@ -1,22 +1,20 @@
 extends Control
-
-
-
 @onready var codex_progress_text: Label = %CodexProgressText
 @onready var codex_progress_bar: ProgressBar = %CodexProgressBar
-@onready var codex_button1: Button = %BoxEnemyButton
-@onready var codex_button2: Button = %BoxEnemyButton2
 var codexProgress: int = 0
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	hide()
 	codex_progress_text.text = "Codex Progress: " + str(codexProgress) 
-	initButtons()
-	pass # Replace with function body.
+	InitButtons()
 
-func initButtons() -> void:
-	codex_button1.SetIndex(1)
-	codex_button2.SetIndex(2)
+#Inits the indicies for each of the buttons, this is important for knowing which button is being pressed
+#when this script gets a signal that one of the buttons was pressed
+func InitButtons() -> void:
+	var buttonIndex: int = 1
+	for codexButton in get_tree().get_nodes_in_group("PageButtons"):
+		codexButton.SetIndex(buttonIndex)
+		buttonIndex += 1
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -49,3 +47,8 @@ func testToggle() -> void:
 
 func _on_table_contents_button_pressed(index: int) -> void:
 	print(str(index))
+
+#TODO: When we actually implement this, this will, given an index, unlock that entry. What this will do is
+#give the button corresponding to the entry some actual text, and make sure that button then does
+func UnlockEntry(entryIndex: int) -> void:
+	pass
