@@ -5,7 +5,7 @@ extends Sprite2D
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	visible = get_parent().can_interact && not get_parent().in_dialogue
-	if ControllerManager.is_controller_mode():
+	if ControllerManager.is_controller:
 		texture = controller_image
 	else:
 		texture = keyboard_image
