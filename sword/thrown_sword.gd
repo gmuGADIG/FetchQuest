@@ -46,7 +46,7 @@ func _ready() -> void:
 
 # Makes items follow the boomerang
 func pickup_item(item: Item) -> void:
-	item.glue_to(self, 200.0)
+	item.glue_to(self, 300.0)
 	
 # Initiates the sword's return to the player
 func return_sword() -> void:
@@ -56,7 +56,7 @@ func return_sword() -> void:
 
 # Detects input events (e.g., mouse clicks)
 func _input(event: InputEvent) -> void:
-	if event is InputEventMouseButton and event.is_pressed():
+	if event is InputEventMouseButton and event.is_released():
 		return_sword()  # Return the sword when the player clicks
 
 # Handles the physics update process (called every frame)

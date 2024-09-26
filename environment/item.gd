@@ -40,3 +40,5 @@ func _physics_process(delta: float) -> void:
 		"following":
 			if target and is_instance_valid(target):
 				apply_central_force((target.position - position) * speed)
+				if (target.position - position).length() >= 200:
+					target = null

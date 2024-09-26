@@ -66,7 +66,7 @@ func instantiate_sword(target: Vector2, hit_wall: bool) -> void:
 	
 	# If the ray hit a wall and the distance is within the sword's max range
 	if hit_wall and distance <= sword.max_distance:
-		sword.initial_speed = sqrt(-sword.acceleration * distance)  # Set initial speed for bouncing
+		sword.initial_speed = sqrt(-sword.acceleration * distance) * 0.85  # Set initial speed for bouncing
 		sword.acceleration = 0                                      # Stop acceleration for wall bounces
 	else:
 		sword.initial_speed = 0  # Set to 0 if there's no wall hit or out of range
