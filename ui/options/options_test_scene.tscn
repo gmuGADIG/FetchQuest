@@ -1,9 +1,12 @@
 [gd_scene load_steps=2 format=3 uid="uid://dflfvpjufhfln"]
 
-[ext_resource type="Script" path="res://Opitions/Volume_Controller.gd" id="1_vu5ua"]
+[ext_resource type="Script" path="res://ui/options/volume_controller.gd" id="1_wtrl1"]
 
-[node name="Node2D" type="Node2D"]
-position = Vector2(600, 0)
+[node name="OptionsMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 600.0
+offset_right = 600.0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -18,7 +21,7 @@ grow_horizontal = 2
 size_flags_horizontal = 4
 size_flags_vertical = 6
 bbcode_enabled = true
-text = "[center]Opitions Menu[/center]"
+text = "[center]Options Menu[/center]"
 fit_content = true
 
 [node name="Back_To_Menu" type="Button" parent="CanvasLayer"]
@@ -57,7 +60,7 @@ offset_bottom = 25.0
 grow_vertical = 2
 min_value = -80.0
 max_value = 6.0
-script = ExtResource("1_vu5ua")
+script = ExtResource("1_wtrl1")
 
 [node name="Volume_Slider_Music_Text" type="RichTextLabel" parent="CanvasLayer"]
 anchors_preset = 8
@@ -88,7 +91,7 @@ grow_horizontal = 2
 grow_vertical = 2
 min_value = -80.0
 max_value = 6.0
-script = ExtResource("1_vu5ua")
+script = ExtResource("1_wtrl1")
 audio_bus_name = "Music"
 
 [node name="Volume_Slider_SFX_Text" type="RichTextLabel" parent="CanvasLayer"]
@@ -120,7 +123,7 @@ grow_horizontal = 0
 grow_vertical = 2
 min_value = -80.0
 max_value = 6.0
-script = ExtResource("1_vu5ua")
+script = ExtResource("1_wtrl1")
 audio_bus_name = "SFX"
 
 [connection signal="mouse_exited" from="CanvasLayer/Volume_Slider_Master2" to="CanvasLayer/Volume_Slider_Master2" method="release_focus"]
