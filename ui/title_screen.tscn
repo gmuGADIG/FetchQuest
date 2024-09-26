@@ -1,0 +1,52 @@
+[gd_scene load_steps=3 format=3 uid="uid://c2uyg3ilbpvn5"]
+
+[ext_resource type="Script" path="res://ui/title_screen.gd" id="1_gepoh"]
+[ext_resource type="FontFile" uid="uid://cc4xli25271fd" path="res://addons/dialogic/Example Assets/Fonts/Roboto-Bold.ttf" id="2_7xlqt"]
+
+[node name="title screen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_gepoh")
+
+[node name="new_game" type="Button" parent="."]
+layout_mode = 0
+offset_left = 435.0
+offset_top = 348.0
+offset_right = 647.0
+offset_bottom = 413.0
+text = "New Game"
+
+[node name="quit_game" type="Button" parent="."]
+layout_mode = 0
+offset_left = 434.0
+offset_top = 431.0
+offset_right = 646.0
+offset_bottom = 496.0
+text = "Quit"
+
+[node name="options" type="Button" parent="."]
+layout_mode = 0
+offset_left = 434.0
+offset_top = 515.0
+offset_right = 646.0
+offset_bottom = 580.0
+text = "Options"
+
+[node name="Label" type="Label" parent="."]
+modulate = Color(0.497434, 0.99953, 0.671797, 1)
+layout_mode = 0
+offset_left = 133.0
+offset_top = 35.0
+offset_right = 982.0
+offset_bottom = 212.0
+theme_override_fonts/font = ExtResource("2_7xlqt")
+theme_override_font_sizes/font_size = 150
+text = "Fetch Quest!"
+
+[connection signal="pressed" from="new_game" to="." method="_on_new_game_pressed"]
+[connection signal="pressed" from="quit_game" to="." method="_on_quit_game_pressed"]
+[connection signal="pressed" from="options" to="." method="_on_options_pressed"]
