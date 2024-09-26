@@ -1,7 +1,7 @@
 extends Area2D
 
 signal switch_activated
-
+signal switch_deactivated
 var activated := false
 
 enum SWITCH_TYPE {
@@ -11,11 +11,11 @@ enum SWITCH_TYPE {
 }
 
 @export var type: SWITCH_TYPE = SWITCH_TYPE.OneShot
-
-#@export var 
+@export var active_time: float = 0.0
+var _timer: Timer
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	_timer = get_node("Timer")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -24,17 +24,36 @@ func _process(delta: float) -> void:
 	
 
 func _on_area_entered(area: Area2D) -> void:
-	switch_activated.emit()
-	pass # Replace with function body.
+	trigger_switch()
 func _mouse_enter() -> void:
 	print("mouse enter")
-	switch_activated.emit()
+	trigger_switch()
 	
-func activate_switch() -> void:
+func trigger_switch() -> void:
 	match(type):
 		SWITCH_TYPE.OneShot:
 			if not activated:
 				activated = true
 				switch_activated.emit()
-		_: 
-			pass
+				
+		SWITCH_TYPE.Toggle:
+			activated = not activated
+			if activated:
+				switch_activated.emit()
+			else:
+				switch_deactivated.emit()	
+		SWITCH_TYPE.Timed:
+			if not activated:
+				activated = true
+				switch_activated.emit()
+				_timer.start(active_time)
+			else:
+				#restart timer
+				_timer.stop()
+				_timer.start(active_time)
+
+
+func _on_timer_timeout() -> void:
+	if activated:
+		activated = false
+		switch_deactivated.emit()
