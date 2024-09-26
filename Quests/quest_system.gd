@@ -23,14 +23,14 @@ func append_quest(quest: Quest) -> void:
 	quests_list.append(quest)
 
 ## This removes a quest to the array of quests
-func remove_quest(quest: Object) -> void:
+func remove_quest(quest: Quest) -> void:
 	if find_quest_index(quest) != -1:
 		quests_list.remove_at(find_quest_index(quest))
 	else:
 		pass
 
 ## This finds a quest and return it's index
-func find_quest_index(quest: Object) -> int:
+func find_quest_index(quest: Quest) -> int:
 	var index:int
 	for q in quests_list:
 		if q.quest_ID == quest.quest_ID:
