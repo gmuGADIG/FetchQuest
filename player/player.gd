@@ -74,7 +74,9 @@ func _process(delta: float) -> void:
 		if !$Speak.on_cooldown():
 			$Speak.speak()
 	
-	pass
+	if Input.is_action_just_pressed("attack"):
+		if active_sword == null:
+			throw_sword()
 
 ## Returns a normalized vector in the direction the player is aiming.
 func get_aim() -> Vector2:
@@ -90,11 +92,6 @@ func throw_sword() -> void:
 	sword.position = get_parent().to_local(self.global_position)
 	add_sibling(sword)
 	sword.throw(get_aim())
-
-func _process(delta: float) -> void:
-	if Input.is_action_just_pressed("attack"):
-		if active_sword == null:
-			throw_sword()
 
 func _physics_process(_delta: float) -> void:
 	velocity = Input.get_vector("move_left", "move_right", "move_up", "move_down") * move_speed
