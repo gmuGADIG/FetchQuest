@@ -7,14 +7,15 @@ class_name RedCoinManager extends Node2D
 var num_red_coins :int
 var coins_picked_up: int
 
-@export var reward : Node2D
+@export var reward: Node2D ## Node to be removed from the tree on start-up, and returned when all coins are collected.
+var reward_parent: Node2D
 
 func _ready() -> void:
-	reward.set_process(false)
-	reward.set_physics_process(false)
-	reward.get_node("PickupArea").monitoring = false
-	reward.get_node("PickupArea").monitorable = false
-	reward.visible = false
+	assert(reward != null, "RedCoinManager reward was null! Set it in the inspector.")
+	
+	# take reward out of the tree, but do not free it. we'll bring it back in `enable_reward`
+	reward_parent = reward.get_parent()
+	reward_parent.remove_child(reward)
 
 ## Called by each red coin on _ready(). Simply increments the coin count,
 ## which is used to determine when the final coin is collected
@@ -35,9 +36,4 @@ func red_coin_collected() -> int:
 func enable_reward() -> void:
 	print("RedCoinManager: all red coins collected!")
 	#play sound yipee!
-	reward.set_process(true)
-	reward.set_physics_process(true)
-	reward.set_process_input(true)
-	reward.get_node("PickupArea").monitoring = true
-	reward.get_node("PickupArea").monitorable = false
-	reward.visible = true
+	reward_parent.add_child.call_deferred(reward)
