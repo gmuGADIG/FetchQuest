@@ -104,5 +104,5 @@ func _on_damage_area_body_entered(body: Node2D) -> void:
 		return
 	print("You have hit the enemy")
 	var enemy: Enemy = body as Enemy
-	enemy.hurt(DamageEvent.new(1,DamageEvent.KnockbackType.FIXED,velocity,50.0))
+	enemy.hurt(DamageEvent.new(1, velocity.normalized() * 50.0))
 	
