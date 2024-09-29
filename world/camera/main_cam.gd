@@ -10,7 +10,13 @@ var _shake_strength := 0.0
 func _init() -> void:
 	instance = self
 
+func _ready() -> void:
+	global_position = Player.instance.global_position
+	reset_smoothing()
+
 func _process(delta: float) -> void:
+	global_position = Player.instance.global_position
+	
 	_shake_process(delta)
 
 # Should be called every frame. Shakes the camera by changing its [member offset].
