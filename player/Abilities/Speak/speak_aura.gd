@@ -11,7 +11,7 @@ func _on_body_entered(body: Node2D) -> void:
 		var charbody: CharacterBody2D = body
 		if(charbody.get_collision_layer_value(3)):
 			if(charbody.has_method("hurt")):
-				charbody.hurt(1.0)
+				charbody.hurt(DamageEvent.new(2))
 			else:
 				printerr("Aura collided with an enemy that does not have a hurt script!")
 				
