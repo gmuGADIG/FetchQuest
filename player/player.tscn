@@ -5,23 +5,31 @@
 [ext_resource type="Script" path="res://player/Abilities/Speak/speak.gd" id="3_ne4cx"]
 [ext_resource type="PackedScene" uid="uid://qgyqqokyd0ia" path="res://player/Abilities/Speak/speak_aura.tscn" id="4_8n4by"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_0vmvj"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_krk6c"]
 size = Vector2(128, 128)
 
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
+z_index = 1
 collision_layer = 2
+collision_mask = 41
 motion_mode = 1
-script = ExtResource("1_x43mx")
+script = ExtResource("1_v001d")
 
 [node name="Icon" type="Sprite2D" parent="."]
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("2_ts2mf")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_0vmvj")
+shape = SubResource("RectangleShape2D_krk6c")
 
 [node name="Speak" type="Node2D" parent="."]
 script = ExtResource("3_ne4cx")
 speak_aura = ExtResource("4_8n4by")
 radius = 20.0
 speak_time = 0.5
+
+[node name="RollTimer" type="Timer" parent="."]
+wait_time = 0.75
+one_shot = true
+
+[connection signal="timeout" from="RollTimer" to="." method="stop_roll"]
