@@ -54,7 +54,7 @@ func _physics_process(delta: float) -> void:
 	var cos_theta: float = player_dist.dot(old_player_dist) / (player_dist.length() * old_player_dist.length())
 	if player_dist.length() <= 100 and cos_theta < 0 and returning:
 		for item: Node in held_items:
-			item.reparent(get_parent())
+			if item != null: item.reparent(get_parent())
 		queue_free()
 
 	# Handle movement and acceleration while returning or still thrown
