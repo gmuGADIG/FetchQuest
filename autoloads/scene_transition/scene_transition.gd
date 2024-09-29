@@ -44,3 +44,7 @@ func _anim_scene_left() -> void:
 	get_tree().change_scene_to_packed(target_scene)
 	
 	$AnimationPlayer.play("EnterScene")
+	
+	# After we've changed scene, change the scene back to 'null' so that we
+	# can transition the scene again.
+	target_scene = null
