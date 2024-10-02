@@ -13,10 +13,18 @@ func _process(delta: float) -> void:
 	# the PauseMenu has been added to the scene.
 	if Input.is_action_just_pressed("pause"):
 		get_tree().paused = !get_tree().paused
+		
+	var was_visible := visible
 	
 	# The pause menu's visibility is directly tied to whether the game is currently
 	# paused. If we want to implement a pausing animation, this might have to change.
 	visible = get_tree().paused
+	
+	# When the pause menu becomes newly visible, it grabs the focus and hides
+	# the options menu.
+	if visible and not was_visible:
+		$Panel/Resume.grab_focus()
+		$OptionsMenu.hide()
 	
 func _on_resume_pressed() -> void:
 	# When resume is pressed, we simply unpause.
