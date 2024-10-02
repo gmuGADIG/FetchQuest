@@ -5,6 +5,11 @@ func _ready() -> void:
 	# or manually. TODO: Does setting it manually cause a problem if the pause
 	# menu is instatiated into a new scene that is currently paused?
 	process_mode = PROCESS_MODE_ALWAYS
+	
+	# We keep track of when the option menu is exited so that we can regrab
+	# our focus (in this case of the options button).
+	$OptionsMenu.option_menu_hidden.connect(self._on_option_menu_hidden)
+	
 	hide()
 	
 func _process(delta: float) -> void:
@@ -21,10 +26,11 @@ func _process(delta: float) -> void:
 	visible = get_tree().paused
 	
 	# When the pause menu becomes newly visible, it grabs the focus and hides
-	# the options menu.
+	# the options menu. We hide the options menu first so that it's signal
+	# doesn't affect us.
 	if visible and not was_visible:
-		$Panel/Resume.grab_focus()
 		$OptionsMenu.hide()
+		$Panel/Resume.grab_focus()
 	
 func _on_resume_pressed() -> void:
 	# When resume is pressed, we simply unpause.
@@ -34,4 +40,6 @@ func _on_quit_pressed() -> void:
 	# TODO: Go to main menu.
 	assert(!"There is no main menu >:(")
 	
-	
+# When the option menu is hidden, we grab focus of the options button.
+func _on_option_menu_hidden() -> void:
+	$Panel/OptionsMenuButton.grab_focus()

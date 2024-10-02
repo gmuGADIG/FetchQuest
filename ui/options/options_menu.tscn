@@ -1,5 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://dflfvpjufhfln"]
+[gd_scene load_steps=4 format=3 uid="uid://dflfvpjufhfln"]
 
+[ext_resource type="Script" path="res://ui/options/options_menu.gd" id="1_1bpan"]
 [ext_resource type="Script" path="res://ui/options/volume_controller.gd" id="1_wtrl1"]
 [ext_resource type="Script" path="res://ui/options/quit_options_menu.gd" id="1_xfctd"]
 
@@ -10,6 +11,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.140146, 0.354812, 0.257587, 1)
+script = ExtResource("1_1bpan")
 
 [node name="Title" type="RichTextLabel" parent="."]
 layout_mode = 1
@@ -73,6 +75,7 @@ offset_right = 150.0
 offset_bottom = -51.0
 grow_horizontal = 2
 grow_vertical = 2
+focus_neighbor_bottom = NodePath("../Volume_Slider2_Music")
 script = ExtResource("1_wtrl1")
 
 [node name="Volume_Slider_Music_Text" type="RichTextLabel" parent="."]
@@ -104,6 +107,8 @@ offset_right = 150.0
 offset_bottom = 17.0
 grow_horizontal = 2
 grow_vertical = 2
+focus_neighbor_top = NodePath("../Volume_Slider_Master2")
+focus_neighbor_bottom = NodePath("../Volume_Slider_SFX")
 script = ExtResource("1_wtrl1")
 audio_bus_name = "Music"
 
@@ -136,6 +141,8 @@ offset_right = 153.0
 offset_bottom = 86.0
 grow_horizontal = 2
 grow_vertical = 2
+focus_neighbor_top = NodePath("../Volume_Slider2_Music")
+focus_neighbor_bottom = NodePath("../Back_To_Menu")
 script = ExtResource("1_wtrl1")
 audio_bus_name = "SFX"
 
