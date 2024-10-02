@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://ctwfjcjci5n6g"]
+
+[ext_resource type="PackedScene" uid="uid://c7ck7ril2jix2" path="res://player/player.tscn" id="1_wukbx"]
+[ext_resource type="PackedScene" uid="uid://blh1fs712dql8" path="res://world/objects/locked_door/locked_door.tscn" id="2_jirgt"]
+
+[node name="DoorTesting" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource("1_wukbx")]
+position = Vector2(741, 260)
+
+[node name="LockedDoor" parent="." instance=ExtResource("2_jirgt")]
+position = Vector2(359, 125)
+
+[node name="LockedDoor" parent="LockedDoor" instance=ExtResource("2_jirgt")]
+position = Vector2(-1, 257)
+
+[node name="LockedDoor2" parent="LockedDoor" instance=ExtResource("2_jirgt")]
+position = Vector2(-1, 515)

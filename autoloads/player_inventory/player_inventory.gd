@@ -59,6 +59,9 @@ signal item_updated(key: String)
 	set(v):
 		max_stamina = v
 		max_stamina_updated.emit()
+		
+##The amount of keys to unlock a door that the player has at any time
+@export var door_keys: int = 0
 
 ## The various items the player can have
 @export var items: Array[InventoryItem]
@@ -87,3 +90,20 @@ func remove_quantity(key: String, amount: int) -> bool:
 	item_updated.emit(key)
 	_key_to_item[key].quantity_held -= amount
 	return true
+	
+## Adds 1 to [code]door_keys[/code]
+func add_door_key() -> void:
+	door_keys += 1
+	
+
+## Attemps to remove a key from the players inventory.[br][br]
+## If the player has more than 0 [code]door_keys[/code],
+## returns [code]true[/code] and decreases [code]door_keys[/code] by 1. [br][br]
+## Otherwise, [code]false[/code] will be returned, and [code]door_keys[/code]
+## will not be changed.
+func use_door_key() -> bool:
+	if (door_keys > 0):
+		door_keys -= 1
+		return true
+	else:
+		return false
