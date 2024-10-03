@@ -8,8 +8,10 @@ static var instance: Player
 
 @export var max_stamina: float = 3.0
 @onready var stamina: float = max_stamina
+@onready var force_applied: Vector2 = Vector2.ZERO ## All external forces applied
 @export var stamina_recovery_rate: float = 1.0
 
+@export var knockback_friction: float = 5.0 ## How fast the player slows down from knockback
 var active_sword: ThrownSword ## The active thrown sword. Null if the player is currently holding the sword
 
 ## On controller, if the aim stick isn't held in any direction, the last non-zero aim will be used
@@ -108,6 +110,8 @@ func _physics_process(_delta: float) -> void:
 	if (Input.is_action_just_pressed("dog_roll")):
 		start_roll()
 	
+	velocity += force_applied 	
+	force_applied = force_applied.lerp(Vector2.ZERO, _delta * knockback_friction)
 	move_and_slide()
 
 ## Damages the player, lowering its health.
@@ -130,3 +134,7 @@ func heal(gained: float) -> void:
 	
 	health+=gained
 	print("player.gd: Health raised to %s/%s" % [health, max_health])
+
+func add_force(force: Vector2) -> void: ## add any force onto the player
+	force_applied += force
+	
