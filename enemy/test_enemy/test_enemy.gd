@@ -4,7 +4,7 @@
 
 class_name TestEnemy extends Enemy
 
-var _player: Player
+#var _player: Player
 
 func _ready() -> void:
 	# wait a single frame in case our _ready was called before the player's
@@ -13,14 +13,16 @@ func _ready() -> void:
 	_player = Player.instance
 	assert(_player != null, "No player exists in the scene!")
 
-func _physics_process(_delta: float) -> void:
-	if _player == null: return
-	
-	else:
-		velocity = (_player.global_position - global_position).normalized() * 300
-	move_and_slide()
+# Physics process is disabled because the base Enemy class has the generic physics process.
 
-	look_at(_player.global_position)
+#func _physics_process(_delta: float) -> void:
+	#if _player == null: return
+	#
+	#else:
+		#velocity = (_player.global_position - global_position).normalized() * 300
+	#move_and_slide()
+#
+	#look_at(_player.global_position)
 
 func _on_hitting_area_body_entered(body: Node2D) -> void:
 	var player := body as Player
