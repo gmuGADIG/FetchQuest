@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://b6jsq4syp4v0w"]
 
-[ext_resource type="FontFile" uid="uid://cc4xli25271fd" path="res://addons/dialogic/Example Assets/Fonts/Roboto-Bold.ttf" id="1_bpwj6"]
 [ext_resource type="Script" path="res://ui/game over/game_over_screen.gd" id="1_xmlm4"]
+[ext_resource type="Theme" path="res://ui/main_ui_theme.tres" id="2_u8cwk"]
 [ext_resource type="Texture2D" uid="uid://c6fhrckboswdl" path="res://ui/game over/game_over_dog.png" id="3_811yh"]
 
 [node name="Game Over" type="Node2D"]
@@ -9,13 +9,18 @@ script = ExtResource("1_xmlm4")
 
 [node name="Game over" type="Label" parent="."]
 modulate = Color(1, 0.0980392, 0.133333, 1)
-offset_left = 195.0
-offset_top = 18.0
-offset_right = 920.0
-offset_bottom = 195.0
-theme_override_fonts/font = ExtResource("1_bpwj6")
-theme_override_font_sizes/font_size = 150
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -53.0
+offset_top = 4.0
+offset_right = 1216.0
+offset_bottom = 171.0
+grow_horizontal = 2
+theme = ExtResource("2_u8cwk")
+theme_override_font_sizes/font_size = 129
 text = "Game over"
+horizontal_alignment = 1
 
 [node name="Restart checkpoint" type="Button" parent="."]
 offset_left = 144.0
@@ -24,6 +29,8 @@ offset_right = 529.0
 offset_bottom = 581.0
 focus_neighbor_left = NodePath(".")
 focus_neighbor_right = NodePath("../Quit")
+theme = ExtResource("2_u8cwk")
+theme_override_font_sizes/font_size = 50
 text = "Restart"
 
 [node name="Quit" type="Button" parent="."]
@@ -33,6 +40,8 @@ offset_right = 953.0
 offset_bottom = 579.0
 focus_neighbor_left = NodePath("../Restart checkpoint")
 focus_neighbor_right = NodePath(".")
+theme = ExtResource("2_u8cwk")
+theme_override_font_sizes/font_size = 50
 text = "Quit"
 
 [node name="TextureRect" type="TextureRect" parent="."]
