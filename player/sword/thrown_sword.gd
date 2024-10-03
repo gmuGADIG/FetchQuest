@@ -109,6 +109,4 @@ func _on_grab_area_body_entered(body: Node2D) -> void:
 func _on_damage_area_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Hittable"):
 		if body.has_method("hurt"):
-			body.hurt(1)
-
-	
+			body.hurt(DamageEvent.new(1, velocity.normalized() * 50.0))

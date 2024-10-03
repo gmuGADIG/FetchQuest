@@ -2,6 +2,7 @@ extends CharacterBody2D
 
 @export var time_till_explode: int = 2
 @export var damage: int = 10
+@export var knockback: float = 10
 
 
 # Called when the node enters the scene tree for the first time.
@@ -22,7 +23,7 @@ func explode() -> void:
 	print(damaged_things)
 	for thing in damaged_things:
 		if thing is Enemy or thing is Player:
-			thing.hurt(damage) 
+			thing.hurt(DamageEvent.new(damage, velocity.normalized() * knockback)) 
 			
 	#TODO: change animation
 	get_node("BombSprite").scale.x *= 4
@@ -32,7 +33,7 @@ func explode() -> void:
 
 	queue_free()
 
-func hurt(_damage: float) -> void:
+func hurt(damage_event: DamageEvent) -> void:
 	explode()
 	return
 
