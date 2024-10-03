@@ -9,7 +9,9 @@ func _ready() -> void:
 	min_value = 0
 	max_value = 1
 	# Make our step something nice and small for small increments in volume.
-	step = 0.001
+	# However, this also affects the gamepad control, so make sure the increment
+	# is big enough for gamepad control.
+	step = 0.01
 	value = db_to_linear(AudioServer.get_bus_volume_db((_bus)))
 
 func _on_value_changed(value: float) -> void:
