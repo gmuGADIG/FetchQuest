@@ -8,7 +8,8 @@ extends CharacterBody2D
 ## This is being restated every time an item spawns. Maybe should be in an autoload elsewhere?
 enum item_type{
 	HEALTH,
-	BOMB
+	BOMB,
+	KEY
 }
 
 ## Now we tell this particular instance what its identity is, what part of the enum it is.
@@ -27,4 +28,6 @@ func _on_pickup_area_body_entered(body: Node2D) -> void:
 			body.heal(amount)
 		item_type.BOMB:
 			PlayerInventory.bombs+=amount
+		item_type.KEY:
+			PlayerInventory.door_keys += 1
 	queue_free()
