@@ -5,20 +5,25 @@
 [ext_resource type="Texture2D" uid="uid://bxnmkyv62a7v2" path="res://world/switch/SwitchOff.jpg" id="3_gsfbd"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_myfof"]
+size = Vector2(97, 97)
 
 [node name="Switch" type="Area2D"]
 collision_layer = 64
-collision_mask = 0
+collision_mask = 4
 script = ExtResource("1_8l6ln")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, -0.5)
 shape = SubResource("RectangleShape2D_myfof")
 
 [node name="OnSprite" type="Sprite2D" parent="."]
-visible = false
+position = Vector2(4.76837e-07, 4.76837e-07)
+scale = Vector2(0.96, 0.96)
 texture = ExtResource("2_r4trp")
 
 [node name="OffSprite" type="Sprite2D" parent="."]
+position = Vector2(4.76837e-07, 4.76837e-07)
+scale = Vector2(0.96, 0.96)
 texture = ExtResource("3_gsfbd")
 
 [node name="Timer" type="Timer" parent="."]

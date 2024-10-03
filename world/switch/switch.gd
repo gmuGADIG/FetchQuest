@@ -23,10 +23,7 @@ func _ready() -> void:
 
 func _on_area_entered(area: Area2D) -> void:
 	trigger_switch()
-func _mouse_enter() -> void:
-	print("mouse enter")
-	trigger_switch()
-	
+
 func trigger_switch() -> void:
 	match(type):
 		SWITCH_TYPE.OneShot:
