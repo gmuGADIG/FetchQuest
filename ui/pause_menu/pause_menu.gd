@@ -37,8 +37,10 @@ func _on_resume_pressed() -> void:
 	get_tree().paused = false
 	
 func _on_quit_pressed() -> void:
-	# TODO: Go to main menu.
-	assert(!"There is no main menu >:(")
+	# Unpause so that everything will work
+	get_tree().paused = false
+	# Go to main menu.
+	SceneTransition.change_scene(preload("res://ui/main menu/main_menu.tscn"))
 	
 # When the option menu is hidden, we grab focus of the options button.
 func _on_option_menu_hidden() -> void:
