@@ -69,6 +69,16 @@ func stop_roll() -> void:
 ## Called when the player spawns in
 func _ready() -> void:
 	instance = self
+	
+	
+func _process(delta: float) -> void:
+	if Input.is_action_just_pressed("speak"):
+		if !$Speak.on_cooldown():
+			$Speak.speak()
+	
+	if Input.is_action_just_pressed("attack"):
+		if active_sword == null:
+			throw_sword()
 
 ## Returns a normalized vector in the direction the player is aiming.
 func get_aim() -> Vector2:
@@ -85,12 +95,10 @@ func throw_sword() -> void:
 	add_sibling(sword)
 	sword.throw(get_aim())
 
-func _process(delta: float) -> void:
-	if Input.is_action_just_pressed("attack"):
-		if active_sword == null:
-			throw_sword()
-
 func _physics_process(_delta: float) -> void:
+	velocity = Input.get_vector("move_left", "move_right", "move_up", "move_down") * move_speed
+	if($Speak.is_speaking()):
+		velocity *= $Speak.movement_multiplier
 	# normal movement input is not processed while rolling
 	if (not rolling):
 		velocity = Input.get_vector("move_left", "move_right", "move_up", "move_down") * move_speed
@@ -129,3 +137,10 @@ func hurt(damage: float) -> void:
 
 	if health <= 0:
 		pass # player death is not yet implemented
+
+## Does the opposite.
+func heal(gained: float) -> void:
+	if health>=max_health: return
+	
+	health+=gained
+	print("player.gd: Health raised to %s/%s" % [health, max_health])
