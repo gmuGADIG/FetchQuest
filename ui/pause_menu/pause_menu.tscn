@@ -1,7 +1,8 @@
-[gd_scene load_steps=33 format=3 uid="uid://be0wx1bwh443q"]
+[gd_scene load_steps=34 format=3 uid="uid://be0wx1bwh443q"]
 
 [ext_resource type="Script" path="res://ui/pause_menu/pause_menu.gd" id="1_6mimi"]
 [ext_resource type="Texture2D" uid="uid://by02hyx0mbhyv" path="res://ui/kenney_input_prompts/xbox_stick_l.svg" id="2_76ohk"]
+[ext_resource type="Theme" uid="uid://dfah415wn0phs" path="res://ui/main_ui_theme.tres" id="2_evlcd"]
 [ext_resource type="Texture2D" uid="uid://cuxosj0xqko5o" path="res://ui/kenney_input_prompts/xbox_stick_r.svg" id="3_6tfxa"]
 [ext_resource type="Texture2D" uid="uid://b3mgh5kqkg4ts" path="res://ui/kenney_input_prompts/switch_buttons_down.svg" id="5_c4k42"]
 [ext_resource type="Texture2D" uid="uid://jw4s23y5ijys" path="res://ui/kenney_input_prompts/switch_buttons_right.svg" id="6_uhnds"]
@@ -42,6 +43,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("2_evlcd")
 
 [node name="Label" type="Label" parent="Panel"]
 layout_mode = 1
@@ -89,7 +91,7 @@ grow_horizontal = 2
 grow_vertical = 0
 focus_neighbor_top = NodePath("../Resume")
 theme_override_font_sizes/font_size = 48
-text = "(Save?) and Quit"
+text = "Quit"
 
 [node name="ControlsOverview" type="Panel" parent="Panel"]
 layout_mode = 1
@@ -304,6 +306,7 @@ offset_top = 195.0
 offset_right = 440.0
 offset_bottom = 278.0
 focus_neighbor_bottom = NodePath("../Resume")
+theme_override_font_sizes/font_size = 48
 text = "Options"
 script = ExtResource("31_n2d0o")
 options_menu = NodePath("../../OptionsMenu")
