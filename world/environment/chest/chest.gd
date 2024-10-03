@@ -11,6 +11,9 @@ var player: Player
 @onready var open_sprite: Sprite2D = %OpenSprite
 
 func _ready() -> void:
+	opened = ChestBetweenScenes.check_if_opened(self.get_path()) #See if it has been opened before
+	if (opened):
+		pre_opened_chest() # if it was opened go here
 	player = Player.instance
 	assert(player != null, "Player does not exist in the scene!")
 
@@ -40,3 +43,7 @@ func open_chest() -> void:
 	spawned.position = position
 	add_sibling(spawned)
 	
+func pre_opened_chest() -> void: #will dispaly chest as being open is already opened.
+	print("This chest has already been opened")
+	closed_sprite.visible = false
+	open_sprite.visible = true
