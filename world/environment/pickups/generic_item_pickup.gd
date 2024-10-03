@@ -1,4 +1,4 @@
-extends CharacterBody2D
+class_name GenericItemPickup extends CharacterBody2D
 
 ## GENERIC ITEM PICKUP
 
@@ -8,7 +8,8 @@ extends CharacterBody2D
 ## This is being restated every time an item spawns. Maybe should be in an autoload elsewhere?
 enum item_type{
 	HEALTH,
-	BOMB
+	BOMB,
+	STAMINA
 }
 
 ## Now we tell this particular instance what its identity is, what part of the enum it is.

@@ -4,7 +4,7 @@
 
 class_name TestEnemy extends Enemy
 
-var _player: Player
+
 
 func _ready() -> void:
 	# wait a single frame in case our _ready was called before the player's
