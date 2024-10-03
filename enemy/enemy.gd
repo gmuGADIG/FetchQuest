@@ -30,13 +30,27 @@ func on_enemy_death() -> void:
 	# if the chance fails, bail out of the function and do nothing
 	if (randi_range(1,100) > enemy_drop_chance_percent): return
 	
+	var eligible : Array[String]
 	# otherwise, let's check eligibility to drop items
-	# if the player has max hearts, then dont do hearts
-	if (player.health == player.max_health):
-		# dont do hearts
-		pass
-	# if the player has max bombs or havent unlocked them yet, then dont do bombs
-	if (player.bombs == player.max_bombs or !player.unlocked_bombs):
-		# dont do bombs
-		pass
+	# if the player does not have max hearts, then lets do hearts
+	if (player.health != player.max_health):
+		# do hearts
+		eligible.append("heart")
+	# if the player does not have max bombs and have unlocked them yet, then lets do bombs
+	if (player.bombs != player.max_bombs and player.unlocked_bombs):
+		# do bombs
+		eligible.append("bomb")
 	# in that case, stamina will always be available
+	eligible.append("stamina")
+	
+	var chosen : String = eligible.pick_random()
+	
+	match chosen:
+		"heart":
+			pass
+		"bomb":
+			pass
+		"stamina":
+			pass
+	
+	
