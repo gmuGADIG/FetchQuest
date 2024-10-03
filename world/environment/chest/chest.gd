@@ -32,6 +32,8 @@ func open_chest() -> void:
 	closed_sprite.visible = false
 	open_sprite.visible = true
 	
+	ChestBetweenScenes.add_to_opened_chest(self.get_path())
+	
 	# Picks a random item from the list and spawns it at the chest.
 	var item : PackedScene = loot_table.pick_random()
 	var spawned := item.instantiate()
