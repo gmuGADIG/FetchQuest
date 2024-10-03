@@ -9,6 +9,8 @@ class_name Enemy extends CharacterBody2D
 
 @export var enemy_drop_chance_percent: int = 50 # 50 = 50% chance
 
+var player : Player = Player.instance
+
 ## Damages the enemy, killing it if its health drops below zero.
 ## This should be called by the player's attacks when they hit an enemy.
 func hurt(damage_event: DamageEvent) -> void:
@@ -30,5 +32,11 @@ func on_enemy_death() -> void:
 	
 	# otherwise, let's check eligibility to drop items
 	# if the player has max hearts, then dont do hearts
+	if (player.health == player.max_health):
+		# dont do hearts
+		pass
 	# if the player has max bombs or havent unlocked them yet, then dont do bombs
+	if (player.bombs == player.max_bombs or !player.unlocked_bombs):
+		# dont do bombs
+		pass
 	# in that case, stamina will always be available
