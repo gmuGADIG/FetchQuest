@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://b6jsq4syp4v0w"]
 
 [ext_resource type="FontFile" uid="uid://cc4xli25271fd" path="res://addons/dialogic/Example Assets/Fonts/Roboto-Bold.ttf" id="1_bpwj6"]
-[ext_resource type="Script" path="res://ui/game_over_screen.gd" id="1_xmlm4"]
-[ext_resource type="Texture2D" uid="uid://c6fhrckboswdl" path="res://ui/game_over_dog.png" id="3_811yh"]
+[ext_resource type="Script" path="res://ui/game over/game_over_screen.gd" id="1_xmlm4"]
+[ext_resource type="Texture2D" uid="uid://c6fhrckboswdl" path="res://ui/game over/game_over_dog.png" id="3_811yh"]
 
 [node name="Game Over" type="Node2D"]
 script = ExtResource("1_xmlm4")
@@ -22,6 +22,8 @@ offset_left = 144.0
 offset_top = 460.0
 offset_right = 529.0
 offset_bottom = 581.0
+focus_neighbor_left = NodePath(".")
+focus_neighbor_right = NodePath("../Quit")
 text = "Restart"
 
 [node name="Quit" type="Button" parent="."]
@@ -29,6 +31,8 @@ offset_left = 570.0
 offset_top = 461.0
 offset_right = 953.0
 offset_bottom = 579.0
+focus_neighbor_left = NodePath("../Restart checkpoint")
+focus_neighbor_right = NodePath(".")
 text = "Quit"
 
 [node name="TextureRect" type="TextureRect" parent="."]
@@ -39,5 +43,6 @@ offset_bottom = 395.0
 texture = ExtResource("3_811yh")
 expand_mode = 1
 
+[connection signal="ready" from="." to="." method="_on_ready"]
 [connection signal="pressed" from="Restart checkpoint" to="." method="_on_restart_checkpoint_pressed"]
 [connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]

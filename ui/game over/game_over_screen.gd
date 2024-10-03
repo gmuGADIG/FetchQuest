@@ -1,5 +1,8 @@
 extends Node2D
 
+func _ready() -> void:
+	$"Restart checkpoint".grab_focus()
+
 
 func _on_restart_checkpoint_pressed() -> void:
 	get_tree().change_scene_to_file("uid://3sqp1m0iowsi")
