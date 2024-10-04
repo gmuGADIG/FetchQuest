@@ -138,6 +138,7 @@ func heal(gained: int) -> void:
 	health = move_toward(health, max_health, gained)
 	print("player.gd: Health raised to %s/%s" % [health, max_health])
 
-func add_force(force: Vector2) -> void: ## add any force onto the player
+## Apply a force to the player. Generally, a good magnitude is around 500 to 1000
+func add_force(force: Vector2) -> void:
 	force_applied += force
 	
