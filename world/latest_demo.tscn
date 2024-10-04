@@ -1,15 +1,19 @@
-[gd_scene load_steps=18 format=3 uid="uid://3sqp1m0iowsi"]
+[gd_scene load_steps=22 format=3 uid="uid://3sqp1m0iowsi"]
 
 [ext_resource type="PackedScene" uid="uid://uj2rytnj1h4" path="res://enemy/test_enemy/test_enemy.tscn" id="1_h18tn"]
 [ext_resource type="PackedScene" uid="uid://c7ck7ril2jix2" path="res://player/player.tscn" id="2_vi53h"]
 [ext_resource type="PackedScene" uid="uid://bom8mopkckp5y" path="res://world/environment/chest/chest.tscn" id="3_iuoyy"]
 [ext_resource type="PackedScene" uid="uid://bdniv62roo8ov" path="res://world/environment/pickups/item_temp_1.tscn" id="4_05emf"]
-[ext_resource type="PackedScene" path="res://world/environment/pickups/pickup_bomb.tscn" id="4_xhn3s"]
+[ext_resource type="PackedScene" uid="uid://cxgodqe6st3jf" path="res://world/environment/pickups/pickup_bomb.tscn" id="4_xhn3s"]
 [ext_resource type="PackedScene" uid="uid://ch344rluh4xbs" path="res://world/camera/main_cam.tscn" id="7_7fnsb"]
 [ext_resource type="PackedScene" uid="uid://d3xngexqsy6m7" path="res://enemy_spawner/enemy_spawner.tscn" id="7_007xo"]
+[ext_resource type="Script" path="res://world/heart_display.gd" id="8_nosot"]
 [ext_resource type="Texture2D" uid="uid://dymucenpxmluo" path="res://icon.svg" id="8_umcft"]
+[ext_resource type="PackedScene" uid="uid://crx66rsu01asx" path="res://UI/HUD/heart.tscn" id="9_qtwp2"]
 [ext_resource type="PackedScene" uid="uid://cg2jt0166hik8" path="res://world/environment/red_coin/red_coin_manager.tscn" id="9_svfaa"]
+[ext_resource type="Texture2D" uid="uid://8vhne25d4h2h" path="res://demo_art/staminabar.png" id="10_gambw"]
 [ext_resource type="PackedScene" uid="uid://gp1o7iklljk2" path="res://world/environment/red_coin/red_coin.tscn" id="10_kg0ye"]
+[ext_resource type="Texture2D" uid="uid://deern6512fesn" path="res://demo_art/test_enemy.svg" id="10_rdptc"]
 [ext_resource type="PackedScene" uid="uid://c3b7wkf6shwp1" path="res://world/environment/pickups/pickup_health.tscn" id="11_4buq1"]
 [ext_resource type="PackedScene" uid="uid://dbewnfb1psf22" path="res://world/objects/pushable_block/pushable_block.tscn" id="12_dx3ra"]
 [ext_resource type="PackedScene" uid="uid://b5bscusffqp5h" path="res://world/objects/pressure_plate/pressure_plate.tscn" id="13_rhqn7"]
@@ -48,6 +52,64 @@ limit_left = -945
 limit_top = -220
 limit_right = 2030
 limit_bottom = 840
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="ContainerContainer" type="HBoxContainer" parent="HUD"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -1139.0
+offset_right = 1139.0
+offset_bottom = 172.0
+grow_horizontal = 2
+scale = Vector2(0.5, 0.5)
+pivot_offset = Vector2(1139, 0)
+alignment = 1
+
+[node name="HeartAndStaminaContainer" type="VBoxContainer" parent="HUD/ContainerContainer"]
+layout_mode = 2
+size_flags_horizontal = 2
+
+[node name="HeartContainer" type="HBoxContainer" parent="HUD/ContainerContainer/HeartAndStaminaContainer"]
+z_index = 100
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 4
+script = ExtResource("8_nosot")
+
+[node name="Heart" parent="HUD/ContainerContainer/HeartAndStaminaContainer/HeartContainer" instance=ExtResource("9_qtwp2")]
+layout_mode = 2
+
+[node name="Heart2" parent="HUD/ContainerContainer/HeartAndStaminaContainer/HeartContainer" instance=ExtResource("9_qtwp2")]
+layout_mode = 2
+
+[node name="Heart3" parent="HUD/ContainerContainer/HeartAndStaminaContainer/HeartContainer" instance=ExtResource("9_qtwp2")]
+layout_mode = 2
+
+[node name="StaminaBar" type="TextureProgressBar" parent="HUD/ContainerContainer/HeartAndStaminaContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+value = 100.0
+texture_progress = ExtResource("10_gambw")
+
+[node name="GBPContainer" type="CenterContainer" parent="HUD/ContainerContainer"]
+layout_mode = 2
+
+[node name="GoodBoyIcon" type="TextureRect" parent="HUD/ContainerContainer/GBPContainer"]
+z_index = 100
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+texture = ExtResource("10_rdptc")
+
+[node name="Counter" type="Label" parent="HUD/ContainerContainer/GBPContainer"]
+z_index = 101
+layout_mode = 2
+theme_override_font_sizes/font_size = 58
+text = "128"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Walls" type="Node2D" parent="."]
 
