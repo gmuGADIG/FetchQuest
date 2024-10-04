@@ -22,7 +22,8 @@ var last_aim_direction := Vector2.RIGHT
 
 var rolling: bool = false
 var roll_vector: Vector2 = Vector2(0, 0)
-@export var roll_speed: float = 2200.0
+var rollTimer: float = 0.25
+@export var roll_speed: float = 1000.0
 
 signal health_changed
 
@@ -41,11 +42,18 @@ func recover_stamina(delta: float) -> void:
 	if stamina > max_stamina:
 		stamina = max_stamina
 
-
+#Changes speed to fit a sin wave for smoother rolls
 func get_roll_speed() -> float:
-	# this can be edited to make the roll speed more dynamic
-	# like along a curve or someting, might make it look nicer
-	return roll_speed
+	var endRollTime: float = rollTimer/5
+	var variableB: float = 0.1
+	var variableX: float = rollTimer-$RollTimer.time_left
+	if($RollTimer and $RollTimer.time_left>endRollTime):
+		var sinConst: float = sin(variableX)/(sqrt(variableB**2+sin(variableX)**2))
+		return roll_speed * 2.5 * sinConst
+#		var sinConst: float = PI/rollTimer #shortens sin function to match timer
+#		return roll_speed * 2.5 * sin(sinConst*(rollTimer-$RollTimer.time_left))
+	else:
+		return roll_speed
 
 # starts the player rolling (if they weren't already)
 func start_roll() -> void:
@@ -62,7 +70,7 @@ func start_roll() -> void:
 	self.set_collision_mask_value(6, false)
 	self.set_collision_mask_value(4, false)
 	# make the timer go
-	$RollTimer.start(0.15)
+	$RollTimer.start(rollTimer)
 
 # callback from roll timer. reverts changes made by start_roll
 func stop_roll() -> void:
@@ -108,7 +116,7 @@ func _physics_process(delta: float) -> void:
 	if (not rolling):
 		velocity = Input.get_vector("move_left", "move_right", "move_up", "move_down") * move_speed
 	else:
-		velocity = roll_speed * roll_vector
+		velocity = get_roll_speed() * roll_vector
 	
 	recover_stamina(delta)
 	
