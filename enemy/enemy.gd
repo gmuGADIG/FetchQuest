@@ -22,12 +22,9 @@ func hurt(damage_event: DamageEvent) -> void:
 	if health <= 0:
 		queue_free()
 
-func _on_hitbox_body_entered(body: Node2D) -> void:
-	var knockbackVector : Vector2 = Vector2.ZERO
+func _on_hitting_area_body_entered(body: Node2D) -> void:
 	var player := body as Player
 	if player != null:
-		player.health -= damage
-		print("player has taken damage, health: %s/%s" % [player.health,player.max_health])
-		knockbackVector = (player.global_position - global_position) * knockback_force
-		player.add_force(knockbackVector)
+		var knockback := global_position.direction_to(player.global_position) * knockback_force
+		player.hurt(DamageEvent.new(damage, knockback))
 		

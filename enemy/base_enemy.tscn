@@ -9,12 +9,11 @@ size = Vector2(117, 108)
 collision_layer = 4
 script = ExtResource("1_xa7a1")
 
-[node name="hitbox" type="Area2D" parent="."]
+[node name="HittingArea" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HittingArea"]
 shape = SubResource("RectangleShape2D_fdgx0")
 
-[connection signal="body_entered" from="hitbox" to="." method="_on_area_2d_body_entered"]
-[connection signal="body_entered" from="hitbox" to="." method="_on_hitbox_body_entered"]
+[connection signal="body_entered" from="HittingArea" to="." method="_on_hitting_area_body_entered"]

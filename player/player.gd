@@ -4,7 +4,10 @@ static var instance: Player
 
 @export var move_speed: float = 500.0 ## Move speed in pixels per second
 @export var max_health: int = 3 ## Max health and starting health
-@onready var health: int = max_health ## Current health
+@onready var health: int = max_health: ## Current health
+	set(value):
+		health = value
+		health_changed.emit()
 
 @export var max_stamina: float = 3.0
 @onready var stamina: float = max_stamina
@@ -97,7 +100,7 @@ func throw_sword() -> void:
 	add_sibling(sword)
 	sword.throw(get_aim())
 
-func _physics_process(_delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	velocity = Input.get_vector("move_left", "move_right", "move_up", "move_down") * move_speed
 	if($Speak.is_speaking()):
 		velocity *= $Speak.movement_multiplier
@@ -107,36 +110,32 @@ func _physics_process(_delta: float) -> void:
 	else:
 		velocity = roll_speed * roll_vector
 	
-	recover_stamina(_delta)
+	recover_stamina(delta)
 	
 	if (Input.is_action_just_pressed("dog_roll")):
 		start_roll()
 	
 	velocity += force_applied 	
-	force_applied = force_applied.lerp(Vector2.ZERO, _delta * knockback_friction)
+	force_applied = force_applied.lerp(Vector2.ZERO, delta * knockback_friction)
 	move_and_slide()
 
 ## Damages the player, lowering its health.
-func hurt(damage: float) -> void:
+func hurt(damage_event: DamageEvent) -> void:
 	if health <= 0: return # don't die twice
+	if rolling: return # immune while rolling
 	
-	# don't take damage if rolling
-	if (rolling):
-		return
-	
-	health -= damage
+	health -= damage_event.damage
+	add_force(damage_event.knockback)
 	print("player.gd: Health lowered to %s/%s" % [health, max_health])
-	
-	health_changed.emit()
 	
 	if health <= 0:
 		pass # player death is not yet implemented
 
-## Does the opposite.
-func heal(gained: float) -> void:
-	if health>=max_health: return
+## Increases the player, not exceeding its max health
+func heal(gained: int) -> void:
+	if health >= max_health: return
 	
-	health+=gained
+	health = move_toward(health, max_health, gained)
 	print("player.gd: Health raised to %s/%s" % [health, max_health])
 
 func add_force(force: Vector2) -> void: ## add any force onto the player
