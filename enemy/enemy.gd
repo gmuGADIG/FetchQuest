@@ -5,6 +5,8 @@
 class_name Enemy extends CharacterBody2D
 
 @export var max_health: int = 3
+@export var damage : int = 1
+@export var knockback_force : int = 10
 @onready var health := max_health
 
 var enemy_state := EnemyState.ROAMING
@@ -27,17 +29,17 @@ func _process(delta: float) -> void:
 		
 ## Damages the enemy, killing it if its health drops below zero.
 ## This should be called by the player's attacks when they hit an enemy.
-func hurt(event: DamageEvent) -> void:
+func hurt(damage_event: DamageEvent) -> void:
 	if health <= 0: return # don't die twice
 
-	health -= event.damage
-	position = position + DamageEvent.calculate_knockback_vector(event,self.position)
+	health -= damage_event.damage
+	#position += damage_event.knockback
 	
 	print("Enemy.gd: Health of '%s' was lowered to %s/%s" % [get_path(), health, max_health])
 
 	if health <= 0:
 		queue_free()
-		
+
 func _process_roaming(delta: float) -> void:
 	pass
 	
@@ -47,3 +49,9 @@ func _process_agressive(delta: float) -> void:
 func _process_stunned(delta: float) -> void:
 	pass
 	
+
+func _on_hitting_area_body_entered(body: Node2D) -> void:
+	var player := body as Player
+	if player != null:
+		var knockback := global_position.direction_to(player.global_position) * knockback_force
+		player.hurt(DamageEvent.new(damage, knockback))

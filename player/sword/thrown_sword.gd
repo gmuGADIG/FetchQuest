@@ -19,6 +19,9 @@ var direction: Vector2               ## Direction vector of the sword
 var player_dist: Vector2             ## Distance vector from the sword to the player
 var local_acceleration: float        ## Local acceleration applied to the sword (adjustable)
 
+var held_items: Array[Node2D]
+
+
 ## Signal emitted when the sword bounces, providing bounce intensity
 signal sword_bounced(intensity: float)
 
@@ -50,6 +53,8 @@ func _physics_process(delta: float) -> void:
 	# Determine if the sword is close enough to the player using the dot product
 	var cos_theta: float = player_dist.dot(old_player_dist) / (player_dist.length() * old_player_dist.length())
 	if player_dist.length() <= 100 and cos_theta < 0 and returning:
+		for item: Node in held_items:
+			if item != null: item.reparent(get_parent())
 		queue_free()
 
 	# Handle movement and acceleration while returning or still thrown
@@ -91,10 +96,12 @@ func _on_collision(collision: KinematicCollision2D) -> void:
 ## Grab items when they enter the grab area
 func _on_grab_area_body_entered(body: Node2D) -> void:
 	if not body.is_in_group("Item"): return
+	if body in held_items: return
 	
 	var reparent_fn := func() -> void:
 		body.position = Vector2.ZERO
 		body.reparent(self)
+		held_items.append(body)
 	
 	# it's bad to change the tree in response to a physics signal, so defer this call
 	reparent_fn.call_deferred()
@@ -104,5 +111,5 @@ func _on_damage_area_body_entered(body: Node2D) -> void:
 		return
 	print("You have hit the enemy")
 	var enemy: Enemy = body as Enemy
-	enemy.hurt(DamageEvent.new(1,DamageEvent.KnockbackType.FIXED,velocity,50.0))
+	enemy.hurt(DamageEvent.new(1, velocity.normalized() * 50.0))
 	

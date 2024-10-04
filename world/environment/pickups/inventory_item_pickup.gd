@@ -9,7 +9,7 @@ func _ready() -> void:
 
 func _on_pickup_area_body_entered(body: Node2D) -> void:
 	if body is not Player: return
-	
+
 	PlayerInventory.add_quantity(inventory_key, 1)
 	queue_free()
 	print("inventory_item_pickup.gd: Picked up item '%s'" % inventory_key)
