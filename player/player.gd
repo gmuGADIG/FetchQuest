@@ -151,6 +151,7 @@ func hurt(damage_event: DamageEvent) -> void:
 	print("player.gd: Health lowered to %s/%s" % [health, max_health])
 	
 	if health <= 0:
+		get_tree().change_scene_to_file("uid://b6jsq4syp4v0w")
 		pass # player death is not yet implemented
 
 ## Increases the player, not exceeding its max health
