@@ -5,6 +5,8 @@
 class_name Enemy extends CharacterBody2D
 
 @export var max_health: int = 3
+@export var damage : int = 1
+@export var knockback_force : int = 10
 @onready var health := max_health
 
 @export_range(0, 1) var pickup_drop_chance: float = 0.5 ## Chance of dropping a pick-up (hp, bomb, or stamina) on death
@@ -15,6 +17,24 @@ func _ready() -> void:
 	await get_tree().process_frame
 	_player = Player.instance
 
+var enemy_state := EnemyState.ROAMING
+
+enum EnemyState {
+	ROAMING,
+	AGRESSIVE,
+	STUNNED
+}
+
+func _process(delta: float) -> void:
+	match enemy_state:
+		EnemyState.ROAMING:
+			_process_roaming(delta)
+		EnemyState.AGRESSIVE:
+			_process_agressive(delta)
+		EnemyState.STUNNED:
+			_process_stunned(delta)
+	
+		
 ## Damages the enemy, killing it if its health drops below zero.
 ## This should be called by the player's attacks when they hit an enemy.
 func hurt(damage_event: DamageEvent) -> void:
@@ -66,3 +86,18 @@ func on_death() -> void:
 	add_sibling(dropped_item)
 	print("Item '", dropped_item.name, "' was dropped by ", get_path())
 	
+func _process_roaming(delta: float) -> void:
+	pass
+	
+func _process_agressive(delta: float) -> void:
+	pass
+	
+func _process_stunned(delta: float) -> void:
+	pass
+	
+
+func _on_hitting_area_body_entered(body: Node2D) -> void:
+	var player := body as Player
+	if player != null:
+		var knockback := global_position.direction_to(player.global_position) * knockback_force
+		player.hurt(DamageEvent.new(damage, knockback))
