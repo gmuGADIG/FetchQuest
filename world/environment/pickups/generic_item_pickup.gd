@@ -1,4 +1,4 @@
-extends CharacterBody2D
+class_name GenericItemPickup extends CharacterBody2D
 
 ## GENERIC ITEM PICKUP
 
@@ -6,15 +6,16 @@ extends CharacterBody2D
 
 ## This enum holds the possible item types. Add more as needed.
 ## This is being restated every time an item spawns. Maybe should be in an autoload elsewhere?
-enum item_type{
+enum item_type {
 	HEALTH,
 	BOMB,
-	KEY
+	KEY,
+	STAMINA,
 }
 
 ## Now we tell this particular instance what its identity is, what part of the enum it is.
 @export var identity:=item_type.HEALTH
-@export var amount : int = 15
+@export var amount: int = 1
 #func _ready() -> void:
 #	assert(inventory_key != "", "Item '%s' has an empty inventory key!" % inventory_key)
 
@@ -27,7 +28,9 @@ func _on_pickup_area_body_entered(body: Node2D) -> void:
 			if body.health>=body.max_health:return
 			body.heal(amount)
 		item_type.BOMB:
-			PlayerInventory.bombs+=amount
+			PlayerInventory.bombs += amount
 		item_type.KEY:
 			PlayerInventory.door_keys += 1
+		item_type.STAMINA:
+			body.stamina = move_toward(body.stamina, body.max_stamina, amount)
 	queue_free()

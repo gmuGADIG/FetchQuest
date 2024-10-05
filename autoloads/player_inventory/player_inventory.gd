@@ -27,6 +27,9 @@ signal good_boy_points_updated
 ## Emitted when the amount of bombs the player has changes.
 signal bombs_updated
 
+## Emited when the max bombs of the player changes.
+signal max_bombs_updated
+
 ## Emitted when the max health of the player changes
 signal max_health_updated
 
@@ -44,6 +47,12 @@ signal item_updated(key: String)
 
 ## Number of bombs the player currently has
 @export var bombs: int = 0:
+	set(v):
+		max_bombs = v
+		max_bombs_updated.emit()
+
+## The maximum
+@export var max_bombs: int = 0:
 	set(v):
 		bombs = v
 		bombs_updated.emit()
