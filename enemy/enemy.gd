@@ -10,6 +10,7 @@ class_name Enemy extends CharacterBody2D
 var enemy_state := EnemyState.ROAMING
 
 var target_position : Vector2 = Vector2.ZERO
+var original_position : Vector2 = Vector2.ZERO 
 var roaming_time : float = 0.5
 
 enum EnemyState {
@@ -19,7 +20,8 @@ enum EnemyState {
 }
 
 func _ready() -> void:
-	_get_target_position(5) #replace with default enemy move distance 
+	original_position = position
+	target_position = original_position
 
 func _process(delta: float) -> void:
 	match enemy_state:
@@ -63,7 +65,7 @@ func _position_close_to_target(target: Vector2, threshold: float) -> bool:
 # also sets the timer to 0.2 to 1 seconds
 func _get_target_position(radius: float) -> void:
 	var radian: float = randf_range(0,(2*3.14))
-	var target_position := position + Vector2(radius * cos(radian), radius * sin(radian))
+	var target_position := original_position + Vector2(radius * cos(radian), radius * sin(radian))
 	roaming_time = randf_range(0.2,1)
 	pass
 	
