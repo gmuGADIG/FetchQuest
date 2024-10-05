@@ -6,6 +6,7 @@ class_name Enemy extends CharacterBody2D
 
 @export var max_health: int = 3
 @onready var health := max_health
+# the max distance the entity will move from its starting position, aka that radius of the circle that the entity is allowed to move in
 @export var roaming_radius : float = 100
 var enemy_state := EnemyState.ROAMING
 
@@ -20,6 +21,7 @@ enum EnemyState {
 }
 
 func _ready() -> void:
+	# sets the original position and target postion
 	original_position = position
 	target_position = original_position
 
@@ -46,7 +48,8 @@ func hurt(event: DamageEvent) -> void:
 	if health <= 0:
 		queue_free()
 		
-# check to
+# checks to see if the entity is close enough to its target position
+# if so reset romaing time and wait until its 0 or negitative and then move towards the new target position
 func _process_roaming(delta: float) -> void:
 	if _position_close_to_target(target_position, 0.3):
 		_get_target_position(roaming_radius)
@@ -65,7 +68,8 @@ func _position_close_to_target(target: Vector2, threshold: float) -> bool:
 # also sets the timer to 0.2 to 1 seconds
 func _get_target_position(radius: float) -> void:
 	var radian: float = randf_range(0,(2*3.14))
-	var target_position := original_position + Vector2(radius * cos(radian), radius * sin(radian))
+	var distance: float =  randf_range(0,radius)
+	var target_position := original_position + Vector2(distance * cos(radian), distance * sin(radian))
 	roaming_time = randf_range(0.2,1)
 	pass
 	
