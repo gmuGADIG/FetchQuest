@@ -10,13 +10,6 @@ static var instance: Player
 @onready var stamina: float = max_stamina
 @export var stamina_recovery_rate: float = 1.0
 
-# NOTE: if you change these variable names to be consistent with your own code
-# in this script, make sure you also change them in enemy.gd
-# and then delete these comments!
-@export var max_bombs: int = 3 ## Max number of bombs
-@onready var bombs: int ## Current number of bombs
-@export var unlocked_bombs: bool
-
 var active_sword: ThrownSword ## The active thrown sword. Null if the player is currently holding the sword
 
 ## On controller, if the aim stick isn't held in any direction, the last non-zero aim will be used

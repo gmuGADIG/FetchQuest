@@ -7,7 +7,7 @@ class_name Enemy extends CharacterBody2D
 @export var max_health: int = 3
 @onready var health := max_health
 
-@export var enemy_drop_chance_percent: int = 50 # 50 = 50% chance
+@export_range(0, 1) var pickup_drop_chance: float = 0.5 ## Chance of dropping a pick-up (hp, bomb, or stamina) on death
 
 var _player : Player
 
@@ -26,55 +26,43 @@ func hurt(damage_event: DamageEvent) -> void:
 	print("Enemy.gd: Health of '%s' was lowered to %s/%s" % [get_path(), health, max_health])
 
 	if health <= 0:
-		on_enemy_death()
+		on_death()
 		queue_free()
 
 ## Function to call upon death of enemy
-func on_enemy_death() -> void:
+func on_death() -> void:
 	# if the chance fails, bail out of the function and do nothing
-	if (randi_range(1,100) > enemy_drop_chance_percent): return
+	if (randf() > pickup_drop_chance): return
 	
+	# add bombs, health, and stamina to the list of possible drops, after checking if they're eligible
 	var eligible : Array[GenericItemPickup.item_type]
-	# otherwise, let's check eligibility to drop items
-	# if the player does not have max hearts, then lets do hearts
-	if (_player.health < _player.max_health):
-		# do hearts
+	if (Player.instance.health < Player.instance.max_health):
 		eligible.append(GenericItemPickup.item_type.HEALTH)
-	# if the player does not have max bombs and have unlocked them yet, then lets do bombs
-	if (_player.bombs != _player.max_bombs and _player.unlocked_bombs):
-		# do bombs
+	if (PlayerInventory.bombs < PlayerInventory.max_bombs): # TODO: only drop bombs after they're unlocked
 		eligible.append(GenericItemPickup.item_type.BOMB)
-	# in that case, stamina will always be available
-	eligible.append(GenericItemPickup.item_type.STAMINA)
+	eligible.append(GenericItemPickup.item_type.STAMINA) # stamina is unconditional
 	
 	# If, somehow, there are no eligible items, then sound the alarms and bail 
 	if (eligible.is_empty()):
-		print("SOMETHING WENT HORRIBLY WRONG.")
+		push_error("enemy.gd: No valid pickup drops were possible!")
 		return
 	
-	var chosen : int = eligible.pick_random()
-	
+	# pick an eligible item and get the scene path
+	var chosen: GenericItemPickup.item_type = eligible.pick_random()
+	var scene_path: String
 	match chosen:
 		GenericItemPickup.item_type.HEALTH:
-			var instantiated : Variant = load("uid://c3b7wkf6shwp1").instantiate()
-			instantiated.transform = transform
-			instantiated.rotation = 0
-			add_sibling(instantiated)
+			scene_path = "uid://ba67nujgxs2xm"
 		GenericItemPickup.item_type.BOMB:
-			var instantiated : Variant = load("uid://cxgodqe6st3jf").instantiate()
-			instantiated.transform = transform
-			instantiated.rotation = 0
-			add_sibling(instantiated)
+			scene_path = "uid://bcxhlev2837g6"
 		GenericItemPickup.item_type.STAMINA:
-			
-			# ALERT ALERT ALERT: add stamina pickup :D
-			
-			#var instantiated : Variant = load("ADD STAMINA RAAH").instantiate()
-			#instantiated.transform = transform
-			#instantiated.rotation = 0
-			#add_sibling(instantiated)
-			
-			pass
+			scene_path = "uid://nqdbsvt7vcge"
+		_:
+			assert(false, "unhandled pickup drop!")
 	
-	print("Item ID ", chosen, " was dropped by ", get_path())
+	# instantiate the chosen pickup
+	var dropped_item: Node2D = load(scene_path).instantiate()
+	dropped_item.position = position
+	add_sibling(dropped_item)
+	print("Item '", dropped_item.name, "' was dropped by ", get_path())
 	
