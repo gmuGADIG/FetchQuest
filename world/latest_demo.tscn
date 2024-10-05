@@ -28,7 +28,7 @@ size = Vector2(158, 146)
 [node name="TestEnemy" parent="." instance=ExtResource("1_h18tn")]
 position = Vector2(351, 619)
 
-[node name="Player" parent="." groups=["Item"] instance=ExtResource("2_vi53h")]
+[node name="Player" parent="." instance=ExtResource("2_vi53h")]
 position = Vector2(534, 261)
 
 [node name="Chest" parent="." instance=ExtResource("3_iuoyy")]
@@ -48,8 +48,6 @@ limit_left = -945
 limit_top = -220
 limit_right = 2030
 limit_bottom = 840
-
-[node name="HUD" parent="." instance=ExtResource("8_6bf8d")]
 
 [node name="Walls" type="Node2D" parent="."]
 
@@ -155,5 +153,7 @@ scene = "uid://rf8m4b5ybrcj"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DungeonEntrance/TransitionScene"]
 position = Vector2(6, -13)
 shape = SubResource("RectangleShape2D_3rema")
+
+[node name="HUD" parent="." instance=ExtResource("8_6bf8d")]
 
 [connection signal="body_entered" from="DungeonEntrance/TransitionScene" to="DungeonEntrance/TransitionScene" method="_on_body_entered"]
