@@ -55,33 +55,21 @@ func on_death() -> void:
 	if (randf() > pickup_drop_chance): return
 	
 	# add bombs, health, and stamina to the list of possible drops, after checking if they're eligible
-	var eligible : Array[GenericItemPickup.item_type]
+	var eligible_pickup_paths: Array[String]
 	if (Player.instance.health < Player.instance.max_health):
-		eligible.append(GenericItemPickup.item_type.HEALTH)
-	if (PlayerInventory.bombs < PlayerInventory.max_bombs): # TODO: only drop bombs after they're unlocked
-		eligible.append(GenericItemPickup.item_type.BOMB)
-	eligible.append(GenericItemPickup.item_type.STAMINA) # stamina is unconditional
+		eligible_pickup_paths.append("uid://ba67nujgxs2xm") # health
+	if (PlayerInventory.bombs < PlayerInventory.max_bombs):
+		eligible_pickup_paths.append("uid://bcxhlev2837g6") # bomb
+	eligible_pickup_paths.append("uid://nqdbsvt7vcge") # stamina (unconditional)
 	
 	# If, somehow, there are no eligible items, then sound the alarms and bail 
-	if (eligible.is_empty()):
+	if (eligible_pickup_paths.is_empty()):
 		push_error("enemy.gd: No valid pickup drops were possible!")
 		return
 	
 	# pick an eligible item and get the scene path
-	var chosen: GenericItemPickup.item_type = eligible.pick_random()
-	var scene_path: String
-	match chosen:
-		GenericItemPickup.item_type.HEALTH:
-			scene_path = "uid://ba67nujgxs2xm"
-		GenericItemPickup.item_type.BOMB:
-			scene_path = "uid://bcxhlev2837g6"
-		GenericItemPickup.item_type.STAMINA:
-			scene_path = "uid://nqdbsvt7vcge"
-		_:
-			assert(false, "unhandled pickup drop!")
-	
-	# instantiate the chosen pickup
-	var dropped_item: Node2D = load(scene_path).instantiate()
+	var chosen: String = eligible_pickup_paths.pick_random()
+	var dropped_item: Node2D = load(chosen).instantiate()
 	dropped_item.position = position
 	add_sibling(dropped_item)
 	print("Item '", dropped_item.name, "' was dropped by ", get_path())
