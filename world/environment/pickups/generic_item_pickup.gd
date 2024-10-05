@@ -9,7 +9,8 @@ class_name GenericItemPickup extends CharacterBody2D
 enum item_type {
 	HEALTH,
 	BOMB,
-	STAMINA
+	KEY,
+	STAMINA,
 }
 
 ## Now we tell this particular instance what its identity is, what part of the enum it is.
@@ -28,6 +29,8 @@ func _on_pickup_area_body_entered(body: Node2D) -> void:
 			body.heal(amount)
 		item_type.BOMB:
 			PlayerInventory.bombs += amount
+		item_type.KEY:
+			PlayerInventory.door_keys += 1
 		item_type.STAMINA:
 			body.stamina = move_toward(body.stamina, body.max_stamina, amount)
 	queue_free()
