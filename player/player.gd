@@ -17,6 +17,8 @@ static var instance: Player
 @export var knockback_friction: float = 5.0 ## How fast the player slows down from knockback
 var active_sword: ThrownSword ## The active thrown sword. Null if the player is currently holding the sword
 
+@onready var bombScene := preload("bomb.tscn")
+
 ## On controller, if the aim stick isn't held in any direction, the last non-zero aim will be used
 var last_aim_direction := Vector2.RIGHT
 
@@ -126,6 +128,18 @@ func _physics_process(delta: float) -> void:
 	velocity += force_applied 	
 	force_applied = force_applied.lerp(Vector2.ZERO, delta * knockback_friction)
 	move_and_slide()
+
+func _input(event: InputEvent) -> void:
+	#TODO: REMOVE THIS
+	PlayerInventory.bombs = 314159
+	
+	if(event.is_action_pressed("throw_bomb")):
+		if PlayerInventory.bombs > 0:
+			var bombInstance := bombScene.instantiate()
+			bombInstance.position = position
+			bombInstance.set_velocity(get_aim() * 1000)
+			add_sibling(bombInstance)
+			PlayerInventory.bombs-=1
 
 ## Damages the player, lowering its health.
 func hurt(damage_event: DamageEvent) -> void:
