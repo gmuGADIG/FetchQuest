@@ -92,6 +92,9 @@ func throw_sword() -> void:
 	sword.position = get_parent().to_local(self.global_position)
 	add_sibling(sword)
 	sword.throw(get_aim())
+	
+func _pickup_item(item: Item) -> void:
+	item.consume(self)
 
 func _physics_process(_delta: float) -> void:
 	velocity = Input.get_vector("move_left", "move_right", "move_up", "move_down") * move_speed

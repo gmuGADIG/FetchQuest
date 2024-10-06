@@ -1,10 +1,12 @@
-[gd_scene load_steps=3 format=3 uid="uid://ct0hhpvj42coh"]
+[gd_scene load_steps=4 format=3 uid="uid://ct0hhpvj42coh"]
 
 [ext_resource type="PackedScene" uid="uid://utcn5cca00yv" path="res://world/environment/pickups/inventory_item_pickup_base.tscn" id="1_tlve7"]
 [ext_resource type="Texture2D" uid="uid://c7x4k10b1mvt4" path="res://demo_art/player_sword.png" id="2_m00la"]
+[ext_resource type="Script" path="res://world/environment/pickups/key_item_pickup.gd" id="4_6jko4"]
 
 [node name="ItemTemp1" instance=ExtResource("1_tlve7")]
-inventory_key = "test_item"
+script = ExtResource("4_6jko4")
+inventory_key = "Iron"
 
 [node name="Sprite2D" parent="." index="1"]
 scale = Vector2(0.134095, 0.134095)

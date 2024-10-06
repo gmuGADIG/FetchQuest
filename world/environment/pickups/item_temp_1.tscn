@@ -1,10 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://bdniv62roo8ov"]
+[gd_scene load_steps=4 format=3 uid="uid://bdniv62roo8ov"]
 
 [ext_resource type="PackedScene" uid="uid://utcn5cca00yv" path="res://world/environment/pickups/inventory_item_pickup_base.tscn" id="1_ueke8"]
 [ext_resource type="Texture2D" uid="uid://jj82j3q3he5c" path="res://demo_art/tre_test_item.png" id="2_3l8sv"]
+[ext_resource type="Script" path="res://world/environment/pickups/key_item_pickup.gd" id="4_1t86l"]
 
 [node name="ItemTemp1" instance=ExtResource("1_ueke8")]
-inventory_key = "test_item"
+script = ExtResource("4_1t86l")
+inventory_key = "special_test_item"
+acceleration = 5.0
 
 [node name="Sprite2D" parent="." index="1"]
 scale = Vector2(0.134095, 0.134095)
