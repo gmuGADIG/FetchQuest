@@ -165,3 +165,6 @@ func heal(gained: int) -> void:
 func add_force(force: Vector2) -> void:
 	force_applied += force
 	
+func _pickup_item(item: Item) -> void:
+	item.consume(self)
+	
