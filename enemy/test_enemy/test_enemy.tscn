@@ -17,6 +17,12 @@ knockback_force = 500
 scale = Vector2(0.75, 0.75)
 texture = ExtResource("3_72tns")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
-position = Vector2(1, 0)
+[node name="HittingArea" type="Area2D" parent="." index="1"]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HittingArea" index="0"]
+position = Vector2(-0.5, 0)
+shape = SubResource("RectangleShape2D_0i45s")
+
 shape = SubResource("RectangleShape2D_6fsdk")
