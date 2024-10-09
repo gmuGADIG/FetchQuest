@@ -21,9 +21,7 @@ func _ready() -> void:
 	assert(scene_name != "", "Transition trigger at %s has an empty scene name." % self.get_path())
 	assert(scene_name in _scene_dict, "Transition trigger at %s could not resolve scene name: '%s'" % [self.get_path(), scene_name])
 
-static func update_scene_dict(path: String) -> void:
-	print("path = ", path)
-	
+static func update_scene_dict(path: String) -> void:	
 	var dir := DirAccess.open(path)
 	assert(dir != null)
 	
