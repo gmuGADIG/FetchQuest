@@ -1,6 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://utcn5cca00yv"]
+[gd_scene load_steps=5 format=3 uid="uid://bu8hc6fk875h1"]
 
-[ext_resource type="Script" path="res://world/environment/pickups/inventory_item_pickup.gd" id="1_0qygp"]
+[ext_resource type="Script" path="res://world/environment/pickups/key_item_pickup.gd" id="1_dglgb"]
 [ext_resource type="Texture2D" uid="uid://deern6512fesn" path="res://demo_art/test_enemy.svg" id="2_lyf73"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_my72a"]
@@ -11,8 +11,7 @@ radius = 111.803
 
 [node name="Item" type="CharacterBody2D" groups=["Item"]]
 collision_layer = 16
-collision_mask = 0
-script = ExtResource("1_0qygp")
+script = ExtResource("1_dglgb")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_my72a")
@@ -22,7 +21,7 @@ scale = Vector2(0.3, 0.3)
 texture = ExtResource("2_lyf73")
 
 [node name="PickupArea" type="Area2D" parent="."]
-collision_layer = 0
+collision_layer = 16
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PickupArea"]

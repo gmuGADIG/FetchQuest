@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://ba67nujgxs2xm"]
 
-[ext_resource type="Script" path="res://world/environment/pickups/generic_item_pickup.gd" id="1_28850"]
 [ext_resource type="Texture2D" uid="uid://jj82j3q3he5c" path="res://demo_art/tre_test_item.png" id="2_3im74"]
+[ext_resource type="Script" path="res://world/environment/pickups/health_pickup.gd" id="3_oyprn"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_my72a"]
 radius = 22.0
@@ -11,8 +11,8 @@ radius = 111.803
 
 [node name="pickup_health" type="CharacterBody2D" groups=["Item"]]
 collision_layer = 16
-collision_mask = 0
-script = ExtResource("1_28850")
+script = ExtResource("3_oyprn")
+health_amount = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_my72a")

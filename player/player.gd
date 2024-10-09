@@ -164,4 +164,8 @@ func heal(gained: int) -> void:
 ## Apply a force to the player. Generally, a good magnitude is around 500 to 1000
 func add_force(force: Vector2) -> void:
 	force_applied += force
+
+## Called by item.gd. Consumes the item
+func pickup_item(item: Item) -> void:
+	item.consume(self)
 	
