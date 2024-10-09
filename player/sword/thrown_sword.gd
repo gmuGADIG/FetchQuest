@@ -103,8 +103,8 @@ func _on_collision(collision: KinematicCollision2D) -> void:
 	direction = velocity  # Update direction after bounce
 	sword_bounce()        # Handle ricochet logic
 
-## Grab items when they enter the grab area
-func _pickup_item(item: Item) -> void:
+## Called by item.gd. Grabs the item and makes it follow the sword.
+func pickup_item(item: Item) -> void:
 	item.follow(self, 20.0)
 
 func _on_damage_area_body_entered(body: Node2D) -> void:

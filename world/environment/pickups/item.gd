@@ -16,8 +16,8 @@ var physics_state: ItemPhysicsState = ItemPhysicsState.IDLE;
 var target: Node2D
 
 func _on_pickup_area_body_entered(other: Node2D) -> void:
-	if (other.has_method("_pickup_item")):
-		other._pickup_item(self)
+	if (other.has_method("pickup_item")):
+		other.pickup_item(self)
 		
 func follow(other: Node2D, follow_speed: float) -> void:
 	target = other
