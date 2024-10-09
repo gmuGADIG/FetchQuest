@@ -8,16 +8,19 @@ class_name Enemy extends CharacterBody2D
 @export var damage : int = 1
 @export var knockback_force : int = 10
 @onready var health := max_health
+# the max distance the entity will move from its starting position, aka that radius of the circle that the entity is allowed to move in
+@export var roaming_radius : float = 100
 
 @export_range(0, 1) var pickup_drop_chance: float = 0.5 ## Chance of dropping a pick-up (hp, bomb, or stamina) on death
 
 var _player : Player
 
-func _ready() -> void:
-	await get_tree().process_frame
-	_player = Player.instance
 
 var enemy_state := EnemyState.ROAMING
+
+@onready var original_position : Vector2 = position
+@onready var target_position: Vector2 = _get_roaming_target()
+var roaming_time : float = 0.0
 
 enum EnemyState {
 	ROAMING,
@@ -33,6 +36,7 @@ func _process(delta: float) -> void:
 			_process_agressive(delta)
 		EnemyState.STUNNED:
 			_process_stunned(delta)
+	move_and_slide()
 	
 		
 ## Damages the enemy, killing it if its health drops below zero.
@@ -57,10 +61,10 @@ func on_death() -> void:
 	# add bombs, health, and stamina to the list of possible drops, after checking if they're eligible
 	var eligible_pickup_paths: Array[String]
 	if (Player.instance.health < Player.instance.max_health):
-		eligible_pickup_paths.append("uid://ba67nujgxs2xm") # health
+		eligible_pickup_paths.append("res://world/environment/pickups/pickup_health.tscn") # health
 	if (PlayerInventory.bombs < PlayerInventory.max_bombs):
-		eligible_pickup_paths.append("uid://bcxhlev2837g6") # bomb
-	eligible_pickup_paths.append("uid://nqdbsvt7vcge") # stamina (unconditional)
+		eligible_pickup_paths.append("res://world/environment/pickups/pickup_bomb.tscn") # bomb
+	eligible_pickup_paths.append("res://world/environment/pickups/pickup_stamina.tscn") # stamina (unconditional)
 	
 	# If, somehow, there are no eligible items, then sound the alarms and bail 
 	if (eligible_pickup_paths.is_empty()):
@@ -75,7 +79,24 @@ func on_death() -> void:
 	print("Item '", dropped_item.name, "' was dropped by ", get_path())
 	
 func _process_roaming(delta: float) -> void:
-	pass
+	var target_reached := position.distance_to(target_position) <= 5.0
+	if target_reached: # target reached; set new target and wait
+		target_position = _get_roaming_target()
+		roaming_time = randf_range(.5, 1)
+		velocity = Vector2.ZERO
+	elif roaming_time > 0: # waiting; subtract from timer and do nothing
+		roaming_time -= delta
+	else: # still approaching target
+		approach(target_position)
+
+## gets a new random position to roam towards
+func _get_roaming_target() -> Vector2:
+	var radian: float = randf_range(0, 2*PI)
+	var distance: float =  randf_range(0, roaming_radius)
+	return original_position + Vector2(distance * cos(radian), distance * sin(radian))
+
+func approach(target: Vector2) -> void:
+	velocity = position.direction_to(target) * 200 # temporary movement code. TODO: replace with proper navigation
 	
 func _process_agressive(delta: float) -> void:
 	pass
