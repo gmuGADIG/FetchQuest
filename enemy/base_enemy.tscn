@@ -1,7 +1,29 @@
-[gd_scene load_steps=2 format=3 uid="uid://blpi4x6if673v"]
+[gd_scene load_steps=4 format=3 uid="uid://blpi4x6if673v"]
 
 [ext_resource type="Script" path="res://enemy/enemy.gd" id="1_xa7a1"]
+[ext_resource type="Script" path="res://enemy/enemy_player_detection.gd" id="2_3ihdi"]
 
-[node name="BaseEnemy" type="CharacterBody2D" groups=["Enemy"]]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fdgx0"]
+size = Vector2(117, 108)
+
+[node name="BaseEnemy" type="CharacterBody2D" groups=["Enemy", "Hittable"]]
 collision_layer = 4
 script = ExtResource("1_xa7a1")
+
+[node name="PlayerDetectionComponent" type="Node2D" parent="."]
+script = ExtResource("2_3ihdi")
+
+[node name="DetectionRaycast" type="RayCast2D" parent="PlayerDetectionComponent"]
+target_position = Vector2(0, 0)
+collision_mask = 3
+hit_from_inside = true
+
+[node name="HittingArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HittingArea"]
+shape = SubResource("RectangleShape2D_fdgx0")
+
+[connection signal="player_detected" from="PlayerDetectionComponent" to="PlayerDetectionComponent" method="_on_player_detected"]
+[connection signal="body_entered" from="HittingArea" to="." method="_on_hitting_area_body_entered"]
