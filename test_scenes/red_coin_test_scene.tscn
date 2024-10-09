@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://c7ck7ril2jix2" path="res://player/player.tscn" id="1_epkeg"]
 [ext_resource type="PackedScene" uid="uid://cg2jt0166hik8" path="res://world/environment/red_coin/red_coin_manager.tscn" id="2_dq47i"]
 [ext_resource type="PackedScene" uid="uid://gp1o7iklljk2" path="res://world/environment/red_coin/red_coin.tscn" id="3_mwga3"]
-[ext_resource type="PackedScene" uid="uid://bdniv62roo8ov" path="res://world/environment/pickups/item_temp_1.tscn" id="4_ga06x"]
+[ext_resource type="PackedScene" uid="uid://bv2blm5myu3gk" path="res://world/environment/pickups/pickup_health.tscn" id="4_74jy2"]
 
 [node name="RedCoinTestScene" type="Node2D"]
 position = Vector2(-1, 1)
@@ -12,7 +12,7 @@ position = Vector2(-1, 1)
 position = Vector2(534, 261)
 
 [node name="RedCoinManager" parent="." node_paths=PackedStringArray("reward") instance=ExtResource("2_dq47i")]
-reward = NodePath("ItemTemp1")
+reward = NodePath("pickup_health")
 
 [node name="RedCoin" parent="RedCoinManager" instance=ExtResource("3_mwga3")]
 
@@ -22,5 +22,5 @@ position = Vector2(560, 82)
 [node name="RedCoin3" parent="RedCoinManager" instance=ExtResource("3_mwga3")]
 position = Vector2(906, 266)
 
-[node name="ItemTemp1" parent="RedCoinManager" instance=ExtResource("4_ga06x")]
-position = Vector2(706, 263)
+[node name="pickup_health" parent="RedCoinManager" instance=ExtResource("4_74jy2")]
+position = Vector2(678, 352)
