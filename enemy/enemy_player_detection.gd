@@ -22,7 +22,7 @@ func _ready() -> void:
 	## Set the Area2D size and raycast length to be our desired measurements
 	raycast.target_position.x = detectable_distance
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	## Update the distance to the player
 	distance_to_player = abs(global_position.distance_to(Player.instance.global_position))	
 	

@@ -27,7 +27,7 @@ var _on_cooldown: bool = false
 func _ready() -> void:
 	scale = Vector2(2*radius, 2*radius)
 	
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	scale = Vector2(2*radius, 2*radius)
 	pass
 	

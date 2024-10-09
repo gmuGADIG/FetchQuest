@@ -25,7 +25,7 @@ func follow(other: Node2D, follow_speed: float) -> void:
 	physics_state = ItemPhysicsState.FOLLOWING
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	match physics_state:
 		ItemPhysicsState.FOLLOWING:
 			if (is_instance_valid(target) and (target.position - position).length() <= 100):
@@ -39,5 +39,5 @@ func _process(delta: float) -> void:
 			velocity = velocity.normalized() * cur_speed
 	move_and_slide()
 			
-func consume(consumer: Node2D) -> void:
+func consume(_consumer: Node2D) -> void:
 	pass

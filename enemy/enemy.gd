@@ -13,9 +13,6 @@ class_name Enemy extends CharacterBody2D
 
 @export_range(0, 1) var pickup_drop_chance: float = 0.5 ## Chance of dropping a pick-up (hp, bomb, or stamina) on death
 
-var _player : Player
-
-
 var enemy_state := EnemyState.ROAMING
 
 @onready var original_position : Vector2 = position
@@ -75,7 +72,7 @@ func on_death() -> void:
 	var chosen: String = eligible_pickup_paths.pick_random()
 	var dropped_item: Node2D = load(chosen).instantiate()
 	dropped_item.position = position
-	add_sibling(dropped_item)
+	add_sibling.call_deferred(dropped_item)
 	print("Item '", dropped_item.name, "' was dropped by ", get_path())
 	
 func _process_roaming(delta: float) -> void:
@@ -98,10 +95,10 @@ func _get_roaming_target() -> Vector2:
 func approach(target: Vector2) -> void:
 	velocity = position.direction_to(target) * 200 # temporary movement code. TODO: replace with proper navigation
 	
-func _process_agressive(delta: float) -> void:
+func _process_agressive(_delta: float) -> void:
 	pass
 	
-func _process_stunned(delta: float) -> void:
+func _process_stunned(_delta: float) -> void:
 	pass
 	
 

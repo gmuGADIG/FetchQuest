@@ -33,12 +33,12 @@ func explode() -> void:
 
 	queue_free()
 
-func hurt(damage_event: DamageEvent) -> void:
+func hurt(_damage_event: DamageEvent) -> void:
 	explode()
 	return
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	velocity *= 0.9
 	move_and_slide()
 	

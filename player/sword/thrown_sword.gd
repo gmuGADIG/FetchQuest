@@ -72,7 +72,7 @@ func _physics_process(delta: float) -> void:
 	if collision:
 		_on_collision(collision)
 		
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if Input.is_action_just_released("attack"):
 		if (recall_timer.is_stopped()):
 			return_sword()

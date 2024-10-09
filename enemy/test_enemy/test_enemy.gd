@@ -4,20 +4,15 @@
 
 class_name TestEnemy extends Enemy
 
-
-
 func _ready() -> void:
 	# wait a single frame in case our _ready was called before the player's
 	await get_tree().process_frame
 
-	_player = Player.instance
-	assert(_player != null, "No player exists in the scene!")
-
 func _physics_process(_delta: float) -> void:
-	if _player == null: return
+	if Player.instance == null: return
 	
 	else:
-		velocity = (_player.global_position - global_position).normalized() * 300
+		velocity = (Player.instance.global_position - global_position).normalized() * 300
 	move_and_slide()
 
-	look_at(_player.global_position)
+	look_at(Player.instance.global_position)
