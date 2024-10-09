@@ -10,20 +10,15 @@ class_name Enemy extends CharacterBody2D
 @export var roaming_radius : float = 100
 var enemy_state := EnemyState.ROAMING
 
-var target_position : Vector2 = Vector2.ZERO
-var original_position : Vector2 = Vector2.ZERO 
-var roaming_time : float = 0.5
+@onready var original_position : Vector2 = position
+@onready var target_position: Vector2 = _get_roaming_target()
+var roaming_time : float = 0.0
 
 enum EnemyState {
 	ROAMING,
 	AGRESSIVE,
 	STUNNED
 }
-
-func _ready() -> void:
-	# sets the original position and target postion
-	original_position = position
-	target_position = original_position
 
 func _process(delta: float) -> void:
 	match enemy_state:
@@ -33,6 +28,7 @@ func _process(delta: float) -> void:
 			_process_agressive(delta)
 		EnemyState.STUNNED:
 			_process_stunned(delta)
+	move_and_slide()
 	
 		
 ## Damages the enemy, killing it if its health drops below zero.
@@ -51,34 +47,24 @@ func hurt(event: DamageEvent) -> void:
 # checks to see if the entity is close enough to its target position
 # if so reset romaing time and wait until its 0 or negitative and then move towards the new target position
 func _process_roaming(delta: float) -> void:
-	if _position_close_to_target(target_position, 0.3):
-		_get_target_position(roaming_radius)
-	if roaming_time <= 0:
+	var target_reached := position.distance_to(target_position) <= 5.0
+	if target_reached: # target reached; set new target and wait
+		target_position = _get_roaming_target()
+		roaming_time = randf_range(.5, 1)
+		velocity = Vector2.ZERO
+	elif roaming_time > 0: # waiting; subtract from timer and do nothing
+		roaming_time -= delta
+	else: # still approaching target
 		approach(target_position)
-	else:
-		roaming_time = roaming_time - delta
-	pass
 
-# checks to see if the enemy is close to a postion within threshold
-func _position_close_to_target(target: Vector2, threshold: float) -> bool:
-	return target.distance_to(position) <= threshold
-	pass
-	
-# sets the target_position to a position on the edge of a circle witht he enemy at the middle.
-# also sets the timer to 0.2 to 1 seconds
-func _get_target_position(radius: float) -> void:
-	var radian: float = randf_range(0,(2*3.14))
-	var distance: float =  randf_range(0,radius)
-	var target_position := original_position + Vector2(distance * cos(radian), distance * sin(radian))
-	roaming_time = randf_range(0.2,1)
-	pass
-	
-	# add public target position, check if target pos it close enough to current pos, wait for X seconds, then get new target postion
-	##Movement function(position)
-	pass
+## gets a new random position to roam towards
+func _get_roaming_target() -> Vector2:
+	var radian: float = randf_range(0, 2*PI)
+	var distance: float =  randf_range(0, roaming_radius)
+	return original_position + Vector2(distance * cos(radian), distance * sin(radian))
 
-func approach(target: Vector2) -> void: #DONT USE THIS
-	pass
+func approach(target: Vector2) -> void:
+	velocity = position.direction_to(target) * 200 # temporary movement code. TODO: replace with proper navigation
 	
 func _process_agressive(delta: float) -> void:
 	pass
