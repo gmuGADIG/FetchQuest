@@ -81,10 +81,8 @@ func stop_roll() -> void:
 	self.set_collision_mask_value(6, true)
 	self.set_collision_mask_value(4, true)
 
-## Called when the player spawns in
-func _ready() -> void:
+func _init() -> void:
 	instance = self
-	
 	
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("speak"):
