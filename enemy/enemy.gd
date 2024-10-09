@@ -5,9 +5,17 @@
 class_name Enemy extends CharacterBody2D
 
 @export var max_health: int = 3
+@export var damage : int = 1
+@export var knockback_force : int = 10
 @onready var health := max_health
 # the max distance the entity will move from its starting position, aka that radius of the circle that the entity is allowed to move in
 @export var roaming_radius : float = 100
+
+@export_range(0, 1) var pickup_drop_chance: float = 0.5 ## Chance of dropping a pick-up (hp, bomb, or stamina) on death
+
+var _player : Player
+
+
 var enemy_state := EnemyState.ROAMING
 
 @onready var original_position : Vector2 = position
@@ -33,19 +41,43 @@ func _process(delta: float) -> void:
 		
 ## Damages the enemy, killing it if its health drops below zero.
 ## This should be called by the player's attacks when they hit an enemy.
-func hurt(event: DamageEvent) -> void:
+func hurt(damage_event: DamageEvent) -> void:
 	if health <= 0: return # don't die twice
 
-	health -= event.damage
-	position = position + DamageEvent.calculate_knockback_vector(event,self.position)
+	health -= damage_event.damage
+	#position += damage_event.knockback
 	
 	print("Enemy.gd: Health of '%s' was lowered to %s/%s" % [get_path(), health, max_health])
 
 	if health <= 0:
+		on_death()
 		queue_free()
-		
-# checks to see if the entity is close enough to its target position
-# if so reset romaing time and wait until its 0 or negitative and then move towards the new target position
+
+## Function to call upon death of enemy
+func on_death() -> void:
+	# if the chance fails, bail out of the function and do nothing
+	if (randf() > pickup_drop_chance): return
+	
+	# add bombs, health, and stamina to the list of possible drops, after checking if they're eligible
+	var eligible_pickup_paths: Array[String]
+	if (Player.instance.health < Player.instance.max_health):
+		eligible_pickup_paths.append("uid://ba67nujgxs2xm") # health
+	if (PlayerInventory.bombs < PlayerInventory.max_bombs):
+		eligible_pickup_paths.append("uid://bcxhlev2837g6") # bomb
+	eligible_pickup_paths.append("uid://nqdbsvt7vcge") # stamina (unconditional)
+	
+	# If, somehow, there are no eligible items, then sound the alarms and bail 
+	if (eligible_pickup_paths.is_empty()):
+		push_error("enemy.gd: No valid pickup drops were possible!")
+		return
+	
+	# pick an eligible item and get the scene path
+	var chosen: String = eligible_pickup_paths.pick_random()
+	var dropped_item: Node2D = load(chosen).instantiate()
+	dropped_item.position = position
+	add_sibling(dropped_item)
+	print("Item '", dropped_item.name, "' was dropped by ", get_path())
+	
 func _process_roaming(delta: float) -> void:
 	var target_reached := position.distance_to(target_position) <= 5.0
 	if target_reached: # target reached; set new target and wait
@@ -72,3 +104,9 @@ func _process_agressive(delta: float) -> void:
 func _process_stunned(delta: float) -> void:
 	pass
 	
+
+func _on_hitting_area_body_entered(body: Node2D) -> void:
+	var player := body as Player
+	if player != null:
+		var knockback := global_position.direction_to(player.global_position) * knockback_force
+		player.hurt(DamageEvent.new(damage, knockback))

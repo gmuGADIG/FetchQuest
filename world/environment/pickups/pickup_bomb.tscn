@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://bcxhlev2837g6"]
+
+[ext_resource type="Texture2D" uid="uid://dymucenpxmluo" path="res://icon.svg" id="2_44yxa"]
+[ext_resource type="Script" path="res://world/environment/pickups/bomb_pickup.gd" id="3_yslbk"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_my72a"]
+radius = 22.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_n4s5b"]
+radius = 111.803
+
+[node name="pickup_bomb" type="CharacterBody2D" groups=["Item"]]
+collision_layer = 16
+script = ExtResource("3_yslbk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_my72a")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("2_44yxa")
+
+[node name="PickupArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PickupArea"]
+scale = Vector2(0.3, 0.3)
+shape = SubResource("CircleShape2D_n4s5b")
+debug_color = Color(0, 0.6, 0.701961, 0.0784314)
+
+[connection signal="body_entered" from="PickupArea" to="." method="_on_pickup_area_body_entered"]

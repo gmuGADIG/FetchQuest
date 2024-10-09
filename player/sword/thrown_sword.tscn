@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://b53bkta583hrj"]
+[gd_scene load_steps=10 format=3 uid="uid://b53bkta583hrj"]
 
 [ext_resource type="Script" path="res://player/sword/thrown_sword.gd" id="1_4xd43"]
 [ext_resource type="Texture2D" uid="uid://c7x4k10b1mvt4" path="res://demo_art/player_sword.png" id="2_7nce8"]
@@ -18,9 +18,6 @@ colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.180392)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6my70"]
 size = Vector2(26, 25)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_fxohi"]
-radius = 39.0
-
 [node name="ThrownSword" type="CharacterBody2D"]
 z_index = 2
 collision_layer = 2
@@ -31,6 +28,7 @@ floor_block_on_wall = false
 script = ExtResource("1_4xd43")
 throw_distance = 350.0
 acceleration = -2000.0
+max_bounce_distance = 800.0
 
 [node name="Sprite2D" type="Sprite2D" parent="." node_paths=PackedStringArray("sword")]
 scale = Vector2(0.2, 0.2)
@@ -80,23 +78,19 @@ wait_time = 10.0
 one_shot = true
 autostart = true
 
-[node name="BounceTimer" type="Timer" parent="."]
-
-[node name="GrabArea" type="Area2D" parent="."]
-collision_layer = 0
-collision_mask = 16
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="GrabArea"]
-shape = SubResource("CircleShape2D_fxohi")
-
 [node name="DamageArea" type="Area2D" parent="."]
-collision_layer = 6
-collision_mask = 7
+collision_layer = 4
+collision_mask = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DamageArea"]
 visible = false
 position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_6my70")
 
-[connection signal="body_entered" from="GrabArea" to="." method="_on_grab_area_body_entered"]
+[node name="RecallTimer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+autostart = true
+
 [connection signal="body_entered" from="DamageArea" to="." method="_on_damage_area_body_entered"]
+[connection signal="timeout" from="RecallTimer" to="." method="_on_recall_timer_timeout"]
