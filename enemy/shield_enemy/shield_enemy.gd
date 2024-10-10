@@ -30,11 +30,10 @@ func _on_shield_body_entered(body: Node2D) -> void:
 
 	# Variable showing if the shield was hit (ignored by some objects like the bomb)
 	var hit_shield:bool = (-shield_size / 2) < angle_to_body and angle_to_body < (shield_size / 2)
-
+	
 	# Deflect ThrownSwords
-	if body is ThrownSword:
-		if hit_shield:
-			print("shield_enemy.gd: hit shield")
-			body.return_sword()
-	# TODO if body is bomb:
-			# let bomb through
+	if body is ThrownSword and hit_shield:
+		print("shield_enemy.gd: hit shield")
+		body.return_sword()
+
+	#NOTE Any other things to deflect should follow similar logic
