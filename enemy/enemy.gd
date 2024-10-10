@@ -7,6 +7,10 @@ class_name Enemy extends CharacterBody2D
 @export var max_health: int = 3
 @onready var health := max_health
 
+
+@export var too_close: float = 1
+@export var too_far: float = 100
+
 var enemy_state := EnemyState.ROAMING
 
 enum EnemyState {
@@ -42,8 +46,14 @@ func _process_roaming(delta: float) -> void:
 	pass
 	
 func _process_agressive(delta: float) -> void:
+	
 	pass
 	
 func _process_stunned(delta: float) -> void:
+	pass
+	
+	
+func approach(target: Vector2) -> void:#THIS IS DUMMY CODE, USE THE METHOD FROM THE NAVIGATION BRANCH
+	
 	pass
 	
