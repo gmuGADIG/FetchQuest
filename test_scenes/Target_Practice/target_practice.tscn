@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://dfbqv7ega0qp6"]
+[gd_scene load_steps=7 format=3 uid="uid://dfbqv7ega0qp6"]
 
 [ext_resource type="PackedScene" uid="uid://c7ck7ril2jix2" path="res://player/player.tscn" id="1_vlfk2"]
 [ext_resource type="Script" path="res://test_scenes/Target_Practice/target.gd" id="2_4d656"]
@@ -10,20 +10,36 @@ _data = {
 }
 point_count = 2
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r6ep6"]
+size = Vector2(30.0539, 16.2767)
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_fssae"]
 radius = 105.233
 
 [node name="Target_Practice" type="Node2D" groups=["Enemy"]]
 position = Vector2(29, 226)
 
-[node name="Target" type="Node2D" parent="." node_paths=PackedStringArray("target_node")]
+[node name="Player" parent="." instance=ExtResource("1_vlfk2")]
 light_mask = 17
 visibility_layer = 17
-position = Vector2(35, -10)
+position = Vector2(440, 121)
+collision_layer = 18
+
+[node name="Target" type="RigidBody2D" parent="." node_paths=PackedStringArray("target_node", "collision_zone", "player", "target_collision", "sprite")]
+light_mask = 17
+visibility_layer = 17
+collision_layer = 17
+collision_mask = 17
+freeze = true
 script = ExtResource("2_4d656")
-target_node = NodePath("../Player")
+target_node = NodePath(".")
+collision_zone = NodePath("../Area2D")
+player = NodePath("../Player")
+target_collision = NodePath("CollisionShape2D")
+sprite = NodePath("Path2D/PathFollow2D/Sprite2D")
 
 [node name="Path2D" type="Path2D" parent="Target"]
+position = Vector2(35, -10)
 curve = SubResource("Curve2D_imuad")
 
 [node name="PathFollow2D" type="PathFollow2D" parent="Target/Path2D"]
@@ -34,6 +50,14 @@ rotation = -0.00331125
 position = Vector2(2.99998, 0.00992584)
 scale = Vector2(1.03125, 3.625)
 texture = ExtResource("3_3sscg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Target" groups=["Enemy"]]
+light_mask = 17
+visibility_layer = 17
+position = Vector2(316.601, -16.4473)
+rotation = -0.00331125
+scale = Vector2(1.03125, 3.625)
+shape = SubResource("RectangleShape2D_r6ep6")
 
 [node name="Area2D" type="Area2D" parent="."]
 position = Vector2(622, 123)
@@ -47,11 +71,5 @@ visibility_layer = 17
 position = Vector2(-7, 3)
 shape = SubResource("CircleShape2D_fssae")
 
-[node name="Player" parent="." instance=ExtResource("1_vlfk2")]
-light_mask = 17
-visibility_layer = 17
-position = Vector2(440, 121)
-collision_layer = 18
-
-[connection signal="body_entered" from="Area2D" to="Target" method="_on_area_2d_body_entered"]
-[connection signal="body_exited" from="Area2D" to="Target" method="_on_area_2d_body_exited"]
+[connection signal="body_shape_entered" from="Target" to="Target" method="_on_body_shape_entered"]
+[connection signal="body_shape_exited" from="Target" to="Target" method="_on_body_shape_exited"]
