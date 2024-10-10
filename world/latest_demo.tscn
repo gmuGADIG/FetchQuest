@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://3sqp1m0iowsi"]
+[gd_scene load_steps=22 format=3 uid="uid://3sqp1m0iowsi"]
 
 [ext_resource type="PackedScene" uid="uid://uj2rytnj1h4" path="res://enemy/test_enemy/test_enemy.tscn" id="1_h18tn"]
 [ext_resource type="PackedScene" uid="uid://c7ck7ril2jix2" path="res://player/player.tscn" id="2_vi53h"]
@@ -6,8 +6,9 @@
 [ext_resource type="PackedScene" uid="uid://deo11h81nnpyw" path="res://world/environment/pickups/pickup_bomb.tscn" id="4_xhn3s"]
 [ext_resource type="PackedScene" uid="uid://ch344rluh4xbs" path="res://world/camera/main_cam.tscn" id="7_7fnsb"]
 [ext_resource type="PackedScene" uid="uid://d3xngexqsy6m7" path="res://enemy_spawner/enemy_spawner.tscn" id="7_007xo"]
-[ext_resource type="PackedScene" uid="uid://70lp7kfk3yw6" path="res://ui/hud/hud.tscn" id="8_6bf8d"]
+[ext_resource type="PackedScene" uid="uid://70lp7kfk3yw6" path="res://UI/hud/hud.tscn" id="8_6bf8d"]
 [ext_resource type="Texture2D" uid="uid://dymucenpxmluo" path="res://icon.svg" id="8_umcft"]
+[ext_resource type="PackedScene" uid="uid://duhvhegf6byvr" path="res://enemy/spawner_enemy/spawner_enemy.tscn" id="9_gwgkd"]
 [ext_resource type="PackedScene" uid="uid://cg2jt0166hik8" path="res://world/environment/red_coin/red_coin_manager.tscn" id="9_svfaa"]
 [ext_resource type="PackedScene" uid="uid://gp1o7iklljk2" path="res://world/environment/red_coin/red_coin.tscn" id="10_kg0ye"]
 [ext_resource type="PackedScene" uid="uid://bv2blm5myu3gk" path="res://world/environment/pickups/pickup_health.tscn" id="11_4buq1"]
@@ -17,7 +18,7 @@
 [ext_resource type="Script" path="res://world/transition_trigger/transition_trigger.gd" id="15_4y615"]
 [ext_resource type="PackedScene" uid="uid://blh1fs712dql8" path="res://world/objects/locked_door/locked_door.tscn" id="16_ob7ry"]
 [ext_resource type="PackedScene" uid="uid://dt3m30r5dehup" path="res://world/environment/pickups/pickup_key.tscn" id="17_40pvk"]
-[ext_resource type="PackedScene" uid="uid://be0wx1bwh443q" path="res://ui/pause_menu/pause_menu.tscn" id="18_be8nm"]
+[ext_resource type="PackedScene" uid="uid://be0wx1bwh443q" path="res://UI/pause_menu/pause_menu.tscn" id="18_be8nm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2fj35"]
 size = Vector2(129.5, 126)
@@ -104,6 +105,7 @@ texture = ExtResource("8_umcft")
 
 [node name="EnemySpawner" parent="." instance=ExtResource("7_007xo")]
 position = Vector2(643, 624)
+enemy = ExtResource("9_gwgkd")
 
 [node name="RedCoinManager" parent="." node_paths=PackedStringArray("reward") instance=ExtResource("9_svfaa")]
 position = Vector2(-415, 100)
