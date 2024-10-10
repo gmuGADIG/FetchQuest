@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://3sqp1m0iowsi"]
+[gd_scene load_steps=23 format=3 uid="uid://3sqp1m0iowsi"]
 
 [ext_resource type="PackedScene" uid="uid://uj2rytnj1h4" path="res://enemy/test_enemy/test_enemy.tscn" id="1_h18tn"]
 [ext_resource type="PackedScene" uid="uid://c7ck7ril2jix2" path="res://player/player.tscn" id="2_vi53h"]
@@ -18,12 +18,27 @@
 [ext_resource type="PackedScene" uid="uid://blh1fs712dql8" path="res://world/objects/locked_door/locked_door.tscn" id="16_ob7ry"]
 [ext_resource type="PackedScene" uid="uid://dt3m30r5dehup" path="res://world/environment/pickups/pickup_key.tscn" id="17_40pvk"]
 [ext_resource type="PackedScene" uid="uid://be0wx1bwh443q" path="res://ui/pause_menu/pause_menu.tscn" id="18_be8nm"]
+[ext_resource type="PackedScene" uid="uid://c8pg7meq81nup" path="res://world/environment/holes/hole.tscn" id="19_kbxqu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2fj35"]
 size = Vector2(129.5, 126)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3rema"]
 size = Vector2(158, 146)
+
+[sub_resource type="GDScript" id="GDScript_sw7j5"]
+script/source = "extends CollisionShape2D
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+"
 
 [node name="LatestDemo" type="Node2D"]
 
@@ -162,5 +177,11 @@ position = Vector2(1281, 196)
 [node name="HUD" parent="." instance=ExtResource("8_6bf8d")]
 
 [node name="PauseMenu" parent="." instance=ExtResource("18_be8nm")]
+
+[node name="Hole" type="CollisionShape2D" parent="."]
+script = SubResource("GDScript_sw7j5")
+
+[node name="Hole2" parent="." instance=ExtResource("19_kbxqu")]
+position = Vector2(-317, 206)
 
 [connection signal="body_entered" from="DungeonEntrance/TransitionScene" to="DungeonEntrance/TransitionScene" method="_on_body_entered"]

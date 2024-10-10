@@ -71,16 +71,18 @@ func start_roll() -> void:
 	roll_vector = Input.get_vector("move_left", "move_right", "move_up", "move_down").normalized()
 	# switch off collision with enemy bullets and the holes
 	self.set_collision_mask_value(6, false)
-	self.set_collision_mask_value(4, false)
+	%HoleDetector.monitoring = false
+	#self.set_collision_mask_value(4, false)
 	# make the timer go
 	$RollTimer.start(roll_timer)
 
 # callback from roll timer. reverts changes made by start_roll
 func stop_roll() -> void:
 	rolling = false
+	%HoleDetector.monitoring = true
 	
 	self.set_collision_mask_value(6, true)
-	self.set_collision_mask_value(4, true)
+	#self.set_collision_mask_value(4, true)
 
 func _init() -> void:
 	instance = self
