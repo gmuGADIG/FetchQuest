@@ -1,0 +1,332 @@
+[gd_scene load_steps=34 format=3 uid="uid://be0wx1bwh443q"]
+
+[ext_resource type="Script" path="res://ui/pause_menu/pause_menu.gd" id="1_6mimi"]
+[ext_resource type="Texture2D" uid="uid://by02hyx0mbhyv" path="res://ui/kenney_input_prompts/xbox_stick_l.svg" id="2_76ohk"]
+[ext_resource type="Theme" path="res://ui/main_ui_theme.tres" id="2_evlcd"]
+[ext_resource type="Texture2D" uid="uid://cuxosj0xqko5o" path="res://ui/kenney_input_prompts/xbox_stick_r.svg" id="3_6tfxa"]
+[ext_resource type="Texture2D" uid="uid://b3mgh5kqkg4ts" path="res://ui/kenney_input_prompts/switch_buttons_down.svg" id="5_c4k42"]
+[ext_resource type="Texture2D" uid="uid://jw4s23y5ijys" path="res://ui/kenney_input_prompts/switch_buttons_right.svg" id="6_uhnds"]
+[ext_resource type="Texture2D" uid="uid://ctvim7whqvpq" path="res://ui/kenney_input_prompts/switch_buttons_up.svg" id="7_jae00"]
+[ext_resource type="Texture2D" uid="uid://bafjpetp038mx" path="res://ui/kenney_input_prompts/keyboard_w.svg" id="8_5ayw7"]
+[ext_resource type="Texture2D" uid="uid://d0g3rqw1blcce" path="res://ui/kenney_input_prompts/keyboard_a.svg" id="9_m3r3h"]
+[ext_resource type="Texture2D" uid="uid://i7lh882fpock" path="res://ui/kenney_input_prompts/keyboard_s.svg" id="10_qb2qo"]
+[ext_resource type="Texture2D" uid="uid://350u3rwfpifn" path="res://ui/kenney_input_prompts/keyboard_d.svg" id="11_4qm1m"]
+[ext_resource type="Texture2D" uid="uid://d4eq7cju01q06" path="res://ui/kenney_input_prompts/xbox_lb.svg" id="12_7vbxo"]
+[ext_resource type="Texture2D" uid="uid://c1e1exogyq4y2" path="res://ui/kenney_input_prompts/xbox_rb.svg" id="13_ovqbh"]
+[ext_resource type="Texture2D" uid="uid://b1i2v5mme8w5e" path="res://ui/kenney_input_prompts/xbox_lt.svg" id="14_d66xe"]
+[ext_resource type="Texture2D" uid="uid://c8c3fndsdwf46" path="res://ui/kenney_input_prompts/xbox_rt.svg" id="15_hauyt"]
+[ext_resource type="Texture2D" uid="uid://dx2h6k867qtaj" path="res://ui/kenney_input_prompts/keyboard_space.svg" id="16_60kv8"]
+[ext_resource type="Texture2D" uid="uid://vm6i2aefq8nx" path="res://ui/kenney_input_prompts/mouse_left.svg" id="17_wr3qw"]
+[ext_resource type="Texture2D" uid="uid://dmi7wpiesmv5d" path="res://ui/kenney_input_prompts/mouse_right.svg" id="18_prw7i"]
+[ext_resource type="Texture2D" uid="uid://c31hi40kjwe8j" path="res://ui/kenney_input_prompts/keyboard_p.svg" id="19_8etw3"]
+[ext_resource type="Texture2D" uid="uid://bp2oduf5g0ecg" path="res://ui/kenney_input_prompts/keyboard_escape.svg" id="20_aweq0"]
+[ext_resource type="Texture2D" uid="uid://dvb1n6x8reul7" path="res://ui/kenney_input_prompts/keyboard_arrow_down.svg" id="21_owsat"]
+[ext_resource type="Texture2D" uid="uid://dakw27celel45" path="res://ui/kenney_input_prompts/keyboard_arrow_left.svg" id="22_4txx3"]
+[ext_resource type="Texture2D" uid="uid://yksns87pieco" path="res://ui/kenney_input_prompts/keyboard_arrow_right.svg" id="23_2hiw3"]
+[ext_resource type="Texture2D" uid="uid://cjhmsk7mhilru" path="res://ui/kenney_input_prompts/keyboard_e.svg" id="23_avcjd"]
+[ext_resource type="Texture2D" uid="uid://do5junfaeyurm" path="res://ui/kenney_input_prompts/keyboard_shift.svg" id="24_lfpmi"]
+[ext_resource type="Texture2D" uid="uid://eqnpx4i3jjy4" path="res://ui/kenney_input_prompts/keyboard_arrow_up.svg" id="24_npbsq"]
+[ext_resource type="Texture2D" uid="uid://cjppdph3vaq46" path="res://ui/kenney_input_prompts/mouse_move.svg" id="25_a13ku"]
+[ext_resource type="Texture2D" uid="uid://c63k1k41080ts" path="res://ui/kenney_input_prompts/xbox_button_start.svg" id="28_h66p8"]
+[ext_resource type="Texture2D" uid="uid://csyq4jcoorlwf" path="res://ui/kenney_input_prompts/playstation3_button_select.svg" id="28_hm4v5"]
+[ext_resource type="Texture2D" uid="uid://cdu2wb8lljumv" path="res://ui/kenney_input_prompts/keyboard_q.svg" id="29_utr1d"]
+[ext_resource type="Texture2D" uid="uid://dlhf4l3x6nyee" path="res://ui/kenney_input_prompts/keyboard_tab.svg" id="30_kjn5g"]
+[ext_resource type="Script" path="res://ui/options/open_options_menu_button.gd" id="31_n2d0o"]
+[ext_resource type="PackedScene" uid="uid://dflfvpjufhfln" path="res://ui/options/options_menu.tscn" id="32_pok70"]
+
+[node name="PauseMenu" type="CanvasLayer"]
+script = ExtResource("1_6mimi")
+
+[node name="Panel" type="Panel" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_evlcd")
+
+[node name="Label" type="Label" parent="Panel"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 17.0
+offset_bottom = 90.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 65
+text = "PAUSED QUEST"
+horizontal_alignment = 1
+
+[node name="Resume" type="Button" parent="Panel"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -540.0
+offset_top = -210.0
+offset_right = -86.0
+offset_bottom = -133.0
+grow_horizontal = 2
+grow_vertical = 0
+focus_neighbor_top = NodePath("../OptionsMenuButton")
+focus_neighbor_bottom = NodePath("../Quit")
+theme_override_font_sizes/font_size = 48
+text = "Resume"
+
+[node name="Quit" type="Button" parent="Panel"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -542.0
+offset_top = -111.0
+offset_right = -88.0
+offset_bottom = -34.0
+grow_horizontal = 2
+grow_vertical = 0
+focus_neighbor_top = NodePath("../Resume")
+theme_override_font_sizes/font_size = 48
+text = "Quit"
+
+[node name="ControlsOverview" type="Panel" parent="Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 241.0
+offset_top = -186.0
+offset_right = 676.0
+offset_bottom = 496.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.689362, 0.689362)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Panel/ControlsOverview"]
+visible = false
+layout_mode = 0
+offset_left = 11.0
+offset_top = 8.0
+offset_right = 495.0
+offset_bottom = 301.0
+theme_override_font_sizes/normal_font_size = 23
+bbcode_enabled = true
+text = "Player Controls
+• Move: WASD, Arrow Keys, or Left Joystick
+• Roll: Space, East Button, LT
+• Speak: Right Click, RB, LB
+• Interact: E, South Button
+• Attack: Left Click, RT
+• Look: Right Joystick
+• Pause: Escape, Start"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/ControlsOverview"]
+layout_mode = 0
+offset_right = 433.0
+offset_bottom = 644.0
+
+[node name="MovementButtons" type="Label" parent="Panel/ControlsOverview/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 42
+text = "Move
+
+"
+
+[node name="KeyboardW" type="Sprite2D" parent="Panel/ControlsOverview/VBoxContainer/MovementButtons"]
+position = Vector2(152, 27)
+texture = ExtResource("8_5ayw7")
+
+[node name="KeyboardA" type="Sprite2D" parent="Panel/ControlsOverview/VBoxContainer/MovementButtons"]
+position = Vector2(203, 27)
+texture = ExtResource("9_m3r3h")
+
+[node name="KeyboardS" type="Sprite2D" parent="Panel/ControlsOverview/VBoxContainer/MovementButtons"]
+position = Vector2(254, 27)
+texture = ExtResource("10_qb2qo")
+
+[node name="KeyboardD" type="Sprite2D" parent="Panel/ControlsOverview/VBoxContainer/MovementButtons"]
+position = Vector2(305, 27)
+texture = ExtResource("11_4qm1m")
+
+[node name="KeyboardArrowDown" type="Sprite2D" parent="Panel/ControlsOverview/VBoxContainer/MovementButtons"]
+position = Vector2(254, 85)
+texture = ExtResource("21_owsat")
+
+[node name="KeyboardArrowLeft" type="Sprite2D" parent="Panel/ControlsOverview/VBoxContainer/MovementButtons"]
+position = Vector2(305, 85)
+texture = ExtResource("22_4txx3")
+
+[node name="KeyboardArrowRight" type="Sprite2D" parent="Panel/ControlsOverview/VBoxContainer/MovementButtons"]
+position = Vector2(203, 85)
+texture = ExtResource("23_2hiw3")
+
+[node name="KeyboardArrowUp" type="Sprite2D" parent="Panel/ControlsOverview/VBoxContainer/MovementButtons"]
+position = Vector2(152, 85)
+texture = ExtResource("24_npbsq")
+
+[node name="XboxStickL" type="Sprite2D" parent="Panel/ControlsOverview/VBoxContainer/MovementButtons"]
+position = Vector2(379, 54)
+texture = ExtResource("2_76ohk")
+
+[node name="AimButtons" type="Label" parent="Panel/ControlsOverview/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 42
+text = "Aim"
+
+[node name="XboxStickR" type="Sprite2D" parent="Panel/ControlsOverview/VBoxContainer/AimButtons"]
+position = Vector2(177, 31)
+texture = ExtResource("3_6tfxa")
+
+[node name="MouseMove" type="Sprite2D" parent="Panel/ControlsOverview/VBoxContainer/AimButtons"]
+position = Vector2(114, 31)
+texture = ExtResource("25_a13ku")
+
+[node name="InteractButtons" type="Label" parent="Panel/ControlsOverview/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 42
+text = "Interact"
+
+[node name="KeyboardE" type="Sprite2D" parent="Panel/ControlsOverview/VBoxContainer/InteractButtons"]
+position = Vector2(193, 31)
+texture = ExtResource("23_avcjd")
+
+[node name="SwitchButtonsDown" type="Sprite2D" parent="Panel/ControlsOverview/VBoxContainer/InteractButtons"]
+position = Vector2(259, 32)
+texture = ExtResource("5_c4k42")
+
+[node name="ThrowSword" type="Label" parent="Panel/ControlsOverview/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 42
+text = "Throw Sword"
+
+[node name="MouseLeft" type="Sprite2D" parent="Panel/ControlsOverview/VBoxContainer/ThrowSword"]
+position = Vector2(297, 31)
+texture = ExtResource("17_wr3qw")
+
+[node name="XboxRt" type="Sprite2D" parent="Panel/ControlsOverview/VBoxContainer/ThrowSword"]
+position = Vector2(356, 31)
+texture = ExtResource("15_hauyt")
+
+[node name="ThrowBomb" type="Label" parent="Panel/ControlsOverview/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 42
+text = "Throw Bomb"
+
+[node name="MouseRight" type="Sprite2D" parent="Panel/ControlsOverview/VBoxContainer/ThrowBomb"]
+position = Vector2(287, 31)
+texture = ExtResource("18_prw7i")
+
+[node name="XboxRb" type="Sprite2D" parent="Panel/ControlsOverview/VBoxContainer/ThrowBomb"]
+position = Vector2(349, 28)
+texture = ExtResource("13_ovqbh")
+
+[node name="DogRoll" type="Label" parent="Panel/ControlsOverview/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 42
+text = "Dog Roll"
+
+[node name="KeyboardSpace" type="Sprite2D" parent="Panel/ControlsOverview/VBoxContainer/DogRoll"]
+position = Vector2(197, 28)
+texture = ExtResource("16_60kv8")
+
+[node name="XboxLt" type="Sprite2D" parent="Panel/ControlsOverview/VBoxContainer/DogRoll"]
+position = Vector2(262, 29)
+texture = ExtResource("14_d66xe")
+
+[node name="SwitchButtonsRight" type="Sprite2D" parent="Panel/ControlsOverview/VBoxContainer/DogRoll"]
+position = Vector2(326, 26)
+texture = ExtResource("6_uhnds")
+
+[node name="Speak" type="Label" parent="Panel/ControlsOverview/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 42
+text = "Speak"
+
+[node name="KeyboardShift" type="Sprite2D" parent="Panel/ControlsOverview/VBoxContainer/Speak"]
+position = Vector2(157, 27)
+texture = ExtResource("24_lfpmi")
+
+[node name="XboxLb" type="Sprite2D" parent="Panel/ControlsOverview/VBoxContainer/Speak"]
+position = Vector2(220, 25)
+texture = ExtResource("12_7vbxo")
+
+[node name="Pause" type="Label" parent="Panel/ControlsOverview/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 42
+text = "Pause"
+
+[node name="KeyboardEscape" type="Sprite2D" parent="Panel/ControlsOverview/VBoxContainer/Pause"]
+position = Vector2(156, 29)
+texture = ExtResource("20_aweq0")
+
+[node name="KeyboardP" type="Sprite2D" parent="Panel/ControlsOverview/VBoxContainer/Pause"]
+position = Vector2(210, 29)
+texture = ExtResource("19_8etw3")
+
+[node name="XboxButtonStart" type="Sprite2D" parent="Panel/ControlsOverview/VBoxContainer/Pause"]
+position = Vector2(267, 31)
+texture = ExtResource("28_h66p8")
+
+[node name="QuestLog" type="Label" parent="Panel/ControlsOverview/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 42
+text = "Quest Log"
+
+[node name="KeyboardQ" type="Sprite2D" parent="Panel/ControlsOverview/VBoxContainer/QuestLog"]
+position = Vector2(241, 33)
+texture = ExtResource("29_utr1d")
+
+[node name="Playstation3ButtonSelect" type="Sprite2D" parent="Panel/ControlsOverview/VBoxContainer/QuestLog"]
+position = Vector2(298, 33)
+texture = ExtResource("28_hm4v5")
+
+[node name="Map" type="Label" parent="Panel/ControlsOverview/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 42
+text = "Map"
+
+[node name="SwitchButtonsUp" type="Sprite2D" parent="Panel/ControlsOverview/VBoxContainer/Map"]
+position = Vector2(184, 31)
+texture = ExtResource("7_jae00")
+
+[node name="KeyboardTab" type="Sprite2D" parent="Panel/ControlsOverview/VBoxContainer/Map"]
+position = Vector2(125, 32)
+texture = ExtResource("30_kjn5g")
+
+[node name="OptionsMenuButton" type="Button" parent="Panel" node_paths=PackedStringArray("options_menu")]
+layout_mode = 0
+offset_left = 82.0
+offset_top = 195.0
+offset_right = 440.0
+offset_bottom = 278.0
+focus_neighbor_bottom = NodePath("../Resume")
+theme_override_font_sizes/font_size = 48
+text = "Options"
+script = ExtResource("31_n2d0o")
+options_menu = NodePath("../../OptionsMenu")
+
+[node name="Label2" type="Label" parent="Panel"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -886.0
+offset_top = -73.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 13
+text = "Rest In matthew"
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="OptionsMenu" parent="." instance=ExtResource("32_pok70")]
+visible = false
+
+[connection signal="pressed" from="Panel/Resume" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="Panel/Quit" to="." method="_on_quit_pressed"]

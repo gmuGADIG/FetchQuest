@@ -1,0 +1,64 @@
+[gd_scene load_steps=5 format=3 uid="uid://70lp7kfk3yw6"]
+
+[ext_resource type="Script" path="res://ui/hud/heart_display.gd" id="1_k7sf5"]
+[ext_resource type="PackedScene" uid="uid://crx66rsu01asx" path="res://ui/hud/heart.tscn" id="2_b3c5i"]
+[ext_resource type="Texture2D" uid="uid://8vhne25d4h2h" path="res://demo_art/staminabar.png" id="3_j86gt"]
+[ext_resource type="Texture2D" uid="uid://deern6512fesn" path="res://demo_art/test_enemy.svg" id="4_78gs1"]
+
+[node name="HUD" type="CanvasLayer"]
+
+[node name="ContainerContainer" type="HBoxContainer" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -1139.0
+offset_right = 1139.0
+offset_bottom = 172.0
+grow_horizontal = 2
+scale = Vector2(0.5, 0.5)
+pivot_offset = Vector2(1139, 0)
+alignment = 1
+
+[node name="HeartAndStaminaContainer" type="VBoxContainer" parent="ContainerContainer"]
+layout_mode = 2
+size_flags_horizontal = 2
+
+[node name="HeartContainer" type="HBoxContainer" parent="ContainerContainer/HeartAndStaminaContainer"]
+z_index = 100
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 4
+script = ExtResource("1_k7sf5")
+
+[node name="Heart" parent="ContainerContainer/HeartAndStaminaContainer/HeartContainer" instance=ExtResource("2_b3c5i")]
+layout_mode = 2
+
+[node name="Heart2" parent="ContainerContainer/HeartAndStaminaContainer/HeartContainer" instance=ExtResource("2_b3c5i")]
+layout_mode = 2
+
+[node name="Heart3" parent="ContainerContainer/HeartAndStaminaContainer/HeartContainer" instance=ExtResource("2_b3c5i")]
+layout_mode = 2
+
+[node name="StaminaBar" type="TextureProgressBar" parent="ContainerContainer/HeartAndStaminaContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+value = 100.0
+texture_progress = ExtResource("3_j86gt")
+
+[node name="GBPContainer" type="CenterContainer" parent="ContainerContainer"]
+layout_mode = 2
+
+[node name="GoodBoyIcon" type="TextureRect" parent="ContainerContainer/GBPContainer"]
+z_index = 100
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+texture = ExtResource("4_78gs1")
+
+[node name="Counter" type="Label" parent="ContainerContainer/GBPContainer"]
+z_index = 101
+layout_mode = 2
+theme_override_font_sizes/font_size = 58
+text = "128"
+horizontal_alignment = 1
+vertical_alignment = 1
