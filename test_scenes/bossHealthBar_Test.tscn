@@ -1,0 +1,38 @@
+[gd_scene load_steps=4 format=3 uid="uid://c1knmn0ca34tb"]
+
+[ext_resource type="PackedScene" uid="uid://uj2rytnj1h4" path="res://enemy/test_enemy/test_enemy.tscn" id="1_dhsl4"]
+[ext_resource type="Script" path="res://test_scenes/bossHealthBar.gd" id="2_mv00m"]
+[ext_resource type="PackedScene" uid="uid://c7ck7ril2jix2" path="res://player/player.tscn" id="3_f2xhf"]
+
+[node name="BossHealthBarTest" type="Node2D"]
+top_level = true
+
+[node name="TestEnemy" parent="." instance=ExtResource("1_dhsl4")]
+position = Vector2(552, 306)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="CanvasLayer"]
+position = Vector2(552, 306)
+remote_path = NodePath("../../TestEnemy")
+
+[node name="Control" type="Control" parent="CanvasLayer/RemoteTransform2D"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HealthBar" type="ProgressBar" parent="CanvasLayer/RemoteTransform2D/Control" node_paths=PackedStringArray("boss")]
+layout_mode = 0
+offset_left = -72.0
+offset_top = -86.0
+offset_right = 78.0
+offset_bottom = -59.0
+show_percentage = false
+script = ExtResource("2_mv00m")
+boss = NodePath("../../../../TestEnemy")
+
+[node name="Player" parent="." instance=ExtResource("3_f2xhf")]
+position = Vector2(889, 312)
