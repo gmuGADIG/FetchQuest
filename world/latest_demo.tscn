@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://3sqp1m0iowsi"]
+[gd_scene load_steps=19 format=3 uid="uid://3sqp1m0iowsi"]
 
 [ext_resource type="PackedScene" uid="uid://uj2rytnj1h4" path="res://enemy/test_enemy/test_enemy.tscn" id="1_h18tn"]
 [ext_resource type="PackedScene" uid="uid://c7ck7ril2jix2" path="res://player/player.tscn" id="2_vi53h"]
@@ -16,6 +16,11 @@
 [ext_resource type="Texture2D" uid="uid://dc4pcxr2lfkka" path="res://demo_art/dungeon_entrance.png" id="14_v3o3r"]
 [ext_resource type="Script" path="res://world/transition_trigger/transition_trigger.gd" id="15_4y615"]
 
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_i3jf7"]
+vertices = PackedVector2Array(1968.84, 751.031, -878.844, 761.961, -865.148, -115.039, 1955.15, -128.953)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-889, 772, -875, -125, 1965, -139, 1979, 761)])
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2fj35"]
 size = Vector2(129.5, 126)
 
@@ -23,6 +28,9 @@ size = Vector2(129.5, 126)
 size = Vector2(158, 146)
 
 [node name="LatestDemo" type="Node2D"]
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+navigation_polygon = SubResource("NavigationPolygon_i3jf7")
 
 [node name="TestEnemy" parent="." instance=ExtResource("1_h18tn")]
 position = Vector2(351, 619)

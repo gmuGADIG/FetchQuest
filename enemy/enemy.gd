@@ -26,7 +26,11 @@ func _ready() -> void:
 	navigation_agent.velocity_computed.connect(Callable(_on_velocity_computed))
 	_player = Player.instance
 	assert(_player != null, "No player exists in the scene!")
-	
+	actor_setup.call_deferred()
+
+
+func actor_setup() -> void:
+	await get_tree().physics_frame
 	approach(_player.global_position)
 
 func _process(delta: float) -> void:
@@ -71,12 +75,13 @@ func set_movement_target(movement_target: Vector2) -> void:
 
 func _physics_process(delta: float) -> void:
 # Do not query when the map has never synchronized and is empty.
-	if NavigationServer2D.map_get_iteration_id(navigation_agent.get_navigation_map()) == 0:
-		return
-	if navigation_agent.is_navigation_finished():
-		return
-	if _player == null: return
-		
+	
+	#if NavigationServer2D.map_get_iteration_id(navigation_agent.get_navigation_map()) == 0:
+		#return
+	#if navigation_agent.is_navigation_finished():
+		#return
+	#if _player == null: return
+	
 	var next_path_position: Vector2 = navigation_agent.get_next_path_position()
 	var new_velocity: Vector2 = global_position.direction_to(next_path_position) * movement_speed
 	if navigation_agent.avoidance_enabled:
