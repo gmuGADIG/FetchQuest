@@ -58,10 +58,7 @@ func _process_stunned(delta: float) -> void:
 	pass
 	
 func approach(target: Vector2) -> void:
-	set_movement_target(target)
-
-func set_movement_target(movement_target: Vector2) -> void:
-	navigation_agent.set_target_position(movement_target)
+	navigation_agent.set_target_position(target)
 
 func _physics_process(delta: float) -> void:
 	if navigation_agent.is_navigation_finished():
@@ -76,7 +73,7 @@ func _physics_process(delta: float) -> void:
 		_on_velocity_computed(new_velocity)
 		
 	# TODO: Set our movement target based on our enemy's specific logic.
-	set_movement_target(Player.instance.global_position)
+	approach(Player.instance.global_position)
 
 func _on_velocity_computed(safe_velocity: Vector2) -> void:
 		velocity = safe_velocity
