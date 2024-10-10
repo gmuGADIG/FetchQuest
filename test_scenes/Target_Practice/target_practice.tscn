@@ -1,9 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://dfbqv7ega0qp6"]
+[gd_scene load_steps=6 format=3 uid="uid://dfbqv7ega0qp6"]
 
 [ext_resource type="PackedScene" uid="uid://c7ck7ril2jix2" path="res://player/player.tscn" id="1_vlfk2"]
 [ext_resource type="Script" path="res://test_scenes/Target_Practice/target.gd" id="2_4d656"]
 [ext_resource type="Texture2D" uid="uid://di4ivc8myym02" path="res://dialogic_example/level_example_textures/Sign post.png" id="3_3sscg"]
-[ext_resource type="Script" path="res://test_scenes/Target_Practice/Targets.gd" id="3_iq0hi"]
 
 [sub_resource type="Curve2D" id="Curve2D_imuad"]
 _data = {
@@ -16,7 +15,6 @@ radius = 105.233
 
 [node name="Target_Practice" type="Node2D" groups=["Enemy"]]
 position = Vector2(29, 226)
-script = ExtResource("2_4d656")
 
 [node name="Target" type="Node2D" parent="." node_paths=PackedStringArray("target_node")]
 light_mask = 17
@@ -42,7 +40,6 @@ position = Vector2(622, 123)
 collision_layer = 17
 collision_mask = 17
 input_pickable = false
-script = ExtResource("3_iq0hi")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 light_mask = 17

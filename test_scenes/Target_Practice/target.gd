@@ -34,3 +34,4 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 func _on_area_2d_body_exited(body: Node2D) -> void:
 	#shutdown method yet to be implemeted to reset everything upon exited area
 	go = false
+	path_follow.progress = 0.0
