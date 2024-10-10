@@ -8,6 +8,7 @@ var _player: Player
 
 func _ready() -> void:
 	# wait a single frame in case our _ready was called before the player's
+	super._ready()
 	await get_tree().process_frame
 
 	_player = Player.instance
