@@ -1,0 +1,52 @@
+[gd_scene load_steps=6 format=3 uid="uid://lj5lk8y505x5"]
+
+[ext_resource type="Script" path="res://enemy/test_enemy/test_enemy_nav.gd" id="1_i6up8"]
+[ext_resource type="Texture2D" uid="uid://dymucenpxmluo" path="res://icon.svg" id="2_jvf6f"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_jwdxp"]
+vertices = PackedVector2Array(-172, 193, 711.102, 391.188, -652.812, 415.812, -332, 193, -639.156, -368.461, -332, -201, 638.883, -430.539, -172, -201)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(3, 2, 4, 5), PackedInt32Array(5, 4, 6, 7), PackedInt32Array(6, 1, 0, 7)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-649, -378, -663, 426, 722, 401, 648, -441)])
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3qp04"]
+size = Vector2(140, 374)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ab3bu"]
+size = Vector2(142, 144)
+
+[node name="Node2D" type="Node2D"]
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+navigation_polygon = SubResource("NavigationPolygon_jwdxp")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="NavigationRegion2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NavigationRegion2D/StaticBody2D"]
+position = Vector2(-252, -4)
+shape = SubResource("RectangleShape2D_3qp04")
+
+[node name="Icon2" type="Sprite2D" parent="NavigationRegion2D/StaticBody2D"]
+position = Vector2(-253, -2)
+scale = Vector2(1.125, 2.96875)
+texture = ExtResource("2_jvf6f")
+
+[node name="Emeny" type="CharacterBody2D" parent="."]
+script = ExtResource("1_i6up8")
+
+[node name="Icon" type="Sprite2D" parent="Emeny"]
+texture = ExtResource("2_jvf6f")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Emeny"]
+shape = SubResource("RectangleShape2D_ab3bu")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="Emeny"]
+path_desired_distance = 70.0
+target_desired_distance = 70.0
+avoidance_enabled = true
+radius = 304.74
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Target" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(-359, 1)
