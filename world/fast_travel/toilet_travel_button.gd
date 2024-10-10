@@ -1,4 +1,4 @@
-extends Area2D
+extends Button
 
 #Stolen from transition Trigger
 @export var scene_name: String
@@ -17,6 +17,8 @@ func _ready() -> void:
 	assert(scene_name.get_extension() == "", "Transition trigger at %s uses a scene name with a file extension, which should be removed." % self.get_path())
 	assert(scene_name != "", "Transition trigger at %s has an empty scene name." % self.get_path())
 	assert(scene_name in _scene_dict, "Transition trigger at %s could not resolve scene name: '%s'" % [self.get_path(), scene_name])
+	
+	self.pressed.connect(self._on_self_pressed)
 
 static func update_scene_dict(path: String) -> void:	
 	var dir := DirAccess.open(path)
@@ -36,13 +38,14 @@ static func update_scene_dict(path: String) -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #END of Stolen code
 
+# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
 
 
-func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
-	if event.is_action_pressed("attack"):
-		print("clicked! loading " + scene_name)
-		SceneTransition.change_scene(load(_scene_dict[scene_name]))
+
+
+func _on_self_pressed() -> void:
+	print("clicked! loading " + scene_name)
+	SceneTransition.change_scene(load(_scene_dict[scene_name]))
 	pass # Replace with function body.
-	
