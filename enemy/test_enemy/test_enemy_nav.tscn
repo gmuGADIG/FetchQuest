@@ -4,9 +4,10 @@
 [ext_resource type="Texture2D" uid="uid://dymucenpxmluo" path="res://icon.svg" id="2_jvf6f"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_jwdxp"]
-vertices = PackedVector2Array(-172, 193, 711.102, 391.188, -652.812, 415.812, -332, 193, -639.156, -368.461, -332, -201, 638.883, -430.539, -172, -201)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(3, 2, 4, 5), PackedInt32Array(5, 4, 6, 7), PackedInt32Array(6, 1, 0, 7)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(-649, -378, -663, 426, 722, 401, 648, -441)])
+vertices = PackedVector2Array(-62, 303, 1370.27, 733.023, -1115.62, 772.883, -442, 303, -961.148, -957.883, -442, -311, 1275.51, -976.062, -62, -311)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(3, 2, 4, 5), PackedInt32Array(5, 4, 6, 7), PackedInt32Array(7, 6, 1, 0)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-1071, -1077, -1247, 895, 1497, 851, 1389, -1097)])
+agent_radius = 120.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3qp04"]
 size = Vector2(140, 374)
@@ -31,6 +32,7 @@ scale = Vector2(1.125, 2.96875)
 texture = ExtResource("2_jvf6f")
 
 [node name="Emeny" type="CharacterBody2D" parent="."]
+position = Vector2(-253, -454)
 script = ExtResource("1_i6up8")
 
 [node name="Icon" type="Sprite2D" parent="Emeny"]
@@ -46,7 +48,8 @@ avoidance_enabled = true
 radius = 304.74
 
 [node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(0.54, 0.54)
 
 [node name="Target" type="Marker2D" parent="."]
 unique_name_in_owner = true
-position = Vector2(-359, 1)
+position = Vector2(-274, 424)
