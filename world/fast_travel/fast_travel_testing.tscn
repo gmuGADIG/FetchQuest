@@ -1,0 +1,43 @@
+[gd_scene load_steps=8 format=3 uid="uid://cxe45dty3je7a"]
+
+[ext_resource type="PackedScene" uid="uid://c7ck7ril2jix2" path="res://player/player.tscn" id="1_pkjy3"]
+[ext_resource type="Script" path="res://world/fast_travel/toliet_travel_station.gd" id="2_7opwn"]
+[ext_resource type="Texture2D" uid="uid://kqsmsqitd5if" path="res://demo_art/Toilet.jpg" id="2_h8s3f"]
+[ext_resource type="Texture2D" uid="uid://b1mpdwd3akb7b" path="res://demo_art/Map.png" id="3_ncc7p"]
+[ext_resource type="PackedScene" uid="uid://cxth4eim2l47t" path="res://world/fast_travel/toilet_travel_icon.tscn" id="4_1767i"]
+
+[sub_resource type="PackedScene" id="PackedScene_yynon"]
+_bundled = {
+"conn_count": 0,
+"conns": PackedInt32Array(),
+"editable_instances": [],
+"names": PackedStringArray("FastTravelMap", "Node2D", "Map", "position", "scale", "texture", "Sprite2D", "ToiletTravel_Icon", "ToiletTravel_Icon2"),
+"node_count": 4,
+"node_paths": [],
+"nodes": PackedInt32Array(-1, -1, 1, 0, -1, 0, 0, 0, 0, 6, 2, -1, 3, 3, 0, 4, 1, 5, 2, 0, 0, 0, 2147483647, 7, 3, 1, 3, 4, 0, 0, 0, 2147483647, 8, 3, 1, 3, 5, 0),
+"variants": [Vector2(328.5, 193), Vector2(0.837596, 0.794355), ExtResource("3_ncc7p"), ExtResource("4_1767i"), Vector2(286, 293), Vector2(547, 183)],
+"version": 3
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_evr33"]
+size = Vector2(79, 88)
+
+[node name="FastTravelTesting" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource("1_pkjy3")]
+position = Vector2(441, 213)
+
+[node name="TolietTravel_station" type="Area2D" parent="."]
+position = Vector2(224, 126)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("2_7opwn")
+map_scene = SubResource("PackedScene_yynon")
+
+[node name="Sprite2D" type="Sprite2D" parent="TolietTravel_station"]
+scale = Vector2(0.245, 0.245)
+texture = ExtResource("2_h8s3f")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TolietTravel_station"]
+position = Vector2(0.5, 0)
+shape = SubResource("RectangleShape2D_evr33")
