@@ -1,0 +1,34 @@
+[gd_scene load_steps=5 format=3 uid="uid://ik5to362jiox"]
+
+[ext_resource type="Script" path="res://world/environment/moving_walls/moving_walls.gd" id="1_rmfut"]
+[ext_resource type="Texture2D" uid="uid://dymucenpxmluo" path="res://icon.svg" id="2_veb7s"]
+
+[sub_resource type="Curve2D" id="Curve2D_mywe5"]
+resource_local_to_scene = true
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 152, 0)
+}
+point_count = 2
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3m5gd"]
+size = Vector2(96, 56)
+
+[node name="MovingWalls" type="Node2D"]
+script = ExtResource("1_rmfut")
+
+[node name="Path2D" type="Path2D" parent="."]
+curve = SubResource("Curve2D_mywe5")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
+loop = false
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Path2D/PathFollow2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Path2D/PathFollow2D/StaticBody2D"]
+position = Vector2(1.43051e-06, 4)
+shape = SubResource("RectangleShape2D_3m5gd")
+
+[node name="Sprite2D" type="Sprite2D" parent="Path2D/PathFollow2D/StaticBody2D"]
+position = Vector2(1.19209e-06, 4.07936)
+scale = Vector2(0.75, 0.43626)
+texture = ExtResource("2_veb7s")

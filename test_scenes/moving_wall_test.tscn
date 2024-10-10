@@ -1,0 +1,44 @@
+[gd_scene load_steps=5 format=3 uid="uid://dfuo0imv5yv7s"]
+
+[ext_resource type="PackedScene" uid="uid://ik5to362jiox" path="res://world/environment/moving_walls/moving_walls.tscn" id="1_vl6us"]
+[ext_resource type="PackedScene" uid="uid://c7ck7ril2jix2" path="res://player/player.tscn" id="2_ylunl"]
+
+[sub_resource type="Curve2D" id="Curve2D_y2q44"]
+resource_local_to_scene = true
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 486, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_13r7c"]
+resource_local_to_scene = true
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 141.872, -1.40076, 0, 0, 0, 0, 342, 1)
+}
+point_count = 3
+
+[node name="MovingWallTest" type="Node2D"]
+
+[node name="standard_wall" parent="." instance=ExtResource("1_vl6us")]
+position = Vector2(436, 252)
+speed = 1
+
+[node name="Path2D" parent="standard_wall" index="0"]
+curve = SubResource("Curve2D_y2q44")
+
+[node name="bouncing_wall" parent="." instance=ExtResource("1_vl6us")]
+position = Vector2(283, 189)
+speed = 1
+bouncing = true
+
+[node name="Path2D" parent="bouncing_wall" index="0"]
+curve = SubResource("Curve2D_13r7c")
+
+[node name="PathFollow2D" parent="bouncing_wall/Path2D" index="0"]
+rotation = -0.00987309
+
+[node name="Player" parent="." instance=ExtResource("2_ylunl")]
+position = Vector2(394, 379)
+
+[editable path="standard_wall"]
+[editable path="bouncing_wall"]
