@@ -26,7 +26,7 @@ func actor_setup() -> void:
 	await get_tree().physics_frame
 	approach(Player.instance.global_position)
 
-func _process(delta: float) -> void:
+func _process(delta: float) -> void:		
 	match enemy_state:
 		EnemyState.ROAMING:
 			_process_roaming(delta)
@@ -76,5 +76,5 @@ func _physics_process(delta: float) -> void:
 	approach(Player.instance.global_position)
 
 func _on_velocity_computed(safe_velocity: Vector2) -> void:
-		velocity = safe_velocity
-		move_and_slide()
+	velocity = safe_velocity
+	move_and_slide()
