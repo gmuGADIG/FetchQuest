@@ -71,9 +71,6 @@ func _physics_process(delta: float) -> void:
 		navigation_agent.set_velocity(new_velocity)
 	else:
 		_on_velocity_computed(new_velocity)
-		
-	# TODO: Set our movement target based on our enemy's specific logic.
-	approach(Player.instance.global_position)
 
 func _on_velocity_computed(safe_velocity: Vector2) -> void:
 	velocity = safe_velocity

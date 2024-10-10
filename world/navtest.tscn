@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://b74mrif7sxg7t"]
+[gd_scene load_steps=11 format=3 uid="uid://b74mrif7sxg7t"]
 
 [ext_resource type="PackedScene" uid="uid://uj2rytnj1h4" path="res://enemy/test_enemy/test_enemy.tscn" id="1_do2na"]
 [ext_resource type="PackedScene" uid="uid://c7ck7ril2jix2" path="res://player/player.tscn" id="2_04yxc"]
@@ -6,8 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://dymucenpxmluo" path="res://icon.svg" id="8_dqxqg"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_twnwu"]
-vertices = PackedVector2Array(2654.09, -1071.63, 2694.36, 1502.63, 2194.04, 1014.75, 2194.04, 645.25, 2192.17, 645.25, 2192.17, -15.25, 2194.04, -15.25, 2194.04, -384.75, -1526.06, -1155.8, -1079.52, -384.75, -1079.52, -361.602, -1099.78, -361.602, -761.828, 1021.6, -761.828, 1014.75, 1854.22, 1014.75, 1854.22, 1021.6, 2192.17, 1021.6, 2192.17, 1014.75, -1566.4, 1585.81, -1099.78, 1021.6, 904.75, 622.75, 1854.22, 645.25, -761.828, 645.25, -88.75, 622.75, -761.828, -15.25, -88.75, 245.25, 1854.22, -15.25, 904.75, 245.25)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(3, 4, 5, 6), PackedInt32Array(0, 3, 6), PackedInt32Array(0, 6, 7), PackedInt32Array(8, 0, 7, 9), PackedInt32Array(9, 10, 11, 8), PackedInt32Array(12, 13, 14, 15), PackedInt32Array(16, 17, 2, 1), PackedInt32Array(16, 1, 18, 15), PackedInt32Array(12, 15, 18), PackedInt32Array(19, 12, 18), PackedInt32Array(19, 18, 8, 11), PackedInt32Array(20, 21, 22, 23), PackedInt32Array(23, 22, 24, 25), PackedInt32Array(25, 24, 26, 27), PackedInt32Array(27, 26, 21, 20)])
+vertices = PackedVector2Array(-761.828, 645.25, -761.828, 316.648, 183.75, 317.906, 1854.22, 645.25, 1854.22, -15.25, 183.75, -15.25, 2654.09, -1071.63, 2694.36, 1502.63, 2194.04, 1014.75, 2194.04, 645.25, 2192.17, 645.25, 2192.17, -15.25, 2194.04, -15.25, 2194.04, -384.75, -1526.06, -1155.8, -1079.52, -384.75, -1079.52, -361.602, -1099.78, -361.602, -761.828, 1021.6, -761.828, 1014.75, 1854.22, 1014.75, 1854.22, 1021.6, 2192.17, 1021.6, 2192.17, 1014.75, -1566.4, 1585.81, -1099.78, 1021.6)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 3, 2, 5), PackedInt32Array(6, 7, 8, 9), PackedInt32Array(9, 10, 11, 12), PackedInt32Array(6, 9, 12), PackedInt32Array(6, 12, 13), PackedInt32Array(14, 6, 13, 15), PackedInt32Array(15, 16, 17, 14), PackedInt32Array(18, 19, 20, 21), PackedInt32Array(22, 23, 8, 7), PackedInt32Array(22, 7, 24, 21), PackedInt32Array(18, 21, 24), PackedInt32Array(25, 18, 24), PackedInt32Array(25, 24, 14, 17)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(-1646, -1280, 2774, -1191, 2818, 1622, -1690, 1710)])
 agent_radius = 121.75
 
@@ -17,15 +17,49 @@ size = Vector2(129.5, 126)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_52a3g"]
 size = Vector2(750, 134)
 
+[sub_resource type="Animation" id="Animation_q73nx"]
+resource_name = "new_animation"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-317, 127), Vector2(1415, 121)]
+}
+
+[sub_resource type="Animation" id="Animation_nps1e"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-317, 127)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_aiws3"]
+_data = {
+"RESET": SubResource("Animation_nps1e"),
+"new_animation": SubResource("Animation_q73nx")
+}
+
 [node name="LatestDemo" type="NavigationRegion2D"]
 navigation_polygon = SubResource("NavigationPolygon_twnwu")
 
 [node name="TestEnemy" parent="." instance=ExtResource("1_do2na")]
 position = Vector2(351, 619)
-
-[node name="TestEnemy2" parent="." instance=ExtResource("1_do2na")]
-position = Vector2(553, 624)
-scale = Vector2(2.34977, 2.02979)
 
 [node name="Player" parent="." instance=ExtResource("2_04yxc")]
 position = Vector2(534, 261)
@@ -48,9 +82,6 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Wall"]
 position = Vector2(-1.1, 0)
 shape = SubResource("RectangleShape2D_2fj35")
-
-[node name="Sprite2D" type="Sprite2D" parent="Walls/Wall"]
-texture = ExtResource("8_dqxqg")
 
 [node name="Wall2" type="StaticBody2D" parent="Walls"]
 z_index = 1
@@ -91,12 +122,25 @@ shape = SubResource("RectangleShape2D_2fj35")
 [node name="Sprite2D" type="Sprite2D" parent="Walls/Wall4"]
 texture = ExtResource("8_dqxqg")
 
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
-position = Vector2(408, 434)
+[node name="AnimatableBody2D" type="AnimatableBody2D" parent="."]
+position = Vector2(-317, 127)
 
-[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
+[node name="Sprite2D" type="Sprite2D" parent="AnimatableBody2D"]
 scale = Vector2(5.8125, 1)
 texture = ExtResource("8_dqxqg")
+metadata/_edit_lock_ = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="AnimatableBody2D"]
 shape = SubResource("RectangleShape2D_52a3g")
+metadata/_edit_lock_ = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="AnimatableBody2D"]
+libraries = {
+"": SubResource("AnimationLibrary_aiws3")
+}
+autoplay = "new_animation"
+speed_scale = 0.1
+
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="AnimatableBody2D"]
+vertices = PackedVector2Array(-379, -67, 379, -69, 379, 69, -375, 68)
+affect_navigation_mesh = true
