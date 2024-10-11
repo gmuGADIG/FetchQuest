@@ -3,14 +3,26 @@
 [ext_resource type="PackedScene" uid="uid://dxw3ja3g78lfx" path="res://world/level_base.tscn" id="1_2iy6g"]
 [ext_resource type="PackedScene" uid="uid://gkyoiixhetyn" path="res://world/decoration/bushes/bush_big.tscn" id="3_a0yt1"]
 [ext_resource type="PackedScene" uid="uid://7rwwk775fptb" path="res://world/decoration/bushes/bush_small.tscn" id="4_qjjla"]
+[ext_resource type="Script" path="res://reloader/reloader.gd" id="8_gqbog"]
 [ext_resource type="PackedScene" uid="uid://uj2rytnj1h4" path="res://enemy/test_enemy/test_enemy.tscn" id="14_h6tl8"]
-[ext_resource type="PackedScene" uid="uid://d3xngexqsy6m7" path="res://enemy_spawner/enemy_spawner.tscn" id="15_q5k6j"]
 [ext_resource type="PackedScene" uid="uid://c7ck7ril2jix2" path="res://player/player.tscn" id="16_sqpfi"]
 [ext_resource type="PackedScene" uid="uid://cl1lr3ddw0s8j" path="res://world/decoration/trees/evergreen_tree.tscn" id="17_0qa0k"]
 
 [node name="LatestDemo2" instance=ExtResource("1_2iy6g")]
 
-[node name="FakeGrass" type="ColorRect" parent="." index="0"]
+[node name="WorldCollision" type="Node2D" parent="." index="0"]
+
+[node name="WallTopRight" type="StaticBody2D" parent="WorldCollision" index="0"]
+
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="WorldCollision/WallTopRight" index="0"]
+polygon = PackedVector2Array(-528, 308, -417, 350, -297, 392, -199, 398, -133, 365, -76, 249, 5, 90, 86, 12, 239, -45, 353, -72, 518, -90, 671, -93, 802, -78, 895, -36, 1030, -9, 1174, -39, 1240, -27, 1324, 57, 1387, 207, 1420, 368, 1432, 491, 1411, 638, 1372, 791, 1318, 896, 1228, 995, 1090, 1070, 1012, 1115, 965, 1175, 950, 1247, 955, 1308, 1019, 1335, 1948, 1325, 1940, -695, -532, -599)
+
+[node name="WallTopRight2" type="StaticBody2D" parent="WorldCollision" index="1"]
+
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="WorldCollision/WallTopRight2" index="0"]
+polygon = PackedVector2Array(-523, 921, -463, 848, -365, 816, -234, 804, -139, 861, -57, 972, 23, 1051, 115, 1127, 210, 1172, 382, 1194, 477, 1216, 528, 1261, 528, 1346, 467, 1404, -523, 1388)
+
+[node name="FakeGrass" type="ColorRect" parent="." index="1"]
 z_index = -10
 offset_left = -1822.0
 offset_top = -1271.0
@@ -18,7 +30,7 @@ offset_right = 3778.0
 offset_bottom = 2481.0
 color = Color(0.0902, 0.22, 0.0988533, 1)
 
-[node name="Trees" type="Node2D" parent="." index="1"]
+[node name="Trees" type="Node2D" parent="." index="2"]
 y_sort_enabled = true
 
 [node name="Evergreen" parent="Trees" index="0" instance=ExtResource("17_0qa0k")]
@@ -249,7 +261,7 @@ position = Vector2(142, -13)
 [node name="Evergreen3" parent="Trees" index="75" instance=ExtResource("17_0qa0k")]
 position = Vector2(425, -90)
 
-[node name="BushesOutside" type="Node2D" parent="." index="2"]
+[node name="BushesOutside" type="Node2D" parent="." index="3"]
 y_sort_enabled = true
 
 [node name="BigBush" parent="BushesOutside" index="0" instance=ExtResource("3_a0yt1")]
@@ -345,7 +357,7 @@ position = Vector2(44, 1264)
 [node name="SmallBush14" parent="BushesOutside" index="30" instance=ExtResource("4_qjjla")]
 position = Vector2(-99, 1274)
 
-[node name="BushesInside" type="Node2D" parent="." index="3"]
+[node name="BushesInside" type="Node2D" parent="." index="4"]
 y_sort_enabled = true
 
 [node name="SmallBush" parent="BushesInside" index="0" instance=ExtResource("4_qjjla")]
@@ -360,11 +372,8 @@ position = Vector2(249, 715)
 [node name="SmallBush4" parent="BushesInside" index="3" instance=ExtResource("4_qjjla")]
 position = Vector2(879, 784)
 
-[node name="TestEnemy" parent="." index="4" instance=ExtResource("14_h6tl8")]
+[node name="TestEnemy" parent="." index="5" instance=ExtResource("14_h6tl8")]
 position = Vector2(351, 619)
-
-[node name="EnemySpawner" parent="." index="5" instance=ExtResource("15_q5k6j")]
-position = Vector2(643, 624)
 
 [node name="Player" parent="." index="6" instance=ExtResource("16_sqpfi")]
 position = Vector2(790, -38)
@@ -375,12 +384,5 @@ zoom = Vector2(1, 1)
 limit_top = -600
 limit_right = 1890
 
-[node name="WallTopRight" type="StaticBody2D" parent="." index="10"]
-
-[node name="CollisionShape2D" type="CollisionPolygon2D" parent="WallTopRight" index="0"]
-polygon = PackedVector2Array(-528, 308, -417, 350, -297, 392, -199, 398, -133, 365, -76, 249, 5, 90, 86, 12, 239, -45, 353, -72, 518, -90, 671, -93, 802, -78, 895, -36, 1030, -9, 1174, -39, 1240, -27, 1324, 57, 1387, 207, 1420, 368, 1432, 491, 1411, 638, 1372, 791, 1318, 896, 1228, 995, 1090, 1070, 1012, 1115, 965, 1175, 950, 1247, 955, 1308, 1019, 1335, 1948, 1325, 1940, -695, -532, -599)
-
-[node name="WallTopRight2" type="StaticBody2D" parent="." index="11"]
-
-[node name="CollisionShape2D" type="CollisionPolygon2D" parent="WallTopRight2" index="0"]
-polygon = PackedVector2Array(-523, 921, -463, 848, -365, 816, -234, 804, -139, 861, -57, 972, 23, 1051, 115, 1127, 210, 1172, 382, 1194, 477, 1216, 528, 1261, 528, 1346, 467, 1404, -523, 1388)
+[node name="Reloader" type="Node" parent="." index="10"]
+script = ExtResource("8_gqbog")
