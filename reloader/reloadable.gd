@@ -1,0 +1,1 @@
+class_name Reloadable extends VisibleOnScreenNotifier2D
