@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://c7ck7ril2jix2"]
+[gd_scene load_steps=7 format=3 uid="uid://c7ck7ril2jix2"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_x43mx"]
 [ext_resource type="Texture2D" uid="uid://0ba17120df4x" path="res://dialogic_example/player/player_art_final.png" id="2_ts2mf"]
+[ext_resource type="Script" path="res://player/x_ray.gd" id="3_f3hsb"]
 [ext_resource type="Script" path="res://player/abilities/speak/speak.gd" id="3_ne4cx"]
 [ext_resource type="PackedScene" uid="uid://qgyqqokyd0ia" path="res://player/abilities/speak/speak_aura.tscn" id="4_8n4by"]
 
@@ -9,16 +10,18 @@
 size = Vector2(128, 128)
 
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
-z_index = 1
-position = Vector2(320, 169)
+y_sort_enabled = true
 collision_layer = 2
 collision_mask = 41
 motion_mode = 1
 script = ExtResource("1_x43mx")
 
 [node name="Icon" type="Sprite2D" parent="."]
+position = Vector2(0, 53)
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("2_ts2mf")
+offset = Vector2(0, -300)
+script = ExtResource("3_f3hsb")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_krk6c")
