@@ -108,8 +108,6 @@ func pickup_item(item: Item) -> void:
 	item.follow(self, 20.0)
 
 func _on_damage_area_body_entered(body: Node2D) -> void:
-	if not body.is_in_group("Enemy"):
-		return
-	print("You have hit the enemy")
-	var enemy: Enemy = body as Enemy
-	enemy.hurt(DamageEvent.new(1, velocity.normalized() * knockback_force))
+	if not body.is_in_group("Hittable"): return
+	assert(body.has_method("hurt"), "Node '%s' was in the 'Hittable' group despite having no 'hurt' method." % body.get_path())
+	body.hurt(DamageEvent.new(1, velocity.normalized() * knockback_force))
