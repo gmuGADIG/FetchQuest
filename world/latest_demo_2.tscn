@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=4 uid="uid://c0b860627rcs5"]
+[gd_scene load_steps=26 format=4 uid="uid://c0b860627rcs5"]
 
 [ext_resource type="PackedScene" uid="uid://dxw3ja3g78lfx" path="res://world/level_base.tscn" id="1_2iy6g"]
 [ext_resource type="Script" path="res://world/decoration/trees/tree_gen.gd" id="2_n44bl"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://dutetduietx8r" path="res://enemy/shield_enemy/shield_enemy.tscn" id="10_8dpie"]
 [ext_resource type="PackedScene" uid="uid://dt3m30r5dehup" path="res://world/environment/pickups/pickup_key.tscn" id="12_joquo"]
 [ext_resource type="Script" path="res://world/environment/moving_objects/platform_mover.gd" id="13_glw2f"]
+[ext_resource type="PackedScene" uid="uid://deo11h81nnpyw" path="res://world/environment/pickups/pickup_bomb.tscn" id="13_meh4f"]
 [ext_resource type="PackedScene" uid="uid://uj2rytnj1h4" path="res://enemy/test_enemy/test_enemy.tscn" id="14_h6tl8"]
 [ext_resource type="PackedScene" uid="uid://bxaar1hpspnom" path="res://world/environment/moving_objects/movable_platform.tscn" id="14_hyg0y"]
 [ext_resource type="PackedScene" uid="uid://bm05x1jwytuuc" path="res://world/environment/tilemap/the_tile_map_layer.tscn" id="15_nkduh"]
@@ -18,7 +19,10 @@
 [ext_resource type="PackedScene" uid="uid://c7ck7ril2jix2" path="res://player/player.tscn" id="16_sqpfi"]
 [ext_resource type="PackedScene" uid="uid://cl1lr3ddw0s8j" path="res://world/decoration/trees/evergreen_tree.tscn" id="17_0qa0k"]
 [ext_resource type="Texture2D" uid="uid://dc4pcxr2lfkka" path="res://demo_art/dungeon_entrance.png" id="17_o8ma7"]
+[ext_resource type="PackedScene" uid="uid://bom8mopkckp5y" path="res://world/environment/chest/chest.tscn" id="18_ricm7"]
 [ext_resource type="Script" path="res://world/transition_trigger/transition_trigger.gd" id="18_u8qny"]
+[ext_resource type="PackedScene" uid="uid://cg2jt0166hik8" path="res://world/environment/red_coin/red_coin_manager.tscn" id="20_cbi4s"]
+[ext_resource type="PackedScene" uid="uid://gp1o7iklljk2" path="res://world/environment/red_coin/red_coin.tscn" id="21_7gu4x"]
 
 [sub_resource type="Curve2D" id="Curve2D_j10fm"]
 _data = {
@@ -1735,8 +1739,31 @@ scene_name = "demo_dungeon"
 position = Vector2(6, -13)
 shape = SubResource("RectangleShape2D_c0qo5")
 
+[node name="Chest" parent="PuzzleArea" index="8" instance=ExtResource("18_ricm7")]
+position = Vector2(29, 260)
+loot_table = Array[PackedScene]([ExtResource("13_meh4f")])
+
+[node name="RedCoinManager" parent="PuzzleArea" index="9" node_paths=PackedStringArray("reward") instance=ExtResource("20_cbi4s")]
+y_sort_enabled = true
+reward = NodePath("pickup_bomb")
+
+[node name="RedCoin4" parent="PuzzleArea/RedCoinManager" index="0" instance=ExtResource("21_7gu4x")]
+position = Vector2(-158, -374)
+
+[node name="RedCoin2" parent="PuzzleArea/RedCoinManager" index="1" instance=ExtResource("21_7gu4x")]
+position = Vector2(-1019, -145)
+
+[node name="RedCoin3" parent="PuzzleArea/RedCoinManager" index="2" instance=ExtResource("21_7gu4x")]
+position = Vector2(-842, 241)
+
+[node name="RedCoin5" parent="PuzzleArea/RedCoinManager" index="3" instance=ExtResource("21_7gu4x")]
+position = Vector2(751, 531)
+
+[node name="pickup_bomb" parent="PuzzleArea/RedCoinManager" index="4" instance=ExtResource("13_meh4f")]
+position = Vector2(323, 124)
+
 [node name="Player" parent="." index="4" instance=ExtResource("16_sqpfi")]
-position = Vector2(-1489, 1896)
+position = Vector2(556, 639)
 
 [node name="MainCam" parent="." index="5"]
 position = Vector2(1815, -250)
