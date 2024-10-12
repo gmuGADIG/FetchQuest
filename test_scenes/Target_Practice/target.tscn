@@ -1,0 +1,100 @@
+[gd_scene load_steps=8 format=3 uid="uid://ckwgnwm6j4enf"]
+
+[ext_resource type="Script" path="res://test_scenes/Target_Practice/target.gd" id="1_c4vmu"]
+[ext_resource type="Texture2D" uid="uid://di4ivc8myym02" path="res://dialogic_example/level_example_textures/Sign post.png" id="2_i4byt"]
+
+[sub_resource type="Curve2D" id="Curve2D_x60n2"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 400, 74, 0, 0, 0, 0, 625, 71, 0, 0, 0, 0, 851, 69)
+}
+point_count = 3
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2270v"]
+size = Vector2(41, 74)
+
+[sub_resource type="Animation" id="Animation_wcps4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Path2D/PathFollow2D/Sprite2D:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_wjwmd"]
+resource_name = "TargetFlash"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Path2D/PathFollow2D/Sprite2D:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1.03333),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"_timescale"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dc4in"]
+_data = {
+"RESET": SubResource("Animation_wcps4"),
+"TargetFlash": SubResource("Animation_wjwmd")
+}
+
+[node name="Target" type="RigidBody2D" node_paths=PackedStringArray("sprite")]
+position = Vector2(265, 136)
+freeze = true
+script = ExtResource("1_c4vmu")
+speed = 500
+sprite = NodePath("Path2D/PathFollow2D/Sprite2D")
+timeStart = 10
+timeScale = 0.67
+flashStart = 5
+
+[node name="Path2D" type="Path2D" parent="."]
+position = Vector2(-394, -16)
+curve = SubResource("Curve2D_x60n2")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
+position = Vector2(400, 74)
+rotation = -0.0133325
+
+[node name="Sprite2D" type="Sprite2D" parent="Path2D/PathFollow2D"]
+position = Vector2(-8.25262, -56.115)
+rotation = 0.0133325
+scale = Vector2(1.09375, 3.90625)
+texture = ExtResource("2_i4byt")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_2270v")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_dc4in")
+}
+
+[connection signal="body_shape_entered" from="." to="." method="_on_body_shape_entered"]
+[connection signal="body_shape_exited" from="." to="." method="_on_body_shape_exited"]
