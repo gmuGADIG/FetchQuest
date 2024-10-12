@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 @onready var pressed := false
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pressed = $Area2D.has_overlapping_bodies()
 	if(pressed):
 		$Sprite2D.frame = 1

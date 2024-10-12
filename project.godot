@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Fetch Quest"
-run/main_scene="res://world/latest_demo.tscn"
+run/main_scene="res://world/latest_demo_2.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://dialogic_example/player/player_art_final.png"
 
@@ -22,6 +22,8 @@ DialogueManager="*res://dialogic_example/dialogue_manager.gd"
 Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
 PlayerInventory="*res://autoloads/player_inventory/player_inventory.tscn"
 SceneTransition="*res://autoloads/scene_transition/scene_transition.tscn"
+QuestSystem="*res://Quests/quest_system.tscn"
+ChestBetweenScenes="*res://autoloads/chest_between_scenes/chest_between_scenes.tscn"
 
 [debug]
 
@@ -86,8 +88,7 @@ folder_colors={
 "res://enemy/": "red",
 "res://player/": "blue",
 "res://test_scenes/": "gray",
-"res://ui/": "purple",
-"res://ui/options/": "purple",
+"res://ui/": "orange",
 "res://world/": "green"
 }
 
@@ -96,6 +97,8 @@ folder_colors={
 Player=""
 Enemy=""
 Item="Something the player can pick up"
+Hittable=""
+Reloads="Group exclusive to the Reloadable type"
 
 [input]
 
@@ -184,6 +187,7 @@ dog_roll={
 speak={
 "deadzone": 0.5,
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":4194325,"physical_keycode":0,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+, Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"button_index":10,"pressure":0.0,"pressed":true,"script":null)
 , Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"button_index":9,"pressure":0.0,"pressed":true,"script":null)
 ]
 }
@@ -228,6 +232,18 @@ look_right={
 "events": [Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":-1,"axis":2,"axis_value":1.0,"script":null)
 ]
 }
+throw_bomb={
+"deadzone": 0.5,
+"events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":0,"position":Vector2(0, 0),"global_position":Vector2(0, 0),"factor":1.0,"button_index":2,"canceled":false,"pressed":false,"double_click":false,"script":null)
+, Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"button_index":10,"pressure":0.0,"pressed":false,"script":null)
+]
+}
+pause={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194305,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+, Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"button_index":6,"pressure":0.0,"pressed":true,"script":null)
+]
+}
 
 [layer_names]
 
@@ -237,6 +253,7 @@ look_right={
 2d_physics/layer_4="Hole"
 2d_physics/layer_5="Item"
 2d_physics/layer_6="Enemy Projectiles"
+2d_physics/layer_7="Switch"
 
 [physics]
 

@@ -10,7 +10,7 @@ static var push_velocity: Vector2 = Vector2.ZERO
 func _physics_process(delta: float) -> void:	
 	if pushed_block != self and pushed_block != null:
 		return
-	
+
 	# Update push velocity; search for overlapping player bodies that would exert a force
 	# Blocks can only be pushed when not already moving, forcing them to be moved certain distances at a time
 	if velocity.length() <= 0:	
