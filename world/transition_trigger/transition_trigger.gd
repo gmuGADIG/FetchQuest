@@ -32,6 +32,7 @@ static func update_scene_dict(path: String) -> void:
 			if file_name != "addons":
 				update_scene_dict(path + "/" + file_name)
 		else:
+			file_name = file_name.trim_suffix(".remap") # godotengine/godot#66014
 			if file_name.get_extension() == "tscn":
 				_scene_dict[file_name.get_basename()] = path + "/" + file_name
 
