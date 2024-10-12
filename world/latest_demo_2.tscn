@@ -1649,10 +1649,52 @@ polygon = PackedVector2Array(224, 140, 218, 99, 216, 33, 213, -122, 211, -275, 2
 color = Color(0, 0, 0, 1)
 polygon = PackedVector2Array(224, 140, 218, 99, 216, 33, 213, -122, 211, -275, 220, -292, 230, -308, 256, -315, 933, -312, 946, -284, 954, -196, 954, -55, 960, 102, 954, 136, 932, 146, 599, 158, 256, 165)
 
-[node name="pickup_key" parent="PuzzleArea" index="2" instance=ExtResource("12_joquo")]
+[node name="Bushes" type="Node2D" parent="PuzzleArea" index="2"]
+y_sort_enabled = true
+
+[node name="SmallBush" parent="PuzzleArea/Bushes" index="0" instance=ExtResource("4_qjjla")]
+position = Vector2(580, -274)
+
+[node name="SmallBush2" parent="PuzzleArea/Bushes" index="1" instance=ExtResource("4_qjjla")]
+position = Vector2(644, 214)
+
+[node name="SmallBush3" parent="PuzzleArea/Bushes" index="2" instance=ExtResource("4_qjjla")]
+position = Vector2(67, -71)
+
+[node name="SmallBush4" parent="PuzzleArea/Bushes" index="3" instance=ExtResource("4_qjjla")]
+position = Vector2(-282, -82)
+
+[node name="SmallBush5" parent="PuzzleArea/Bushes" index="4" instance=ExtResource("4_qjjla")]
+position = Vector2(-817, -61)
+
+[node name="SmallBush6" parent="PuzzleArea/Bushes" index="5" instance=ExtResource("4_qjjla")]
+position = Vector2(-1052, -40)
+
+[node name="SmallBush7" parent="PuzzleArea/Bushes" index="6" instance=ExtResource("4_qjjla")]
+position = Vector2(-728, 341)
+
+[node name="SmallBush8" parent="PuzzleArea/Bushes" index="7" instance=ExtResource("4_qjjla")]
+position = Vector2(-471, 323)
+
+[node name="SmallBush9" parent="PuzzleArea/Bushes" index="8" instance=ExtResource("4_qjjla")]
+position = Vector2(227, 537)
+
+[node name="SmallBush10" parent="PuzzleArea/Bushes" index="9" instance=ExtResource("4_qjjla")]
+position = Vector2(-190, 95)
+
+[node name="BigBush" parent="PuzzleArea/Bushes" index="10" instance=ExtResource("3_a0yt1")]
+position = Vector2(-641, -68)
+
+[node name="BigBush2" parent="PuzzleArea/Bushes" index="11" instance=ExtResource("3_a0yt1")]
+position = Vector2(-968, -60)
+
+[node name="BigBush3" parent="PuzzleArea/Bushes" index="12" instance=ExtResource("3_a0yt1")]
+position = Vector2(-785, 318)
+
+[node name="pickup_key" parent="PuzzleArea" index="3" instance=ExtResource("12_joquo")]
 position = Vector2(-786, -345)
 
-[node name="PlatformMover" type="Path2D" parent="PuzzleArea" index="3"]
+[node name="PlatformMover" type="Path2D" parent="PuzzleArea" index="4"]
 z_index = -1
 curve = SubResource("Curve2D_j10fm")
 script = ExtResource("13_glw2f")
@@ -1668,15 +1710,15 @@ rotates = false
 process_physics_priority = -1000
 scale = Vector2(1.18696, 1.18696)
 
-[node name="FenceTiles" parent="PuzzleArea" index="4" instance=ExtResource("15_nkduh")]
+[node name="FenceTiles" parent="PuzzleArea" index="5" instance=ExtResource("15_nkduh")]
 position = Vector2(-25, -42)
 tile_map_data = PackedByteArray("AAABAP//BgAAAAAAAAAAAP//BgAAAAAAAAD/////BgAAAAAAAAD+////BgAAAAAAAAD9////BgAAAAAAAAD8////BgAAAAAAAAD7////BgAAAAAAAAD6////BgAAAAAAAAD5////BgAAAAAAAAD4////BgAAAAAAAAA=")
 
-[node name="LockedDoor" parent="PuzzleArea" index="5" instance=ExtResource("16_be0xc")]
+[node name="LockedDoor" parent="PuzzleArea" index="6" instance=ExtResource("16_be0xc")]
 position = Vector2(-595.45, 245.161)
 scale = Vector2(0.670196, 0.721556)
 
-[node name="DungeonEntrance" type="Sprite2D" parent="PuzzleArea" index="6"]
+[node name="DungeonEntrance" type="Sprite2D" parent="PuzzleArea" index="7"]
 position = Vector2(-591.45, 189.161)
 scale = Vector2(2.33037, 2.33037)
 texture = ExtResource("17_o8ma7")
