@@ -23,48 +23,88 @@ extends Node2D
 @export var timeStart: int
 @export var timeScale: float
 @export var flashStart: int
+@export var pressurePlate: CharacterBody2D
 
 #dir: A bool for the direction of which way the target should be moving (left or right)
 #go: Condition to start moving the targers
 var dir: bool = false
 var go: bool = false
+var pressureActive: bool = false
+#var pressurePlate: CharacterBody2D
+
+var placeRid : RID
+
 
 #This fucntion creates the main timer for the targers
 #this also connects the timer, on entered and exit signals
 func _ready() -> 	void:
+	#pressurePlate = get_node_or_null("../PressurePlate") as CharacterBody2D
 	
 	add_child(timer)
 	timer.one_shot = true
-	timer.connect("timeout", Callable(self, "_on_timer_timeout"))
-	collision_zone.connect("body_shape_entered", Callable(self, "_on_body_shape_entered"))
-	collision_zone.connect("body_shape_exited", Callable(self, "_on_body_shape_exited"))
-	
+	timer.timeout.connect(_on_timer_timeout)
+	if(collision_zone != null):
+		collision_zone.body_shape_entered.connect(_on_body_shape_entered)
+		collision_zone.body_shape_exited.connect(_on_body_shape_exited)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
+#Checks if there is a pressure plate in the the prior directory and calls the appropriate function
 func _process(delta: float) -> void:
-	_target_move(delta)
-
+	if(pressurePlate == null):
+		_target_move(delta)
+	else:
+		_pressure_target_move(delta)
 #This function is what makes the targets move
 #Progress ratio conditional makes sures the target doesn't skip back to the start
 #The skipping is possible to occur if the speed is high
 #This function also has the targets flash, and plays that animation
 func _target_move(delta:float) -> void:
 	target_collision.global_position = sprite.global_position
-	if go == true && timeStart != 0:
+	if (go == true && timeStart != 0):
 		if dir == false:
 			path_follow.progress += speed * delta
 			if path_follow.progress_ratio > .95:
 				dir = true
 		else:	
 			path_follow.progress -= speed * delta
-			if path_follow.progress < 10:
+			if path_follow.progress_ratio < .1:
 				dir = false
 	if (timer.time_left < flashStart && timer.time_left > 0):
 		$"AnimationPlayer".play("TargetFlash")
 	else:
 		$"AnimationPlayer".pause()
 		$"AnimationPlayer".play("RESET")
-
+		
+#Same Function as above, but pressure plate compatible
+func _pressure_target_move(delta:float) -> void:
+	target_collision.global_position = sprite.global_position
+		
+	if(pressurePlate.get_pressed() == true && !pressureActive):
+		_on_body_shape_entered(placeRid,null,0,0)
+		pressureActive = true
+	elif((pressurePlate.get_pressed() == false) && pressureActive):
+		pressureActive = false
+		_shutdown()
+	
+	elif timer.time_left == 0 && pressureActive:
+		_shutdown()
+		
+	if (pressurePlate.get_pressed() && timeStart != 0):
+		if dir == false:
+			path_follow.progress += speed * delta
+			if path_follow.progress_ratio > .95:
+				dir = true
+		else:	
+			path_follow.progress -= speed * delta
+			if path_follow.progress_ratio < .1:
+				dir = false
+	if (timer.time_left < flashStart && timer.time_left > 0):
+		$"AnimationPlayer".play("TargetFlash")
+	else:
+		$"AnimationPlayer".pause()
+		$"AnimationPlayer".play("RESET")
+	
+	
 #This function does as it says, it shuts down everything when the timer is done
 #or if the player exits the area and resets any neccesary values
 func _shutdown() -> void:
