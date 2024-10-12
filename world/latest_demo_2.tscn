@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://c0b860627rcs5"]
+[gd_scene load_steps=17 format=4 uid="uid://c0b860627rcs5"]
 
 [ext_resource type="PackedScene" uid="uid://dxw3ja3g78lfx" path="res://world/level_base.tscn" id="1_2iy6g"]
 [ext_resource type="Script" path="res://world/decoration/trees/tree_gen.gd" id="2_n44bl"]
@@ -12,12 +12,13 @@
 [ext_resource type="Script" path="res://world/environment/moving_objects/platform_mover.gd" id="13_glw2f"]
 [ext_resource type="PackedScene" uid="uid://uj2rytnj1h4" path="res://enemy/test_enemy/test_enemy.tscn" id="14_h6tl8"]
 [ext_resource type="PackedScene" uid="uid://bxaar1hpspnom" path="res://world/environment/moving_objects/movable_platform.tscn" id="14_hyg0y"]
+[ext_resource type="PackedScene" uid="uid://bm05x1jwytuuc" path="res://world/environment/tilemap/the_tile_map_layer.tscn" id="15_nkduh"]
 [ext_resource type="PackedScene" uid="uid://c7ck7ril2jix2" path="res://player/player.tscn" id="16_sqpfi"]
 [ext_resource type="PackedScene" uid="uid://cl1lr3ddw0s8j" path="res://world/decoration/trees/evergreen_tree.tscn" id="17_0qa0k"]
 
 [sub_resource type="Curve2D" id="Curve2D_j10fm"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, -216, 37, 0, 0, 0, 0, -214, -448)
+"points": PackedVector2Array(0, 0, 0, 0, 116, -369, 0, 0, 0, 0, -392, -377)
 }
 point_count = 2
 
@@ -1643,32 +1644,36 @@ position = Vector2(1058.7, 1193.71)
 
 [node name="Hole" type="StaticBody2D" parent="PuzzleArea" index="1"]
 z_index = -5
-position = Vector2(-638, -296)
+position = Vector2(-774, -294)
 collision_layer = 8
 collision_mask = 0
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="PuzzleArea/Hole" index="0"]
-polygon = PackedVector2Array(-380, 414, -412, 283, -409, 190, -372, 168, -233, 167, 26, 168, 136, 165, 188, 152, 202, 136, 218, 99, 216, 33, 213, -122, 211, -275, 220, -292, 230, -308, 256, -315, 625, -322, 661, -292, 669, -160, 675, 20, 675, 176, 677, 312, 656, 371, 605, 406, 322, 406, -54, 419, -268, 422)
+polygon = PackedVector2Array(224, 140, 218, 99, 216, 33, 213, -122, 211, -275, 220, -292, 230, -308, 256, -315, 933, -312, 946, -284, 954, -196, 954, -55, 960, 102, 954, 136, 932, 146, 599, 158, 256, 165)
 
 [node name="Polygon2D" type="Polygon2D" parent="PuzzleArea/Hole" index="1"]
 color = Color(0, 0, 0, 1)
-polygon = PackedVector2Array(-380, 414, -412, 283, -409, 190, -372, 168, -233, 167, 26, 168, 136, 165, 188, 152, 202, 136, 218, 99, 216, 33, 213, -122, 211, -275, 220, -292, 230, -308, 256, -315, 625, -322, 661, -292, 669, -160, 675, 20, 675, 176, 677, 312, 656, 371, 605, 406, 322, 406, -54, 419, -268, 422)
+polygon = PackedVector2Array(224, 140, 218, 99, 216, 33, 213, -122, 211, -275, 220, -292, 230, -308, 256, -315, 933, -312, 946, -284, 954, -196, 954, -55, 960, 102, 954, 136, 932, 146, 599, 158, 256, 165)
 
 [node name="pickup_key" parent="PuzzleArea" index="2" instance=ExtResource("12_joquo")]
-position = Vector2(-718, -339)
+position = Vector2(-786, -345)
 
 [node name="PlatformMover" type="Path2D" parent="PuzzleArea" index="3"]
 z_index = -1
 curve = SubResource("Curve2D_j10fm")
 script = ExtResource("13_glw2f")
 repeat_type = 1
-speed = 500.0
+speed = 300.0
 repeat_delay = 1.0
 
 [node name="PathFollow2D" type="PathFollow2D" parent="PuzzleArea/PlatformMover" index="0"]
-position = Vector2(-216, 37)
+position = Vector2(116, -369)
 rotates = false
 
 [node name="MovablePlatform" parent="PuzzleArea/PlatformMover/PathFollow2D" index="0" instance=ExtResource("14_hyg0y")]
 process_physics_priority = -1000
 scale = Vector2(1.18696, 1.18696)
+
+[node name="FenceTiles" parent="PuzzleArea" index="4" instance=ExtResource("15_nkduh")]
+position = Vector2(-25, -42)
+tile_map_data = PackedByteArray("AAABAP//BgAAAAAAAAAAAP//BgAAAAAAAAD/////BgAAAAAAAAD+////BgAAAAAAAAD9////BgAAAAAAAAD8////BgAAAAAAAAD7////BgAAAAAAAAD6////BgAAAAAAAAD5////BgAAAAAAAAD4////BgAAAAAAAAA=")
