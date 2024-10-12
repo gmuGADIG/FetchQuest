@@ -47,7 +47,7 @@ func _process(delta: float) -> void:
 func _is_on_screen(rect: Rect2, margin: float = 0) -> bool:
 	var cam := get_viewport().get_camera_2d()
 	var center := cam.get_screen_center_position()
-	var size := get_viewport().get_visible_rect().size
+	var size := get_viewport().get_visible_rect().size / cam.zoom
 	var screen_rect := Rect2(center - size / 2.0, size)
 
 	return screen_rect.grow(margin).intersects(rect)
