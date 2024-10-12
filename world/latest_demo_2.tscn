@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=4 uid="uid://c0b860627rcs5"]
+[gd_scene load_steps=22 format=4 uid="uid://c0b860627rcs5"]
 
 [ext_resource type="PackedScene" uid="uid://dxw3ja3g78lfx" path="res://world/level_base.tscn" id="1_2iy6g"]
 [ext_resource type="Script" path="res://world/decoration/trees/tree_gen.gd" id="2_n44bl"]
@@ -8,13 +8,17 @@
 [ext_resource type="Script" path="res://reloader/reloader.gd" id="8_gqbog"]
 [ext_resource type="PackedScene" uid="uid://bgujmor7r2ari" path="res://world/decoration/buildings/house_tudor_b.tscn" id="8_xsw5j"]
 [ext_resource type="PackedScene" uid="uid://cnveqoba0t7tx" path="res://world/decoration/trees/evergreen_tree_with_fireflies.tscn" id="10_3x3mv"]
+[ext_resource type="PackedScene" uid="uid://dutetduietx8r" path="res://enemy/shield_enemy/shield_enemy.tscn" id="10_8dpie"]
 [ext_resource type="PackedScene" uid="uid://dt3m30r5dehup" path="res://world/environment/pickups/pickup_key.tscn" id="12_joquo"]
 [ext_resource type="Script" path="res://world/environment/moving_objects/platform_mover.gd" id="13_glw2f"]
 [ext_resource type="PackedScene" uid="uid://uj2rytnj1h4" path="res://enemy/test_enemy/test_enemy.tscn" id="14_h6tl8"]
 [ext_resource type="PackedScene" uid="uid://bxaar1hpspnom" path="res://world/environment/moving_objects/movable_platform.tscn" id="14_hyg0y"]
 [ext_resource type="PackedScene" uid="uid://bm05x1jwytuuc" path="res://world/environment/tilemap/the_tile_map_layer.tscn" id="15_nkduh"]
+[ext_resource type="PackedScene" uid="uid://blh1fs712dql8" path="res://world/objects/locked_door/locked_door.tscn" id="16_be0xc"]
 [ext_resource type="PackedScene" uid="uid://c7ck7ril2jix2" path="res://player/player.tscn" id="16_sqpfi"]
 [ext_resource type="PackedScene" uid="uid://cl1lr3ddw0s8j" path="res://world/decoration/trees/evergreen_tree.tscn" id="17_0qa0k"]
+[ext_resource type="Texture2D" uid="uid://dc4pcxr2lfkka" path="res://demo_art/dungeon_entrance.png" id="17_o8ma7"]
+[ext_resource type="Script" path="res://world/transition_trigger/transition_trigger.gd" id="18_u8qny"]
 
 [sub_resource type="Curve2D" id="Curve2D_j10fm"]
 _data = {
@@ -22,14 +26,17 @@ _data = {
 }
 point_count = 2
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c0qo5"]
+size = Vector2(158, 146)
+
 [node name="LatestDemo2" instance=ExtResource("1_2iy6g")]
 
 [node name="FakeGrass" type="ColorRect" parent="." index="0"]
 z_index = -10
-offset_left = -12058.0
-offset_top = -7113.0
-offset_right = 15258.0
-offset_bottom = 10139.0
+offset_left = -10901.0
+offset_top = -7032.0
+offset_right = 16415.0
+offset_bottom = 10220.0
 color = Color(0.0902, 0.22, 0.0988533, 1)
 
 [node name="HouseArea" type="Node2D" parent="." index="1"]
@@ -1103,14 +1110,14 @@ position = Vector2(292.263, 1477.72)
 [node name="TestEnemy" parent="FirstEnemyArea/Enemies" index="0" instance=ExtResource("14_h6tl8")]
 position = Vector2(123, 1811)
 
-[node name="TestEnemy2" parent="FirstEnemyArea/Enemies" index="1" instance=ExtResource("14_h6tl8")]
-position = Vector2(1342, 1693)
-
-[node name="TestEnemy3" parent="FirstEnemyArea/Enemies" index="2" instance=ExtResource("14_h6tl8")]
+[node name="TestEnemy3" parent="FirstEnemyArea/Enemies" index="1" instance=ExtResource("14_h6tl8")]
 position = Vector2(1609, 2195)
 
-[node name="TestEnemy4" parent="FirstEnemyArea/Enemies" index="3" instance=ExtResource("14_h6tl8")]
+[node name="TestEnemy4" parent="FirstEnemyArea/Enemies" index="2" instance=ExtResource("14_h6tl8")]
 position = Vector2(558, 2259)
+
+[node name="ShieldEnemy" parent="FirstEnemyArea/Enemies" index="3" instance=ExtResource("10_8dpie")]
+position = Vector2(1382, 1898)
 
 [node name="BushedOutside" type="Node2D" parent="FirstEnemyArea" index="3"]
 y_sort_enabled = true
@@ -1191,20 +1198,7 @@ position = Vector2(430, -180)
 [node name="SmallBush10" parent="FirstEnemyArea/BushesInside" index="9" instance=ExtResource("4_qjjla")]
 position = Vector2(-390, 434)
 
-[node name="Player" parent="." index="3" instance=ExtResource("16_sqpfi")]
-position = Vector2(-1489, 1896)
-
-[node name="MainCam" parent="." index="4"]
-position = Vector2(1815, -250)
-zoom = Vector2(0.7, 0.7)
-limit_top = -600
-limit_right = 1890
-
-[node name="Reloader" type="Node" parent="." index="7"]
-script = ExtResource("8_gqbog")
-despawn_margin = 650.0
-
-[node name="PuzzleArea" type="Node2D" parent="." index="8"]
+[node name="PuzzleArea" type="Node2D" parent="." index="3"]
 y_sort_enabled = true
 position = Vector2(-1814, 1967)
 
@@ -1677,3 +1671,39 @@ scale = Vector2(1.18696, 1.18696)
 [node name="FenceTiles" parent="PuzzleArea" index="4" instance=ExtResource("15_nkduh")]
 position = Vector2(-25, -42)
 tile_map_data = PackedByteArray("AAABAP//BgAAAAAAAAAAAP//BgAAAAAAAAD/////BgAAAAAAAAD+////BgAAAAAAAAD9////BgAAAAAAAAD8////BgAAAAAAAAD7////BgAAAAAAAAD6////BgAAAAAAAAD5////BgAAAAAAAAD4////BgAAAAAAAAA=")
+
+[node name="LockedDoor" parent="PuzzleArea" index="5" instance=ExtResource("16_be0xc")]
+position = Vector2(-595.45, 245.161)
+scale = Vector2(0.670196, 0.721556)
+
+[node name="DungeonEntrance" type="Sprite2D" parent="PuzzleArea" index="6"]
+position = Vector2(-591.45, 189.161)
+scale = Vector2(2.33037, 2.33037)
+texture = ExtResource("17_o8ma7")
+
+[node name="TransitionScene" type="Area2D" parent="PuzzleArea/DungeonEntrance" index="0"]
+position = Vector2(-6.00761, 27.8925)
+scale = Vector2(0.429116, 0.429116)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("18_u8qny")
+scene_name = "demo_dungeon"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PuzzleArea/DungeonEntrance/TransitionScene" index="0"]
+position = Vector2(6, -13)
+shape = SubResource("RectangleShape2D_c0qo5")
+
+[node name="Player" parent="." index="4" instance=ExtResource("16_sqpfi")]
+position = Vector2(-1489, 1896)
+
+[node name="MainCam" parent="." index="5"]
+position = Vector2(1815, -250)
+zoom = Vector2(0.7, 0.7)
+limit_top = -600
+limit_right = 1890
+
+[node name="Reloader" type="Node" parent="." index="8"]
+script = ExtResource("8_gqbog")
+despawn_margin = 650.0
+
+[connection signal="body_entered" from="PuzzleArea/DungeonEntrance/TransitionScene" to="PuzzleArea/DungeonEntrance/TransitionScene" method="_on_body_entered"]
