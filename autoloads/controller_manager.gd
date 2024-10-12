@@ -22,7 +22,7 @@ func _input(event: InputEvent) -> void:
 	if event is InputEventJoypadButton || event is InputEventJoypadMotion:
 		is_controller = true
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	var current_aim := Input.get_vector("look_left", "look_right", "look_up", "look_down").normalized()
 	if current_aim != Vector2.ZERO:
 		_last_nonzero_joystick_aim = current_aim

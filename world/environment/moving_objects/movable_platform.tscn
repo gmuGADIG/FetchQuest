@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://bxaar1hpspnom"]
+
+[ext_resource type="Script" path="res://world/environment/moving_objects/movable_platform.gd" id="1_bv0y4"]
+[ext_resource type="Texture2D" uid="uid://dymucenpxmluo" path="res://icon.svg" id="2_t8s1e"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u6oxc"]
+size = Vector2(120, 120)
+
+[node name="MovablePlatform" type="Node2D"]
+process_priority = -100
+scale = Vector2(2.14444, 2.14444)
+script = ExtResource("1_bv0y4")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+process_priority = 100
+modulate = Color(0.4, 0.4, 0.4, 1)
+texture = ExtResource("2_t8s1e")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_u6oxc")

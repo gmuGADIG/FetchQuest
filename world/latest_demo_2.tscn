@@ -1,0 +1,2644 @@
+[gd_scene load_steps=15 format=3 uid="uid://c0b860627rcs5"]
+
+[ext_resource type="PackedScene" uid="uid://dxw3ja3g78lfx" path="res://world/level_base.tscn" id="1_2iy6g"]
+[ext_resource type="Script" path="res://world/decoration/trees/tree_gen.gd" id="2_n44bl"]
+[ext_resource type="PackedScene" uid="uid://gkyoiixhetyn" path="res://world/decoration/bushes/bush_big.tscn" id="3_a0yt1"]
+[ext_resource type="Texture2D" uid="uid://papt4m7f68it" path="res://world/decoration/trees/evergreen_tree.png" id="4_p3aiy"]
+[ext_resource type="PackedScene" uid="uid://7rwwk775fptb" path="res://world/decoration/bushes/bush_small.tscn" id="4_qjjla"]
+[ext_resource type="Script" path="res://world/decoration/decoration_randomizer.gd" id="5_ed0cb"]
+[ext_resource type="PackedScene" uid="uid://dsm5cibmw7k8f" path="res://world/decoration/buildings/house_tudor_a.tscn" id="7_angr6"]
+[ext_resource type="Script" path="res://reloader/reloader.gd" id="8_gqbog"]
+[ext_resource type="PackedScene" uid="uid://bgujmor7r2ari" path="res://world/decoration/buildings/house_tudor_b.tscn" id="8_xsw5j"]
+[ext_resource type="PackedScene" uid="uid://cnveqoba0t7tx" path="res://world/decoration/trees/evergreen_tree_with_fireflies.tscn" id="10_3x3mv"]
+[ext_resource type="Texture2D" uid="uid://b0bnhxvwse8lw" path="res://world/decoration/trees/firefly_evergreen.png" id="11_yqqx1"]
+[ext_resource type="PackedScene" uid="uid://uj2rytnj1h4" path="res://enemy/test_enemy/test_enemy.tscn" id="14_h6tl8"]
+[ext_resource type="PackedScene" uid="uid://c7ck7ril2jix2" path="res://player/player.tscn" id="16_sqpfi"]
+[ext_resource type="PackedScene" uid="uid://cl1lr3ddw0s8j" path="res://world/decoration/trees/evergreen_tree.tscn" id="17_0qa0k"]
+
+[node name="LatestDemo2" instance=ExtResource("1_2iy6g")]
+
+[node name="FakeGrass" type="ColorRect" parent="." index="0"]
+z_index = -10
+offset_left = -12058.0
+offset_top = -7113.0
+offset_right = 15258.0
+offset_bottom = 10139.0
+color = Color(0.0902, 0.22, 0.0988533, 1)
+
+[node name="HouseArea" type="Node2D" parent="." index="1"]
+y_sort_enabled = true
+
+[node name="TreeGen" type="StaticBody2D" parent="HouseArea" index="0"]
+y_sort_enabled = true
+script = ExtResource("2_n44bl")
+click_to_remove_trees = null
+tree_scene = ExtResource("17_0qa0k")
+secondary_tree_odds = null
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="HouseArea/TreeGen" index="0"]
+polygon = PackedVector2Array(-769, 1351, 459, 1370, 499, 1330, 510, 1260, 456, 1186, 326, 1189, 190, 1195, 15, 1180, -78, 1144, -144, 980, -180, 637, -133, 365, -76, 249, 5, 90, 86, 12, 239, -45, 353, -72, 518, -90, 671, -93, 802, -78, 895, -36, 1030, -9, 1174, -39, 1240, -27, 1324, 57, 1387, 207, 1420, 368, 1432, 491, 1411, 638, 1372, 791, 1318, 896, 1228, 995, 1090, 1070, 1012, 1115, 965, 1175, 950, 1247, 955, 1308, 1019, 1335, 2370, 1295, 2336, -672, -778, -625)
+
+[node name="Trees" type="Node2D" parent="HouseArea/TreeGen" index="1"]
+y_sort_enabled = true
+
+[node name="Evergreen" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="0" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(-753.194, -550.263)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304822" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="1" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(-741.046, -67.8981)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304823" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="2" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(-767.792, 374.128)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304824" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="3" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(-744.059, 651.406)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304825" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="4" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(-764.623, 833.893)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304826" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="5" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(-751.974, 1013.61)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304827" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="6" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(-763.032, 1252.06)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304828" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="7" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(-595.063, -562.117)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304829" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="8" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(-638.368, -412.445)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304830" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="9" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(-653.711, -247.841)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304831" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="10" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(-628.54, -84.8414)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304832" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="11" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(-628.291, 109.638)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304833" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="12" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(-604.621, 193.397)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304834" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="13" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(-631.388, 376.277)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304835" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="14" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(-666.143, 503.728)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304836" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="15" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(-636.193, 720.337)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304837" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="16" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(-671.706, 824.504)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304838" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="17" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(-664.842, 1008.39)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304839" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="18" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(-659.219, 1148.79)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304840" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="19" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(-649.022, 1314.11)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304841" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="20" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(-509.564, -549.436)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304842" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="21" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(-451.341, -399.274)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304843" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="22" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(-463.193, -240.747)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304844" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="23" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(-446.259, -71.6153)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304845" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="24" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(-520.418, 50.6237)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304846" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="25" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(-496.743, 192.046)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304847" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="26" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(-459.007, 355.642)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304848" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="27" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(-465.319, 489.253)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304849" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="28" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(-456.01, 661.54)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304850" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="29" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(-462.519, 818.022)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304851" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="30" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(-481.902, 1009.24)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304852" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="31" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(-440.555, 1114.89)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304853" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="32" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(-442.35, 1243.77)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304854" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="33" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(-357.917, -535.936)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304855" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="34" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(-320.442, -376.045)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304856" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="35" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(-317.722, -215.543)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304857" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="36" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(-341.002, -115.188)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304858" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="37" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(-361.285, 86.1557)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304859" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="38" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(-286.987, 263.562)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304860" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="39" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(-293.814, 339.828)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304861" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="40" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(-302.203, 525.802)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304862" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="41" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(-324.481, 673.85)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304863" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="42" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(-349.564, 797.571)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304864" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="43" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(-357.605, 1019.38)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304865" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="44" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(-322.742, 1138.66)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304866" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="45" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(-371.696, 1309.69)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304867" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="46" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(-160.134, -526.989)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304868" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="47" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(-175.821, -355.185)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304869" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="48" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(-217.297, -206.325)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304870" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="49" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(-174.667, -45.913)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304871" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="50" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(-191.432, 60.5538)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304872" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="51" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(-190.939, 199.143)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304873" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="52" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(-150.943, 398.354)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304874" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="53" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(-214.192, 633.448)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304875" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="54" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(-191.037, 806.287)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304876" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="55" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(-209.137, 999.279)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304877" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="56" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(-213.976, 1136.75)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304878" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="57" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(-198.568, 1265.89)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304879" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="58" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(6.62293, -563.394)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304880" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="59" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(16.7865, -396.957)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304881" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="60" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(-6.67986, -211.287)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304882" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="61" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(-23.9097, -83.611)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304883" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="62" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(-58.5766, 69.1842)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304884" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="63" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(-24.9495, 1166.14)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304885" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="64" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(3.54421, 1259.03)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304886" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="65" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(158.113, -553.121)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304887" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="66" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(100.002, -352.68)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304888" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="67" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(160.298, -199.14)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304889" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="68" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(103.022, -85.1307)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304890" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="69" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(130.218, 1286.54)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304891" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="70" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(234.248, -560.751)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304892" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="71" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(258.991, -366.563)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304893" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="72" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(269.346, -259.324)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304894" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="73" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(232.225, -57.2039)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304895" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="74" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(312.611, 1261.65)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304896" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="75" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(380.424, -564.292)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304897" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="76" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(406.72, -336.99)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304898" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="77" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(407.912, -250.111)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304899" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="78" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(383.143, -100.099)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304900" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="79" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(459.9, 1274.8)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304901" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="80" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(603.223, -494.997)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304902" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="81" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(588.517, -353.702)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304903" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="82" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(585.661, -206.693)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304904" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="83" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(737.902, -529.577)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304905" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="84" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(747.182, -403.13)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304906" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="85" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(684.717, -225.754)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="_Sprite2D_304906" parent="HouseArea/TreeGen/Trees" index="86" instance=ExtResource("17_0qa0k")]
+position = Vector2(652, -144)
+
+[node name="_Sprite2D_304907" parent="HouseArea/TreeGen/Trees" index="87" instance=ExtResource("17_0qa0k")]
+position = Vector2(1341, -3.00003)
+
+[node name="@Sprite2D@304907" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="88" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(904.506, -512.345)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304908" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="89" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(872.603, -409.706)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304909" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="90" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(880.497, -203.976)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304910" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="91" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(859.156, -61.8119)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304911" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="92" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(1027.89, -645.945)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304912" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="93" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(1038.59, -533.786)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304913" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="94" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(980.924, -338.332)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304914" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="95" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(1007.09, -194.434)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304915" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="96" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(1019.92, -87.6096)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304916" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="97" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(1063.47, 1286.36)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304917" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="98" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(1130.8, -531.645)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304918" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="99" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(1130.64, -392.657)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304919" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="100" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(1129.1, -264.393)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304920" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="101" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(1203.59, -55.9931)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304921" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="102" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(1214.26, 1143.92)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304922" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="103" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(1187.44, 1235.16)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304923" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="104" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(1323.56, -644.068)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304924" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="105" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(1295.32, -497.642)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304925" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="106" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(1338.44, -359.698)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304926" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="107" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(1332.56, -250.553)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304927" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="108" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(1328.9, -68.3172)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304928" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="109" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(1296.14, 945.862)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304929" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="110" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(1310.94, 1099.26)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304930" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="111" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(1325.05, 1253.61)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304931" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="112" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(1510.83, -639.417)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304932" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="113" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(1445.1, -497.11)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304933" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="114" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(1480.25, -361.164)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304934" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="115" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(1505.73, -240.14)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304935" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="116" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(1503.73, -81.3183)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304936" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="117" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(1491.49, 40.0959)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304937" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="118" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(1483.46, 228.862)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304938" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="119" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(1450.89, 419.082)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304939" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="120" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(1462.16, 541.892)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304940" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="121" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(1472.3, 662.853)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304941" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="122" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(1431.61, 784.102)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304942" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="123" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(1435.58, 1012.18)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304943" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="124" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(1488.69, 1154.3)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304944" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="125" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(1497.97, 1266.59)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304945" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="126" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(1648.42, -536.172)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304946" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="127" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(1650.17, -349.949)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304947" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="128" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(1662.19, -234.807)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304948" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="129" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(1602.18, -72.6414)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304949" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="130" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(1658.6, 68.3762)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304950" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="131" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(1626.76, 248.716)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304951" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="132" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(1641.41, 355.311)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304952" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="133" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(1609.51, 563.951)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304953" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="134" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(1659.99, 701.281)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304954" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="135" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(1658.42, 857.866)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304955" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="136" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(1642.19, 1000.89)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304956" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="137" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(1662.72, 1143.48)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304957" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="138" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(1580.73, 1317.96)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304958" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="139" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(1778.93, -562.898)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304959" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="140" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(1789.54, -386.737)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304960" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="141" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(1765.31, -258.978)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304961" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="142" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(1793.46, -45.8272)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304962" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="143" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(1740.62, 106.644)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304963" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="144" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(1771.84, 241.245)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304964" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="145" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(1754.56, 365.536)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304965" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="146" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(1742.5, 515.007)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304966" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="147" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(1782, 709.832)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304967" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="148" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(1742.75, 860.446)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304968" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="149" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(1768.73, 942.298)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304969" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="150" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(1777.33, 1143.25)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304970" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="151" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(1791.13, 1303.86)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304971" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="152" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(1933.95, -498.466)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304972" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="153" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(1890.5, -369.271)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304973" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="154" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(1916.39, -252.62)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304974" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="155" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(1950.4, -27.7328)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304975" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="156" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(1966.75, 37.2684)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304976" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="157" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(1886.52, 201.458)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304977" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="158" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(1890.5, 346.007)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304978" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="159" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(1908.23, 557.927)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304979" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="160" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(1883.02, 678.706)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304980" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="161" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(1933.56, 826.012)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304981" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="162" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(1931.27, 937.653)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304982" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="163" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(1948.88, 1135.82)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304983" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="164" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(1909.09, 1236.76)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304984" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="165" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(2056.75, -645.866)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304985" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="166" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(2072.87, -527.792)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304986" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="167" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(2031.03, -335.964)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304987" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="168" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(2039.74, -225.239)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304988" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="169" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(2106.57, -66.1033)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304989" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="170" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(2034.53, 84.7762)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304990" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="171" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(2099.34, 197.285)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304991" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="172" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(2080.27, 338.689)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304992" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="173" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(2065.05, 528.623)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304993" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="174" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(2080.97, 718.066)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304994" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="175" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(2074.53, 812.253)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304995" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="176" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(2081.16, 957.163)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304996" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="177" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(2072.29, 1116.73)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304997" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="178" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(2092.04, 1294.88)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304998" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="179" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(2262.21, -628.429)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@304999" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="180" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(2204.6, -566.71)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@305000" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="181" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(2177.69, -331.989)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@305001" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="182" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(2207.63, -229.839)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@305002" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="183" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(2229.46, -99.3722)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@305003" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="184" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(2192.94, 82.3576)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@305004" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="185" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(2198.03, 271.081)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@305005" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="186" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(2203.85, 388.486)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@305006" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="187" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(2236.25, 494.419)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@305007" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="188" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(2262.52, 637.557)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@305008" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="189" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(2232.2, 858.896)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@305009" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="190" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(2235.03, 1021.38)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@305010" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="191" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(2249.31, 1126.88)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@305011" type="Sprite2D" parent="HouseArea/TreeGen/Trees" index="192" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(2204.58, 1261.51)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="BushesOutside" type="Node2D" parent="HouseArea" index="1"]
+y_sort_enabled = true
+
+[node name="BigBush" parent="HouseArea/BushesOutside" index="0" instance=ExtResource("3_a0yt1")]
+position = Vector2(222, -72)
+
+[node name="BigBush18" parent="HouseArea/BushesOutside" index="1" instance=ExtResource("3_a0yt1")]
+position = Vector2(1202, 571)
+
+[node name="BigBush2" parent="HouseArea/BushesOutside" index="2" instance=ExtResource("3_a0yt1")]
+position = Vector2(518, -106)
+
+[node name="BigBush3" parent="HouseArea/BushesOutside" index="3" instance=ExtResource("3_a0yt1")]
+position = Vector2(-2.99994, 19)
+
+[node name="BigBush4" parent="HouseArea/BushesOutside" index="4" instance=ExtResource("3_a0yt1")]
+position = Vector2(831, -140)
+
+[node name="BigBush5" parent="HouseArea/BushesOutside" index="5" instance=ExtResource("3_a0yt1")]
+position = Vector2(767, -348)
+
+[node name="BigBush6" parent="HouseArea/BushesOutside" index="6" instance=ExtResource("3_a0yt1")]
+position = Vector2(148, -265)
+
+[node name="BigBush7" parent="HouseArea/BushesOutside" index="7" instance=ExtResource("3_a0yt1")]
+position = Vector2(-86, -197)
+
+[node name="BigBush8" parent="HouseArea/BushesOutside" index="8" instance=ExtResource("3_a0yt1")]
+position = Vector2(1186, -72)
+
+[node name="BigBush9" parent="HouseArea/BushesOutside" index="9" instance=ExtResource("3_a0yt1")]
+position = Vector2(1443, 117)
+
+[node name="BigBush10" parent="HouseArea/BushesOutside" index="10" instance=ExtResource("3_a0yt1")]
+position = Vector2(1574, 319)
+
+[node name="BigBush17" parent="HouseArea/BushesOutside" index="11" instance=ExtResource("3_a0yt1")]
+position = Vector2(1065, -119)
+
+[node name="BigBush11" parent="HouseArea/BushesOutside" index="12" instance=ExtResource("3_a0yt1")]
+position = Vector2(1544, 642)
+
+[node name="BigBush12" parent="HouseArea/BushesOutside" index="13" instance=ExtResource("3_a0yt1")]
+position = Vector2(1432, 1000)
+
+[node name="BigBush13" parent="HouseArea/BushesOutside" index="14" instance=ExtResource("3_a0yt1")]
+position = Vector2(1135, 1263)
+
+[node name="BigBush14" parent="HouseArea/BushesOutside" index="15" instance=ExtResource("3_a0yt1")]
+position = Vector2(-17.9999, 1242)
+
+[node name="BigBush15" parent="HouseArea/BushesOutside" index="16" instance=ExtResource("3_a0yt1")]
+position = Vector2(-226, 1043)
+
+[node name="BigBush16" parent="HouseArea/BushesOutside" index="17" instance=ExtResource("3_a0yt1")]
+position = Vector2(-231, 290)
+
+[node name="SmallBush" parent="HouseArea/BushesOutside" index="18" instance=ExtResource("4_qjjla")]
+position = Vector2(163, -51)
+
+[node name="SmallBush2" parent="HouseArea/BushesOutside" index="19" instance=ExtResource("4_qjjla")]
+position = Vector2(68, -8)
+
+[node name="SmallBush3" parent="HouseArea/BushesOutside" index="20" instance=ExtResource("4_qjjla")]
+position = Vector2(436, -98)
+
+[node name="SmallBush4" parent="HouseArea/BushesOutside" index="21" instance=ExtResource("4_qjjla")]
+position = Vector2(288, -91)
+
+[node name="SmallBush5" parent="HouseArea/BushesOutside" index="22" instance=ExtResource("4_qjjla")]
+position = Vector2(735, -118)
+
+[node name="SmallBush6" parent="HouseArea/BushesOutside" index="23" instance=ExtResource("4_qjjla")]
+position = Vector2(906, -131)
+
+[node name="SmallBush7" parent="HouseArea/BushesOutside" index="24" instance=ExtResource("4_qjjla")]
+position = Vector2(1061, -64)
+
+[node name="SmallBush8" parent="HouseArea/BushesOutside" index="25" instance=ExtResource("4_qjjla")]
+position = Vector2(976, -80)
+
+[node name="SmallBush9" parent="HouseArea/BushesOutside" index="26" instance=ExtResource("4_qjjla")]
+position = Vector2(938, -120)
+
+[node name="SmallBush10" parent="HouseArea/BushesOutside" index="27" instance=ExtResource("4_qjjla")]
+position = Vector2(1504, 507)
+
+[node name="SmallBush11" parent="HouseArea/BushesOutside" index="28" instance=ExtResource("4_qjjla")]
+position = Vector2(1225, 1226)
+
+[node name="SmallBush12" parent="HouseArea/BushesOutside" index="29" instance=ExtResource("4_qjjla")]
+position = Vector2(1108, 1280)
+
+[node name="SmallBush13" parent="HouseArea/BushesOutside" index="30" instance=ExtResource("4_qjjla")]
+position = Vector2(44, 1264)
+
+[node name="SmallBush14" parent="HouseArea/BushesOutside" index="31" instance=ExtResource("4_qjjla")]
+position = Vector2(-99, 1274)
+
+[node name="BushesInside" type="Node2D" parent="HouseArea" index="2"]
+y_sort_enabled = true
+
+[node name="SmallBush" parent="HouseArea/BushesInside" index="0" instance=ExtResource("4_qjjla")]
+position = Vector2(696, 593)
+
+[node name="SmallBush5" parent="HouseArea/BushesInside" index="1" instance=ExtResource("4_qjjla")]
+position = Vector2(557, 153)
+
+[node name="SmallBush6" parent="HouseArea/BushesInside" index="2" instance=ExtResource("4_qjjla")]
+position = Vector2(1313, 371)
+
+[node name="SmallBush7" parent="HouseArea/BushesInside" index="3" instance=ExtResource("4_qjjla")]
+position = Vector2(393, 575)
+
+[node name="SmallBush2" parent="HouseArea/BushesInside" index="4" instance=ExtResource("4_qjjla")]
+position = Vector2(258, 191)
+
+[node name="SmallBush3" parent="HouseArea/BushesInside" index="5" instance=ExtResource("4_qjjla")]
+position = Vector2(128, 767)
+
+[node name="SmallBush4" parent="HouseArea/BushesInside" index="6" instance=ExtResource("4_qjjla")]
+position = Vector2(879, 784)
+
+[node name="HouseTudorA" parent="HouseArea" index="3" instance=ExtResource("7_angr6")]
+position = Vector2(231, 347)
+
+[node name="HouseTudorB" parent="HouseArea" index="4" instance=ExtResource("8_xsw5j")]
+position = Vector2(948, 269)
+
+[node name="FirstEnemyArea" type="Node2D" parent="." index="2"]
+y_sort_enabled = true
+
+[node name="TreeGenBottomRight" type="StaticBody2D" parent="FirstEnemyArea" index="0"]
+y_sort_enabled = true
+script = ExtResource("2_n44bl")
+tree_scene = ExtResource("17_0qa0k")
+secondary_tree_scene = ExtResource("10_3x3mv")
+secondary_tree_odds = 0.165
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="FirstEnemyArea/TreeGenBottomRight" index="0"]
+polygon = PackedVector2Array(-301, 2318, -157, 2428, -50, 2553, 49, 2655, 134, 2801, 354, 2882, 642, 2869, 1002, 2860, 1502, 2844, 1858, 2801, 2100, 2666, 2253, 2416, 2291, 2174, 2214, 1907, 2083, 1708, 1867, 1555, 1600, 1496, 1291, 1487, 1100, 1403, 1021, 1335, 2213, 1344, 2564, 1705, 2645, 3081, -757, 3177, -758, 2356, -630, 2278, -445, 2260)
+
+[node name="Trees" type="Node2D" parent="FirstEnemyArea/TreeGenBottomRight" index="1"]
+y_sort_enabled = true
+
+[node name="Evergreen" type="Sprite2D" parent="FirstEnemyArea/TreeGenBottomRight/Trees" index="0" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(-574.644, 2378.14)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@302584" type="Sprite2D" parent="FirstEnemyArea/TreeGenBottomRight/Trees" index="1" instance=ExtResource("10_3x3mv")]
+position = Vector2(-648.515, 2507.61)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("11_yqqx1")
+offset = Vector2(25, -305)
+
+[node name="@Sprite2D@302585" type="Sprite2D" parent="FirstEnemyArea/TreeGenBottomRight/Trees" index="2" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(-567.955, 2711.3)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@302586" type="Sprite2D" parent="FirstEnemyArea/TreeGenBottomRight/Trees" index="3" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(-606.295, 2867.93)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@302587" type="Sprite2D" parent="FirstEnemyArea/TreeGenBottomRight/Trees" index="4" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(-595.06, 2955.46)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@302588" type="Sprite2D" parent="FirstEnemyArea/TreeGenBottomRight/Trees" index="5" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(-630.891, 3094.07)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@302589" type="Sprite2D" parent="FirstEnemyArea/TreeGenBottomRight/Trees" index="6" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(-501.83, 2275.65)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@302590" type="Sprite2D" parent="FirstEnemyArea/TreeGenBottomRight/Trees" index="7" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(-479.555, 2358.51)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@302591" type="Sprite2D" parent="FirstEnemyArea/TreeGenBottomRight/Trees" index="8" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(-424.033, 2522.57)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@302592" type="Sprite2D" parent="FirstEnemyArea/TreeGenBottomRight/Trees" index="9" instance=ExtResource("10_3x3mv")]
+position = Vector2(-475.328, 2664.79)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("11_yqqx1")
+offset = Vector2(25, -305)
+
+[node name="@Sprite2D@302593" type="Sprite2D" parent="FirstEnemyArea/TreeGenBottomRight/Trees" index="10" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(-447.24, 2846.82)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@302594" type="Sprite2D" parent="FirstEnemyArea/TreeGenBottomRight/Trees" index="11" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(-435.109, 2995.42)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@302595" type="Sprite2D" parent="FirstEnemyArea/TreeGenBottomRight/Trees" index="12" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(-449.226, 3162.56)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@302596" type="Sprite2D" parent="FirstEnemyArea/TreeGenBottomRight/Trees" index="13" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(-346.221, 2396.52)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@302597" type="Sprite2D" parent="FirstEnemyArea/TreeGenBottomRight/Trees" index="14" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(-342.355, 2569.19)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@302598" type="Sprite2D" parent="FirstEnemyArea/TreeGenBottomRight/Trees" index="15" instance=ExtResource("10_3x3mv")]
+position = Vector2(-269.596, 2682.58)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("11_yqqx1")
+offset = Vector2(25, -305)
+
+[node name="@Sprite2D@302599" type="Sprite2D" parent="FirstEnemyArea/TreeGenBottomRight/Trees" index="16" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(-293.736, 2793.3)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@302600" type="Sprite2D" parent="FirstEnemyArea/TreeGenBottomRight/Trees" index="17" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(-285.627, 2991.99)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@302601" type="Sprite2D" parent="FirstEnemyArea/TreeGenBottomRight/Trees" index="18" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(-329.475, 3120.87)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@302602" type="Sprite2D" parent="FirstEnemyArea/TreeGenBottomRight/Trees" index="19" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(-202.571, 2403.57)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@302603" type="Sprite2D" parent="FirstEnemyArea/TreeGenBottomRight/Trees" index="20" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(-170.477, 2560.86)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@302604" type="Sprite2D" parent="FirstEnemyArea/TreeGenBottomRight/Trees" index="21" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(-185.419, 2672.97)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@302605" type="Sprite2D" parent="FirstEnemyArea/TreeGenBottomRight/Trees" index="22" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(-115.954, 2831.67)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@302606" type="Sprite2D" parent="FirstEnemyArea/TreeGenBottomRight/Trees" index="23" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(-141.419, 2951.64)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@302607" type="Sprite2D" parent="FirstEnemyArea/TreeGenBottomRight/Trees" index="24" instance=ExtResource("10_3x3mv")]
+position = Vector2(-188.118, 3152.71)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("11_yqqx1")
+offset = Vector2(25, -305)
+
+[node name="@Sprite2D@302608" type="Sprite2D" parent="FirstEnemyArea/TreeGenBottomRight/Trees" index="25" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(-44.2183, 2711.37)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@302609" type="Sprite2D" parent="FirstEnemyArea/TreeGenBottomRight/Trees" index="26" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(25.791, 2844.32)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@302610" type="Sprite2D" parent="FirstEnemyArea/TreeGenBottomRight/Trees" index="27" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(-29.9331, 3000.98)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@302611" type="Sprite2D" parent="FirstEnemyArea/TreeGenBottomRight/Trees" index="28" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(-8.72513, 3102.05)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@302612" type="Sprite2D" parent="FirstEnemyArea/TreeGenBottomRight/Trees" index="29" instance=ExtResource("10_3x3mv")]
+position = Vector2(105.403, 2979.24)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("11_yqqx1")
+offset = Vector2(25, -305)
+
+[node name="@Sprite2D@302613" type="Sprite2D" parent="FirstEnemyArea/TreeGenBottomRight/Trees" index="30" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(124.86, 3107.17)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@302614" type="Sprite2D" parent="FirstEnemyArea/TreeGenBottomRight/Trees" index="31" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(267.362, 2977.88)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@302615" type="Sprite2D" parent="FirstEnemyArea/TreeGenBottomRight/Trees" index="32" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(467.316, 2954.54)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@302616" type="Sprite2D" parent="FirstEnemyArea/TreeGenBottomRight/Trees" index="33" instance=ExtResource("10_3x3mv")]
+position = Vector2(466.683, 3135.97)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("11_yqqx1")
+offset = Vector2(25, -305)
+
+[node name="@Sprite2D@302617" type="Sprite2D" parent="FirstEnemyArea/TreeGenBottomRight/Trees" index="34" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(576.733, 2948.09)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@302618" type="Sprite2D" parent="FirstEnemyArea/TreeGenBottomRight/Trees" index="35" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(626.501, 3135.31)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@302619" type="Sprite2D" parent="FirstEnemyArea/TreeGenBottomRight/Trees" index="36" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(717.473, 2947.45)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@302620" type="Sprite2D" parent="FirstEnemyArea/TreeGenBottomRight/Trees" index="37" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(783.882, 3092.2)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@302621" type="Sprite2D" parent="FirstEnemyArea/TreeGenBottomRight/Trees" index="38" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(905.687, 2975.41)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@302622" type="Sprite2D" parent="FirstEnemyArea/TreeGenBottomRight/Trees" index="39" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(907.164, 3101.11)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@302623" type="Sprite2D" parent="FirstEnemyArea/TreeGenBottomRight/Trees" index="40" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(1070.07, 1363.46)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@302624" type="Sprite2D" parent="FirstEnemyArea/TreeGenBottomRight/Trees" index="41" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(1049.94, 2862.47)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@302625" type="Sprite2D" parent="FirstEnemyArea/TreeGenBottomRight/Trees" index="42" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(1046.62, 2954.51)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@302626" type="Sprite2D" parent="FirstEnemyArea/TreeGenBottomRight/Trees" index="43" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(1225.87, 2858.58)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@302627" type="Sprite2D" parent="FirstEnemyArea/TreeGenBottomRight/Trees" index="44" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(1174.23, 2955.58)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@302628" type="Sprite2D" parent="FirstEnemyArea/TreeGenBottomRight/Trees" index="45" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(1322.13, 1460.41)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@302629" type="Sprite2D" parent="FirstEnemyArea/TreeGenBottomRight/Trees" index="46" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(1310.8, 3024.26)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@302630" type="Sprite2D" parent="FirstEnemyArea/TreeGenBottomRight/Trees" index="47" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(1510.84, 1480.07)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@302631" type="Sprite2D" parent="FirstEnemyArea/TreeGenBottomRight/Trees" index="48" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(1533.69, 2875.75)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@302632" type="Sprite2D" parent="FirstEnemyArea/TreeGenBottomRight/Trees" index="49" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(1519.89, 2942.72)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@302633" type="Sprite2D" parent="FirstEnemyArea/TreeGenBottomRight/Trees" index="50" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(1684, 1340.95)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@302634" type="Sprite2D" parent="FirstEnemyArea/TreeGenBottomRight/Trees" index="51" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(1610.15, 2843.26)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@302635" type="Sprite2D" parent="FirstEnemyArea/TreeGenBottomRight/Trees" index="52" instance=ExtResource("10_3x3mv")]
+position = Vector2(1664.52, 2956.09)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("11_yqqx1")
+offset = Vector2(25, -305)
+
+[node name="@Sprite2D@302636" type="Sprite2D" parent="FirstEnemyArea/TreeGenBottomRight/Trees" index="53" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(1768.74, 1372.04)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@302637" type="Sprite2D" parent="FirstEnemyArea/TreeGenBottomRight/Trees" index="54" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(1807.14, 1479.1)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@302638" type="Sprite2D" parent="FirstEnemyArea/TreeGenBottomRight/Trees" index="55" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(1757.54, 2999.86)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@302639" type="Sprite2D" parent="FirstEnemyArea/TreeGenBottomRight/Trees" index="56" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(1954.81, 1453.21)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@302640" type="Sprite2D" parent="FirstEnemyArea/TreeGenBottomRight/Trees" index="57" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(1950.23, 1600.05)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@302641" type="Sprite2D" parent="FirstEnemyArea/TreeGenBottomRight/Trees" index="58" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(1969.21, 2865.49)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@302642" type="Sprite2D" parent="FirstEnemyArea/TreeGenBottomRight/Trees" index="59" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(1970.2, 2994.5)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@302643" type="Sprite2D" parent="FirstEnemyArea/TreeGenBottomRight/Trees" index="60" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(2064.93, 1514.1)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@302644" type="Sprite2D" parent="FirstEnemyArea/TreeGenBottomRight/Trees" index="61" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(2083.92, 1613.48)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@302645" type="Sprite2D" parent="FirstEnemyArea/TreeGenBottomRight/Trees" index="62" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(2050.78, 2728.18)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@302646" type="Sprite2D" parent="FirstEnemyArea/TreeGenBottomRight/Trees" index="63" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(2119.05, 2861.94)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@302647" type="Sprite2D" parent="FirstEnemyArea/TreeGenBottomRight/Trees" index="64" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(2094.89, 2997.37)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@302648" type="Sprite2D" parent="FirstEnemyArea/TreeGenBottomRight/Trees" index="65" instance=ExtResource("10_3x3mv")]
+position = Vector2(2283.36, 1503.09)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("11_yqqx1")
+offset = Vector2(25, -305)
+
+[node name="@Sprite2D@302649" type="Sprite2D" parent="FirstEnemyArea/TreeGenBottomRight/Trees" index="66" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(2264.07, 1648.87)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@302650" type="Sprite2D" parent="FirstEnemyArea/TreeGenBottomRight/Trees" index="67" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(2219.93, 1797.28)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@302651" type="Sprite2D" parent="FirstEnemyArea/TreeGenBottomRight/Trees" index="68" instance=ExtResource("10_3x3mv")]
+position = Vector2(2229.13, 2529.05)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("11_yqqx1")
+offset = Vector2(25, -305)
+
+[node name="@Sprite2D@302652" type="Sprite2D" parent="FirstEnemyArea/TreeGenBottomRight/Trees" index="69" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(2199.38, 2700.28)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@302653" type="Sprite2D" parent="FirstEnemyArea/TreeGenBottomRight/Trees" index="70" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(2276.96, 2813.21)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@302654" type="Sprite2D" parent="FirstEnemyArea/TreeGenBottomRight/Trees" index="71" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(2227.33, 3019.98)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@302655" type="Sprite2D" parent="FirstEnemyArea/TreeGenBottomRight/Trees" index="72" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(2369.73, 1671.12)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@302656" type="Sprite2D" parent="FirstEnemyArea/TreeGenBottomRight/Trees" index="73" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(2358.08, 1782.13)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@302657" type="Sprite2D" parent="FirstEnemyArea/TreeGenBottomRight/Trees" index="74" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(2395.99, 1908.67)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@302658" type="Sprite2D" parent="FirstEnemyArea/TreeGenBottomRight/Trees" index="75" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(2388.43, 2120.68)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@302659" type="Sprite2D" parent="FirstEnemyArea/TreeGenBottomRight/Trees" index="76" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(2372.56, 2248.44)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@302660" type="Sprite2D" parent="FirstEnemyArea/TreeGenBottomRight/Trees" index="77" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(2347.7, 2423.31)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@302661" type="Sprite2D" parent="FirstEnemyArea/TreeGenBottomRight/Trees" index="78" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(2428.2, 2549.35)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@302662" type="Sprite2D" parent="FirstEnemyArea/TreeGenBottomRight/Trees" index="79" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(2374.09, 2721.44)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@302663" type="Sprite2D" parent="FirstEnemyArea/TreeGenBottomRight/Trees" index="80" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(2361.89, 2862.18)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@302664" type="Sprite2D" parent="FirstEnemyArea/TreeGenBottomRight/Trees" index="81" instance=ExtResource("10_3x3mv")]
+position = Vector2(2434.68, 2991.03)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("11_yqqx1")
+offset = Vector2(25, -305)
+
+[node name="@Sprite2D@302665" type="Sprite2D" parent="FirstEnemyArea/TreeGenBottomRight/Trees" index="82" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(2516.35, 1958.75)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@302666" type="Sprite2D" parent="FirstEnemyArea/TreeGenBottomRight/Trees" index="83" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(2512.06, 2043.26)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@302667" type="Sprite2D" parent="FirstEnemyArea/TreeGenBottomRight/Trees" index="84" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(2536.97, 2226.36)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@302668" type="Sprite2D" parent="FirstEnemyArea/TreeGenBottomRight/Trees" index="85" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(2575.96, 2385.26)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@302669" type="Sprite2D" parent="FirstEnemyArea/TreeGenBottomRight/Trees" index="86" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(2557.62, 2541.14)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@302670" type="Sprite2D" parent="FirstEnemyArea/TreeGenBottomRight/Trees" index="87" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(2556.29, 2729)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@302671" type="Sprite2D" parent="FirstEnemyArea/TreeGenBottomRight/Trees" index="88" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(2530.76, 2802.21)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@302672" type="Sprite2D" parent="FirstEnemyArea/TreeGenBottomRight/Trees" index="89" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(2557.6, 2950.88)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="TreeGenTopLeft" type="StaticBody2D" parent="FirstEnemyArea" index="1"]
+y_sort_enabled = true
+script = ExtResource("2_n44bl")
+tree_scene = ExtResource("17_0qa0k")
+secondary_tree_scene = ExtResource("10_3x3mv")
+secondary_tree_odds = 0.165
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="FirstEnemyArea/TreeGenTopLeft" index="0"]
+polygon = PackedVector2Array(483, 1342, 395, 1450, 245, 1511, 9, 1533, -197, 1590, -352, 1683, -419, 1768, -535, 1806, -733, 1804, -778, 1795, -773, 1322)
+
+[node name="Trees" type="Node2D" parent="FirstEnemyArea/TreeGenTopLeft" index="1"]
+y_sort_enabled = true
+
+[node name="Evergreen" type="Sprite2D" parent="FirstEnemyArea/TreeGenTopLeft/Trees" index="0" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(-589.332, 1434.76)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@301142" type="Sprite2D" parent="FirstEnemyArea/TreeGenTopLeft/Trees" index="1" instance=ExtResource("10_3x3mv")]
+position = Vector2(-629.368, 1594.12)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("11_yqqx1")
+offset = Vector2(25, -305)
+
+[node name="@Sprite2D@301143" type="Sprite2D" parent="FirstEnemyArea/TreeGenTopLeft/Trees" index="2" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(-608.144, 1761.5)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@301144" type="Sprite2D" parent="FirstEnemyArea/TreeGenTopLeft/Trees" index="3" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(-437.754, 1343.17)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@301145" type="Sprite2D" parent="FirstEnemyArea/TreeGenTopLeft/Trees" index="4" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(-461.407, 1481.41)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@301146" type="Sprite2D" parent="FirstEnemyArea/TreeGenTopLeft/Trees" index="5" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(-505.345, 1590.15)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@301147" type="Sprite2D" parent="FirstEnemyArea/TreeGenTopLeft/Trees" index="6" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(-515.599, 1761.08)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@301148" type="Sprite2D" parent="FirstEnemyArea/TreeGenTopLeft/Trees" index="7" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(-319.427, 1347.71)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@301149" type="Sprite2D" parent="FirstEnemyArea/TreeGenTopLeft/Trees" index="8" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(-354.502, 1513.7)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@301150" type="Sprite2D" parent="FirstEnemyArea/TreeGenTopLeft/Trees" index="9" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(-184.373, 1476.06)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@301151" type="Sprite2D" parent="FirstEnemyArea/TreeGenTopLeft/Trees" index="10" instance=ExtResource("17_0qa0k")]
+y_sort_enabled = true
+position = Vector2(-45.8066, 1430.75)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_p3aiy")
+offset = Vector2(25, -305)
+script = ExtResource("5_ed0cb")
+
+[node name="@Sprite2D@301152" type="Sprite2D" parent="FirstEnemyArea/TreeGenTopLeft/Trees" index="11" instance=ExtResource("10_3x3mv")]
+position = Vector2(90.6489, 1495.64)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("11_yqqx1")
+offset = Vector2(25, -305)
+
+[node name="_Sprite2D_301152" parent="FirstEnemyArea/TreeGenTopLeft/Trees" index="12" instance=ExtResource("10_3x3mv")]
+position = Vector2(-94, 1537)
+
+[node name="_Sprite2D_301153" parent="FirstEnemyArea/TreeGenTopLeft/Trees" index="13" instance=ExtResource("10_3x3mv")]
+position = Vector2(-421, 1680)
+
+[node name="@Sprite2D@301153" type="Sprite2D" parent="FirstEnemyArea/TreeGenTopLeft/Trees" index="14" instance=ExtResource("10_3x3mv")]
+position = Vector2(292.263, 1477.72)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("11_yqqx1")
+offset = Vector2(25, -305)
+
+[node name="Enemies" type="Node2D" parent="FirstEnemyArea" index="2"]
+
+[node name="TestEnemy" parent="FirstEnemyArea/Enemies" index="0" instance=ExtResource("14_h6tl8")]
+position = Vector2(123, 1811)
+
+[node name="TestEnemy2" parent="FirstEnemyArea/Enemies" index="1" instance=ExtResource("14_h6tl8")]
+position = Vector2(1342, 1693)
+
+[node name="TestEnemy3" parent="FirstEnemyArea/Enemies" index="2" instance=ExtResource("14_h6tl8")]
+position = Vector2(1609, 2195)
+
+[node name="TestEnemy4" parent="FirstEnemyArea/Enemies" index="3" instance=ExtResource("14_h6tl8")]
+position = Vector2(558, 2259)
+
+[node name="BushedOutside" type="Node2D" parent="FirstEnemyArea" index="3"]
+y_sort_enabled = true
+
+[node name="BigBush" parent="FirstEnemyArea/BushedOutside" index="0" instance=ExtResource("3_a0yt1")]
+position = Vector2(222, 1412)
+
+[node name="BigBush2" parent="FirstEnemyArea/BushedOutside" index="1" instance=ExtResource("3_a0yt1")]
+position = Vector2(-281, 1577)
+
+[node name="BigBush3" parent="FirstEnemyArea/BushedOutside" index="2" instance=ExtResource("3_a0yt1")]
+position = Vector2(1554, 1424)
+
+[node name="BigBush4" parent="FirstEnemyArea/BushedOutside" index="3" instance=ExtResource("3_a0yt1")]
+position = Vector2(2012, 1589)
+
+[node name="BigBush5" parent="FirstEnemyArea/BushedOutside" index="4" instance=ExtResource("3_a0yt1")]
+position = Vector2(791, 2945)
+
+[node name="BigBush6" parent="FirstEnemyArea/BushedOutside" index="5" instance=ExtResource("3_a0yt1")]
+position = Vector2(416, 2974)
+
+[node name="BigBush7" parent="FirstEnemyArea/BushedOutside" index="6" instance=ExtResource("3_a0yt1")]
+position = Vector2(1222, 1381)
+
+[node name="SmallBush" parent="FirstEnemyArea/BushedOutside" index="7" instance=ExtResource("4_qjjla")]
+position = Vector2(145, 1427)
+
+[node name="SmallBush2" parent="FirstEnemyArea/BushedOutside" index="8" instance=ExtResource("4_qjjla")]
+position = Vector2(-210, 1543)
+
+[node name="SmallBush3" parent="FirstEnemyArea/BushedOutside" index="9" instance=ExtResource("4_qjjla")]
+position = Vector2(1292, 1396)
+
+[node name="SmallBush4" parent="FirstEnemyArea/BushedOutside" index="10" instance=ExtResource("4_qjjla")]
+position = Vector2(1142, 1364)
+
+[node name="SmallBush5" parent="FirstEnemyArea/BushedOutside" index="11" instance=ExtResource("4_qjjla")]
+position = Vector2(1568, 1428)
+
+[node name="SmallBush6" parent="FirstEnemyArea/BushedOutside" index="12" instance=ExtResource("4_qjjla")]
+position = Vector2(2049, 1598)
+
+[node name="SmallBush7" parent="FirstEnemyArea/BushedOutside" index="13" instance=ExtResource("4_qjjla")]
+position = Vector2(2218, 1810)
+
+[node name="BushesInside" type="Node2D" parent="FirstEnemyArea" index="4"]
+y_sort_enabled = true
+position = Vector2(216, 1562)
+
+[node name="SmallBush" parent="FirstEnemyArea/BushesInside" index="0" instance=ExtResource("4_qjjla")]
+position = Vector2(907, 566)
+
+[node name="SmallBush5" parent="FirstEnemyArea/BushesInside" index="1" instance=ExtResource("4_qjjla")]
+position = Vector2(557, 153)
+
+[node name="SmallBush6" parent="FirstEnemyArea/BushesInside" index="2" instance=ExtResource("4_qjjla")]
+position = Vector2(1500, 366)
+
+[node name="SmallBush7" parent="FirstEnemyArea/BushesInside" index="3" instance=ExtResource("4_qjjla")]
+position = Vector2(393, 575)
+
+[node name="SmallBush2" parent="FirstEnemyArea/BushesInside" index="4" instance=ExtResource("4_qjjla")]
+position = Vector2(23, 223)
+
+[node name="SmallBush3" parent="FirstEnemyArea/BushesInside" index="5" instance=ExtResource("4_qjjla")]
+position = Vector2(128, 767)
+
+[node name="SmallBush4" parent="FirstEnemyArea/BushesInside" index="6" instance=ExtResource("4_qjjla")]
+position = Vector2(1178, 832)
+
+[node name="SmallBush8" parent="FirstEnemyArea/BushesInside" index="7" instance=ExtResource("4_qjjla")]
+position = Vector2(1287, 95)
+
+[node name="SmallBush9" parent="FirstEnemyArea/BushesInside" index="8" instance=ExtResource("4_qjjla")]
+position = Vector2(430, -180)
+
+[node name="SmallBush10" parent="FirstEnemyArea/BushesInside" index="9" instance=ExtResource("4_qjjla")]
+position = Vector2(-390, 434)
+
+[node name="Player" parent="." index="3" instance=ExtResource("16_sqpfi")]
+position = Vector2(575, 635)
+
+[node name="MainCam" parent="." index="4"]
+position = Vector2(1815, -250)
+zoom = Vector2(0.7, 0.7)
+limit_top = -600
+limit_right = 1890
+
+[node name="Reloader" type="Node" parent="." index="7"]
+script = ExtResource("8_gqbog")
+despawn_margin = 650.0

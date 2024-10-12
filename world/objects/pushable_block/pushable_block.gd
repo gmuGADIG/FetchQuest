@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 @export var move_speed: float = 250.0
 
-func _physics_process(delta: float) -> void:	
+func _physics_process(_delta: float) -> void:	
 	# Update push velocity; search for overlapping player bodies that would exert a force
 	var overlapping_bodies: Array[Node2D] = $Area2D.get_overlapping_bodies()
 	for body in overlapping_bodies:
