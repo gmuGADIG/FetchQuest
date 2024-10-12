@@ -72,7 +72,7 @@ func start_roll() -> void:
 	# switch off collision with enemy bullets and the holes
 	self.set_collision_mask_value(6, false)
 	%HoleDetector.monitoring = false
-	#self.set_collision_mask_value(4, false)
+	
 	# make the timer go
 	$RollTimer.start(roll_timer)
 
@@ -82,11 +82,10 @@ func stop_roll() -> void:
 	%HoleDetector.monitoring = true
 	
 	self.set_collision_mask_value(6, true)
-	#self.set_collision_mask_value(4, true)
 
 func _init() -> void:
 	instance = self
-	
+
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("speak"):
 		if !$Speak.on_cooldown():

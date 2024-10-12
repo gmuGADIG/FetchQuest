@@ -28,8 +28,8 @@ func follow(other: Node2D, follow_speed: float) -> void:
 func _process(_delta: float) -> void:
 	match physics_state:
 		ItemPhysicsState.FOLLOWING:
-			if (is_instance_valid(target) and (target.position - position).length() <= 100):
-				velocity = (target.position - position) * speed
+			if (is_instance_valid(target) and global_position.distance_to(target.global_position) <= 100):
+				velocity = (target.global_position - global_position) * speed
 			else:
 				physics_state = ItemPhysicsState.IDLE
 				target = null

@@ -8,9 +8,20 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	pass
+	if not monitoring: return
+	var overlaps := get_overlapping_bodies()
 
+	# if not overlapping anything, do nothing
+	if overlaps.size() == 0: return
 
-func _on_body_entered(body: Node2D) -> void:
+	# if we're overlapping a hole occluder, do nothing
+	for body in overlaps:
+		if body.is_in_group("HoleOccluder"):
+			return
+	
+	# otherwise, make the player fall into a hole
+	player_fall(overlaps[0])
+	
+func player_fall(hole: Node2D) -> void:
 	Player.instance.hurt(DamageEvent.new(1))
-	Player.instance.position -= Player.instance.global_position.direction_to(body.global_position) * 200
+	Player.instance.position -= Player.instance.global_position.direction_to(hole.global_position) * 200

@@ -43,6 +43,7 @@ one_shot = true
 
 [node name="HoleDetector" type="Area2D" parent="."]
 unique_name_in_owner = true
+position = Vector2(13, 37)
 collision_layer = 0
 collision_mask = 8
 script = ExtResource("5_dhnyf")
@@ -51,4 +52,3 @@ script = ExtResource("5_dhnyf")
 shape = SubResource("RectangleShape2D_pjh8c")
 
 [connection signal="timeout" from="RollTimer" to="." method="stop_roll"]
-[connection signal="body_entered" from="HoleDetector" to="HoleDetector" method="_on_body_entered"]

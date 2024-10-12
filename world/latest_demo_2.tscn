@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://c0b860627rcs5"]
+[gd_scene load_steps=16 format=3 uid="uid://c0b860627rcs5"]
 
 [ext_resource type="PackedScene" uid="uid://dxw3ja3g78lfx" path="res://world/level_base.tscn" id="1_2iy6g"]
 [ext_resource type="Script" path="res://world/decoration/trees/tree_gen.gd" id="2_n44bl"]
@@ -8,9 +8,18 @@
 [ext_resource type="Script" path="res://reloader/reloader.gd" id="8_gqbog"]
 [ext_resource type="PackedScene" uid="uid://bgujmor7r2ari" path="res://world/decoration/buildings/house_tudor_b.tscn" id="8_xsw5j"]
 [ext_resource type="PackedScene" uid="uid://cnveqoba0t7tx" path="res://world/decoration/trees/evergreen_tree_with_fireflies.tscn" id="10_3x3mv"]
+[ext_resource type="PackedScene" uid="uid://dt3m30r5dehup" path="res://world/environment/pickups/pickup_key.tscn" id="12_joquo"]
+[ext_resource type="Script" path="res://world/environment/moving_objects/platform_mover.gd" id="13_glw2f"]
 [ext_resource type="PackedScene" uid="uid://uj2rytnj1h4" path="res://enemy/test_enemy/test_enemy.tscn" id="14_h6tl8"]
+[ext_resource type="PackedScene" uid="uid://bxaar1hpspnom" path="res://world/environment/moving_objects/movable_platform.tscn" id="14_hyg0y"]
 [ext_resource type="PackedScene" uid="uid://c7ck7ril2jix2" path="res://player/player.tscn" id="16_sqpfi"]
 [ext_resource type="PackedScene" uid="uid://cl1lr3ddw0s8j" path="res://world/decoration/trees/evergreen_tree.tscn" id="17_0qa0k"]
+
+[sub_resource type="Curve2D" id="Curve2D_j10fm"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -216, 37, 0, 0, 0, 0, -214, -448)
+}
+point_count = 2
 
 [node name="LatestDemo2" instance=ExtResource("1_2iy6g")]
 
@@ -1182,8 +1191,7 @@ position = Vector2(430, -180)
 position = Vector2(-390, 434)
 
 [node name="Player" parent="." index="3" instance=ExtResource("16_sqpfi")]
-position = Vector2(575, 635)
-collision_mask = 41
+position = Vector2(-1489, 1896)
 
 [node name="MainCam" parent="." index="4"]
 position = Vector2(1815, -250)
@@ -1194,3 +1202,473 @@ limit_right = 1890
 [node name="Reloader" type="Node" parent="." index="7"]
 script = ExtResource("8_gqbog")
 despawn_margin = 650.0
+
+[node name="PuzzleArea" type="Node2D" parent="." index="8"]
+y_sort_enabled = true
+position = Vector2(-1814, 1967)
+
+[node name="TreeGen" type="StaticBody2D" parent="PuzzleArea" index="0"]
+y_sort_enabled = true
+script = ExtResource("2_n44bl")
+tree_scene = ExtResource("17_0qa0k")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="PuzzleArea/TreeGen" index="0"]
+polygon = PackedVector2Array(1047, -173, 908, -178, 756, -378, 592, -510, 266, -616, 29, -633, -340, -612, -836, -591, -929, -557, -997, -455, -1065, -146, -1086, 147, -1090, 448, -1073, 711, -1025, 833, -928, 888, -640, 930, 378, 960, 666, 922, 827, 858, 899, 735, 890, 545, 962, 363, 1089, 312, 1133, 1305, -1621, 1347, -1605, -1035, 1057, -1018)
+
+[node name="Trees" type="Node2D" parent="PuzzleArea/TreeGen" index="1"]
+y_sort_enabled = true
+
+[node name="Evergreen" parent="PuzzleArea/TreeGen/Trees" index="0" instance=ExtResource("17_0qa0k")]
+position = Vector2(-1585.26, -1004.09)
+
+[node name="@Sprite2D@34831" parent="PuzzleArea/TreeGen/Trees" index="1" instance=ExtResource("17_0qa0k")]
+position = Vector2(-1583.26, -428.616)
+
+[node name="@Sprite2D@34832" parent="PuzzleArea/TreeGen/Trees" index="2" instance=ExtResource("17_0qa0k")]
+position = Vector2(-1588.21, -310.718)
+
+[node name="@Sprite2D@34833" parent="PuzzleArea/TreeGen/Trees" index="3" instance=ExtResource("17_0qa0k")]
+position = Vector2(-1609.89, 359.59)
+
+[node name="@Sprite2D@34834" parent="PuzzleArea/TreeGen/Trees" index="4" instance=ExtResource("17_0qa0k")]
+position = Vector2(-1593.09, 424.038)
+
+[node name="@Sprite2D@34835" parent="PuzzleArea/TreeGen/Trees" index="5" instance=ExtResource("17_0qa0k")]
+position = Vector2(-1607.98, 1242.78)
+
+[node name="@Sprite2D@34836" parent="PuzzleArea/TreeGen/Trees" index="6" instance=ExtResource("17_0qa0k")]
+position = Vector2(-1431.88, -927.107)
+
+[node name="@Sprite2D@34837" parent="PuzzleArea/TreeGen/Trees" index="7" instance=ExtResource("17_0qa0k")]
+position = Vector2(-1436.91, -718.108)
+
+[node name="@Sprite2D@34838" parent="PuzzleArea/TreeGen/Trees" index="8" instance=ExtResource("17_0qa0k")]
+position = Vector2(-1509.75, -543.733)
+
+[node name="@Sprite2D@34839" parent="PuzzleArea/TreeGen/Trees" index="9" instance=ExtResource("17_0qa0k")]
+position = Vector2(-1435.78, -423.889)
+
+[node name="@Sprite2D@34840" parent="PuzzleArea/TreeGen/Trees" index="10" instance=ExtResource("17_0qa0k")]
+position = Vector2(-1465.63, -314.677)
+
+[node name="@Sprite2D@34841" parent="PuzzleArea/TreeGen/Trees" index="11" instance=ExtResource("17_0qa0k")]
+position = Vector2(-1466.83, -143.935)
+
+[node name="@Sprite2D@34842" parent="PuzzleArea/TreeGen/Trees" index="12" instance=ExtResource("17_0qa0k")]
+position = Vector2(-1443.37, 0.842952)
+
+[node name="@Sprite2D@34843" parent="PuzzleArea/TreeGen/Trees" index="13" instance=ExtResource("17_0qa0k")]
+position = Vector2(-1433.24, 192.378)
+
+[node name="@Sprite2D@34844" parent="PuzzleArea/TreeGen/Trees" index="14" instance=ExtResource("17_0qa0k")]
+position = Vector2(-1505.55, 343.523)
+
+[node name="@Sprite2D@34845" parent="PuzzleArea/TreeGen/Trees" index="15" instance=ExtResource("17_0qa0k")]
+position = Vector2(-1430.87, 479.796)
+
+[node name="@Sprite2D@34846" parent="PuzzleArea/TreeGen/Trees" index="16" instance=ExtResource("17_0qa0k")]
+position = Vector2(-1451.44, 611.652)
+
+[node name="@Sprite2D@34847" parent="PuzzleArea/TreeGen/Trees" index="17" instance=ExtResource("17_0qa0k")]
+position = Vector2(-1442.43, 787.36)
+
+[node name="@Sprite2D@34848" parent="PuzzleArea/TreeGen/Trees" index="18" instance=ExtResource("17_0qa0k")]
+position = Vector2(-1471.65, 890.592)
+
+[node name="@Sprite2D@34849" parent="PuzzleArea/TreeGen/Trees" index="19" instance=ExtResource("17_0qa0k")]
+position = Vector2(-1493.63, 1105.92)
+
+[node name="@Sprite2D@34850" parent="PuzzleArea/TreeGen/Trees" index="20" instance=ExtResource("17_0qa0k")]
+position = Vector2(-1509.93, 1178.7)
+
+[node name="@Sprite2D@34851" parent="PuzzleArea/TreeGen/Trees" index="21" instance=ExtResource("17_0qa0k")]
+position = Vector2(-1361.3, -871.782)
+
+[node name="@Sprite2D@34852" parent="PuzzleArea/TreeGen/Trees" index="22" instance=ExtResource("17_0qa0k")]
+position = Vector2(-1298.5, -735.418)
+
+[node name="@Sprite2D@34853" parent="PuzzleArea/TreeGen/Trees" index="23" instance=ExtResource("17_0qa0k")]
+position = Vector2(-1301.84, -544.375)
+
+[node name="@Sprite2D@34854" parent="PuzzleArea/TreeGen/Trees" index="24" instance=ExtResource("17_0qa0k")]
+position = Vector2(-1287.82, -455.645)
+
+[node name="@Sprite2D@34855" parent="PuzzleArea/TreeGen/Trees" index="25" instance=ExtResource("17_0qa0k")]
+position = Vector2(-1305.55, -292.04)
+
+[node name="@Sprite2D@34856" parent="PuzzleArea/TreeGen/Trees" index="26" instance=ExtResource("17_0qa0k")]
+position = Vector2(-1349.02, -161.911)
+
+[node name="@Sprite2D@34857" parent="PuzzleArea/TreeGen/Trees" index="27" instance=ExtResource("17_0qa0k")]
+position = Vector2(-1336.52, 5.52419)
+
+[node name="@Sprite2D@34858" parent="PuzzleArea/TreeGen/Trees" index="28" instance=ExtResource("17_0qa0k")]
+position = Vector2(-1324.87, 134.977)
+
+[node name="@Sprite2D@34859" parent="PuzzleArea/TreeGen/Trees" index="29" instance=ExtResource("17_0qa0k")]
+position = Vector2(-1301.92, 353.084)
+
+[node name="@Sprite2D@34860" parent="PuzzleArea/TreeGen/Trees" index="30" instance=ExtResource("17_0qa0k")]
+position = Vector2(-1322.99, 483.756)
+
+[node name="@Sprite2D@34861" parent="PuzzleArea/TreeGen/Trees" index="31" instance=ExtResource("17_0qa0k")]
+position = Vector2(-1317.03, 583.363)
+
+[node name="@Sprite2D@34862" parent="PuzzleArea/TreeGen/Trees" index="32" instance=ExtResource("17_0qa0k")]
+position = Vector2(-1307.03, 726.817)
+
+[node name="@Sprite2D@34863" parent="PuzzleArea/TreeGen/Trees" index="33" instance=ExtResource("17_0qa0k")]
+position = Vector2(-1325.06, 893.271)
+
+[node name="@Sprite2D@34864" parent="PuzzleArea/TreeGen/Trees" index="34" instance=ExtResource("17_0qa0k")]
+position = Vector2(-1314.11, 1069.93)
+
+[node name="@Sprite2D@34865" parent="PuzzleArea/TreeGen/Trees" index="35" instance=ExtResource("17_0qa0k")]
+position = Vector2(-1341.99, 1255.83)
+
+[node name="@Sprite2D@34866" parent="PuzzleArea/TreeGen/Trees" index="36" instance=ExtResource("17_0qa0k")]
+position = Vector2(-1186.73, -904.467)
+
+[node name="@Sprite2D@34867" parent="PuzzleArea/TreeGen/Trees" index="37" instance=ExtResource("17_0qa0k")]
+position = Vector2(-1156.4, -779.057)
+
+[node name="@Sprite2D@34868" parent="PuzzleArea/TreeGen/Trees" index="38" instance=ExtResource("17_0qa0k")]
+position = Vector2(-1199.27, -619.943)
+
+[node name="@Sprite2D@34869" parent="PuzzleArea/TreeGen/Trees" index="39" instance=ExtResource("17_0qa0k")]
+position = Vector2(-1141.07, -457.917)
+
+[node name="@Sprite2D@34870" parent="PuzzleArea/TreeGen/Trees" index="40" instance=ExtResource("17_0qa0k")]
+position = Vector2(-1204.39, -264.833)
+
+[node name="@Sprite2D@34871" parent="PuzzleArea/TreeGen/Trees" index="41" instance=ExtResource("17_0qa0k")]
+position = Vector2(-1162.45, -114.856)
+
+[node name="@Sprite2D@34872" parent="PuzzleArea/TreeGen/Trees" index="42" instance=ExtResource("17_0qa0k")]
+position = Vector2(-1189.54, -19.0173)
+
+[node name="@Sprite2D@34873" parent="PuzzleArea/TreeGen/Trees" index="43" instance=ExtResource("17_0qa0k")]
+position = Vector2(-1191.32, 189.508)
+
+[node name="@Sprite2D@34874" parent="PuzzleArea/TreeGen/Trees" index="44" instance=ExtResource("17_0qa0k")]
+position = Vector2(-1148.36, 297.235)
+
+[node name="@Sprite2D@34875" parent="PuzzleArea/TreeGen/Trees" index="45" instance=ExtResource("17_0qa0k")]
+position = Vector2(-1201.35, 507.968)
+
+[node name="@Sprite2D@34876" parent="PuzzleArea/TreeGen/Trees" index="46" instance=ExtResource("17_0qa0k")]
+position = Vector2(-1149.03, 589.112)
+
+[node name="@Sprite2D@34877" parent="PuzzleArea/TreeGen/Trees" index="47" instance=ExtResource("17_0qa0k")]
+position = Vector2(-1181.03, 733.815)
+
+[node name="@Sprite2D@34878" parent="PuzzleArea/TreeGen/Trees" index="48" instance=ExtResource("17_0qa0k")]
+position = Vector2(-1137.77, 909.306)
+
+[node name="@Sprite2D@34879" parent="PuzzleArea/TreeGen/Trees" index="49" instance=ExtResource("17_0qa0k")]
+position = Vector2(-1206.62, 1044.95)
+
+[node name="@Sprite2D@34880" parent="PuzzleArea/TreeGen/Trees" index="50" instance=ExtResource("17_0qa0k")]
+position = Vector2(-1128.53, 1234.15)
+
+[node name="@Sprite2D@34881" parent="PuzzleArea/TreeGen/Trees" index="51" instance=ExtResource("17_0qa0k")]
+position = Vector2(-1047.2, -994.242)
+
+[node name="@Sprite2D@34882" parent="PuzzleArea/TreeGen/Trees" index="52" instance=ExtResource("17_0qa0k")]
+position = Vector2(-1048.61, -871.872)
+
+[node name="@Sprite2D@34883" parent="PuzzleArea/TreeGen/Trees" index="53" instance=ExtResource("17_0qa0k")]
+position = Vector2(-1008.38, -752.446)
+
+[node name="@Sprite2D@34884" parent="PuzzleArea/TreeGen/Trees" index="54" instance=ExtResource("17_0qa0k")]
+position = Vector2(-1039.36, -611.302)
+
+[node name="@Sprite2D@34885" parent="PuzzleArea/TreeGen/Trees" index="55" instance=ExtResource("17_0qa0k")]
+position = Vector2(-1055.32, -397.074)
+
+[node name="@Sprite2D@34886" parent="PuzzleArea/TreeGen/Trees" index="56" instance=ExtResource("17_0qa0k")]
+position = Vector2(-1037.44, -321.091)
+
+[node name="@Sprite2D@34887" parent="PuzzleArea/TreeGen/Trees" index="57" instance=ExtResource("17_0qa0k")]
+position = Vector2(-1016.31, 903.539)
+
+[node name="@Sprite2D@34888" parent="PuzzleArea/TreeGen/Trees" index="58" instance=ExtResource("17_0qa0k")]
+position = Vector2(-1013.31, 1096.34)
+
+[node name="@Sprite2D@34889" parent="PuzzleArea/TreeGen/Trees" index="59" instance=ExtResource("17_0qa0k")]
+position = Vector2(-1048.62, 1225.23)
+
+[node name="@Sprite2D@34890" parent="PuzzleArea/TreeGen/Trees" index="60" instance=ExtResource("17_0qa0k")]
+position = Vector2(-870.182, -991.283)
+
+[node name="@Sprite2D@34891" parent="PuzzleArea/TreeGen/Trees" index="61" instance=ExtResource("17_0qa0k")]
+position = Vector2(-915.539, -841.965)
+
+[node name="@Sprite2D@34892" parent="PuzzleArea/TreeGen/Trees" index="62" instance=ExtResource("17_0qa0k")]
+position = Vector2(-885.328, -728.079)
+
+[node name="@Sprite2D@34893" parent="PuzzleArea/TreeGen/Trees" index="63" instance=ExtResource("17_0qa0k")]
+position = Vector2(-888.113, -594.917)
+
+[node name="@Sprite2D@34894" parent="PuzzleArea/TreeGen/Trees" index="64" instance=ExtResource("17_0qa0k")]
+position = Vector2(-872.145, 952.507)
+
+[node name="@Sprite2D@34895" parent="PuzzleArea/TreeGen/Trees" index="65" instance=ExtResource("17_0qa0k")]
+position = Vector2(-900.599, 1105.11)
+
+[node name="@Sprite2D@34896" parent="PuzzleArea/TreeGen/Trees" index="66" instance=ExtResource("17_0qa0k")]
+position = Vector2(-855.823, 1259.85)
+
+[node name="@Sprite2D@34897" parent="PuzzleArea/TreeGen/Trees" index="67" instance=ExtResource("17_0qa0k")]
+position = Vector2(-698.016, -858.258)
+
+[node name="@Sprite2D@34898" parent="PuzzleArea/TreeGen/Trees" index="68" instance=ExtResource("17_0qa0k")]
+position = Vector2(-738.645, -765.393)
+
+[node name="@Sprite2D@34899" parent="PuzzleArea/TreeGen/Trees" index="69" instance=ExtResource("17_0qa0k")]
+position = Vector2(-720.951, 1033.35)
+
+[node name="@Sprite2D@34900" parent="PuzzleArea/TreeGen/Trees" index="70" instance=ExtResource("17_0qa0k")]
+position = Vector2(-746.702, 1226.29)
+
+[node name="@Sprite2D@34901" parent="PuzzleArea/TreeGen/Trees" index="71" instance=ExtResource("17_0qa0k")]
+position = Vector2(-543.573, -998.519)
+
+[node name="@Sprite2D@34902" parent="PuzzleArea/TreeGen/Trees" index="72" instance=ExtResource("17_0qa0k")]
+position = Vector2(-577.865, -880.634)
+
+[node name="@Sprite2D@34903" parent="PuzzleArea/TreeGen/Trees" index="73" instance=ExtResource("17_0qa0k")]
+position = Vector2(-558.956, -762.169)
+
+[node name="@Sprite2D@34904" parent="PuzzleArea/TreeGen/Trees" index="74" instance=ExtResource("17_0qa0k")]
+position = Vector2(-608.479, -620.764)
+
+[node name="@Sprite2D@34905" parent="PuzzleArea/TreeGen/Trees" index="75" instance=ExtResource("17_0qa0k")]
+position = Vector2(-529.053, 1057.18)
+
+[node name="@Sprite2D@34906" parent="PuzzleArea/TreeGen/Trees" index="76" instance=ExtResource("17_0qa0k")]
+position = Vector2(-534.126, 1238.39)
+
+[node name="@Sprite2D@34907" parent="PuzzleArea/TreeGen/Trees" index="77" instance=ExtResource("17_0qa0k")]
+position = Vector2(-387.708, -889.211)
+
+[node name="@Sprite2D@34908" parent="PuzzleArea/TreeGen/Trees" index="78" instance=ExtResource("17_0qa0k")]
+position = Vector2(-378.383, -693.757)
+
+[node name="@Sprite2D@34909" parent="PuzzleArea/TreeGen/Trees" index="79" instance=ExtResource("17_0qa0k")]
+position = Vector2(-428.994, 1070.98)
+
+[node name="@Sprite2D@34910" parent="PuzzleArea/TreeGen/Trees" index="80" instance=ExtResource("17_0qa0k")]
+position = Vector2(-437.896, 1208.13)
+
+[node name="@Sprite2D@34911" parent="PuzzleArea/TreeGen/Trees" index="81" instance=ExtResource("17_0qa0k")]
+position = Vector2(-310.684, -849.914)
+
+[node name="@Sprite2D@34912" parent="PuzzleArea/TreeGen/Trees" index="82" instance=ExtResource("17_0qa0k")]
+position = Vector2(-229.997, -696.365)
+
+[node name="@Sprite2D@34913" parent="PuzzleArea/TreeGen/Trees" index="83" instance=ExtResource("17_0qa0k")]
+position = Vector2(-307.844, 1053.34)
+
+[node name="@Sprite2D@34914" parent="PuzzleArea/TreeGen/Trees" index="84" instance=ExtResource("17_0qa0k")]
+position = Vector2(-241.968, 1222.31)
+
+[node name="@Sprite2D@34915" parent="PuzzleArea/TreeGen/Trees" index="85" instance=ExtResource("17_0qa0k")]
+position = Vector2(-123.099, -1022.23)
+
+[node name="@Sprite2D@34916" parent="PuzzleArea/TreeGen/Trees" index="86" instance=ExtResource("17_0qa0k")]
+position = Vector2(-94.5035, -851.501)
+
+[node name="@Sprite2D@34917" parent="PuzzleArea/TreeGen/Trees" index="87" instance=ExtResource("17_0qa0k")]
+position = Vector2(-109.682, -716.86)
+
+[node name="@Sprite2D@34918" parent="PuzzleArea/TreeGen/Trees" index="88" instance=ExtResource("17_0qa0k")]
+position = Vector2(-92.5811, 955.04)
+
+[node name="@Sprite2D@34919" parent="PuzzleArea/TreeGen/Trees" index="89" instance=ExtResource("17_0qa0k")]
+position = Vector2(-140.257, 1090.33)
+
+[node name="@Sprite2D@34920" parent="PuzzleArea/TreeGen/Trees" index="90" instance=ExtResource("17_0qa0k")]
+position = Vector2(-79.6182, 1236.58)
+
+[node name="@Sprite2D@34921" parent="PuzzleArea/TreeGen/Trees" index="91" instance=ExtResource("17_0qa0k")]
+position = Vector2(18.6333, -1006.69)
+
+[node name="@Sprite2D@34922" parent="PuzzleArea/TreeGen/Trees" index="92" instance=ExtResource("17_0qa0k")]
+position = Vector2(-10.1798, -904.571)
+
+[node name="@Sprite2D@34923" parent="PuzzleArea/TreeGen/Trees" index="93" instance=ExtResource("17_0qa0k")]
+position = Vector2(16.1513, -717.187)
+
+[node name="@Sprite2D@34924" parent="PuzzleArea/TreeGen/Trees" index="94" instance=ExtResource("17_0qa0k")]
+position = Vector2(-0.911848, 1108.3)
+
+[node name="@Sprite2D@34925" parent="PuzzleArea/TreeGen/Trees" index="95" instance=ExtResource("17_0qa0k")]
+position = Vector2(32.9295, 1197.56)
+
+[node name="@Sprite2D@34926" parent="PuzzleArea/TreeGen/Trees" index="96" instance=ExtResource("17_0qa0k")]
+position = Vector2(176.791, -873.498)
+
+[node name="@Sprite2D@34927" parent="PuzzleArea/TreeGen/Trees" index="97" instance=ExtResource("17_0qa0k")]
+position = Vector2(139.098, -712.175)
+
+[node name="@Sprite2D@34928" parent="PuzzleArea/TreeGen/Trees" index="98" instance=ExtResource("17_0qa0k")]
+position = Vector2(216.555, 1102.39)
+
+[node name="@Sprite2D@34929" parent="PuzzleArea/TreeGen/Trees" index="99" instance=ExtResource("17_0qa0k")]
+position = Vector2(187.157, 1185.38)
+
+[node name="@Sprite2D@34930" parent="PuzzleArea/TreeGen/Trees" index="100" instance=ExtResource("17_0qa0k")]
+position = Vector2(346.996, -852.046)
+
+[node name="@Sprite2D@34931" parent="PuzzleArea/TreeGen/Trees" index="101" instance=ExtResource("17_0qa0k")]
+position = Vector2(356.74, -691.965)
+
+[node name="@Sprite2D@34932" parent="PuzzleArea/TreeGen/Trees" index="102" instance=ExtResource("17_0qa0k")]
+position = Vector2(360.7, -626.374)
+
+[node name="@Sprite2D@34933" parent="PuzzleArea/TreeGen/Trees" index="103" instance=ExtResource("17_0qa0k")]
+position = Vector2(359.21, 1109.48)
+
+[node name="@Sprite2D@34934" parent="PuzzleArea/TreeGen/Trees" index="104" instance=ExtResource("17_0qa0k")]
+position = Vector2(304.233, 1235.58)
+
+[node name="@Sprite2D@34935" parent="PuzzleArea/TreeGen/Trees" index="105" instance=ExtResource("17_0qa0k")]
+position = Vector2(505.472, -1000.04)
+
+[node name="@Sprite2D@34936" parent="PuzzleArea/TreeGen/Trees" index="106" instance=ExtResource("17_0qa0k")]
+position = Vector2(505.031, -869.791)
+
+[node name="@Sprite2D@34937" parent="PuzzleArea/TreeGen/Trees" index="107" instance=ExtResource("17_0qa0k")]
+position = Vector2(438.982, -764.562)
+
+[node name="@Sprite2D@34938" parent="PuzzleArea/TreeGen/Trees" index="108" instance=ExtResource("17_0qa0k")]
+position = Vector2(488.277, -621.172)
+
+[node name="@Sprite2D@34939" parent="PuzzleArea/TreeGen/Trees" index="109" instance=ExtResource("17_0qa0k")]
+position = Vector2(475.925, 952.432)
+
+[node name="@Sprite2D@34940" parent="PuzzleArea/TreeGen/Trees" index="110" instance=ExtResource("17_0qa0k")]
+position = Vector2(463.025, 1076.83)
+
+[node name="@Sprite2D@34941" parent="PuzzleArea/TreeGen/Trees" index="111" instance=ExtResource("17_0qa0k")]
+position = Vector2(487.153, 1244.48)
+
+[node name="@Sprite2D@34942" parent="PuzzleArea/TreeGen/Trees" index="112" instance=ExtResource("17_0qa0k")]
+position = Vector2(593.154, -845.614)
+
+[node name="@Sprite2D@34943" parent="PuzzleArea/TreeGen/Trees" index="113" instance=ExtResource("17_0qa0k")]
+position = Vector2(645.041, -763.078)
+
+[node name="@Sprite2D@34944" parent="PuzzleArea/TreeGen/Trees" index="114" instance=ExtResource("17_0qa0k")]
+position = Vector2(649.064, -544.829)
+
+[node name="@Sprite2D@34945" parent="PuzzleArea/TreeGen/Trees" index="115" instance=ExtResource("17_0qa0k")]
+position = Vector2(633.981, 1100.06)
+
+[node name="@Sprite2D@34946" parent="PuzzleArea/TreeGen/Trees" index="116" instance=ExtResource("17_0qa0k")]
+position = Vector2(648.019, 1201.81)
+
+[node name="@Sprite2D@34947" parent="PuzzleArea/TreeGen/Trees" index="117" instance=ExtResource("17_0qa0k")]
+position = Vector2(792.034, -915.636)
+
+[node name="@Sprite2D@34948" parent="PuzzleArea/TreeGen/Trees" index="118" instance=ExtResource("17_0qa0k")]
+position = Vector2(776.993, -779.748)
+
+[node name="@Sprite2D@34949" parent="PuzzleArea/TreeGen/Trees" index="119" instance=ExtResource("17_0qa0k")]
+position = Vector2(769.101, -560.678)
+
+[node name="@Sprite2D@34950" parent="PuzzleArea/TreeGen/Trees" index="120" instance=ExtResource("17_0qa0k")]
+position = Vector2(792.224, -477.878)
+
+[node name="@Sprite2D@34951" parent="PuzzleArea/TreeGen/Trees" index="121" instance=ExtResource("17_0qa0k")]
+position = Vector2(774.002, 957.322)
+
+[node name="@Sprite2D@34952" parent="PuzzleArea/TreeGen/Trees" index="122" instance=ExtResource("17_0qa0k")]
+position = Vector2(769.94, 1034.89)
+
+[node name="@Sprite2D@34953" parent="PuzzleArea/TreeGen/Trees" index="123" instance=ExtResource("17_0qa0k")]
+position = Vector2(816.03, 1218.02)
+
+[node name="@Sprite2D@34954" parent="PuzzleArea/TreeGen/Trees" index="124" instance=ExtResource("17_0qa0k")]
+position = Vector2(921.428, -1001.92)
+
+[node name="@Sprite2D@34955" parent="PuzzleArea/TreeGen/Trees" index="125" instance=ExtResource("17_0qa0k")]
+position = Vector2(953.542, -884.713)
+
+[node name="@Sprite2D@34956" parent="PuzzleArea/TreeGen/Trees" index="126" instance=ExtResource("17_0qa0k")]
+position = Vector2(902.549, -773.637)
+
+[node name="@Sprite2D@34957" parent="PuzzleArea/TreeGen/Trees" index="127" instance=ExtResource("17_0qa0k")]
+position = Vector2(931.484, -546.623)
+
+[node name="@Sprite2D@34958" parent="PuzzleArea/TreeGen/Trees" index="128" instance=ExtResource("17_0qa0k")]
+position = Vector2(941.356, -475.367)
+
+[node name="@Sprite2D@34959" parent="PuzzleArea/TreeGen/Trees" index="129" instance=ExtResource("17_0qa0k")]
+position = Vector2(969.434, -246.197)
+
+[node name="@Sprite2D@34960" parent="PuzzleArea/TreeGen/Trees" index="130" instance=ExtResource("17_0qa0k")]
+position = Vector2(924.674, 575.116)
+
+[node name="@Sprite2D@34961" parent="PuzzleArea/TreeGen/Trees" index="131" instance=ExtResource("17_0qa0k")]
+position = Vector2(895.946, 788.036)
+
+[node name="@Sprite2D@34962" parent="PuzzleArea/TreeGen/Trees" index="132" instance=ExtResource("17_0qa0k")]
+position = Vector2(911.795, 924.623)
+
+[node name="@Sprite2D@34963" parent="PuzzleArea/TreeGen/Trees" index="133" instance=ExtResource("17_0qa0k")]
+position = Vector2(910.995, 1075.19)
+
+[node name="@Sprite2D@34964" parent="PuzzleArea/TreeGen/Trees" index="134" instance=ExtResource("17_0qa0k")]
+position = Vector2(924.491, 1202.03)
+
+[node name="@Sprite2D@34965" parent="PuzzleArea/TreeGen/Trees" index="135" instance=ExtResource("17_0qa0k")]
+position = Vector2(1036.74, -1002.07)
+
+[node name="@Sprite2D@34966" parent="PuzzleArea/TreeGen/Trees" index="136" instance=ExtResource("17_0qa0k")]
+position = Vector2(1055.5, 656.366)
+
+[node name="@Sprite2D@34967" parent="PuzzleArea/TreeGen/Trees" index="137" instance=ExtResource("17_0qa0k")]
+position = Vector2(1065.43, 757.368)
+
+[node name="@Sprite2D@34968" parent="PuzzleArea/TreeGen/Trees" index="138" instance=ExtResource("17_0qa0k")]
+position = Vector2(1115.92, 952.449)
+
+[node name="@Sprite2D@34969" parent="PuzzleArea/TreeGen/Trees" index="139" instance=ExtResource("17_0qa0k")]
+position = Vector2(1062.24, 1080.31)
+
+[node name="@Sprite2D@34970" parent="PuzzleArea/TreeGen/Trees" index="140" instance=ExtResource("17_0qa0k")]
+position = Vector2(1058.7, 1193.71)
+
+[node name="Hole" type="StaticBody2D" parent="PuzzleArea" index="1"]
+z_index = -5
+position = Vector2(-638, -296)
+collision_layer = 8
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="PuzzleArea/Hole" index="0"]
+polygon = PackedVector2Array(-380, 414, -412, 283, -409, 190, -372, 168, -233, 167, 26, 168, 136, 165, 188, 152, 202, 136, 218, 99, 216, 33, 213, -122, 211, -275, 220, -292, 230, -308, 256, -315, 625, -322, 661, -292, 669, -160, 675, 20, 675, 176, 677, 312, 656, 371, 605, 406, 322, 406, -54, 419, -268, 422)
+
+[node name="Polygon2D" type="Polygon2D" parent="PuzzleArea/Hole" index="1"]
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(-380, 414, -412, 283, -409, 190, -372, 168, -233, 167, 26, 168, 136, 165, 188, 152, 202, 136, 218, 99, 216, 33, 213, -122, 211, -275, 220, -292, 230, -308, 256, -315, 625, -322, 661, -292, 669, -160, 675, 20, 675, 176, 677, 312, 656, 371, 605, 406, 322, 406, -54, 419, -268, 422)
+
+[node name="pickup_key" parent="PuzzleArea" index="2" instance=ExtResource("12_joquo")]
+position = Vector2(-718, -339)
+
+[node name="PlatformMover" type="Path2D" parent="PuzzleArea" index="3"]
+z_index = -1
+curve = SubResource("Curve2D_j10fm")
+script = ExtResource("13_glw2f")
+repeat_type = 1
+speed = 500.0
+repeat_delay = 1.0
+
+[node name="PathFollow2D" type="PathFollow2D" parent="PuzzleArea/PlatformMover" index="0"]
+position = Vector2(-216, 37)
+rotates = false
+
+[node name="MovablePlatform" parent="PuzzleArea/PlatformMover/PathFollow2D" index="0" instance=ExtResource("14_hyg0y")]
+process_physics_priority = -1000
+scale = Vector2(1.18696, 1.18696)
