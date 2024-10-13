@@ -17,12 +17,14 @@ extends Node2D
 #Generally you would want the start, scale, flashStart to be the same throughout
 #the targets. This will keep them "in sync" and not have any offsets on when they finish
 #or when then start
-@export var speed:= 100
-@export var collision_zone: Area2D
-@export var sprite: Sprite2D
+#targetGroup, Assigns the target group for the target instance
+@export var speed: int
 @export var timeStart: int
-@export var timeScale: float
 @export var flashStart: int
+@export var timeScale: float
+@export var targetGroup: String = ""
+@export var sprite: Sprite2D 
+@export var collision_zone: Area2D
 @export var pressurePlate: CharacterBody2D
 
 #dir: A bool for the direction of which way the target should be moving (left or right)
@@ -34,15 +36,16 @@ var pressureActive: bool = false
 
 #placeRid: placeholder var to help call the entered signal function
 #instances: an array of target instances to help sync the flash target animation
+#Determines which group should be flashing
 var placeRid : RID
 static var instances: Array[Node2D] = []
-
+static var flashingGroup: String = ""
 
 
 #This fucntion creates the main timer for the targers
 #this also connects the timer, on entered and exit signals
 func _ready() -> 	void:
-	#pressurePlate = get_node_or_null("../PressurePlate") as CharacterBody2D
+	
 	instances.append(self)
 	add_child(timer)
 	timer.one_shot = true
@@ -108,19 +111,28 @@ func _pressure_target_move(delta:float) -> void:
 #Checks the timer and sees if its appropriate to start the flash animation or stop the animation
 func _check_time() -> void:
 	if (timer.time_left < flashStart && timer.time_left > 0):
-		play_animation_on_all("TargetFlash")
+		play_animation_on_all(targetGroup, "TargetFlash")
 	elif TargetPracticeSignals.moving == false:
-		stop_animation_on_all()
+		stop_animation_on_all(targetGroup)
 
 #Function goes through the array and starts the animation for all of the instances	
-static func play_animation_on_all(anim_name: String) -> void:
+static func play_animation_on_all(targetGroup: String,anim_name: String) -> void:
+	
+	if flashingGroup == "":
+		flashingGroup = targetGroup
 	for instance in instances:
-		instance.animation.play(anim_name)
+		if instance.targetGroup == targetGroup && instance.timer.time_left > 0:
+			instance.animation.play(anim_name)
+		else:
+			instance.animation.stop()
 
 #Function goes through the array and stops the animation for all of the instances
-static func stop_animation_on_all() -> void:
-	for instance in instances:
-		instance.animation.stop()
+static func stop_animation_on_all(targetGroup: String) -> void:
+	if flashingGroup == targetGroup:
+		flashingGroup = ""
+		for instance in instances:
+			if instance.targetGroup == targetGroup:
+				instance.animation.stop()
 
 #This function does as it says, it shuts down everything when the timer is done
 #or if the player exits the area and resets any neccesary values
@@ -132,6 +144,7 @@ func _shutdown() -> void:
 	timer.stop()
 	$"AnimationPlayer".speed_scale = 1
 	$"AnimationPlayer".play("RESET")
+	flashingGroup = ""
 	
 #This function starts the timer for the targets, ultimatly starting the target movements
 func _on_body_shape_entered(body_rid: RID, body: Node, body_shape_index: int, local_shape_index: int) -> void:
