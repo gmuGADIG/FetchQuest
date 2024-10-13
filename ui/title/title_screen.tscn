@@ -1,0 +1,59 @@
+[gd_scene load_steps=5 format=3 uid="uid://23h7uaou8f05"]
+
+[ext_resource type="PackedScene" uid="uid://dflfvpjufhfln" path="res://ui/options/options_menu.tscn" id="1_5n5k7"]
+[ext_resource type="Theme" uid="uid://drqtpgod2pibc" path="res://ui/main_ui_theme.tres" id="5_nsalu"]
+[ext_resource type="Script" path="res://ui/title/main_menu.gd" id="6_ogkp4"]
+[ext_resource type="Script" path="res://ui/options/open_options_menu_button.gd" id="7_s51k4"]
+
+[node name="TempTitleScreen" type="CanvasLayer"]
+script = ExtResource("6_ogkp4")
+
+[node name="Label" type="Label" parent="."]
+offset_left = 21.0
+offset_top = 11.0
+offset_right = 1102.0
+offset_bottom = 123.0
+theme = ExtResource("5_nsalu")
+theme_override_font_sizes/font_size = 100
+text = "Fetch Quest"
+
+[node name="Quit" type="Button" parent="."]
+offset_left = 875.0
+offset_top = 498.0
+offset_right = 1145.0
+offset_bottom = 642.0
+theme_override_font_sizes/font_size = 70
+text = "Quit"
+
+[node name="Options" type="Button" parent="." node_paths=PackedStringArray("options_menu")]
+offset_left = 313.0
+offset_top = 347.0
+offset_right = 599.0
+offset_bottom = 424.0
+theme_override_font_sizes/font_size = 50
+text = "Option"
+script = ExtResource("7_s51k4")
+options_menu = NodePath("../OptionsMenu")
+
+[node name="NewGame" type="Button" parent="."]
+offset_left = 282.0
+offset_top = 178.0
+offset_right = 669.0
+offset_bottom = 255.0
+theme_override_font_sizes/font_size = 50
+text = "New Game"
+
+[node name="ContinueGame" type="Button" parent="."]
+offset_left = 419.0
+offset_top = 261.0
+offset_right = 822.0
+offset_bottom = 338.0
+theme_override_font_sizes/font_size = 50
+text = "Continue"
+
+[node name="OptionsMenu" parent="." instance=ExtResource("1_5n5k7")]
+color = Color(0.252853, 0.327126, 0.292831, 1)
+
+[connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="NewGame" to="." method="_on_new_game_pressed"]
+[connection signal="pressed" from="ContinueGame" to="." method="_on_continue_game_pressed"]
