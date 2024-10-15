@@ -30,17 +30,16 @@ extends Node2D
 #dir: A bool for the direction of which way the target should be moving (left or right)
 #go: Condition to start moving the targers
 #pressureActive: Bool for if the pressure plate is being pressed
+#inArea: Bool to show when the player is in the area2d
 var dir: bool = false
 var go: bool = false
 var pressureActive: bool = false
+var inArea: bool = false
 
-#placeRid: placeholder var to help call the entered signal function
 #instances: an array of target instances to help sync the flash target animation
 #Determines which group should be flashing
-var placeRid : RID
 static var instances: Array[Node2D] = []
 static var flashingGroup: String = ""
-
 
 #This fucntion creates the main timer for the targers
 #this also connects the timer, on entered and exit signals
@@ -59,7 +58,7 @@ func _ready() -> 	void:
 #Checks if there is a pressure plate in the the prior directory and calls the appropriate function
 func _process(delta: float) -> void:
 	
-	if(pressurePlate == null):
+	if(pressurePlate == null || inArea == true):
 		_target_move(delta)
 	else:
 		_pressure_target_move(delta)
@@ -89,7 +88,7 @@ func _pressure_target_move(delta:float) -> void:
 	target_collision.global_position = sprite.global_position
 		
 	if(pressurePlate.get_pressed() == true && !pressureActive):
-		_on_body_shape_entered(placeRid,null,0,0)
+		_on_pressure_press()
 		pressureActive = true
 	elif((pressurePlate.get_pressed() == false) && pressureActive):
 		pressureActive = false
@@ -115,6 +114,15 @@ func _check_time() -> void:
 	elif TargetPracticeSignals.moving == false:
 		stop_animation_on_all(targetGroup)
 
+#This function calls the shutdown method when the timer runs out
+func _on_timer_timeout() -> void:
+	_shutdown()
+
+#The hard coded int is how fast the flash animation can run, max is around 60-64, I have it limited to 34
+#This function increases the rates of the flash animation by the timeScale variable
+func _timescale() -> void:
+	if($"AnimationPlayer".speed_scale + timeScale <=34):$"AnimationPlayer".speed_scale += timeScale
+	
 #Function goes through the array and starts the animation for all of the instances	
 static func play_animation_on_all(targetGroup: String,anim_name: String) -> void:
 	
@@ -128,43 +136,50 @@ static func play_animation_on_all(targetGroup: String,anim_name: String) -> void
 
 #Function goes through the array and stops the animation for all of the instances
 static func stop_animation_on_all(targetGroup: String) -> void:
+	
 	if flashingGroup == targetGroup:
 		flashingGroup = ""
 		for instance in instances:
 			if instance.targetGroup == targetGroup:
 				instance.animation.stop()
 
+#This function starts the timer for the targets, ultimatly starting the target movements
+func _start_moving() ->void:
+	
+	$"AnimationPlayer".speed_scale = 1
+	timer.start(timeStart)
+	go = true
+	TargetPracticeSignals.moving = true
+
+#Called when a pressure plate is pressed
+func _on_pressure_press()->void:
+	_start_moving()
+		
+#This function is called when the player enters the area2d and flags that they are in the area
+func _on_body_shape_entered(_body_rid: RID, _body: Node, _body_shape_index: int, _local_shape_index: int) -> void:
+	
+	_start_moving()
+	inArea = true
+	
+#This function calls the shutdown method to shutdown everything when the player exits the area
+func _on_body_shape_exited(_body_rid: RID, _body: Node, _body_shape_index: int, _local_shape_index: int) -> void:
+	_shutdown()
+
 #This function does as it says, it shuts down everything when the timer is done
 #or if the player exits the area and resets any neccesary values
 func _shutdown() -> void:
+	
 	TargetPracticeSignals.moving = false
 	go = false
 	dir = false
+	inArea = false
 	path_follow.progress = 0.0
 	timer.stop()
 	$"AnimationPlayer".speed_scale = 1
 	$"AnimationPlayer".play("RESET")
 	flashingGroup = ""
-	
-#This function starts the timer for the targets, ultimatly starting the target movements
-func _on_body_shape_entered(body_rid: RID, body: Node, body_shape_index: int, local_shape_index: int) -> void:
-	$"AnimationPlayer".speed_scale = 1
-	timer.start(timeStart)
-	go = true
-	TargetPracticeSignals.moving = true
-	
-#This function calls the shutdown method to shutdown everything when the player exits the area
-func _on_body_shape_exited(body_rid: RID, body: Node, body_shape_index: int, local_shape_index: int) -> void:
-	#shutdown method yet to be implemeted to reset everything upon exited area
-	_shutdown()
 
-#This function calls the shutdown method when the timer runs out
-func _on_timer_timeout() -> void:
-	_shutdown()
-
-#The hard coded int is how fast the flash animation can run, max is around 60-64, I have it limited to 34
-#This function increases the rates of the flash animation by the timeScale variable
-func _timescale() -> void:
-	if($"AnimationPlayer".speed_scale + timeScale <=34):
-		$"AnimationPlayer".speed_scale += timeScale
+#Helps show when the target has been hit
+func hurt(damage_event: DamageEvent)->void:
+	print(damage_event.damage, " Ow, that hurt")
 	

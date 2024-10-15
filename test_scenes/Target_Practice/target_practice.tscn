@@ -9,19 +9,26 @@ radius = 103.233
 
 [node name="Target_Practice" type="Node2D"]
 
-[node name="Target" parent="." node_paths=PackedStringArray("collision_zone") instance=ExtResource("2_d742b")]
+[node name="Target" parent="." node_paths=PackedStringArray("collision_zone", "pressurePlate") instance=ExtResource("2_d742b")]
+speed = 250
+targetGroup = "A"
 collision_zone = NodePath("../TargetAreaStart")
+pressurePlate = NodePath("../PressurePlate")
 
-[node name="Target2" parent="." node_paths=PackedStringArray("collision_zone") instance=ExtResource("2_d742b")]
+[node name="Target2" parent="." node_paths=PackedStringArray("collision_zone", "pressurePlate") instance=ExtResource("2_d742b")]
 position = Vector2(493, 205)
+targetGroup = "A"
 collision_zone = NodePath("../TargetAreaStart2")
+pressurePlate = NodePath("../PressurePlate")
 
-[node name="Target3" parent="." node_paths=PackedStringArray("collision_zone") instance=ExtResource("2_d742b")]
+[node name="Target3" parent="." node_paths=PackedStringArray("collision_zone", "pressurePlate") instance=ExtResource("2_d742b")]
 position = Vector2(385, 126)
+speed = 700
+targetGroup = "A"
 collision_zone = NodePath("../TargetAreaStart2")
+pressurePlate = NodePath("../PressurePlate")
 
 [node name="TargetAreaStart" type="Area2D" parent="."]
-visible = false
 collision_layer = 17
 collision_mask = 17
 
@@ -32,7 +39,7 @@ position = Vector2(262, 352)
 shape = SubResource("CircleShape2D_hl2a3")
 
 [node name="TargetAreaStart2" type="Area2D" parent="."]
-position = Vector2(853, 368)
+position = Vector2(967, 368)
 collision_layer = 17
 collision_mask = 17
 
@@ -43,7 +50,7 @@ position = Vector2(-2, -1)
 shape = SubResource("CircleShape2D_hl2a3")
 
 [node name="PressurePlate" parent="." instance=ExtResource("3_fqwga")]
-position = Vector2(635, 359)
+position = Vector2(614, 485)
 
 [node name="Player" parent="." instance=ExtResource("1_vlfk2")]
 light_mask = 17
