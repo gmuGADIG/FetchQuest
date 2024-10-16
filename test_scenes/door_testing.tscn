@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://ctwfjcjci5n6g"]
+
+[ext_resource type="PackedScene" uid="uid://c7ck7ril2jix2" path="res://player/player.tscn" id="1_wukbx"]
+[ext_resource type="PackedScene" uid="uid://blh1fs712dql8" path="res://world/interactable/locked_door/locked_door.tscn" id="2_jirgt"]
+[ext_resource type="PackedScene" uid="uid://dt3m30r5dehup" path="res://world/interactable/pickups/pickup_key.tscn" id="3_d3svw"]
+
+[node name="DoorTesting" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource("1_wukbx")]
+position = Vector2(741, 260)
+collision_mask = 1
+
+[node name="LockedDoor" parent="." instance=ExtResource("2_jirgt")]
+position = Vector2(359, 125)
+
+[node name="LockedDoor2" parent="." instance=ExtResource("2_jirgt")]
+position = Vector2(359, 638)
+
+[node name="LockedDoor3" parent="." instance=ExtResource("2_jirgt")]
+position = Vector2(359, 382)
+
+[node name="pickup_key" parent="." instance=ExtResource("3_d3svw")]
+position = Vector2(959, 151)
