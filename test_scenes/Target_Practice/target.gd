@@ -71,7 +71,7 @@ func _process(delta: float) -> void:
 #This function also has the targets flash, and plays that animation
 func _target_move(delta:float) -> void:
 	target_collision.global_position = sprite.global_position
-	
+	$Entered/HitArea.global_position = target_collision.global_position
 	if (go == true && timeStart != 0):
 		TargetPracticeSignals.moving = true
 		if dir == false:
@@ -86,7 +86,7 @@ func _target_move(delta:float) -> void:
 #Same Function as above, but pressure plate compatible
 func _pressure_target_move(delta:float) -> void:
 	target_collision.global_position = sprite.global_position
-		
+	$Entered/HitArea.global_position = target_collision.global_position
 	if(pressurePlate.get_pressed() == true && !pressureActive):
 		_on_pressure_press()
 		pressureActive = true
@@ -179,7 +179,14 @@ func _shutdown() -> void:
 	$"AnimationPlayer".play("RESET")
 	flashingGroup = ""
 
-#Helps show when the target has been hit
-func hurt(damage_event: DamageEvent)->void:
-	print(damage_event.damage, " Ow, that hurt")
+#Detects if the sword hit the target. One way to do it anyways
+func _on_area_2d_body_entered(body: Node2D) -> void:
+	if (body.name == "ThrownSword"):
+		print("Ow, that hurt")
+		
+		$AnimationPlayer.speed_scale = 5
+		$AnimationPlayer.play("TargetFlash")
+		await get_tree().create_timer(.5).timeout
+		$"AnimationPlayer".speed_scale = 1
+		$"AnimationPlayer".play("RESET")
 	

@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://ckwgnwm6j4enf"]
+[gd_scene load_steps=9 format=3 uid="uid://ckwgnwm6j4enf"]
 
 [ext_resource type="Script" path="res://test_scenes/Target_Practice/target.gd" id="1_c4vmu"]
 [ext_resource type="Texture2D" uid="uid://di4ivc8myym02" path="res://dialogic_example/level_example_textures/Sign post.png" id="2_i4byt"]
@@ -10,7 +10,7 @@ _data = {
 point_count = 3
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2270v"]
-size = Vector2(44.5, 74)
+size = Vector2(33, 64)
 
 [sub_resource type="Animation" id="Animation_wcps4"]
 length = 0.001
@@ -63,9 +63,15 @@ _data = {
 "TargetFlash": SubResource("Animation_wjwmd")
 }
 
-[node name="Target" type="RigidBody2D" node_paths=PackedStringArray("sprite") groups=["Hittable"]]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mfnl4"]
+size = Vector2(41, 72)
+
+[node name="Target" type="CharacterBody2D" node_paths=PackedStringArray("sprite")]
+light_mask = 3
+visibility_layer = 3
 position = Vector2(265, 136)
-freeze = true
+collision_layer = 3
+collision_mask = 3
 script = ExtResource("1_c4vmu")
 speed = 500
 timeStart = 10
@@ -88,7 +94,7 @@ scale = Vector2(1.09375, 3.90625)
 texture = ExtResource("2_i4byt")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-1.75, -1)
+position = Vector2(-3.5, -2)
 shape = SubResource("RectangleShape2D_2270v")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -96,7 +102,12 @@ libraries = {
 "": SubResource("AnimationLibrary_dc4in")
 }
 
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]
-[connection signal="body_shape_entered" from="." to="." method="_on_body_shape_entered"]
-[connection signal="body_shape_exited" from="." to="." method="_on_body_shape_exited"]
-[connection signal="child_entered_tree" from="CollisionShape2D" to="." method="_on_collision_shape_2d_child_entered_tree"]
+[node name="Entered" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="HitArea" type="CollisionShape2D" parent="Entered"]
+position = Vector2(-3.5, -2)
+shape = SubResource("RectangleShape2D_mfnl4")
+
+[connection signal="body_entered" from="Entered" to="." method="_on_area_2d_body_entered"]
