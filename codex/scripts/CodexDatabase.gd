@@ -8,6 +8,9 @@ func SetFilePath(newFilePath: String) -> void:
 func _ready() -> void:
 	ReadCodexEntries()
 	
+func GetDictionarySize() -> int:
+	return codexEntries.size()
+	
 func ReadCodexEntries() -> void:
 	var fileToRead: FileAccess = FileAccess.open(filePath, FileAccess.READ)
 	

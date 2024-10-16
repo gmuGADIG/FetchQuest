@@ -5,6 +5,10 @@ extends Control
 @onready var codexTableOfContentsRightPage: Node = %TableOfContentsRight
 @onready var codexTableOfContentsLeftPage: Node = %TableOfContentsLeft
 @onready var codexLeftPage: Node = %CodexLeftPage
+@onready var codexRightPage: Node = %CodexRightPage
+
+var leftPageIndex: int = 0
+var rightPageIndex: int = 0
 
 var codexProgress: int = 0
 # Called when the node enters the scene tree for the first time.
@@ -14,6 +18,10 @@ func _ready() -> void:
 	hide()
 	codex_progress_text.text = "Codex Progress: " + str(codexProgress) 
 	InitButtons()
+	
+	#Inits the left page's references, title, image, and description
+	codexLeftPage.SetPageComponents(0)
+	codexRightPage.SetPageComponents(1)
 
 #Inits the indicies for each of the buttons, this is important for knowing which button is being pressed
 #when this script gets a signal that one of the buttons was pressed
@@ -54,17 +62,27 @@ func _on_table_contents_button_pressed(index: int) -> void:
 	HideTableOfContents()
 	ShowCodexPages()
 	
-	#Inits the left page's references, title, image, and description
-	codexLeftPage.SetPageComponents(0)
+	leftPageIndex = 0
+	rightPageIndex = 0
 	
-	var codexFilePath: String = CodexDatabase.GetCodexValue(str(index), "imageFilePath")
-	codexLeftPage.SetPageImage(codexFilePath)
+	leftPageIndex = FindFirstPageIndex(index)
+	rightPageIndex = FindFirstPageIndex(leftPageIndex + 1)
 	
-	var codexEntryTitle: String = CodexDatabase.GetCodexValue(str(index), "entryName")
-	codexLeftPage.SetPageTitle(codexEntryTitle)
+	codexLeftPage.SetPageIndex(leftPageIndex)
+	codexRightPage.SetPageIndex(rightPageIndex)
+		
 	
-	var codexEntryDescription: String = CodexDatabase.GetCodexValue(str(index), "entryDescription")
-	codexLeftPage.SetPageDescription(codexEntryDescription)
+func FindFirstPageIndex(startingIndex: int) -> int:
+	for entryIndex in range(startingIndex, CodexDatabase.GetDictionarySize()):
+		var unlocked: bool = CodexDatabase.GetCodexValue(str(entryIndex), "unlocked") == "true"
+		if(unlocked):
+			if(leftPageIndex == 0):
+				leftPageIndex = entryIndex
+			else:
+				rightPageIndex = entryIndex
+			return entryIndex
+	return -1
+				
 	
 #Shows the table of contents to the player	
 func ShowTableOfContents() -> void:
@@ -79,10 +97,12 @@ func HideTableOfContents() -> void:
 #Shows the main page(s) of the codex to the player.
 func ShowCodexPages() -> void:
 	codexLeftPage.show()
+	codexRightPage.show()
 	
 #Hides the main page(s) of the codex from the player.
 func HideCodexPages() -> void:
 	codexLeftPage.hide()
+	codexRightPage.hide()
 
 #TODO: When we actually implement this, this will, given an index, unlock that entry. What this will do is
 #give the button corresponding to the entry some actual text, and make sure that button then does

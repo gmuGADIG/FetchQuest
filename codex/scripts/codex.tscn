@@ -52,6 +52,7 @@ offset_bottom = 644.0
 
 [node name="TableOfContentsRight" type="Panel" parent="CodexContentsControl"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.0804678
@@ -258,6 +259,77 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "It's Game Over Man, It's Game Over!
 "
 horizontal_alignment = 1
+
+[node name="LeftPageNumber" type="Label" parent="CodexMainPagesControl/CodexLeftPage"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 21.0
+offset_top = 579.0
+offset_right = 50.0
+offset_bottom = 602.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "-69,420"
+
+[node name="CodexRightPage" type="Panel" parent="CodexMainPagesControl"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 3.46545
+anchor_top = 0.0184325
+anchor_right = 14.0904
+anchor_bottom = 15.3434
+offset_left = 545.382
+offset_top = 11.2627
+offset_right = 545.382
+offset_bottom = 11.2627
+grow_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_4oyuf")
+script = ExtResource("4_x4b2x")
+metadata/_edit_use_anchors_ = true
+
+[node name="RightPageImage" type="Sprite2D" parent="CodexMainPagesControl/CodexRightPage"]
+position = Vector2(212, 147)
+
+[node name="RightPageTitle" type="Label" parent="CodexMainPagesControl/CodexRightPage"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -74.5012
+offset_top = 46.0
+offset_right = 75.4988
+offset_bottom = 69.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Sample Description
+"
+
+[node name="RightPageDescription" type="Label" parent="CodexMainPagesControl/CodexRightPage"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -139.5
+offset_top = -11.5
+offset_right = 139.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "It's Game Over Man, It's Game Over!
+"
+horizontal_alignment = 1
+
+[node name="RightPageNumber" type="Label" parent="CodexMainPagesControl/CodexRightPage"]
+layout_mode = 0
+offset_left = 355.0
+offset_top = 579.0
+offset_right = 411.0
+offset_bottom = 602.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "-69,420"
 
 [connection signal="codexButtonPressed" from="CodexContentsControl/TableOfContentsRight/CodexEnemyControl/BoxEnemyButton" to="." method="_on_table_contents_button_pressed"]
 [connection signal="codexButtonPressed" from="CodexContentsControl/TableOfContentsRight/CodexEnemyControl/BoxEnemyButton2" to="." method="_on_table_contents_button_pressed"]

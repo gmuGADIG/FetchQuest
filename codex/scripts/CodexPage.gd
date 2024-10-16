@@ -4,6 +4,7 @@ extends Panel
 var pageImage: Sprite2D
 var pageTitleLabel: Label
 var pageDescriptionLabel: Label
+var pageNumberLabel: Label
 
 #Given an int describing which side of the screen this page will be on (0 for left, 1 for right), sets the
 #pageImage, pageTitleLabel, and pageDescriptionLabel references accordingly.
@@ -12,6 +13,24 @@ func SetPageComponents(pageSide: int) -> void:
 		pageImage = $LeftPageImage
 		pageTitleLabel = $LeftPageTitle
 		pageDescriptionLabel = $LeftPageDescription
+		pageNumberLabel = $LeftPageNumber
+	else:
+		pageImage = $RightPageImage
+		pageTitleLabel = $RightPageTitle
+		pageDescriptionLabel = $RightPageDescription
+		pageNumberLabel = $RightPageNumber
+		
+func SetPageIndex(index: int) -> void:
+	var codexFilePath: String = CodexDatabase.GetCodexValue(str(index), "imageFilePath")
+	SetPageImage(codexFilePath)
+		
+	var codexEntryTitle: String = CodexDatabase.GetCodexValue(str(index), "entryName")
+	SetPageTitle(codexEntryTitle)
+		
+	var codexEntryDescription: String = CodexDatabase.GetCodexValue(str(index), "entryDescription")
+	SetPageDescription(codexEntryDescription)
+		
+	SetPageNumber(str(index))
 
 #Given a path that contains the desired image, sets this page's image to be located at that path.
 func SetPageImage(imageFilePath: String) -> void:
@@ -27,3 +46,6 @@ func SetPageTitle(entryTitle: String) -> void:
 func SetPageDescription(entryDescription: String) -> void:
 	pageDescriptionLabel.text = entryDescription
 	pass
+
+func SetPageNumber(pageNumber: String) -> void:
+	pageNumberLabel.text = pageNumber
