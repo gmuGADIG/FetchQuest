@@ -1,4 +1,5 @@
 extends Node2D
+
 #path_follow: The path the target follows
 #target_node: The rigid body that is the target
 #target_collision: The collison bodu for the target
@@ -8,6 +9,7 @@ extends Node2D
 @onready var target_collision: CollisionShape2D = $CollisionShape2D
 @onready var timer: Timer = Timer.new()
 @onready var animation: AnimationPlayer = $AnimationPlayer
+
 #Speed: The speed the targets move - Speed is war
 #collision_zone: The area in which the player must be in for the targets to move
 #sprite The spride that the target has taken shape of
@@ -180,13 +182,15 @@ func _shutdown() -> void:
 	flashingGroup = ""
 
 #Detects if the sword hit the target. One way to do it anyways
+#Then plays a flash animation on the target
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if (body.name == "ThrownSword"):
-		print("Ow, that hurt")
 		
-		$AnimationPlayer.speed_scale = 5
-		$AnimationPlayer.play("TargetFlash")
+		$HitFlash.speed_scale = 5
+		$HitFlash.play("HitFlash")
+		
 		await get_tree().create_timer(.5).timeout
-		$"AnimationPlayer".speed_scale = 1
-		$"AnimationPlayer".play("RESET")
-	
+		
+		$HitFlash.speed_scale = 1
+		$HitFlash.stop()
+		$HitFlash.play("RESET")

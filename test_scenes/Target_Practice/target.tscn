@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://ckwgnwm6j4enf"]
+[gd_scene load_steps=12 format=3 uid="uid://ckwgnwm6j4enf"]
 
 [ext_resource type="Script" path="res://test_scenes/Target_Practice/target.gd" id="1_c4vmu"]
 [ext_resource type="Texture2D" uid="uid://di4ivc8myym02" path="res://dialogic_example/level_example_textures/Sign post.png" id="2_i4byt"]
@@ -63,6 +63,43 @@ _data = {
 "TargetFlash": SubResource("Animation_wjwmd")
 }
 
+[sub_resource type="Animation" id="Animation_h1l0r"]
+resource_name = "HitFlash"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Path2D/PathFollow2D/Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(100, 100, 100, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_mauto"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Path2D/PathFollow2D/Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_s0ehl"]
+_data = {
+"HitFlash": SubResource("Animation_h1l0r"),
+"RESET": SubResource("Animation_mauto")
+}
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mfnl4"]
 size = Vector2(41, 72)
 
@@ -94,6 +131,7 @@ scale = Vector2(1.09375, 3.90625)
 texture = ExtResource("2_i4byt")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(-3.5, -2)
 shape = SubResource("RectangleShape2D_2270v")
 
@@ -102,7 +140,13 @@ libraries = {
 "": SubResource("AnimationLibrary_dc4in")
 }
 
+[node name="HitFlash" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_s0ehl")
+}
+
 [node name="Entered" type="Area2D" parent="."]
+visible = false
 collision_layer = 0
 collision_mask = 2
 
