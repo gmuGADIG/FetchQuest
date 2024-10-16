@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://cg3skxwt5oft4"]
+
+[ext_resource type="Script" path="res://world/interactable/pickups/stamina_pickup.gd" id="1_jwcaj"]
+[ext_resource type="Texture2D" uid="uid://6dndac3gdslg" path="res://demo_art/stamina_item.png" id="2_2oe8y"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_my72a"]
+radius = 22.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_n4s5b"]
+radius = 111.803
+
+[node name="PickupStamina" type="CharacterBody2D" groups=["Item"]]
+collision_layer = 16
+script = ExtResource("1_jwcaj")
+stamina_amount = 10
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_my72a")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.316459, 0.316459)
+texture = ExtResource("2_2oe8y")
+
+[node name="PickupArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PickupArea"]
+scale = Vector2(0.3, 0.3)
+shape = SubResource("CircleShape2D_n4s5b")
+debug_color = Color(0, 0.6, 0.701961, 0.0784314)
+
+[connection signal="body_entered" from="PickupArea" to="." method="_on_pickup_area_body_entered"]

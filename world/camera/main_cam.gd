@@ -12,7 +12,7 @@ func _init() -> void:
 
 func _ready() -> void:
 	global_position = Player.instance.global_position
-	reset_smoothing()
+	reset_smoothing.call_deferred()
 
 func _process(delta: float) -> void:
 	global_position = Player.instance.global_position
