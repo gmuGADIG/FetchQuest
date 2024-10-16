@@ -8,22 +8,19 @@ radius = 80.0
 
 [node name="Creep" type="Area2D"]
 scale = Vector2(0.05, 0.05)
-collision_layer = 4
+collision_layer = 0
 collision_mask = 2
 script = ExtResource("1_t1wk2")
 sustain_time = 3.0
-growth = 0.5
+
+[node name="DamageTimer" type="Timer" parent="."]
+autostart = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.319955, 0.319955)
 texture = ExtResource("2_xc1fu")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="DamageCollider" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_dmixx")
 
-[node name="SustainTimer" type="Timer" parent="."]
-one_shot = true
-
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]
-[connection signal="body_exited" from="." to="." method="_on_body_exited"]
-[connection signal="timeout" from="SustainTimer" to="." method="_on_sustain_timer_timeout"]
+[connection signal="timeout" from="DamageTimer" to="." method="_on_damage_timer_timeout"]

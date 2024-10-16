@@ -1,56 +1,30 @@
 extends Area2D
+
 ## The amount of damge that the creep does per tick
 @export var damage:int = 1
 ## The time that the creep will stay alive after reaching full size
 @export var sustain_time:float = 2
-## How much the creep grows per tick
+## How fast the creep grows and shrinks
 @export var growth:float = 1
+## The maximum size that the creep grows to
+@export var fully_grown_scale:Vector2 = Vector2.ONE * 1.5
 
-# State machine ish variables 
-var growth_over:bool = false
-var sustain_over:bool = false
-
-# The variable that contains the player if it is in the creep
-var found_player:Player = null
+# Animator
+var tween:Tween
 
 func _ready() -> void:
-	$SustainTimer.wait_time = sustain_time
-	$SustainTimer.start()
+	# Animate the creep to grow and shrink at the correct times/speeds
+	tween = create_tween()
+	tween.tween_property(self, "scale" , fully_grown_scale, abs(scale.distance_to(fully_grown_scale)) / growth)
+	tween.tween_property(self, "scale" , fully_grown_scale, sustain_time)
+	tween.tween_property(self, "scale" , Vector2.ZERO, abs(fully_grown_scale.distance_to(Vector2.ZERO)) / growth)
 
-func _physics_process(delta: float) -> void:
-	# Grow if we arent done growing
-	if not growth_over:
-		scale += Vector2(growth * delta, growth * delta)
+func _process(delta: float) -> void:
+	# Remove the node once it is small
+	if scale == Vector2.ZERO:
+		queue_free()
 
-	# Shrink if we have stayed alive for long enough
-	elif sustain_over:
-		scale -= Vector2(growth * delta, growth * delta)
-		scale = scale.max(Vector2.ZERO)
-		# Kill creep if it is too small
-		if scale < Vector2.ZERO:
-			queue_free()
-	# If the player is in the creep and not rolling, hurt the player
-	if found_player:
-		if not found_player.rolling:
-			found_player.hurt(DamageEvent.new(damage))
-
-func _on_sustain_timer_timeout() -> void:
-	# Switch to sustaining
-	if not growth_over:
-		growth_over = true
-		$SustainTimer.start()
-	
-	# Switch to shrinking
-	elif not sustain_over:
-		sustain_over = true
-
-func _on_body_entered(body: Node2D) -> void:
-	# Show the player is in the creep
-	if body is Player:
-		found_player = body
-
-
-func _on_body_exited(body: Node2D) -> void:
-	# Show the player is not in the creep
-	if body is Player:
-		found_player = null
+func _on_damage_timer_timeout() -> void:
+	# Check if the player is in the creep based off 'DamageTimer' (to prevent instant kills)
+	if overlaps_body(Player.instance):
+		Player.instance.hurt(DamageEvent.new(damage))
