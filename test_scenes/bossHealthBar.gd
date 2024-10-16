@@ -18,6 +18,9 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	if boss == null:
+		queue_free()
+		is_queued_for_deletion()
 	pass
 
 #on value change
