@@ -1,6 +1,6 @@
 extends Node
 var codexEntries: Dictionary
-var filePath: String = "res://codex/CodexData/CodexEntries.json"
+var filePath: String = "res://codex/codexData/CodexEntries.json"
 
 func SetFilePath(newFilePath: String) -> void:
 	filePath = newFilePath
