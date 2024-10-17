@@ -1,4 +1,4 @@
-extends Sprite2D
+extends Node2D
 
 @export var max_angular_speed: float ## Exported variable for controlling the max speed of rotation
 @export var min_angular_speed: float ## Exported variable for controlling the minimum speed of rotation

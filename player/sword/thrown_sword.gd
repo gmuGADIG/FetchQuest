@@ -5,13 +5,13 @@ class_name ThrownSword
 @onready var thrower: Player = Player.instance  ## Reference to the player who throws the sword
 @onready var lifespan_timer: Timer = $LifespanTimer   ## The max lifespan of the sword
 @onready var recall_timer: Timer = $RecallTimer ## The minimum time before the sword can be recalled
-@onready var sprite: Sprite2D = $Sprite2D       ## The sprite representing the sword
 
 # Exported variables for external control and tuning in the editor
 @export var throw_distance: float      ## Ideal throw distance. used to calculate the initial and max velocity
 @export var acceleration: float        ## Acceleration factor applied to the sword movement
 @export var max_bounces: int = 20      ## The maximum number of bounces the sword can take before returning
 @export var max_bounce_distance: float ## The maximum distance the sword can bounce before returning to the player
+@export var knockback_force: float = 500.0
 
 # Internal state variables
 var returning: bool = false          ## Is the sword returning to the player?
@@ -110,8 +110,6 @@ func pickup_item(item: Item) -> void:
 	item.follow(self, 20.0)
 
 func _on_damage_area_body_entered(body: Node2D) -> void:
-	if not body.has_method("hurt"):
-		return
-	print("You have hit a thing")
-	var enemy: Enemy = body as Enemy
-	enemy.hurt(DamageEvent.new(1, velocity.normalized() * 50.0))
+	if not body.is_in_group("Hittable"): return
+	assert(body.has_method("hurt"), "Node '%s' was in the 'Hittable' group despite having no 'hurt' method." % body.get_path())
+	body.hurt(DamageEvent.new(1, velocity.normalized() * knockback_force))

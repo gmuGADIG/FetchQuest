@@ -1,0 +1,40 @@
+[gd_scene load_steps=7 format=3 uid="uid://dutetduietx8r"]
+
+[ext_resource type="Script" path="res://enemy/shield_enemy/shield_enemy.gd" id="1_35cbv"]
+[ext_resource type="PackedScene" uid="uid://blpi4x6if673v" path="res://enemy/base_enemy.tscn" id="2_k6ptp"]
+[ext_resource type="Texture2D" uid="uid://deern6512fesn" path="res://demo_art/test_enemy.svg" id="2_n1066"]
+[ext_resource type="Texture2D" uid="uid://dymucenpxmluo" path="res://icon.svg" id="2_yu8al"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6ymve"]
+size = Vector2(195, 195)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rnx4b"]
+size = Vector2(118, 106)
+
+[node name="ShieldEnemy" instance=ExtResource("2_k6ptp")]
+position = Vector2(0, -1)
+collision_mask = 1
+script = ExtResource("1_35cbv")
+movement_speed = 300.0
+shield_size = 60.0
+
+[node name="Shield" type="Area2D" parent="." index="0"]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Shield" index="0"]
+shape = SubResource("RectangleShape2D_6ymve")
+
+[node name="Sprite2D" type="Sprite2D" parent="Shield" index="1"]
+position = Vector2(89, 2)
+scale = Vector2(0.16, 0.720001)
+texture = ExtResource("2_yu8al")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
+shape = SubResource("RectangleShape2D_rnx4b")
+
+[node name="EnemySprite" type="Sprite2D" parent="." index="2"]
+self_modulate = Color(0.473481, 0.00278523, 0.831244, 1)
+texture = ExtResource("2_n1066")
+
+[connection signal="body_entered" from="Shield" to="." method="_on_shield_body_entered"]
