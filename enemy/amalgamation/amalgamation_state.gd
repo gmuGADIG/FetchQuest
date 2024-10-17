@@ -6,8 +6,8 @@ signal state_transition
 func enter() -> void:
 	pass
 
-func exit() -> void:
+func update(_delta:float) -> void:
 	pass
 
-func update(_delta:float) -> void:
+func exit() -> void:
 	pass
