@@ -95,18 +95,14 @@ func on_death() -> void:
 	print("Item '", dropped_item.name, "' was dropped by ", get_path())
 	
 func _process_roaming(delta: float) -> void:
-	var target_reached := position.distance_to(target_position) <= 5.0
 	if roaming_time > 0: # waiting; subtract from timer and do nothing
 		roaming_time -= delta
 		if roaming_time <= 0:
 			approach(target_position)
-	elif target_reached or navigation_agent.is_navigation_finished(): # target reached; set new target and wait
+	elif navigation_agent.is_navigation_finished(): # target reached; set new target and wait
 		target_position = _get_roaming_target()
 		roaming_time = randf_range(.5, 1)
 		velocity = Vector2.ZERO
-	#x
-	#else: # still approaching target
-	#	approach(target_position)
 
 ## gets a new random position to roam towards
 func _get_roaming_target() -> Vector2:
