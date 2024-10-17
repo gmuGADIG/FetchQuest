@@ -63,7 +63,6 @@ func _process_agressive(delta: float) -> void:
 		var target_distance: float = randf_range(agressive_target_distance_min,agressive_target_distance_max);
 		var target_direction: Vector2 = player_location.direction_to(self.position)
 		var target : Vector2 = player_location+target_direction*target_distance;
-		self.position = target
 		approach(target)
 		
 func _process_stunned(delta: float) -> void:
