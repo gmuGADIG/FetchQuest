@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://w4sfdvkxpsfk"]
+[gd_scene load_steps=13 format=3 uid="uid://w4sfdvkxpsfk"]
 
 [ext_resource type="PackedScene" uid="uid://c7ck7ril2jix2" path="res://player/player.tscn" id="1_3v2cw"]
 [ext_resource type="Script" path="res://test_scenes/herding/cameraFollowPlayer.gd" id="2_k3ve4"]
@@ -23,21 +23,18 @@ normal = Vector2(-1, 0)
 distance = -1024.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fmhbt"]
-size = Vector2(885.25, 336)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_iobfs"]
-size = Vector2(481, 47)
+size = Vector2(885.25, 1391)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_idjem"]
-size = Vector2(468, 306)
+size = Vector2(468, 1429)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_f1b63"]
-size = Vector2(463, 210)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_twwn5"]
+size = Vector2(418, 270)
 
 [node name="HerdingTest" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("1_3v2cw")]
-position = Vector2(-481, -222)
+position = Vector2(379, 271)
 
 [node name="camera" type="Camera2D" parent="." node_paths=PackedStringArray("to_follow")]
 zoom = Vector2(0.515, 0.515)
@@ -60,13 +57,18 @@ shape = SubResource("WorldBoundaryShape2D_60xt6")
 shape = SubResource("WorldBoundaryShape2D_e34ul")
 
 [node name="Sprite2D" type="Sprite2D" parent="Wall"]
-position = Vector2(1091, 111)
+position = Vector2(665, 141)
 scale = Vector2(1, 12.8906)
 texture = ExtResource("3_304ut")
 
 [node name="Sprite2D2" type="Sprite2D" parent="Wall"]
 position = Vector2(104.5, 905)
 scale = Vector2(20.7578, 1)
+texture = ExtResource("3_304ut")
+
+[node name="Sprite2D5" type="Sprite2D" parent="Wall"]
+position = Vector2(98, -15)
+scale = Vector2(1, 182.882)
 texture = ExtResource("3_304ut")
 
 [node name="Sprite2D3" type="Sprite2D" parent="Wall"]
@@ -80,50 +82,30 @@ scale = Vector2(20.5781, 1)
 texture = ExtResource("3_304ut")
 
 [node name="CollisionShape2D5" type="CollisionShape2D" parent="Wall"]
-position = Vector2(-278.375, 410)
+position = Vector2(-278.375, 157.5)
 shape = SubResource("RectangleShape2D_fmhbt")
 
-[node name="CollisionShape2D6" type="CollisionShape2D" parent="Wall"]
-position = Vector2(388.5, 568.5)
-shape = SubResource("RectangleShape2D_iobfs")
-
 [node name="CollisionShape2D7" type="CollisionShape2D" parent="Wall"]
-position = Vector2(830, 400)
+position = Vector2(830, 156.5)
 shape = SubResource("RectangleShape2D_idjem")
 
-[node name="Pen Area" parent="." node_paths=PackedStringArray("animals") instance=ExtResource("5_vrwwv")]
-position = Vector2(381, 428)
-animals = [NodePath("../Animal"), NodePath("../Animal2")]
+[node name="Pen Area" parent="." instance=ExtResource("5_vrwwv")]
+position = Vector2(380, 277)
 
-[node name="Sprite2D2" type="Sprite2D" parent="Pen Area"]
+[node name="Sprite2D" type="Sprite2D" parent="Pen Area"]
 modulate = Color(0, 1, 0, 1)
-position = Vector2(1.49994, 1.49969)
-scale = Vector2(3.36719, 1.58594)
+position = Vector2(-1, 1)
+scale = Vector2(3.23438, 2.125)
 texture = ExtResource("3_304ut")
 
-[node name="Sprite2D3" type="Sprite2D" parent="Pen Area"]
-position = Vector2(-239.5, -34.0003)
-scale = Vector2(0.320313, 2.64062)
-texture = ExtResource("3_304ut")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Pen Area"]
+position = Vector2(-1, 0)
+shape = SubResource("RectangleShape2D_twwn5")
 
-[node name="Sprite2D4" type="Sprite2D" parent="Pen Area"]
-position = Vector2(241, -39.0003)
-scale = Vector2(0.320313, 2.64062)
-texture = ExtResource("3_304ut")
+[node name="Animal" parent="." node_paths=PackedStringArray("pen") instance=ExtResource("4_c2y2t")]
+position = Vector2(379, 757)
+pen = NodePath("../Pen Area")
 
-[node name="Sprite2D5" type="Sprite2D" parent="Pen Area"]
-position = Vector2(7.99994, 129)
-scale = Vector2(3.57813, 0.390625)
-texture = ExtResource("3_304ut")
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Pen Area"]
-position = Vector2(4, 0)
-shape = SubResource("RectangleShape2D_f1b63")
-
-[node name="Animal" parent="." node_paths=PackedStringArray("pen_object") instance=ExtResource("4_c2y2t")]
-position = Vector2(386, 224)
-pen_object = NodePath("../Pen Area")
-
-[node name="Animal2" parent="." node_paths=PackedStringArray("pen_object") instance=ExtResource("4_c2y2t")]
-position = Vector2(25, -132)
-pen_object = NodePath("../Pen Area")
+[node name="Animal2" parent="." node_paths=PackedStringArray("pen") instance=ExtResource("4_c2y2t")]
+position = Vector2(276, -182)
+pen = NodePath("../Pen Area")
