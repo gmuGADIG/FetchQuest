@@ -2,6 +2,7 @@ extends Area2D
 
 #Stolen from transition Trigger
 @export var scene_name: String
+var node_name: String
 
 static var _scene_dict: Dictionary = {}
 
@@ -10,6 +11,9 @@ static func _static_init() -> void:
 	update_scene_dict("res://world/")
 
 func _ready() -> void:
+	node_name = scene_name_to_node_name(scene_name)
+	print("My node name is " + node_name)
+	self.visible = FastTravelPoints.point_unlocked(node_name) #see if its a point that has been visited before
 	# do a ton of asserts, to give a pretty little error message in case:
 	# file is a uid, path, has an extension, is empty, or couldn't be found
 	assert(not scene_name.begins_with("uid"), "Transition trigger at %s uses a UID, instead of a scene name." % self.get_path())
@@ -41,9 +45,15 @@ func _process(delta: float) -> void:
 
 
 func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
+	
 	if event.is_action_pressed("attack"):
 		print("clicked! loading " + scene_name)
 		get_tree().paused = false;
 		SceneTransition.change_scene(load(_scene_dict[scene_name]))
 	pass # Replace with function body.
 	
+ #toilets save root name, scenes are loaded by scene name. This changes a scene name to its root name
+func scene_name_to_node_name(scene_name: String) -> String:
+	scene_name = scene_name.capitalize()
+	scene_name = scene_name.replace(' ', '')
+	return scene_name
