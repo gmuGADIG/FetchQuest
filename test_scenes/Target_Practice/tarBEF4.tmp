@@ -1,0 +1,38 @@
+[gd_scene load_steps=5 format=3 uid="uid://dfbqv7ega0qp6"]
+
+[ext_resource type="PackedScene" uid="uid://c7ck7ril2jix2" path="res://player/player.tscn" id="1_vlfk2"]
+[ext_resource type="PackedScene" uid="uid://ckwgnwm6j4enf" path="res://test_scenes/Target_Practice/target.tscn" id="2_d742b"]
+[ext_resource type="PackedScene" uid="uid://b5bscusffqp5h" path="res://world/objects/pressure_plate/pressure_plate.tscn" id="3_fqwga"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hl2a3"]
+radius = 103.233
+
+[node name="Target_Practice" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource("1_vlfk2")]
+light_mask = 17
+visibility_layer = 17
+position = Vector2(456, 377)
+collision_layer = 18
+collision_mask = 57
+
+[node name="Target" parent="." node_paths=PackedStringArray("collision_zone", "pressurePlate") instance=ExtResource("2_d742b")]
+collision_zone = NodePath("../TargetAreaStart")
+pressurePlate = NodePath("../PressurePlate")
+
+[node name="Target2" parent="." node_paths=PackedStringArray("collision_zone") instance=ExtResource("2_d742b")]
+position = Vector2(493, 205)
+collision_zone = NodePath("../TargetAreaStart")
+
+[node name="TargetAreaStart" type="Area2D" parent="."]
+collision_layer = 17
+collision_mask = 17
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TargetAreaStart"]
+light_mask = 17
+visibility_layer = 17
+position = Vector2(262, 352)
+shape = SubResource("CircleShape2D_hl2a3")
+
+[node name="PressurePlate" parent="." instance=ExtResource("3_fqwga")]
+position = Vector2(635, 359)
