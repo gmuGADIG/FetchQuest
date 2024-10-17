@@ -10,29 +10,27 @@ top_level = true
 [node name="TestEnemy" parent="." instance=ExtResource("1_dhsl4")]
 position = Vector2(552, 306)
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="Boss_Health_Bar" type="CanvasLayer" parent="TestEnemy"]
 
-[node name="RemoteTransform2D" type="RemoteTransform2D" parent="CanvasLayer"]
-position = Vector2(552, 306)
-remote_path = NodePath("../../TestEnemy")
-
-[node name="Control" type="Control" parent="CanvasLayer/RemoteTransform2D"]
+[node name="Control" type="Control" parent="TestEnemy/Boss_Health_Bar"]
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
 grow_horizontal = 2
-grow_vertical = 2
 
-[node name="HealthBar" type="ProgressBar" parent="CanvasLayer/RemoteTransform2D/Control" node_paths=PackedStringArray("boss")]
-layout_mode = 0
-offset_left = -72.0
-offset_top = -86.0
-offset_right = 78.0
-offset_bottom = -59.0
+[node name="HealthBar" type="ProgressBar" parent="TestEnemy/Boss_Health_Bar/Control" node_paths=PackedStringArray("boss")]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -386.5
+offset_right = 386.5
+offset_bottom = 70.0
+grow_horizontal = 2
 show_percentage = false
 script = ExtResource("2_mv00m")
-boss = NodePath("../../../../TestEnemy")
+boss = NodePath("../../..")
 
 [node name="Player" parent="." instance=ExtResource("3_f2xhf")]
 position = Vector2(889, 312)
