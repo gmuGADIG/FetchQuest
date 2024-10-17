@@ -7,9 +7,15 @@ class_name SpawnerEnemy extends Enemy
 @export var spawn_cap : int
 @export var spawn_animation_length : float
 
+@onready var SpawnerEnemyTimer : Timer = get_node("SpawnerEnemyTimer")
+
+var spawned_list : Array[PackedScene] ## To keep track of all the enemies it spawns
+
 func _ready() -> void:
 	# wait a single frame in case our _ready was called before the player's
 	await get_tree().process_frame
+	SpawnerEnemyTimer.wait_time = spawn_rate
+	SpawnerEnemyTimer.start()
 
 func _physics_process(_delta: float) -> void:
 	if Player.instance == null: return
@@ -20,13 +26,13 @@ func _physics_process(_delta: float) -> void:
 	move_and_slide()
 
 	look_at(Player.instance.global_position)
-	#TODO: spawn enemy when time runs out if not on death
+	SpawnerEnemyTimer.connect("timeout", spawn_mini_enemy)
 
 func spawn_mini_enemy() -> void:
 	if spawned_enemy == null: return
 	else:
 		print("Spawner Enemy Spawned ", spawned_enemy.get_path())
-	var spawned := spawned_enemy.instantiate()
-	spawned.position = position
-	add_sibling(spawned)
+		var spawned := spawned_enemy.instantiate()
+		spawned.position = position
+		add_sibling(spawned)
 		
