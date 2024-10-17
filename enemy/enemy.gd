@@ -54,16 +54,25 @@ func _process_agressive(delta: float) -> void:
 	#Note that these variables are the square distance
 	var enemy_distance: float = self.position.distance_to(Player.instance.position)
 	var navigation_target_distance: float = navigation_target.distance_to(Player.instance.position)
+	var player_location: Vector2 = Player.instance.position
+	var target_distance: float = agressive_target_distance_min+(agressive_target_distance_max-agressive_target_distance_min)/2
+	var target_direction: Vector2
 	
+	var target : Vector2
 	#When the enemy is inside of the valid target region
+	
+	
 	if (enemy_distance > agressive_target_distance_min) && (enemy_distance < agressive_target_distance_max):
-		pass
+		if(self.position.distance_squared_to(navigation_target)>10):
+			pass
+		const angle_variance := deg_to_rad(10)
+		target_direction = player_location.direction_to(self.position).rotated(randf_range(-1, 1) * angle_variance)
+		target = player_location+target_direction*target_distance;
 	else:
-		var player_location: Vector2 = Player.instance.position
-		var target_distance: float = randf_range(agressive_target_distance_min,agressive_target_distance_max);
-		var target_direction: Vector2 = player_location.direction_to(self.position)
-		var target : Vector2 = player_location+target_direction*target_distance;
-		approach(target)
+		target_direction = player_location.direction_to(self.position)
+		target = player_location+target_direction*target_distance;
+	approach(target)
+	self.position = target
 		
 func _process_stunned(delta: float) -> void:
 	pass
