@@ -18,6 +18,11 @@ func _on_body_entered(body: Node2D) -> void:
 	if animals_inside.size() == animals.size():
 		print("yippee!")
 
+# TODO: this fires when an animal leaves the pen fully.
+# to make it fire when the animal starts to leave, maybe have a circle collider
+# in the front of the animal in its direction of motion. when THAT leaves the
+# pen, fire this on the animal it belongs to. that could make it nicer visually.
+# alternatively, just write a better brain for the animals
 func _on_body_exited(body: Node2D) -> void:
 	if not (body in animals_inside):
 		return
