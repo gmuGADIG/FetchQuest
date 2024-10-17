@@ -35,7 +35,6 @@ func _physics_process(delta: float) -> void:
 
 					# Finally, before moving, validate there is space for the block to move
 					if validate_movespace(push_direction.normalized() * push_unit):
-						
 						# Set push velocity and disable static mode
 						push_velocity = push_direction * push_unit / 10.5
 						pushed_block = self # Prevent other blocks from moving
