@@ -98,6 +98,8 @@ func sword_bounce() -> void:
 
 ## Handles collision detection and response
 func _on_collision(collision: KinematicCollision2D) -> void:
+	if collision.get_collider().has_method("hurt"):
+		collision.get_collider().hurt(DamageEvent.new(0, velocity.normalized()))
 	var collision_normal: Vector2 = collision.get_normal()  # Get the normal of the surface hit
 	velocity = velocity.bounce(collision_normal)
 	direction = velocity  # Update direction after bounce
@@ -108,8 +110,8 @@ func pickup_item(item: Item) -> void:
 	item.follow(self, 20.0)
 
 func _on_damage_area_body_entered(body: Node2D) -> void:
-	if not body.is_in_group("Enemy"):
+	if not body.has_method("hurt"):
 		return
-	print("You have hit the enemy")
+	print("You have hit a thing")
 	var enemy: Enemy = body as Enemy
 	enemy.hurt(DamageEvent.new(1, velocity.normalized() * 50.0))
