@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=4 uid="uid://c0b860627rcs5"]
+[gd_scene load_steps=27 format=4 uid="uid://c0b860627rcs5"]
 
 [ext_resource type="PackedScene" uid="uid://cnd06dpkgufe4" path="res://world/level_base.tscn" id="1_2iy6g"]
 [ext_resource type="Script" path="res://world/decoration/trees/tree_gen.gd" id="2_n44bl"]
@@ -23,6 +23,7 @@
 [ext_resource type="Script" path="res://world/interactable/transition_trigger/transition_trigger.gd" id="18_u8qny"]
 [ext_resource type="PackedScene" uid="uid://cg2jt0166hik8" path="res://world/interactable/red_coin/red_coin_manager.tscn" id="20_cbi4s"]
 [ext_resource type="PackedScene" uid="uid://gp1o7iklljk2" path="res://world/interactable/red_coin/red_coin.tscn" id="21_7gu4x"]
+[ext_resource type="PackedScene" uid="uid://da6k0i0ae27id" path="res://world/interactable/weak_floor.tscn" id="22_45t78"]
 
 [sub_resource type="Curve2D" id="Curve2D_j10fm"]
 _data = {
@@ -1762,16 +1763,20 @@ position = Vector2(751, 531)
 [node name="pickup_bomb" parent="PuzzleArea/RedCoinManager" index="4" instance=ExtResource("13_meh4f")]
 position = Vector2(323, 124)
 
-[node name="Player" parent="." index="4" instance=ExtResource("16_sqpfi")]
+[node name="Weak Floor" parent="." index="4" instance=ExtResource("22_45t78")]
+collision_layer = 2
+collision_mask = 2
+
+[node name="Player" parent="." index="5" instance=ExtResource("16_sqpfi")]
 position = Vector2(556, 639)
 
-[node name="MainCam" parent="." index="5"]
+[node name="MainCam" parent="." index="6"]
 position = Vector2(1815, -250)
 zoom = Vector2(0.7, 0.7)
 limit_top = -600
 limit_right = 1890
 
-[node name="Reloader" type="Node" parent="." index="8"]
+[node name="Reloader" type="Node" parent="." index="9"]
 script = ExtResource("8_gqbog")
 despawn_margin = 650.0
 
