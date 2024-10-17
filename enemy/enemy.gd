@@ -38,8 +38,8 @@ enum EnemyState {
 }
 
 func _ready() -> void:
-	if navigation_agent:
-		navigation_agent.velocity_computed.connect(self._on_velocity_computed)
+	assert(navigation_agent != null, "Enemy must have a navigation agent")
+	navigation_agent.velocity_computed.connect(self._on_velocity_computed)
 	actor_setup.call_deferred()
 
 func actor_setup() -> void:
@@ -100,7 +100,7 @@ func _process_roaming(delta: float) -> void:
 		roaming_time -= delta
 		if roaming_time <= 0:
 			approach(target_position)
-	elif target_reached or (navigation_agent != null and navigation_agent.is_navigation_finished()): # target reached; set new target and wait
+	elif target_reached or navigation_agent.is_navigation_finished(): # target reached; set new target and wait
 		target_position = _get_roaming_target()
 		roaming_time = randf_range(.5, 1)
 		velocity = Vector2.ZERO
@@ -125,16 +125,13 @@ func approach(target: Vector2) -> void:
 		navigation_agent.set_target_position(target)
 
 func _physics_process(delta: float) -> void:
-	if not navigation_agent:
-		return
-	
 	if navigation_agent.is_navigation_finished():
 		_on_velocity_computed(Vector2.ZERO)
 		return
 		
 	var next_path_position: Vector2 = navigation_agent.get_next_path_position()
 	var new_velocity: Vector2 = global_position.direction_to(next_path_position) * movement_speed
-	if navigation_agent and navigation_agent.avoidance_enabled:
+	if navigation_agent.avoidance_enabled:
 		# this implicitly calls _on_velocity_computed.
 		navigation_agent.set_velocity(new_velocity)
 	else:
