@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://bc7i4xomfcoof"]
+
+[ext_resource type="Script" path="res://enemy/projectile_enemy/projectile/projectile.gd" id="1_r0m2t"]
+[ext_resource type="Texture2D" uid="uid://cvckc0rffq2h" path="res://enemy/projectile_enemy/projectile/bullet.png" id="1_vm4dp"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_lec20"]
+
+[node name="Projectile" type="CharacterBody2D"]
+collision_layer = 32
+collision_mask = 3
+script = ExtResource("1_r0m2t")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-5.68434e-14, -3.8147e-06)
+scale = Vector2(0.00833333, 0.061769)
+texture = ExtResource("1_vm4dp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_lec20")
