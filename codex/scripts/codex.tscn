@@ -1,9 +1,9 @@
 [gd_scene load_steps=10 format=3 uid="uid://d2hakxnwblfja"]
 
-[ext_resource type="Script" path="res://codex/scripts/Codex.gd" id="1_hin5s"]
+[ext_resource type="Script" path="res://codex/scripts/codex.gd" id="1_hin5s"]
 [ext_resource type="Shader" path="res://codex/scripts/codex.gdshader" id="2_1kil2"]
-[ext_resource type="Script" path="res://codex/scripts/codexButton.gd" id="3_efddu"]
-[ext_resource type="Script" path="res://codex/scripts/CodexPage.gd" id="4_x4b2x"]
+[ext_resource type="Script" path="res://codex/scripts/codex_button.gd" id="3_efddu"]
+[ext_resource type="Script" path="res://codex/scripts/codex_page.gd" id="4_x4b2x"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8uvpn"]
 shader = ExtResource("2_1kil2")
@@ -52,7 +52,6 @@ offset_bottom = 644.0
 
 [node name="TableOfContentsRight" type="Panel" parent="CodexContentsControl"]
 unique_name_in_owner = true
-visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.0804678
@@ -224,7 +223,7 @@ metadata/_edit_use_anchors_ = true
 
 [node name="LeftPageImage" type="Sprite2D" parent="CodexMainPagesControl/CodexLeftPage"]
 unique_name_in_owner = true
-position = Vector2(212, 147)
+position = Vector2(167.998, 147)
 
 [node name="LeftPageTitle" type="Label" parent="CodexMainPagesControl/CodexLeftPage"]
 unique_name_in_owner = true
@@ -238,8 +237,9 @@ offset_right = 75.4988
 offset_bottom = 69.0
 grow_horizontal = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "Sample Description
+text = "Box Enemy
 "
+autowrap_mode = 2
 
 [node name="LeftPageDescription" type="Label" parent="CodexMainPagesControl/CodexLeftPage"]
 unique_name_in_owner = true
@@ -259,6 +259,7 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "It's Game Over Man, It's Game Over!
 "
 horizontal_alignment = 1
+autowrap_mode = 2
 
 [node name="LeftPageNumber" type="Label" parent="CodexMainPagesControl/CodexLeftPage"]
 unique_name_in_owner = true
@@ -303,6 +304,7 @@ grow_horizontal = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Sample Description
 "
+autowrap_mode = 2
 
 [node name="RightPageDescription" type="Label" parent="CodexMainPagesControl/CodexRightPage"]
 layout_mode = 1
@@ -321,6 +323,7 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "It's Game Over Man, It's Game Over!
 "
 horizontal_alignment = 1
+autowrap_mode = 2
 
 [node name="RightPageNumber" type="Label" parent="CodexMainPagesControl/CodexRightPage"]
 layout_mode = 0
