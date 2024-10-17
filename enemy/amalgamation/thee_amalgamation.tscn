@@ -1,0 +1,44 @@
+[gd_scene load_steps=10 format=3 uid="uid://xgwwcejvha1d"]
+
+[ext_resource type="Texture2D" uid="uid://dkcslmk1lo8iw" path="res://enemy/amalgamation/amalgamation.png" id="1_11my7"]
+[ext_resource type="Script" path="res://enemy/amalgamation/thee_amalgamation.gd" id="1_q0tx4"]
+[ext_resource type="Script" path="res://enemy/amalgamation/states/amalgamation_asleep_state.gd" id="3_uo18w"]
+[ext_resource type="Script" path="res://enemy/amalgamation/states/amalgamation_chewing_state.gd" id="4_f6qwh"]
+[ext_resource type="Script" path="res://enemy/amalgamation/states/amalgamation_idle_state.gd" id="5_ul5i8"]
+[ext_resource type="Script" path="res://enemy/amalgamation/states/amalgamation_pillars_state.gd" id="6_cos00"]
+[ext_resource type="Script" path="res://enemy/amalgamation/states/amalgamation_spitting_state.gd" id="7_kvuo0"]
+[ext_resource type="Script" path="res://enemy/amalgamation/states/amalgamation_sucking_state.gd" id="8_1g38x"]
+[ext_resource type="Script" path="res://enemy/amalgamation/states/amalgamation_vulnerable_state.gd" id="9_0n3tp"]
+
+[node name="Amalgamation" type="Node2D"]
+script = ExtResource("1_q0tx4")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(3, 0)
+scale = Vector2(0.07, 0.07)
+texture = ExtResource("1_11my7")
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("1_q0tx4")
+initial_state = NodePath("Asleep")
+
+[node name="Asleep" type="Node" parent="StateMachine"]
+script = ExtResource("3_uo18w")
+
+[node name="Chewing" type="Node" parent="StateMachine"]
+script = ExtResource("4_f6qwh")
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource("5_ul5i8")
+
+[node name="Pillars" type="Node" parent="StateMachine"]
+script = ExtResource("6_cos00")
+
+[node name="Spitting" type="Node" parent="StateMachine"]
+script = ExtResource("7_kvuo0")
+
+[node name="Sucking" type="Node" parent="StateMachine"]
+script = ExtResource("8_1g38x")
+
+[node name="Vulnerable" type="Node" parent="StateMachine"]
+script = ExtResource("9_0n3tp")
