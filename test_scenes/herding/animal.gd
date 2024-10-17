@@ -82,7 +82,7 @@ func enter_safe_area() -> void:
 	calm()
 	self.set_collision_mask_value(2, false)
 	self.set_collision_mask_value(3, false)
-	self.set_collision_mask_value(8, false)
+	self.set_collision_mask_value(10, false)
 	direction = ((self.global_position - pen.global_position) * -1.0).normalized()
 	speed = safe_speed
 	$"Brain Timer".stop()
