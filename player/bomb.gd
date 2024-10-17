@@ -1,4 +1,4 @@
-extends CharacterBody2D
+class_name Bomb extends CharacterBody2D
 
 @export var time_till_explode: int = 2
 @export var damage: int = 10
@@ -22,7 +22,7 @@ func explode() -> void:
 	var damaged_things :Array[Node2D]= damaged_area.get_overlapping_bodies()
 	print(damaged_things)
 	for thing in damaged_things:
-		if thing is Enemy or thing is Player:
+		if thing.has_method("hurt") and !(thing is Bomb):
 			thing.hurt(DamageEvent.new(damage, velocity.normalized() * knockback)) 
 			
 	#TODO: change animation
