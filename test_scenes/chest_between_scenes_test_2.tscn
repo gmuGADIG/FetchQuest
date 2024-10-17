@@ -1,0 +1,37 @@
+[gd_scene load_steps=7 format=3 uid="uid://cm5fbuxkg0pl7"]
+
+[ext_resource type="PackedScene" uid="uid://c7ck7ril2jix2" path="res://player/player.tscn" id="1_jkccg"]
+[ext_resource type="PackedScene" uid="uid://bom8mopkckp5y" path="res://world/interactable/chest/chest.tscn" id="2_cxaep"]
+[ext_resource type="Texture2D" uid="uid://dc4pcxr2lfkka" path="res://demo_art/dungeon_entrance.png" id="3_6gajq"]
+[ext_resource type="PackedScene" uid="uid://b2bxxuuc3qgex" path="res://test_scenes/test_chest_items/tre_test_item.tscn" id="3_pyaji"]
+[ext_resource type="Script" path="res://world/interactable/transition_trigger/transition_trigger.gd" id="4_6inb3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7gni5"]
+size = Vector2(158, 146)
+
+[node name="ChestBetweenScenesTest2" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource("1_jkccg")]
+position = Vector2(167, 375)
+
+[node name="Chest" parent="." instance=ExtResource("2_cxaep")]
+position = Vector2(562, 257)
+loot_table = Array[PackedScene]([ExtResource("3_pyaji")])
+
+[node name="DungeonEntrance" type="Sprite2D" parent="."]
+position = Vector2(988, 90)
+scale = Vector2(2.33037, 2.33037)
+texture = ExtResource("3_6gajq")
+
+[node name="TransitionScene" type="Area2D" parent="DungeonEntrance"]
+position = Vector2(-6.00761, 27.8925)
+scale = Vector2(0.429116, 0.429116)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("4_6inb3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DungeonEntrance/TransitionScene"]
+position = Vector2(6, -13)
+shape = SubResource("RectangleShape2D_7gni5")
+
+[connection signal="body_entered" from="DungeonEntrance/TransitionScene" to="DungeonEntrance/TransitionScene" method="_on_body_entered"]
