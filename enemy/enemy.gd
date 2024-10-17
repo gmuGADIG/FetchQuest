@@ -75,4 +75,3 @@ func _physics_process(delta: float) -> void:
 func _on_velocity_computed(safe_velocity: Vector2) -> void:
 	velocity = safe_velocity
 	move_and_slide()
-	print(velocity.length())
