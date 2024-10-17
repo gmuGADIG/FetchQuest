@@ -5,5 +5,7 @@ extends NavigationRegion2D
 var timer := 0.0
 
 func _process(delta: float) -> void:
-	if 
-	self.bake_navigation_polygon()
+	timer -= delta
+	if timer <= 0:
+		self.bake_navigation_polygon()
+		timer = update_frequency
