@@ -28,6 +28,7 @@ func hurt(_damage_event: DamageEvent) -> void:
 	add_sibling.call_deferred(dropped_item)
 	print("Item '", dropped_item.name, "' was dropped by ", get_path())
 	
+	#Change collision & Sprite to broken
 	not_broken.hide()
 	broken.show()
 	set_collision_layer_value(1,false)
@@ -36,6 +37,7 @@ func hurt(_damage_event: DamageEvent) -> void:
 	
 
 func _ready() -> void:
+	#Change collision & Sprite to unbroken
 	not_broken.show()
 	broken.hide()
 	set_collision_layer_value(1,true)
