@@ -75,7 +75,7 @@ func _target_move(delta:float) -> void:
 	target_collision.global_position = sprite.global_position
 	$Entered/HitArea.global_position = target_collision.global_position
 	if (go == true && timeStart != 0):
-		TargetPracticeSignals.moving = true
+		target_practice_signals.moving = true
 		if dir == false:
 			path_follow.progress += speed * delta
 			if path_follow.progress_ratio > .95:
@@ -113,7 +113,7 @@ func _pressure_target_move(delta:float) -> void:
 func _check_time() -> void:
 	if (timer.time_left < flashStart && timer.time_left > 0):
 		play_animation_on_all(targetGroup, "TargetFlash")
-	elif TargetPracticeSignals.moving == false:
+	elif target_practice_signals.moving == false:
 		stop_animation_on_all(targetGroup)
 
 #This function calls the shutdown method when the timer runs out
@@ -151,7 +151,7 @@ func _start_moving() ->void:
 	$"AnimationPlayer".speed_scale = 1
 	timer.start(timeStart)
 	go = true
-	TargetPracticeSignals.moving = true
+	target_practice_signals.moving = true
 
 #Called when a pressure plate is pressed
 func _on_pressure_press()->void:
@@ -171,7 +171,7 @@ func _on_body_shape_exited(_body_rid: RID, _body: Node, _body_shape_index: int, 
 #or if the player exits the area and resets any neccesary values
 func _shutdown() -> void:
 	
-	TargetPracticeSignals.moving = false
+	target_practice_signals.moving = false
 	go = false
 	dir = false
 	inArea = false
