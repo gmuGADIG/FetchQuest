@@ -14,8 +14,9 @@ var spawned_list : Array[PackedScene] ## To keep track of all the enemies it spa
 func _ready() -> void:
 	# wait a single frame in case our _ready was called before the player's
 	await get_tree().process_frame
-	SpawnerEnemyTimer.wait_time = spawn_rate
-	SpawnerEnemyTimer.start()
+	if not spawn_on_death:
+		SpawnerEnemyTimer.wait_time = spawn_rate
+		SpawnerEnemyTimer.start()
 
 func _physics_process(_delta: float) -> void:
 	if Player.instance == null: return
@@ -36,3 +37,8 @@ func spawn_mini_enemy() -> void:
 		spawned.position = position
 		add_sibling(spawned)
 		
+func on_death() -> void:
+	if spawn_on_death:
+		for _i in spawn_amount:
+			spawn_mini_enemy()
+	super.on_death()
