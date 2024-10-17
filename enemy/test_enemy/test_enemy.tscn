@@ -8,7 +8,7 @@
 size = Vector2(97, 98)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6fsdk"]
-size = Vector2(117, 107)
+size = Vector2(96, 96)
 
 [node name="TestEnemy" instance=ExtResource("1_oqpld")]
 script = ExtResource("2_yeqgq")
@@ -18,6 +18,7 @@ scale = Vector2(0.75, 0.75)
 texture = ExtResource("3_72tns")
 
 [node name="HittingArea" type="Area2D" parent="." index="1"]
+visible = false
 collision_layer = 0
 collision_mask = 2
 
@@ -26,7 +27,6 @@ position = Vector2(-0.5, 0)
 shape = SubResource("RectangleShape2D_0i45s")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="2"]
-position = Vector2(2.5, 2.5)
 shape = SubResource("RectangleShape2D_6fsdk")
 
 [node name="NavigationAgent2D" parent="." index="3"]
