@@ -1,6 +1,15 @@
 # NOTE: This script applies to all enemies.
 # To create a new enemy, create an inherited scene from the base enemy, then 
 # replace the existing script with a new script extending `Enemy`.
+#
+# REQUIREMENTS FOR IMPLEMENTING AN ENEMY:
+# If you override _ready, _process, or _physics_process, you MUST call
+# super._ready() (or super._process(delta), etc) in your overridden method.
+#
+# Each enemy should have a collision shape that has a radius associated with
+# one of the navigation layers. That way the enemy navigation will work correctly.
+# Right now, the only supported radius is associated with a square collision
+# shape of size 96x96, or a circular shape with radius 60. 
 
 class_name Enemy extends CharacterBody2D
 
@@ -75,7 +84,7 @@ func _physics_process(delta: float) -> void:
 # If we're doing avoidance, the navigation agent will compute a safe velocity
 # and had it back to us here. That way we can then call move_and_slide().
 #
-# If we're not doing avoidance, we should just call this ourselves.
+# If we're not doing avoidance, we should just call this ourselves.wdsd
 func _on_velocity_computed(safe_velocity: Vector2) -> void:
 	velocity = safe_velocity
 	move_and_slide()
