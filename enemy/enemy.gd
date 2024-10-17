@@ -72,6 +72,10 @@ func _physics_process(delta: float) -> void:
 	else:
 		_on_velocity_computed(new_velocity)
 
+# If we're doing avoidance, the navigation agent will compute a safe velocity
+# and had it back to us here. That way we can then call move_and_slide().
+#
+# If we're not doing avoidance, we should just call this ourselves.
 func _on_velocity_computed(safe_velocity: Vector2) -> void:
 	velocity = safe_velocity
 	move_and_slide()
