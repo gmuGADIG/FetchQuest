@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://xgwwcejvha1d"]
+
+[ext_resource type="Texture2D" uid="uid://dkcslmk1lo8iw" path="res://enemy/Amalgamation/Amalgamation.png" id="1_11my7"]
+[ext_resource type="Script" path="res://enemy/Amalgamation/thee_amalgamation.gd" id="1_q0tx4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o3e77"]
+size = Vector2(78, 29)
+
+[node name="Amalgamation" type="Node2D"]
+script = ExtResource("1_q0tx4")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(29, 4.5)
+shape = SubResource("RectangleShape2D_o3e77")
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D/CollisionShape2D"]
+scale = Vector2(0.07, 0.07)
+texture = ExtResource("1_11my7")
+
+[node name="AmalgamationStateMachine" type="Node" parent="."]
+script = ExtResource("1_q0tx4")
