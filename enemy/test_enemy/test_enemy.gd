@@ -16,10 +16,6 @@ func _ready() -> void:
 
 func _physics_process(_delta: float) -> void:
 	if _player == null: return
-	
-	else:
-		velocity = (_player.global_position - global_position).normalized() * 300
-	move_and_slide()
 
 	look_at(_player.global_position)
 

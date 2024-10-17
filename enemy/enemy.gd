@@ -10,7 +10,7 @@ class_name Enemy extends CharacterBody2D
 
 #The desired range the enemy wants to navigate to
 @export var agressive_target_distance_min: int = 1
-@export var agressive_target_distance_max: int = 100
+@export var agressive_target_distance_max: int = 300
 
 var enemy_state : EnemyState = EnemyState.ROAMING
 var navigation_target: Vector2 = self.position
@@ -57,12 +57,15 @@ func _process_agressive(delta: float) -> void:
 	
 	#When the enemy is inside of the valid target region
 	if (enemy_distance > agressive_target_distance_min) && (enemy_distance < agressive_target_distance_max):
-		print(enemy_distance)
+		pass
 	else:
-		var new_target_radius: int = (randi()%(agressive_target_distance_max-agressive_target_distance_min))+agressive_target_distance_min
-		var target : Vector2 = Player.instance.positon+(Vector2.from_angle(randf_range(0,TAU))*randf_range(agressive_target_distance_min,agressive_target_distance_max))
+		var player_location: Vector2 = Player.instance.position
+		var target_distance: float = randf_range(agressive_target_distance_min,agressive_target_distance_max);
+		var target_direction: Vector2 = player_location.direction_to(self.position)
+		var target : Vector2 = player_location+target_direction*target_distance;
 		self.position = target
-	
+		approach(target)
+		
 func _process_stunned(delta: float) -> void:
 	pass
 	
