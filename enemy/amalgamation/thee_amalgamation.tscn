@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://xgwwcejvha1d"]
+[gd_scene load_steps=12 format=3 uid="uid://xgwwcejvha1d"]
 
 [ext_resource type="Texture2D" uid="uid://dkcslmk1lo8iw" path="res://enemy/amalgamation/amalgamation.png" id="1_11my7"]
 [ext_resource type="Script" path="res://enemy/amalgamation/thee_amalgamation.gd" id="1_q0tx4"]
+[ext_resource type="Script" path="res://enemy/amalgamation/amalgamation_state_machine.gd" id="3_6vw41"]
 [ext_resource type="Script" path="res://enemy/amalgamation/states/amalgamation_asleep_state.gd" id="3_uo18w"]
 [ext_resource type="Script" path="res://enemy/amalgamation/states/amalgamation_chewing_state.gd" id="4_f6qwh"]
 [ext_resource type="Script" path="res://enemy/amalgamation/states/amalgamation_idle_state.gd" id="5_ul5i8"]
@@ -10,16 +11,13 @@
 [ext_resource type="Script" path="res://enemy/amalgamation/states/amalgamation_sucking_state.gd" id="8_1g38x"]
 [ext_resource type="Script" path="res://enemy/amalgamation/states/amalgamation_vulnerable_state.gd" id="9_0n3tp"]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_roexs"]
+
 [node name="Amalgamation" type="Node2D"]
 script = ExtResource("1_q0tx4")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(3, 0)
-scale = Vector2(0.07, 0.07)
-texture = ExtResource("1_11my7")
-
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
-script = ExtResource("1_q0tx4")
+script = ExtResource("3_6vw41")
 initial_state = NodePath("Asleep")
 
 [node name="Asleep" type="Node" parent="StateMachine"]
@@ -28,8 +26,10 @@ script = ExtResource("3_uo18w")
 [node name="Chewing" type="Node" parent="StateMachine"]
 script = ExtResource("4_f6qwh")
 
-[node name="Idle" type="Node" parent="StateMachine"]
+[node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("attack_states")]
 script = ExtResource("5_ul5i8")
+attack_states = [NodePath("../Sucking"), NodePath("../Pillars"), NodePath("../Spitting")]
+attack_state_weights = Array[float]([0.8, 0.1, 0.1])
 
 [node name="Pillars" type="Node" parent="StateMachine"]
 script = ExtResource("6_cos00")
@@ -42,3 +42,18 @@ script = ExtResource("8_1g38x")
 
 [node name="Vulnerable" type="Node" parent="StateMachine"]
 script = ExtResource("9_0n3tp")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(3, 0)
+scale = Vector2(0.07, 0.07)
+texture = ExtResource("1_11my7")
+
+[node name="MouthArea" type="Area2D" parent="."]
+position = Vector2(0, 7)
+collision_layer = 4
+collision_mask = 128
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MouthArea"]
+shape = SubResource("CircleShape2D_roexs")
+
+[connection signal="body_entered" from="MouthArea" to="StateMachine/Asleep" method="_on_mouth_area_body_entered"]
