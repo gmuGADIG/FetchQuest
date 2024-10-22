@@ -1,7 +1,5 @@
 class_name AmalgamationSpittingState extends AmalgamationState
 
-## The state machine 
-@onready var state_machine:AmalgamationStateMachine = get_parent()
 
 func enter() -> void:
 	pass
