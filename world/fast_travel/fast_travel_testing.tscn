@@ -1,0 +1,35 @@
+[gd_scene load_steps=6 format=3 uid="uid://cxe45dty3je7a"]
+
+[ext_resource type="PackedScene" uid="uid://c7ck7ril2jix2" path="res://player/player.tscn" id="1_pkjy3"]
+[ext_resource type="PackedScene" uid="uid://1mnsgb10h43t" path="res://world/fast_travel/toilet_travel_station.tscn" id="2_q4484"]
+[ext_resource type="Texture2D" uid="uid://dc4pcxr2lfkka" path="res://demo_art/dungeon_entrance.png" id="5_x4xk0"]
+[ext_resource type="Script" path="res://world/interactable/transition_trigger/transition_trigger.gd" id="6_n6s1p"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1txne"]
+size = Vector2(158, 146)
+
+[node name="FastTravelTesting" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource("1_pkjy3")]
+position = Vector2(441, 213)
+
+[node name="ToiletTravelStation" parent="." instance=ExtResource("2_q4484")]
+
+[node name="DungeonEntrance" type="Sprite2D" parent="."]
+position = Vector2(835, 142)
+scale = Vector2(2.33037, 2.33037)
+texture = ExtResource("5_x4xk0")
+
+[node name="TransitionScene" type="Area2D" parent="DungeonEntrance"]
+position = Vector2(-6.00761, 27.8925)
+scale = Vector2(0.429116, 0.429116)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("6_n6s1p")
+scene_name = "chest_between_scenes_test_1"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DungeonEntrance/TransitionScene"]
+position = Vector2(6, -13)
+shape = SubResource("RectangleShape2D_1txne")
+
+[connection signal="body_entered" from="DungeonEntrance/TransitionScene" to="DungeonEntrance/TransitionScene" method="_on_body_entered"]
