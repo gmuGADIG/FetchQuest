@@ -1,6 +1,4 @@
 class_name AmalgamationIdleState extends AmalgamationState
-## The state machine 
-@onready var state_machine:AmalgamationStateMachine = get_parent()
 
 ## The states that are considered attacking states 
 @export var attack_states:Array[AmalgamationState]
@@ -14,7 +12,7 @@ var previous_attack_state:AmalgamationState;
 
 func enter() -> void:
 	desired_state = get_random_attack()
-	await get_tree().create_timer(.2).timeout
+	await get_tree().create_timer(2).timeout
 	state_machine.change_state(self, desired_state.name)
 
 func update(_delta:float) -> void:
