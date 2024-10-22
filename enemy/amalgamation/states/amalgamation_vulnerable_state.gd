@@ -1,16 +1,16 @@
 class_name AmalgamationVulnerableState extends AmalgamationState
 
 func enter() -> void:
-	# Take damage for 5 seconds
+	# Enable taking damage for 5 seconds
 	%VulnerableHitArea.set_process(true)
-	await get_tree().create_timer(4).timeout
+	await get_tree().create_timer(5).timeout
 	state_machine.change_state(self, "Idle")
 
 func update(_delta:float) -> void:
 	pass
 
 func exit() -> void:
-	# Remove taking damage
+	# Disable taking damage
 	%VulnerableHitArea.set_process(false)
 
 # Called when the amalgamation is hit by the player's attacks
@@ -28,5 +28,5 @@ func _on_vulnerable_hit_area_body_entered(body: Node2D) -> void:
 	else:
 		damage = body.damage
 		body.hurt(DamageEvent.new(0))
-	print("Amalgamation takes " + str(damage) + " damage")
+	print("amalgamation_vulnerable_state.gd: Amalgamation takes " + str(damage) + " damage")
 	

@@ -2,7 +2,8 @@ class_name AmalgamationSuckingState extends AmalgamationState
 
 
 func enter() -> void:
-	pass
+	await get_tree().create_timer(1).timeout
+	state_machine.change_state(self, "Idle")
 
 func update(_delta:float) -> void:
 	pass
