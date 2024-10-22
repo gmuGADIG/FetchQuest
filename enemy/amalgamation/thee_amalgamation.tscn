@@ -29,10 +29,11 @@ script = ExtResource("3_uo18w")
 [node name="Chewing" type="Node" parent="StateMachine"]
 script = ExtResource("4_f6qwh")
 
-[node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("attack_states")]
+[node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("sucking_state", "pillar_state", "spit_state")]
 script = ExtResource("5_ul5i8")
-attack_states = [NodePath("../Sucking"), NodePath("../Pillars"), NodePath("../Spitting")]
-attack_state_weights = Array[float]([0.2, 0.2, 0.2])
+sucking_state = NodePath("../Sucking")
+pillar_state = NodePath("../Pillars")
+spit_state = NodePath("../Spitting")
 
 [node name="Pillars" type="Node" parent="StateMachine"]
 script = ExtResource("6_cos00")
