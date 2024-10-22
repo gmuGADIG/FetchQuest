@@ -4,6 +4,8 @@ func enter() -> void:
 	# Enable taking damage for 5 seconds
 	%VulnerableHitArea.set_process(true)
 	await get_tree().create_timer(5).timeout
+	if state_machine.current_state != self:
+		return
 	state_machine.change_state(self, "Idle")
 
 func update(_delta:float) -> void:

@@ -3,7 +3,9 @@ class_name AmalgamationPillarsState extends AmalgamationState
 
 func enter() -> void:
 	# Placeholder for testing
-	await get_tree().create_timer(1).timeout
+	await get_tree().create_timer(4).timeout
+	if state_machine.current_state != self:
+		return
 	state_machine.change_state(self, "Idle")
 
 func update(_delta:float) -> void:
