@@ -31,7 +31,13 @@ signal health_changed
 @export var movement_speed: float = 256.0
 @onready var navigation_agent: NavigationAgent2D = get_node("NavigationAgent2D")
 
-var enemy_state := EnemyState.ROAMING
+
+#The desired range the enemy wants to navigate to
+@export var agressive_target_distance_min: int = 1
+@export var agressive_target_distance_max: int = 300
+
+var enemy_state : EnemyState = EnemyState.ROAMING
+var navigation_target: Vector2 = self.position
 
 @onready var original_position : Vector2 = position
 @onready var target_position: Vector2 = _get_roaming_target()
@@ -44,6 +50,7 @@ enum EnemyState {
 }
 
 func _ready() -> void:
+	enemy_state = EnemyState.AGRESSIVE
 	assert(navigation_agent != null, "Enemy must have a navigation agent")
 	navigation_agent.velocity_computed.connect(self._on_velocity_computed)
 	actor_setup.call_deferred()
@@ -52,7 +59,7 @@ func actor_setup() -> void:
 	await get_tree().physics_frame
 	approach(Player.instance.global_position)
 
-func _process(delta: float) -> void:		
+func _process(delta: float) -> void:
 	match enemy_state:
 		EnemyState.ROAMING:
 			_process_roaming(delta)
@@ -116,9 +123,30 @@ func _get_roaming_target() -> Vector2:
 	var distance: float =  randf_range(0, roaming_radius)
 	return original_position + Vector2(distance * cos(radian), distance * sin(radian))
 
-func _process_agressive(_delta: float) -> void:
-	pass
 	
+func _process_agressive(delta: float) -> void:
+	#Note that these variables are the square distance
+	var enemy_distance: float = self.position.distance_to(Player.instance.position)
+	var navigation_target_distance: float = navigation_target.distance_to(Player.instance.position)
+	var player_location: Vector2 = Player.instance.position
+	var target_distance: float = agressive_target_distance_min+(agressive_target_distance_max-agressive_target_distance_min)/2
+	var target_direction: Vector2
+	
+	var target : Vector2
+	#When the enemy is inside of the valid target region
+	
+	
+	if (enemy_distance > agressive_target_distance_min) && (enemy_distance < agressive_target_distance_max):
+		if(self.position.distance_squared_to(navigation_target)>10):
+			pass
+		const angle_variance := deg_to_rad(10)
+		target_direction = player_location.direction_to(self.position).rotated(randf_range(-1, 1) * angle_variance)
+		target = player_location+target_direction*target_distance;
+	else:
+		target_direction = player_location.direction_to(self.position)
+		target = player_location+target_direction*target_distance;
+	approach(target)
+		
 func _process_stunned(_delta: float) -> void:
 	pass
 	
