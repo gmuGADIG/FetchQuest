@@ -4,8 +4,6 @@ class_name Bomb extends CharacterBody2D
 @export var damage: int = 10
 @export var knockback: float = 10
 
-
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	var explode_timer := Timer.new()
 	add_child(explode_timer)
@@ -13,9 +11,6 @@ func _ready() -> void:
 	explode_timer.one_shot = true
 	explode_timer.timeout.connect(explode)
 	explode_timer.start()
-	
-	
-	
 
 func explode() -> void:
 	var damaged_area := get_node("ExplosionArea")
@@ -24,7 +19,7 @@ func explode() -> void:
 	for thing in damaged_things:
 		if thing.has_method("hurt") and !(thing is Bomb):
 			thing.hurt(DamageEvent.new(damage, velocity.normalized() * knockback)) 
-			
+	
 	#TODO: change animation
 	get_node("BombSprite").scale.x *= 4
 	get_node("BombSprite").scale.y *= 4
@@ -37,8 +32,6 @@ func hurt(_damage_event: DamageEvent) -> void:
 	explode()
 	return
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	velocity *= 0.9
 	move_and_slide()
-	

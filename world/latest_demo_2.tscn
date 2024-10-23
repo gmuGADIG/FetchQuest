@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=4 uid="uid://c0b860627rcs5"]
+[gd_scene load_steps=28 format=4 uid="uid://c0b860627rcs5"]
 
 [ext_resource type="PackedScene" uid="uid://cnd06dpkgufe4" path="res://world/level_base.tscn" id="1_2iy6g"]
 [ext_resource type="Script" path="res://world/decoration/trees/tree_gen.gd" id="2_n44bl"]
@@ -24,6 +24,7 @@
 [ext_resource type="Script" path="res://world/interactable/transition_trigger/transition_trigger.gd" id="18_u8qny"]
 [ext_resource type="PackedScene" uid="uid://cg2jt0166hik8" path="res://world/interactable/red_coin/red_coin_manager.tscn" id="20_cbi4s"]
 [ext_resource type="PackedScene" uid="uid://gp1o7iklljk2" path="res://world/interactable/red_coin/red_coin.tscn" id="21_7gu4x"]
+[ext_resource type="PackedScene" uid="uid://5x8wo3lcwigq" path="res://world/objects/breakable_object/breakable_object.tscn" id="24_xolg5"]
 
 [sub_resource type="Curve2D" id="Curve2D_j10fm"]
 _data = {
@@ -1775,5 +1776,20 @@ limit_right = 1890
 [node name="Reloader" type="Node" parent="." index="8"]
 script = ExtResource("8_gqbog")
 despawn_margin = 650.0
+
+[node name="BreakableObject" parent="." index="10" instance=ExtResource("24_xolg5")]
+position = Vector2(885, 1214)
+
+[node name="BreakableObject2" parent="." index="11" instance=ExtResource("24_xolg5")]
+position = Vector2(760, 1214)
+
+[node name="BreakableObject3" parent="." index="12" instance=ExtResource("24_xolg5")]
+position = Vector2(633, 1216)
+
+[node name="BreakableObject4" parent="." index="13" instance=ExtResource("24_xolg5")]
+position = Vector2(560, 1052)
+
+[node name="BreakableObject5" parent="." index="14" instance=ExtResource("24_xolg5")]
+position = Vector2(915, 1043)
 
 [connection signal="body_entered" from="PuzzleArea/DungeonEntrance/TransitionScene" to="PuzzleArea/DungeonEntrance/TransitionScene" method="_on_body_entered"]
