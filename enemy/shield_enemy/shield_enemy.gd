@@ -16,7 +16,7 @@ func _physics_process(_delta: float) -> void:
 
 	# Move towards and look at the player 
 	var movement_direction := (Player.instance.global_position - global_position).normalized()
-	velocity = movement_direction * movement_speed
+	velocity = movement_direction * 300#movement speed
 	look_at(Player.instance.global_position)
 	move_and_slide()
 
