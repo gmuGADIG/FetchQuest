@@ -2,12 +2,12 @@ class_name CreepEnemy extends Enemy
 
 ## The scene that will be instantiated when the enemy is spawning it's creep
 @export var creep_prefab:PackedScene
-## The time between each creep spawn
-@export var creep_spawn_rate:float = 3
+## The seconds between each creep spawn
+@export var creep_spawn_time:float = 3
 
 func _ready() -> void:
 	# Set up the spawning timer
-	$CreepSpawnTimer.wait_time = creep_spawn_rate
+	$CreepSpawnTimer.wait_time = creep_spawn_time
 	$CreepSpawnTimer.start()
 
 # NOTE 	This movement code is taken from the test_enemy 

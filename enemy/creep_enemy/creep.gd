@@ -1,8 +1,8 @@
 extends Area2D
 
-## The amount of damge that the creep does per tick
+## The amount of damage that the creep does per tick
 @export var damage:int = 1
-## The time that the creep will stay alive after reaching full size
+## The number of seconds that the creep will stay alive after reaching full size
 @export var sustain_time:float = 2
 ## How fast the creep grows and shrinks
 @export var growth:float = 1
@@ -19,10 +19,7 @@ func _ready() -> void:
 	tween.tween_property(self, "scale" , fully_grown_scale, sustain_time)
 	tween.tween_property(self, "scale" , Vector2.ZERO, abs(fully_grown_scale.distance_to(Vector2.ZERO)) / growth)
 
-func _process(delta: float) -> void:
-	# Remove the node once it is small
-	if scale == Vector2.ZERO:
-		queue_free()
+	tween.finished.connect(queue_free) # remove the creep once it shrinks away
 
 func _on_damage_timer_timeout() -> void:
 	# Check if the player is in the creep based off 'DamageTimer' (to prevent instant kills)
