@@ -54,11 +54,11 @@ func _ready() -> void:
 
 func actor_setup() -> void:
 	await get_tree().physics_frame
+	navigation_agent.velocity_computed.connect(self._on_velocity_computed)
 	approach(Player.instance.global_position)
 
 func _process(delta: float) -> void:
 	assert(navigation_agent != null, "Enemy must have a navigation agent")
-	navigation_agent.velocity_computed.connect(self._on_velocity_computed)
 	actor_setup.call_deferred()
 
 	match enemy_state:
