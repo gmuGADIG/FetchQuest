@@ -1,7 +1,8 @@
-[gd_scene load_steps=26 format=4 uid="uid://c0b860627rcs5"]
+[gd_scene load_steps=27 format=4 uid="uid://c0b860627rcs5"]
 
 [ext_resource type="PackedScene" uid="uid://cnd06dpkgufe4" path="res://world/level_base.tscn" id="1_2iy6g"]
 [ext_resource type="Script" path="res://world/decoration/trees/tree_gen.gd" id="2_n44bl"]
+[ext_resource type="PackedScene" uid="uid://yllbcpq24cl0" path="res://enemy/creep_enemy/creep_enemy.tscn" id="2_usfpa"]
 [ext_resource type="PackedScene" uid="uid://gkyoiixhetyn" path="res://world/decoration/bushes/bush_big.tscn" id="3_a0yt1"]
 [ext_resource type="PackedScene" uid="uid://7rwwk775fptb" path="res://world/decoration/bushes/bush_small.tscn" id="4_qjjla"]
 [ext_resource type="PackedScene" uid="uid://dsm5cibmw7k8f" path="res://world/decoration/buildings/house_tudor_a.tscn" id="7_angr6"]
@@ -1114,14 +1115,14 @@ position = Vector2(292.263, 1477.72)
 [node name="TestEnemy" parent="FirstEnemyArea/Enemies" index="0" instance=ExtResource("14_h6tl8")]
 position = Vector2(123, 1811)
 
-[node name="TestEnemy3" parent="FirstEnemyArea/Enemies" index="1" instance=ExtResource("14_h6tl8")]
-position = Vector2(1609, 2195)
+[node name="ShieldEnemy" parent="FirstEnemyArea/Enemies" index="1" instance=ExtResource("10_8dpie")]
+position = Vector2(1273, 1808)
 
 [node name="TestEnemy4" parent="FirstEnemyArea/Enemies" index="2" instance=ExtResource("14_h6tl8")]
 position = Vector2(558, 2259)
 
-[node name="ShieldEnemy" parent="FirstEnemyArea/Enemies" index="3" instance=ExtResource("10_8dpie")]
-position = Vector2(1382, 1898)
+[node name="CreepEnemy" parent="FirstEnemyArea/Enemies" index="3" instance=ExtResource("2_usfpa")]
+position = Vector2(845, 2130)
 
 [node name="BushedOutside" type="Node2D" parent="FirstEnemyArea" index="3"]
 y_sort_enabled = true
