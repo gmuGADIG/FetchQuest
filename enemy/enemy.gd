@@ -8,11 +8,12 @@ signal health_changed
 
 @export var max_health: int = 3
 @export var damage : int = 1
-@export var knockback_force : int = 10
+@export var knockback_force : int = 600
 @onready var health := max_health :
 	set(value):
 		health = value
 		health_changed.emit()
+
 # the max distance the entity will move from its starting position, aka that radius of the circle that the entity is allowed to move in
 @export var roaming_radius : float = 100
 
@@ -63,10 +64,10 @@ func on_death() -> void:
 	# add bombs, health, and stamina to the list of possible drops, after checking if they're eligible
 	var eligible_pickup_paths: Array[String]
 	if (Player.instance.health < Player.instance.max_health):
-		eligible_pickup_paths.append("res://world/environment/pickups/pickup_health.tscn") # health
+		eligible_pickup_paths.append("res://world/interactable/pickups/pickup_health.tscn") # health
 	if (PlayerInventory.bombs < PlayerInventory.max_bombs):
-		eligible_pickup_paths.append("res://world/environment/pickups/pickup_bomb.tscn") # bomb
-	eligible_pickup_paths.append("res://world/environment/pickups/pickup_stamina.tscn") # stamina (unconditional)
+		eligible_pickup_paths.append("res://world/interactable/pickups/pickup_bomb.tscn") # bomb
+	eligible_pickup_paths.append("res://world/interactable/pickups/pickup_stamina.tscn") # stamina (unconditional)
 	
 	# If, somehow, there are no eligible items, then sound the alarms and bail 
 	if (eligible_pickup_paths.is_empty()):
