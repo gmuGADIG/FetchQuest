@@ -4,10 +4,16 @@
 
 class_name Enemy extends CharacterBody2D
 
+signal health_changed
+
 @export var max_health: int = 3
 @export var damage : int = 1
 @export var knockback_force : int = 600
-@onready var health := max_health
+@onready var health := max_health :
+	set(value):
+		health = value
+		health_changed.emit()
+
 # the max distance the entity will move from its starting position, aka that radius of the circle that the entity is allowed to move in
 @export var roaming_radius : float = 100
 
