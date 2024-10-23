@@ -1,0 +1,156 @@
+[gd_scene load_steps=5 format=3 uid="uid://bovhexq6t5u8o"]
+
+[ext_resource type="Script" path="res://ui/options/options_menu.gd" id="1_1bpan"]
+[ext_resource type="Theme" uid="uid://drqtpgod2pibc" path="res://ui/main_ui_theme.tres" id="1_eq1l6"]
+[ext_resource type="Script" path="res://ui/options/volume_controller.gd" id="1_wtrl1"]
+[ext_resource type="Script" path="res://ui/options/quit_options_menu.gd" id="1_xfctd"]
+
+[node name="OptionsMenu" type="ColorRect"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_eq1l6")
+color = Color(0.140146, 0.354812, 0.257587, 1)
+script = ExtResource("1_1bpan")
+
+[node name="Title" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -239.0
+offset_top = 60.0
+offset_right = 239.0
+offset_bottom = 137.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+theme_override_font_sizes/normal_font_size = 56
+bbcode_enabled = true
+text = "[center]Options Menu[/center]"
+fit_content = true
+
+[node name="Back_To_Menu" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -150.038
+offset_top = -82.0
+offset_right = 150.037
+offset_bottom = -32.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Back to Menu"
+script = ExtResource("1_xfctd")
+
+[node name="Volume_Slider_Master_Text" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -114.0
+offset_right = 150.0
+offset_bottom = -64.0
+grow_horizontal = 2
+grow_vertical = 2
+bbcode_enabled = true
+text = "[center][b]Master Volume[/b][/center]"
+
+[node name="Volume_Slider_Master2" type="HSlider" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -101.0
+offset_right = 150.0
+offset_bottom = -51.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_neighbor_bottom = NodePath("../Volume_Slider2_Music")
+script = ExtResource("1_wtrl1")
+
+[node name="Volume_Slider_Music_Text" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -44.0
+offset_right = 150.0
+offset_bottom = 6.0
+grow_horizontal = 2
+grow_vertical = 2
+bbcode_enabled = true
+text = "[center][b]Music[/b][/center]"
+
+[node name="Volume_Slider2_Music" type="HSlider" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -33.0
+offset_right = 150.0
+offset_bottom = 17.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_neighbor_top = NodePath("../Volume_Slider_Master2")
+focus_neighbor_bottom = NodePath("../Volume_Slider_SFX")
+script = ExtResource("1_wtrl1")
+audio_bus_name = "Music"
+
+[node name="Volume_Slider_SFX_Text" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = 28.0
+offset_right = 150.0
+offset_bottom = 78.0
+grow_horizontal = 2
+grow_vertical = 2
+bbcode_enabled = true
+text = "[center][b]SFX[/b][/center]"
+
+[node name="Volume_Slider_SFX" type="HSlider" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -147.0
+offset_top = 36.0
+offset_right = 153.0
+offset_bottom = 86.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_neighbor_top = NodePath("../Volume_Slider2_Music")
+focus_neighbor_bottom = NodePath("../Back_To_Menu")
+script = ExtResource("1_wtrl1")
+audio_bus_name = "SFX"
+
+[connection signal="mouse_exited" from="Volume_Slider_Master2" to="Volume_Slider_Master2" method="release_focus"]
+[connection signal="value_changed" from="Volume_Slider_Master2" to="Volume_Slider_Master2" method="_on_value_changed"]
+[connection signal="mouse_exited" from="Volume_Slider2_Music" to="Volume_Slider2_Music" method="release_focus"]
+[connection signal="value_changed" from="Volume_Slider2_Music" to="Volume_Slider2_Music" method="_on_value_changed"]
+[connection signal="mouse_exited" from="Volume_Slider_SFX" to="Volume_Slider_SFX" method="release_focus"]
+[connection signal="value_changed" from="Volume_Slider_SFX" to="Volume_Slider_SFX" method="_on_value_changed"]

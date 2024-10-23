@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://cxth4eim2l47t"]
+
+[ext_resource type="Script" path="res://world/fast_travel/toilet_travel_icon.gd" id="1_ijvn3"]
+[ext_resource type="Texture2D" uid="uid://kqsmsqitd5if" path="res://demo_art/Toilet.jpg" id="2_2hhlr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dq6kj"]
+
+[node name="ToiletTravelIcon" type="Area2D"]
+scale = Vector2(2, 2)
+script = ExtResource("1_ijvn3")
+scene_name = "latest_demo"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_dq6kj")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.0574906, 0.0600023)
+texture = ExtResource("2_2hhlr")
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]
