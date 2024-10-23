@@ -146,7 +146,6 @@ func _process_agressive(delta: float) -> void:
 		target_direction = player_location.direction_to(self.position)
 		target = player_location+target_direction*target_distance;
 	approach(target)
-	self.position = target
 		
 func _process_stunned(_delta: float) -> void:
 	pass
