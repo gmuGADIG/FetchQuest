@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://deern6512fesn" path="res://demo_art/test_enemy.svg" id="3_72tns"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6fsdk"]
-size = Vector2(117, 107)
+size = Vector2(96, 96)
 
 [node name="TestEnemy" instance=ExtResource("1_oqpld")]
 collision_mask = 1
@@ -17,5 +17,7 @@ scale = Vector2(0.75, 0.75)
 texture = ExtResource("3_72tns")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
-position = Vector2(2.5, 2.5)
 shape = SubResource("RectangleShape2D_6fsdk")
+
+[node name="HittingArea" parent="." index="3"]
+visible = false
