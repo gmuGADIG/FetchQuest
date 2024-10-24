@@ -3,6 +3,7 @@ class_name AmalgamationSuckingState extends AmalgamationState
 
 @export var sucking_speed:float = 200
 func enter() -> void:
+	# Idle after sucking for 10 seconds
 	await get_tree().create_timer(10).timeout
 	if state_machine.current_state != self:
 		return
