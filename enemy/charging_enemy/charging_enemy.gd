@@ -4,6 +4,12 @@ extends Enemy
 @onready var sprite_activated: Sprite2D = $Sprite_Activated
 @onready var sprite_stunned: Sprite2D = $Sprite_Stunned
 
+## The contact damage that the charging enemy does when it is roaming.
+@export var normal_damage: int = 1
+
+## The contact damage that the charging enemy does when it is charging.
+@export var charging_damage: int = 2
+
 ## The normal speed of the charging enemy. This applies to its roaming movement.
 @export var normal_speed: float = 200
 
@@ -48,18 +54,24 @@ func set_own_state(state: EnemyState) -> void:
 			# NOTE: If the player detection component changes behavior this
 			# could be problematic.
 			$PlayerDetectionComponent.detecting = true
-			pass
+			
+			damage = normal_damage
+			
 		EnemyState.AGRESSIVE:
 			sprite_activated.show()
 			movement_speed = charging_speed
 			state_timer = charge_length
-			pass
+			
+			damage = charging_damage
+			
 		EnemyState.STUNNED:
 			sprite_stunned.show()
-			# Can't move while charging.
+			# Can't move while stunned.
 			movement_speed = 0
 			state_timer = stun_length
-			pass
+			
+			# Can't do contact damage when stunned.
+			damage = 0
 
 func _player_detected() -> void:
 	# When we detect the player, immediately charge.

@@ -7,8 +7,8 @@
 [ext_resource type="Texture2D" uid="uid://q5ug1lq6wqfb" path="res://enemy/charging_enemy/exclamation.svg" id="3_sjuam"]
 [ext_resource type="Texture2D" uid="uid://d327ma64qb8lu" path="res://enemy/charging_enemy/PROGRAMMER_ART_enemy_stunned.svg" id="5_65d30"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_6dsuu"]
-size = Vector2(130, 132)
+[sub_resource type="CircleShape2D" id="CircleShape2D_d6nje"]
+radius = 62.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_30lte"]
 radius = 60.0
@@ -137,6 +137,8 @@ _data = {
 
 [node name="ChargingEnemy" instance=ExtResource("1_nwicp")]
 script = ExtResource("2_xj1sy")
+normal_damage = 1
+charging_damage = 2
 normal_speed = 200.0
 charging_speed = 500.0
 charge_windup = 0.7
@@ -147,8 +149,7 @@ stun_length = 2.0
 detectable_distance = 500.0
 
 [node name="CollisionShape2D" parent="HittingArea" index="0"]
-position = Vector2(0, -12)
-shape = SubResource("RectangleShape2D_6dsuu")
+shape = SubResource("CircleShape2D_d6nje")
 
 [node name="Sprite_Normal" type="Sprite2D" parent="." index="4"]
 position = Vector2(0, -16)
