@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://bfx1dr21n0ttr"]
+
+[ext_resource type="Script" path="res://enemy/king_boss.gd" id="1_adaob"]
+[ext_resource type="Script" path="res://enemy/enemy_player_detection.gd" id="2_505ef"]
+
+[node name="KingBoss" type="Node2D"]
+script = ExtResource("1_adaob")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+[node name="PlayerDetectionComponent" type="Node2D" parent="."]
+script = ExtResource("2_505ef")
+
+[node name="DetectionRaycast" type="RayCast2D" parent="PlayerDetectionComponent"]
+target_position = Vector2(0, 0)
+collision_mask = 3
+hit_from_inside = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[connection signal="player_detected" from="PlayerDetectionComponent" to="PlayerDetectionComponent" method="_on_player_detected"]
