@@ -2,7 +2,7 @@ class_name AmalgamationVulnerableState extends AmalgamationState
 
 
 func enter() -> void:
-	# Enable taking damage for 5 seconds
+	# Enable taking damage for 5 seconds, then idle
 	%VulnerableHitArea.set_process(true)
 	await get_tree().create_timer(5).timeout
 	if state_machine.current_state != self:
