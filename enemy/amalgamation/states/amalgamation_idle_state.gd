@@ -1,5 +1,6 @@
 class_name AmalgamationIdleState extends AmalgamationState
 
+
 @export_group("Attack States")
 ## The node that contains the sucking logic
 @export var sucking_state:AmalgamationSuckingState
@@ -49,7 +50,7 @@ func get_random_attack() -> AmalgamationState:
 	# Set up the lists to select from
 	var possible_states:Array[AmalgamationState] = []
 	var possible_weights:Array[float] = []
-	var total_weight:float 
+	var total_weight:float = 0;
 
 	# Populate the lists to avoid selecting the same attack twice
 	for i in range(attack_states.size()):
