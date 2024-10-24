@@ -29,6 +29,9 @@ signal health_changed
 @export_range(0, 1) var pickup_drop_chance: float = 0.5 ## Chance of dropping a pick-up (hp, bomb, or stamina) on death
 
 @export var movement_speed: float = 256.0
+
+@export var enemy_sprite: Node2D ## The enemy sprite, quickly flickers when hurt.
+
 @onready var navigation_agent: NavigationAgent2D = get_node("NavigationAgent2D")
 
 var enemy_state := EnemyState.ROAMING
@@ -74,6 +77,8 @@ func hurt(damage_event: DamageEvent) -> void:
 	if health <= 0:
 		on_death()
 		queue_free()
+	
+	hitFlicker() # This is put after the death/queue_free because the dimming response is unnecessary when the enemy is already responding via death.
 
 ## Function to call upon death of enemy
 func on_death() -> void:
@@ -152,3 +157,9 @@ func _on_hitting_area_body_entered(body: Node2D) -> void:
 	if player != null:
 		var knockback := global_position.direction_to(player.global_position) * knockback_force
 		player.hurt(DamageEvent.new(damage, knockback))
+
+func hitFlicker() -> void:
+		var enemy_normal_modulate : Color = enemy_sprite.modulate
+		enemy_sprite.modulate=Color(0.4,0.4,0.4,1)
+		await get_tree().create_timer(0.1).timeout
+		enemy_sprite.modulate= enemy_normal_modulate
