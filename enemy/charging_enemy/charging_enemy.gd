@@ -4,14 +4,8 @@ extends Enemy
 @onready var sprite_activated: Sprite2D = $Sprite_Activated
 @onready var sprite_stunned: Sprite2D = $Sprite_Stunned
 
-## The contact damage that the charging enemy does when it is roaming.
-@export var normal_damage: int = 1
-
 ## The contact damage that the charging enemy does when it is charging.
 @export var charging_damage: int = 2
-
-## The normal speed of the charging enemy. This applies to its roaming movement.
-@export var normal_speed: float = 200
 
 ## The charging speed of the enemy. Applies only to its charging movement. To
 ## make it charge at high speed, make this much higher than the normal speed.
@@ -33,6 +27,11 @@ var charge_direction: Vector2
 ## Once it hits 0, we automatically change state.
 var state_timer: float = 0.0
 
+## While we're winding up, don't move.
+## NOTE: Don't bother setting this as a setting, this is just exported so
+## that it can be set by the animation player.
+@export var is_winding_up: bool = false
+
 ## Performs all the internal logic to set the charging enemy's state. Doing this
 ## in one place ensures that we always update everything we need to.
 func set_own_state(state: EnemyState) -> void:
@@ -49,29 +48,18 @@ func set_own_state(state: EnemyState) -> void:
 	match state:
 		EnemyState.ROAMING:
 			sprite_normal.show()
-			movement_speed = normal_speed
 			# Re-enable detection
 			# NOTE: If the player detection component changes behavior this
 			# could be problematic.
 			$PlayerDetectionComponent.detecting = true
 			
-			damage = normal_damage
-			
 		EnemyState.AGRESSIVE:
 			sprite_activated.show()
-			movement_speed = charging_speed
 			state_timer = charge_length
-			
-			damage = charging_damage
 			
 		EnemyState.STUNNED:
 			sprite_stunned.show()
-			# Can't move while stunned.
-			movement_speed = 0
 			state_timer = stun_length
-			
-			# Can't do contact damage when stunned.
-			damage = 0
 
 func _player_detected() -> void:
 	# When we detect the player, immediately charge.
@@ -132,3 +120,23 @@ func _physics_process(delta: float) -> void:
 			set_own_state(EnemyState.STUNNED)
 	else:
 		super(delta)
+		
+func _get_contact_damage() -> int:
+	match enemy_state:
+		EnemyState.ROAMING:
+			return damage
+		EnemyState.AGRESSIVE:
+			return charging_damage
+		# Can't do contact damage while stunned.
+		_:
+			return 0
+			
+func _get_movement_speed() -> float:
+	match enemy_state:
+		EnemyState.ROAMING:
+			return movement_speed
+		EnemyState.AGRESSIVE:
+			return charging_speed
+		# Can't move while stunned.
+		_:
+			return 0
