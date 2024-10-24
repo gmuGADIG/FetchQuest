@@ -40,6 +40,8 @@ func set_own_state(state: EnemyState) -> void:
 	
 	self.enemy_state = state
 	
+	print("Set state to " , state)
+	
 	match state:
 		EnemyState.ROAMING:
 			sprite_normal.show()
@@ -61,6 +63,8 @@ func _player_detected() -> void:
 	# When we detect the player, immediately charge.
 	# The animation player handles the animation, and will call us back later.
 	$AnimationPlayer.play("Charge")
+	
+	print("Player detected!")
 	
 	# Grab our target position when we start the charge animation.
 	charge_target_position = Player.instance.global_position
