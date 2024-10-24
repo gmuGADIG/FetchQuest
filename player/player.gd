@@ -71,20 +71,21 @@ func start_roll() -> void:
 	roll_vector = Input.get_vector("move_left", "move_right", "move_up", "move_down").normalized()
 	# switch off collision with enemy bullets and the holes
 	self.set_collision_mask_value(6, false)
-	self.set_collision_mask_value(4, false)
+	%HoleDetector.monitoring = false
+	
 	# make the timer go
 	$RollTimer.start(roll_timer)
 
 # callback from roll timer. reverts changes made by start_roll
 func stop_roll() -> void:
 	rolling = false
+	%HoleDetector.monitoring = true
 	
 	self.set_collision_mask_value(6, true)
-	self.set_collision_mask_value(4, true)
 
 func _init() -> void:
 	instance = self
-	
+
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("speak"):
 		if !$Speak.on_cooldown():
@@ -150,8 +151,7 @@ func hurt(damage_event: DamageEvent) -> void:
 	print("player.gd: Health lowered to %s/%s" % [health, max_health])
 	
 	if health <= 0:
-		get_tree().change_scene_to_file("uid://b6jsq4syp4v0w")
-		pass # player death is not yet implemented
+		get_tree().change_scene_to_file.call_deferred("uid://b6jsq4syp4v0w")
 
 ## Increases the player, not exceeding its max health
 func heal(gained: int) -> void:

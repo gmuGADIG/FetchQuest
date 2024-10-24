@@ -5,7 +5,7 @@ func _ready() -> void:
 
 
 func _on_restart_checkpoint_pressed() -> void:
-	get_tree().change_scene_to_file("uid://3sqp1m0iowsi")
+	get_tree().change_scene_to_file("res://world/latest_demo_2.tscn")
 # Button pressed to go restart and contiune to play the game
 # TODO: 
 #make a current save to load back rather than restart the whole game
