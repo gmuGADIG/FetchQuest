@@ -2,6 +2,7 @@ class_name Bomb extends CharacterBody2D
 
 @export var time_till_explode: int = 2
 @export var damage: int = 10
+@export var damage_to_player: int = 1
 @export var knockback: float = 10
 
 func _ready() -> void:
@@ -18,7 +19,10 @@ func explode() -> void:
 	print(damaged_things)
 	for thing in damaged_things:
 		if thing.has_method("hurt") and !(thing is Bomb):
-			thing.hurt(DamageEvent.new(damage, velocity.normalized() * knockback)) 
+			if (thing is Player):
+				thing.hurt(DamageEvent.new(damage_to_player, velocity.normalized() * knockback)) 
+			else:
+				thing.hurt(DamageEvent.new(damage, velocity.normalized() * knockback)) 
 	
 	#TODO: change animation
 	get_node("BombSprite").scale.x *= 4
