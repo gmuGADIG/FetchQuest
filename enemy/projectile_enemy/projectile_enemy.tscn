@@ -1,15 +1,27 @@
-[gd_scene load_steps=4 format=3 uid="uid://bs6o5glcfe2as"]
+[gd_scene load_steps=5 format=3 uid="uid://bs6o5glcfe2as"]
 
 [ext_resource type="PackedScene" uid="uid://blpi4x6if673v" path="res://enemy/base_enemy.tscn" id="1_27jju"]
 [ext_resource type="Texture2D" uid="uid://bf0rs7x60qf5e" path="res://enemy/projectile_enemy/octorok.png" id="2_8e4mk"]
 [ext_resource type="Script" path="res://enemy/projectile_enemy/shoot_projectile_behavior.gd" id="3_qdk2l"]
 
-[node name="BaseEnemy" instance=ExtResource("1_27jju")]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3wk5l"]
+size = Vector2(112, 112)
+
+[node name="ProjectileEnemy" instance=ExtResource("1_27jju")]
 
 [node name="Sprite2D" type="Sprite2D" parent="." index="3"]
 position = Vector2(0.887735, -0.156915)
+rotation = -1.5708
 scale = Vector2(3.68048, 3.58954)
 texture = ExtResource("2_8e4mk")
 
 [node name="ShootProjectileBehavior" type="Node2D" parent="." index="4"]
 script = ExtResource("3_qdk2l")
+
+[node name="Timer" type="Timer" parent="ShootProjectileBehavior" index="0"]
+autostart = true
+
+[node name="Hurtbox" type="CollisionShape2D" parent="." index="5"]
+shape = SubResource("RectangleShape2D_3wk5l")
+
+[connection signal="timeout" from="ShootProjectileBehavior/Timer" to="ShootProjectileBehavior" method="shoot"]
