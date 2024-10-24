@@ -1,0 +1,68 @@
+[gd_scene load_steps=12 format=3 uid="uid://88wgf8hq5ksx"]
+
+[ext_resource type="PackedScene" uid="uid://c7ck7ril2jix2" path="res://player/player.tscn" id="1_2qa47"]
+[ext_resource type="PackedScene" uid="uid://cg2jt0166hik8" path="res://world/interactable/red_coin/red_coin_manager.tscn" id="2_ryc1t"]
+[ext_resource type="PackedScene" uid="uid://gp1o7iklljk2" path="res://world/interactable/red_coin/red_coin.tscn" id="3_5nxao"]
+[ext_resource type="PackedScene" uid="uid://bv2blm5myu3gk" path="res://world/interactable/pickups/pickup_health.tscn" id="4_37ii3"]
+[ext_resource type="PackedScene" uid="uid://b60qs6jc07tbj" path="res://world/interactable/switch/switch.tscn" id="5_3pcyg"]
+[ext_resource type="PackedScene" uid="uid://uj2rytnj1h4" path="res://enemy/test_enemy/test_enemy.tscn" id="5_owqgt"]
+[ext_resource type="Script" path="res://world/interactable/bark_interactables/bark_interactable_switch_manager.gd" id="6_h80ng"]
+[ext_resource type="Script" path="res://world/interactable/bark_interactables/bark_switch.gd" id="8_ljfty"]
+[ext_resource type="Texture2D" uid="uid://bxnmkyv62a7v2" path="res://demo_art/SwitchOff.jpg" id="8_r2xsg"]
+[ext_resource type="Texture2D" uid="uid://doe1qdyl16e6t" path="res://demo_art/SwitchOn.jpg" id="9_m8uyq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sa8wx"]
+size = Vector2(40.5511, 41.6)
+
+[node name="BarkInteractableTestScene" type="Node2D"]
+position = Vector2(-1, 1)
+
+[node name="Player" parent="." instance=ExtResource("1_2qa47")]
+position = Vector2(534, 261)
+
+[node name="RedCoinManager" parent="." node_paths=PackedStringArray("reward") instance=ExtResource("2_ryc1t")]
+reward = NodePath("pickup_health")
+
+[node name="RedCoin" parent="RedCoinManager" instance=ExtResource("3_5nxao")]
+
+[node name="RedCoin2" parent="RedCoinManager" instance=ExtResource("3_5nxao")]
+position = Vector2(560, 82)
+
+[node name="RedCoin3" parent="RedCoinManager" instance=ExtResource("3_5nxao")]
+position = Vector2(906, 266)
+
+[node name="pickup_health" parent="RedCoinManager" instance=ExtResource("4_37ii3")]
+position = Vector2(678, 352)
+
+[node name="TestEnemy" parent="RedCoinManager" instance=ExtResource("5_owqgt")]
+position = Vector2(105, 194)
+
+[node name="BarkInteractleSwitchManager" type="Node2D" parent="."]
+position = Vector2(368, 447)
+script = ExtResource("6_h80ng")
+
+[node name="Switch" parent="BarkInteractleSwitchManager" instance=ExtResource("5_3pcyg")]
+
+[node name="BarkSwitch" type="Area2D" parent="BarkInteractleSwitchManager"]
+position = Vector2(180, 0)
+collision_layer = 64
+collision_mask = 4
+script = ExtResource("8_ljfty")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BarkInteractleSwitchManager/BarkSwitch"]
+position = Vector2(0.5, 0)
+rotation = -3.14159
+scale = Vector2(2.54, 2.5)
+shape = SubResource("RectangleShape2D_sa8wx")
+
+[node name="Off" type="Sprite2D" parent="BarkInteractleSwitchManager/BarkSwitch"]
+rotation = 1.56699
+texture = ExtResource("8_r2xsg")
+
+[node name="On" type="Sprite2D" parent="BarkInteractleSwitchManager/BarkSwitch"]
+visible = false
+rotation = 1.56699
+texture = ExtResource("9_m8uyq")
+
+[connection signal="area_entered" from="BarkInteractleSwitchManager/BarkSwitch" to="BarkInteractleSwitchManager/BarkSwitch" method="_on_area_entered"]
+[connection signal="switch_activated" from="BarkInteractleSwitchManager/BarkSwitch" to="BarkInteractleSwitchManager" method="_on_bark_switch_switch_activated"]
