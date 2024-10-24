@@ -9,14 +9,13 @@ vertices = PackedVector2Array(2570.82, 1374.19, -1259, 1441.82, -1259, -675.57, 
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(-1269, -685, -1269, 1452, 2582, 1384, 2325, -896)])
 
-[node name="CreepEnemyTest" type="Node2D"]
+[node name="ChargingEnemyTest" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("1_8arcm")]
 position = Vector2(633, 267)
 
-[node name="BaseEnemy" parent="." instance=ExtResource("2_x47o1")]
-position = Vector2(193, 274)
-
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
 navigation_polygon = SubResource("NavigationPolygon_tit5u")
 script = ExtResource("3_tnn7i")
+
+[node name="ChargingEnemy" parent="." instance=ExtResource("2_x47o1")]
