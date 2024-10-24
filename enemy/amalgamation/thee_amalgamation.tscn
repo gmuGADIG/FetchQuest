@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://xgwwcejvha1d"]
+[gd_scene load_steps=17 format=3 uid="uid://xgwwcejvha1d"]
 
 [ext_resource type="Texture2D" uid="uid://dkcslmk1lo8iw" path="res://enemy/amalgamation/amalgamation.png" id="1_11my7"]
 [ext_resource type="Script" path="res://enemy/amalgamation/thee_amalgamation.gd" id="1_q0tx4"]
@@ -7,13 +7,21 @@
 [ext_resource type="Script" path="res://enemy/amalgamation/states/amalgamation_chewing_state.gd" id="4_f6qwh"]
 [ext_resource type="Script" path="res://enemy/amalgamation/states/amalgamation_idle_state.gd" id="5_ul5i8"]
 [ext_resource type="Script" path="res://enemy/amalgamation/states/amalgamation_pillars_state.gd" id="6_cos00"]
+[ext_resource type="PackedScene" uid="uid://dtclkg07t3rcj" path="res://enemy/amalgamation/amalgamation_pillar_of_light.tscn" id="7_24me5"]
 [ext_resource type="Script" path="res://enemy/amalgamation/states/amalgamation_spitting_state.gd" id="7_kvuo0"]
 [ext_resource type="Script" path="res://enemy/amalgamation/states/amalgamation_sucking_state.gd" id="8_1g38x"]
 [ext_resource type="Script" path="res://enemy/amalgamation/states/amalgamation_vulnerable_state.gd" id="9_0n3tp"]
+[ext_resource type="PackedScene" uid="uid://uj2rytnj1h4" path="res://enemy/test_enemy/test_enemy.tscn" id="9_sxcn4"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_roexs"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vau65"]
+size = Vector2(78, 30)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_tq8je"]
+radius = 66.0076
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fcu4u"]
 size = Vector2(78, 30)
 
 [node name="Amalgamation" type="Node2D"]
@@ -34,12 +42,16 @@ script = ExtResource("5_ul5i8")
 sucking_state = NodePath("../Sucking")
 pillar_state = NodePath("../Pillars")
 spit_state = NodePath("../Spitting")
+sucking_weight = 100.0
+spit_weight = 50.0
 
 [node name="Pillars" type="Node" parent="StateMachine"]
 script = ExtResource("6_cos00")
+pillar_scene = ExtResource("7_24me5")
 
 [node name="Spitting" type="Node" parent="StateMachine"]
 script = ExtResource("7_kvuo0")
+possible_enemies = Array[PackedScene]([ExtResource("9_sxcn4")])
 
 [node name="Sucking" type="Node" parent="StateMachine"]
 script = ExtResource("8_1g38x")
@@ -52,12 +64,15 @@ scale = Vector2(0.07, 0.07)
 texture = ExtResource("1_11my7")
 
 [node name="MouthArea" type="Area2D" parent="."]
+unique_name_in_owner = true
 position = Vector2(0, 7)
 collision_layer = 4
-collision_mask = 128
+collision_mask = 130
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MouthArea"]
+position = Vector2(0, -6)
 shape = SubResource("CircleShape2D_roexs")
+debug_color = Color(0, 0.613978, 0.600604, 0.658824)
 
 [node name="VulnerableHitArea" type="Area2D" parent="."]
 unique_name_in_owner = true
@@ -66,6 +81,23 @@ collision_mask = 130
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="VulnerableHitArea"]
 shape = SubResource("RectangleShape2D_vau65")
+debug_color = Color(0.957987, 0, 0.529598, 0.42)
+
+[node name="SuckingArea" type="Area2D" parent="."]
+unique_name_in_owner = true
+collision_layer = 4
+collision_mask = 134
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SuckingArea"]
+shape = SubResource("CircleShape2D_tq8je")
+debug_color = Color(0.757734, 0.454117, 1.34766e-06, 0.42)
+
+[node name="HurtboxArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxArea"]
+shape = SubResource("RectangleShape2D_fcu4u")
 
 [connection signal="body_entered" from="MouthArea" to="StateMachine/Asleep" method="_on_mouth_area_body_entered"]
 [connection signal="body_entered" from="MouthArea" to="StateMachine/Sucking" method="_on_mouth_area_body_entered"]

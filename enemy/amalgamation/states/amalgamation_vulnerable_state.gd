@@ -1,5 +1,6 @@
 class_name AmalgamationVulnerableState extends AmalgamationState
 
+
 func enter() -> void:
 	# Enable taking damage for 5 seconds
 	%VulnerableHitArea.set_process(true)
