@@ -15,7 +15,7 @@ extends Enemy
 @export var charge_windup: float = 0.7
 
 ## The length of the charge attack in seconds.
-@export var charge_length: float = 4.0
+@export var charge_length: float = 1.5
 
 ## The length of the stun at the end of the charge in seconds.
 @export var stun_length: float = 2.0
@@ -113,5 +113,10 @@ func _physics_process(delta: float) -> void:
 	if enemy_state == EnemyState.AGRESSIVE:
 		velocity = charge_direction * charging_speed
 		move_and_slide()
+		
+		# If we hit a wall, this will be greater than 0. In that case, we
+		# end the charge early.
+		if get_slide_collision_count() > 0:
+			set_own_state(EnemyState.STUNNED)
 	else:
 		super(delta)
