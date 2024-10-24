@@ -28,6 +28,7 @@ func _ready() -> void:
 		SpawnerEnemyTimer.connect("timeout", start_enemy_spawn)
 		TimeToSpawnTimer.connect("timeout", spawn_mini_enemy)
 
+## (movement stuff!)
 func _physics_process(_delta: float) -> void:
 	if Player.instance == null: return
 	else: if is_spawning: return
@@ -35,12 +36,11 @@ func _physics_process(_delta: float) -> void:
 
 	look_at(Player.instance.global_position)
 
-func _process_agressive(delta : float) -> void :
-	pass
-
+## Function to begin the enemy spawning process!!! :D
 func start_enemy_spawn() -> void:
 	if is_spawning: return
 	else: is_spawning = true
+	
 	enemy_state = EnemyState.AGRESSIVE
 	print("Starting enemy spawn!")
 	
