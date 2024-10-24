@@ -1,12 +1,8 @@
 class_name Quest extends Resource
 
 ## Quest identifier
-@export var quest_ID:int = 0
+@export var quest_ID:String = ""
 
-## If the quest is available
-@export var available:bool = false
-
-##@explort var requirements:Array[Object]
 ## If the quest is accepted
 var quest_accept:bool = false
 ## If the quest is complete
@@ -22,14 +18,16 @@ var quest_complete:bool = false
 ## The current instruction
 @export var current_instruction:String
 ## The quest rewards
-##@export var quest_rewards:Array[Object]
+@export var quest_rewards:Array[String]
 ## If there's a new quest, then the next quest is run
-##@export var next_quest:Object
+@export var next_quest:Quest
 
+## This function sets a quest as accept
 func accept_quest() -> void:
 	quest_accept = true
 	quest_complete = false
 	
+## This function sets a quest as complete
 func complete_quest() -> void:
 	quest_accept = false
 	quest_complete = true
