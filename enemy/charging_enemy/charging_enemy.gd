@@ -20,8 +20,8 @@ extends Enemy
 ## The length of the stun at the end of the charge in seconds.
 @export var stun_length: float = 2.0
 
-# Always charge towards a fixed position.
-var charge_target_position: Vector2 = Vector2.ZERO
+# Unit vector storing the current direction we're charging.
+var charge_direction: Vector2
 
 ## Timer that keeps track of how long we've been charging or stunned.
 ## Once it hits 0, we automatically change state.
@@ -70,7 +70,7 @@ func _player_detected() -> void:
 	$PlayerDetectionComponent.detecting = false
 	
 	# Grab our target position when we start the charge animation.
-	charge_target_position = Player.instance.global_position
+	charge_direction = global_position.direction_to(Player.instance.global_position)
 
 func _ready() -> void:
 	super()
@@ -78,9 +78,8 @@ func _ready() -> void:
 	# The enemy starts out in Roaming state.
 	set_own_state(EnemyState.ROAMING)
 	
-	# Just in case we somehow end up in wrong state, make the target position
-	# sensible.
-	charge_target_position = global_position
+	# Just in case we somehow end up in wrong state, make the direction sensible.
+	charge_direction = Vector2.LEFT
 	
 	$PlayerDetectionComponent.player_detected.connect(_player_detected)
 	
@@ -97,13 +96,6 @@ func _anim_charge_now() -> void:
 # time left in the charge. This is important because the actual behavior is
 # just to charge in a straight line.
 func _process_agressive(delta: float) -> void:
-	# Always move towards the chosen position from the beginning of the charge.
-	approach(charge_target_position)
-	
-	# If we reach the target, immediately stun
-	if self.is_at_target_position():
-		set_own_state(EnemyState.STUNNED)
-	
 	state_timer -= delta
 	if state_timer <= 0:
 		set_own_state(EnemyState.STUNNED)
@@ -114,3 +106,12 @@ func _process_stunned(delta: float) -> void:
 	state_timer -= delta
 	if state_timer <= 0:
 		set_own_state(EnemyState.ROAMING)
+		
+# When we're in the aggressive mode, we want to charge in a straight line without
+# using navigation. So, we have to override physics process.
+func _physics_process(delta: float) -> void:
+	if enemy_state == EnemyState.AGRESSIVE:
+		velocity = charge_direction * charging_speed
+		move_and_slide()
+	else:
+		super(delta)
