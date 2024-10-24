@@ -52,7 +52,6 @@ func hurt(damage_event: DamageEvent) -> void:
 
 ## Function to call upon death of enemy
 func on_death() -> void:
-	codex_database.unlock_entry(1)
 	# if the chance fails, bail out of the function and do nothing
 	if (randf() > pickup_drop_chance): return
 	

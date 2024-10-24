@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=4 uid="uid://c0b860627rcs5"]
+[gd_scene load_steps=28 format=4 uid="uid://c0b860627rcs5"]
 
 [ext_resource type="PackedScene" uid="uid://cnd06dpkgufe4" path="res://world/level_base.tscn" id="1_2iy6g"]
 [ext_resource type="Script" path="res://world/decoration/trees/tree_gen.gd" id="2_n44bl"]
@@ -23,7 +23,7 @@
 [ext_resource type="Script" path="res://world/interactable/transition_trigger/transition_trigger.gd" id="18_u8qny"]
 [ext_resource type="PackedScene" uid="uid://cg2jt0166hik8" path="res://world/interactable/red_coin/red_coin_manager.tscn" id="20_cbi4s"]
 [ext_resource type="PackedScene" uid="uid://gp1o7iklljk2" path="res://world/interactable/red_coin/red_coin.tscn" id="21_7gu4x"]
-[ext_resource type="PackedScene" uid="uid://d2f8vvktbvdx3" path="res://codex/scripts/codex_menu.tscn" id="24_a7nna"]
+[ext_resource type="Script" path="res://world/entrypoints/scripts/scene_points.gd" id="24_rvkrf"]
 
 [sub_resource type="Curve2D" id="Curve2D_j10fm"]
 _data = {
@@ -32,6 +32,9 @@ _data = {
 point_count = 2
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c0qo5"]
+size = Vector2(158, 146)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8wpay"]
 size = Vector2(158, 146)
 
 [node name="LatestDemo2" instance=ExtResource("1_2iy6g")]
@@ -1764,7 +1767,8 @@ position = Vector2(751, 531)
 position = Vector2(323, 124)
 
 [node name="Player" parent="." index="4" instance=ExtResource("16_sqpfi")]
-position = Vector2(556, 639)
+unique_name_in_owner = true
+position = Vector2(835, 839)
 
 [node name="MainCam" parent="." index="5"]
 position = Vector2(1815, -250)
@@ -1772,10 +1776,32 @@ zoom = Vector2(0.7, 0.7)
 limit_top = -600
 limit_right = 1890
 
-[node name="CodexCanvas" parent="." index="7" instance=ExtResource("24_a7nna")]
-
-[node name="Reloader" type="Node" parent="." index="9"]
+[node name="Reloader" type="Node" parent="." index="8"]
 script = ExtResource("8_gqbog")
 despawn_margin = 650.0
 
+[node name="EntryPoints" type="Node2D" parent="." index="9"]
+position = Vector2(533, 1591)
+scale = Vector2(0.429116, 0.429116)
+script = ExtResource("24_rvkrf")
+
+[node name="EntryPoint1_0" type="Node2D" parent="EntryPoints" index="0"]
+position = Vector2(351.886, -1908.57)
+
+[node name="EntryPoint1_1" type="Area2D" parent="EntryPoints" index="1"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("18_u8qny")
+scene_name = "latest_demo_2"
+
+[node name="DungeonEntrance" type="Sprite2D" parent="EntryPoints/EntryPoint1_1" index="0"]
+position = Vector2(14, -64.9999)
+scale = Vector2(2.33037, 2.33037)
+texture = ExtResource("17_o8ma7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EntryPoints/EntryPoint1_1" index="1"]
+position = Vector2(6, -13)
+shape = SubResource("RectangleShape2D_8wpay")
+
 [connection signal="body_entered" from="PuzzleArea/DungeonEntrance/TransitionScene" to="PuzzleArea/DungeonEntrance/TransitionScene" method="_on_body_entered"]
+[connection signal="body_entered" from="EntryPoints/EntryPoint1_1" to="EntryPoints/EntryPoint1_1" method="_on_body_entered"]
