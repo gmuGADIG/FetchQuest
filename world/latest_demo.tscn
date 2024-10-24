@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://blij4kfole7hk"]
+[gd_scene load_steps=21 format=3 uid="uid://cu6381glgco70"]
 
 [ext_resource type="PackedScene" uid="uid://c7ck7ril2jix2" path="res://player/player.tscn" id="2_vi53h"]
 [ext_resource type="PackedScene" uid="uid://bom8mopkckp5y" path="res://world/interactable/chest/chest.tscn" id="3_iuoyy"]
@@ -7,7 +7,6 @@
 [ext_resource type="PackedScene" uid="uid://d3xngexqsy6m7" path="res://enemy_spawner/enemy_spawner.tscn" id="7_007xo"]
 [ext_resource type="PackedScene" uid="uid://70lp7kfk3yw6" path="res://UI/hud/hud.tscn" id="8_6bf8d"]
 [ext_resource type="Texture2D" uid="uid://dymucenpxmluo" path="res://icon.svg" id="8_umcft"]
-[ext_resource type="PackedScene" uid="uid://dutetduietx8r" path="res://enemy/shield_enemy/shield_enemy.tscn" id="9_opy6u"]
 [ext_resource type="PackedScene" uid="uid://cg2jt0166hik8" path="res://world/interactable/red_coin/red_coin_manager.tscn" id="9_svfaa"]
 [ext_resource type="PackedScene" uid="uid://gp1o7iklljk2" path="res://world/interactable/red_coin/red_coin.tscn" id="10_kg0ye"]
 [ext_resource type="PackedScene" uid="uid://bv2blm5myu3gk" path="res://world/interactable/pickups/pickup_health.tscn" id="11_4buq1"]
@@ -17,28 +16,14 @@
 [ext_resource type="Script" path="res://world/interactable/transition_trigger/transition_trigger.gd" id="15_4y615"]
 [ext_resource type="PackedScene" uid="uid://blh1fs712dql8" path="res://world/interactable/locked_door/locked_door.tscn" id="16_ob7ry"]
 [ext_resource type="PackedScene" uid="uid://dt3m30r5dehup" path="res://world/interactable/pickups/pickup_key.tscn" id="17_40pvk"]
-[ext_resource type="PackedScene" uid="uid://be0wx1bwh443q" path="res://ui/pause_menu/pause_menu.tscn" id="18_be8nm"]
-[ext_resource type="PackedScene" uid="uid://c8pg7meq81nup" path="res://world/interactable/holes/hole.tscn" id="19_kbxqu"]
+[ext_resource type="PackedScene" uid="uid://duhvhegf6byvr" path="res://enemy/spawner_enemy/spawner_enemy.tscn" id="18_3svfc"]
+[ext_resource type="PackedScene" uid="uid://be0wx1bwh443q" path="res://UI/pause_menu/pause_menu.tscn" id="18_be8nm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2fj35"]
 size = Vector2(129.5, 126)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3rema"]
 size = Vector2(158, 146)
-
-[sub_resource type="GDScript" id="GDScript_sw7j5"]
-script/source = "extends CollisionShape2D
-
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-"
 
 [node name="LatestDemo" type="Node2D"]
 
@@ -143,9 +128,11 @@ scale = Vector2(1.84687, 1.84687)
 
 [node name="PushableBlock" parent="." instance=ExtResource("12_dx3ra")]
 position = Vector2(1011, 570)
+scale = Vector2(2, 2)
 
 [node name="PushableBlock2" parent="." instance=ExtResource("12_dx3ra")]
 position = Vector2(1370, 557)
+scale = Vector2(2, 2)
 
 [node name="DungeonEntrance" type="Sprite2D" parent="."]
 position = Vector2(1699, 24)
@@ -176,13 +163,5 @@ position = Vector2(1281, 196)
 
 [node name="SpawnerEnemy" parent="." instance=ExtResource("18_3svfc")]
 position = Vector2(584, 529)
-[node name="Hole" type="CollisionShape2D" parent="."]
-script = SubResource("GDScript_sw7j5")
-
-[node name="Hole2" parent="." instance=ExtResource("19_kbxqu")]
-position = Vector2(-317, 206)
-
-[node name="ShieldEnemy" parent="." instance=ExtResource("9_opy6u")]
-position = Vector2(344, 267)
 
 [connection signal="body_entered" from="DungeonEntrance/TransitionScene" to="DungeonEntrance/TransitionScene" method="_on_body_entered"]
