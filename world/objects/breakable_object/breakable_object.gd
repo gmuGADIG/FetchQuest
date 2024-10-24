@@ -3,10 +3,11 @@ class_name BreakableObject extends StaticBody2D
 @onready var not_broken := get_node("BreakableWall")
 @onready var broken := get_node("BrokenWall")
 @onready var hitbox := get_node("Hitbox")
+@export_range(0, 1) var pickup_drop_chance: float = 0.5 ## Chance of dropping a pick-up 
 
 func hurt(_damage_event: DamageEvent) -> void:
 	#Totally not stolen from enemine
-	if (randf() <= 0.9):
+	if (randf() <= pickup_drop_chance):
 
 		# add bombs, health, and stamina to the list of possible drops, after checking if they're eligible
 		var eligible_pickup_paths: Array[String]
