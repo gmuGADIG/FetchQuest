@@ -46,6 +46,10 @@ func set_own_state(state: EnemyState) -> void:
 		EnemyState.ROAMING:
 			sprite_normal.show()
 			movement_speed = normal_speed
+			# Re-enable detection
+			# NOTE: If the player detection component changes behavior this
+			# could be problematic.
+			$PlayerDetectionComponent.detecting = true
 			pass
 		EnemyState.AGRESSIVE:
 			sprite_activated.show()
@@ -64,7 +68,8 @@ func _player_detected() -> void:
 	# The animation player handles the animation, and will call us back later.
 	$AnimationPlayer.play("Charge")
 	
-	print("Player detected!")
+	# Stop detecting players until we reset back to the idle state
+	$PlayerDetectionComponent.detecting = false
 	
 	# Grab our target position when we start the charge animation.
 	charge_target_position = Player.instance.global_position
@@ -86,12 +91,16 @@ func _ready() -> void:
 func _anim_charge_now() -> void:
 	set_own_state(EnemyState.AGRESSIVE)
 	
-# Override the aggressive processing to do nothing but count down the amount of
+# Override the aggressive prtgodessing to do nothing but count down the amount of
 # time left in the charge. This is important because the actual behavior is
 # just to charge in a straight line.
 func _process_agressive(delta: float) -> void:
 	# Always move towards the chosen position from the beginning of the charge.
 	approach(charge_target_position)
+	
+	# If we reach the target, immediately stun
+	if global_position.distance_squared_to(charge_target_position) < 2 * 2:
+		set_own_state(EnemyState.STUNNED)
 	
 	state_timer -= delta
 	if state_timer <= 0:
