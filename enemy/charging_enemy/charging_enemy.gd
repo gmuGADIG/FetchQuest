@@ -9,16 +9,16 @@ extends Enemy
 
 ## The charging speed of the enemy. Applies only to its charging movement. To
 ## make it charge at high speed, make this much higher than the normal speed.
-@export var charging_speed: float = 1000
+@export var charging_speed: float = 500
 
 ## The length of the charge windup animation in seconds.
-@export var charge_windup: float = 0.25
+@export var charge_windup: float = 0.7
 
 ## The length of the charge attack in seconds.
-@export var charge_length: float = 3.0
+@export var charge_length: float = 4.0
 
 ## The length of the stun at the end of the charge in seconds.
-@export var stun_length: float = 3.0
+@export var stun_length: float = 2.0
 
 # Always charge towards a fixed position.
 var charge_target_position: Vector2 = Vector2.ZERO
@@ -39,8 +39,6 @@ func set_own_state(state: EnemyState) -> void:
 	sprite_stunned.hide()
 	
 	self.enemy_state = state
-	
-	print("Set state to " , state)
 	
 	match state:
 		EnemyState.ROAMING:
@@ -86,6 +84,10 @@ func _ready() -> void:
 	
 	$PlayerDetectionComponent.player_detected.connect(_player_detected)
 	
+	# To use the charge windup speed, we scale the speed of the animation
+	# player. This animation player is ONLY used to do the Charge animation.
+	$AnimationPlayer.speed_scale = 1.0 / charge_windup
+	
 ## Called by the AnimationPlayer when the Charge animation finishes. At that point,
 ## we change to Aggressive mode which performs the charging logic.
 func _anim_charge_now() -> void:
@@ -99,7 +101,7 @@ func _process_agressive(delta: float) -> void:
 	approach(charge_target_position)
 	
 	# If we reach the target, immediately stun
-	if global_position.distance_squared_to(charge_target_position) < 2 * 2:
+	if self.is_at_target_position():
 		set_own_state(EnemyState.STUNNED)
 	
 	state_timer -= delta

@@ -126,6 +126,11 @@ func approach(target: Vector2) -> void:
 	if navigation_agent:
 		navigation_agent.set_target_position(target)
 
+## Helper function for derived Enemy types to check whether or not they have
+## reached their target position.
+func is_at_target_position() -> bool:
+	return navigation_agent.is_navigation_finished()
+
 func _physics_process(delta: float) -> void:
 	if navigation_agent.is_navigation_finished():
 		_on_velocity_computed(Vector2.ZERO)
