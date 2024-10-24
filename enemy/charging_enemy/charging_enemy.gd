@@ -134,6 +134,10 @@ func _get_contact_damage() -> int:
 func _get_movement_speed() -> float:
 	match enemy_state:
 		EnemyState.ROAMING:
+			# Don't move while we're winding up
+			if is_winding_up:
+				return 0
+			# Otherwise roam at the base "movement_speed"
 			return movement_speed
 		EnemyState.AGRESSIVE:
 			return charging_speed
