@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://c3j0fehxpbbjh"]
+
+[ext_resource type="Script" path="res://world/interactable/bark_interactables/bark_switch.gd" id="1_76uv4"]
+[ext_resource type="Texture2D" uid="uid://bxnmkyv62a7v2" path="res://demo_art/SwitchOff.jpg" id="2_rvt04"]
+[ext_resource type="Texture2D" uid="uid://doe1qdyl16e6t" path="res://demo_art/SwitchOn.jpg" id="3_8x6g5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sa8wx"]
+size = Vector2(40.5511, 41.6)
+
+[node name="BarkSwitch" type="Area2D"]
+position = Vector2(180, 0)
+collision_layer = 68
+collision_mask = 68
+script = ExtResource("1_76uv4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, 0)
+rotation = -3.14159
+scale = Vector2(2.54, 2.5)
+shape = SubResource("RectangleShape2D_sa8wx")
+
+[node name="Off" type="Sprite2D" parent="."]
+rotation = 1.56699
+texture = ExtResource("2_rvt04")
+
+[node name="On" type="Sprite2D" parent="."]
+visible = false
+rotation = 1.56699
+texture = ExtResource("3_8x6g5")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

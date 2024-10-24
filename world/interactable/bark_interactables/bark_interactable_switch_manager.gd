@@ -1,11 +1,12 @@
 extends Node2D
 
-@export var bark_switches: Array[Node2D]
+@export var bark_switches: Array[Area2D]
 
-var switches_hit: Array[Node2D]
-var num_hit: int
+var switches_hit: Array[String] 
+var num_hit: int = 0
 
-var correctOrder := false
+var correct_order := false
+signal deactivae_switches
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
@@ -15,16 +16,36 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	pass
 
-
-func _on_bark_switch_switch_activated(switch: Node2D) -> void:
-	switches_hit[num_hit] = switch
+func switch_hit(switch: String) -> void:
+	print(switch)
+	switches_hit.append(switch)
 	num_hit += 1
-	if(num_hit >=bark_switches.size()):
+	if(num_hit >= bark_switches.size()):
 		_order_check()
-	pass # Replace with function body.
+		
+
 	
 func _order_check() -> void:
-	correctOrder = true
-	for i in bark_switches.size:
-		if(bark_switches[i] !=switches_hit[i]): correctOrder = false
+	correct_order = true
+	var i := 0;
+	var array_size : int = bark_switches.size()
+	while i < array_size:
+		if(bark_switches[i].name != switches_hit[i]): correct_order = false
+		i+= 1;
+	if correct_order:
+		print("You hit the switches in the correct order!")
+	else:
+		var delay := Timer.new()
+		add_child(delay)
+		delay.start(0.1)
+		delay.timeout.connect(flip_switches)
+		
+	pass
+	
+func flip_switches() -> void:
+	for children in get_children():
+		if(children.has_method("deactivate")):
+			children.deactivate()
+	switches_hit.clear()
+	print("Wrong order :(")
 	pass

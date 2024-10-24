@@ -22,6 +22,7 @@ func _on_body_entered(body: Node2D) -> void:
 				printerr("Aura collided with an enemy that does not have a stun script!")
 			
 			
-	
+	if(body.has_method("stun")):
+		body.stun()
 			
 	pass # Replace with function body.

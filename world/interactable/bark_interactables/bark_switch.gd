@@ -20,11 +20,25 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	pass
 
-
+func stun() -> void:
+	print("stunned")
+	if !activated:
+		activated = true
+		get_parent().switch_hit(self.name)
+		_on_sprite.visible = true
+		_off_sprite.visible = false
 
 func _on_area_entered(area: Area2D) -> void:
-	activated = true
-	switch_activated.emit(self)
-	_on_sprite.visible = true
-	_off_sprite.visible = false
+	if !activated:
+		activated = true
+		get_parent().switch_hit(self.name)
+		_on_sprite.visible = true
+		_off_sprite.visible = false
+	pass # Replace with function body.
+
+
+func deactivate() -> void:
+	activated = false
+	_on_sprite.visible = false
+	_off_sprite.visible = true
 	pass # Replace with function body.
