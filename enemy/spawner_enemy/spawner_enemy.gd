@@ -8,31 +8,49 @@ class_name SpawnerEnemy extends Enemy
 @export var spawn_animation_length : float
 
 @onready var SpawnerEnemyTimer : Timer = get_node("SpawnerEnemyTimer")
+@onready var TimeToSpawnTimer : Timer = get_node("TimeToSpawnTimer")
 
 var spawned_list : Array[Variant] ## To keep track of all the enemies it spawns
+
+var is_spawning := false ## To keep track of when the enemy is spawning another enemy
 
 func _ready() -> void:
 	# wait a single frame in case our _ready was called before the player's
 	await get_tree().process_frame
+	
+	# set all the properties and make all the connections provided the enemy does not spawn on death :3
 	if not spawn_on_death:
 		SpawnerEnemyTimer.wait_time = spawn_rate
+		TimeToSpawnTimer.wait_time = spawn_animation_length
+		
 		SpawnerEnemyTimer.start()
+
+		SpawnerEnemyTimer.connect("timeout", start_enemy_spawn)
+		TimeToSpawnTimer.connect("timeout", spawn_mini_enemy)
 
 func _physics_process(_delta: float) -> void:
 	if Player.instance == null: return
-	
-	else:
-		pass
-		velocity = (Player.instance.global_position - global_position).normalized() * 150
+	else: if is_spawning: return
 	move_and_slide()
 
 	look_at(Player.instance.global_position)
+
+func _process_agressive(delta : float) -> void :
+	pass
+
+func start_enemy_spawn() -> void:
+	if is_spawning: return
+	else: is_spawning = true
+	enemy_state = EnemyState.AGRESSIVE
+	print("Starting enemy spawn!")
 	
-	# connection
-	if not spawn_on_death: SpawnerEnemyTimer.connect("timeout", spawn_mini_enemy)
+	TimeToSpawnTimer.start()
+
 
 ## Function to handle enemy spawns
 func spawn_mini_enemy() -> void:
+	enemy_state = EnemyState.ROAMING
+	is_spawning = false
 	# Enemy needs to exist in order for this function to run,
 	if spawned_enemy == null: return
 	# and then clean up the spawned enemies array

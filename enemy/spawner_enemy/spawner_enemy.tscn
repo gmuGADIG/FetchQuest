@@ -13,9 +13,9 @@ script = ExtResource("2_0bja5")
 spawned_enemy = ExtResource("3_v7nka")
 spawn_amount = 2
 spawn_on_death = false
-spawn_rate = 0.5
+spawn_rate = 5.0
 spawn_cap = 5
-spawn_animation_length = 0.0
+spawn_animation_length = 0.5
 
 [node name="SpawnerEnemy" type="Sprite2D" parent="." index="0"]
 scale = Vector2(0.75, 0.75)
@@ -26,3 +26,6 @@ position = Vector2(2.5, 2.5)
 shape = SubResource("RectangleShape2D_6fsdk")
 
 [node name="SpawnerEnemyTimer" type="Timer" parent="." index="4"]
+
+[node name="TimeToSpawnTimer" type="Timer" parent="." index="5"]
+one_shot = true
