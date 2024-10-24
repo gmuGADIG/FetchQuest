@@ -1,8 +1,5 @@
 class_name ShieldEnemy extends Enemy
 
-## The speed that the enemy will move 
-@export var movement_speed:float = 300
-
 ## The size of the shield in degrees (360 is a full shield and 0 is no shield)
 @export_range(0, 360, 0.025) var shield_size:float = 60
 
@@ -19,7 +16,7 @@ func _physics_process(_delta: float) -> void:
 
 	# Move towards and look at the player 
 	var movement_direction := (Player.instance.global_position - global_position).normalized()
-	velocity = movement_direction * movement_speed
+	velocity = movement_direction * 300#movement speed
 	look_at(Player.instance.global_position)
 	move_and_slide()
 

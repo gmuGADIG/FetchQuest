@@ -1,10 +1,18 @@
-[gd_scene load_steps=4 format=3 uid="uid://cnd06dpkgufe4"]
+[gd_scene load_steps=6 format=3 uid="uid://cnd06dpkgufe4"]
 
 [ext_resource type="PackedScene" uid="uid://ch344rluh4xbs" path="res://world/camera/main_cam.tscn" id="1_uyq87"]
 [ext_resource type="PackedScene" uid="uid://70lp7kfk3yw6" path="res://ui/hud/hud.tscn" id="2_04l5w"]
 [ext_resource type="PackedScene" uid="uid://be0wx1bwh443q" path="res://ui/pause_menu/pause_menu.tscn" id="3_qm2bx"]
+[ext_resource type="Script" path="res://enemy/navigation_updater.gd" id="4_ypbld"]
 
-[node name="LevelBase" type="Node2D"]
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_kgy2o"]
+vertices = PackedVector2Array(66373.2, -38312.1, 67780.8, 28996.5, -57254.9, 35395.5, -56487.1, -39463.9)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-56497, -39474, 66383, -38322, 67791, 29006, -57265, 35406)])
+source_geometry_mode = 1
+source_geometry_group_name = &"World"
+
+[node name="LevelBase" type="Node2D" groups=["World"]]
 y_sort_enabled = true
 
 [node name="MainCam" parent="." instance=ExtResource("1_uyq87")]
@@ -12,3 +20,9 @@ y_sort_enabled = true
 [node name="HUD" parent="." instance=ExtResource("2_04l5w")]
 
 [node name="PauseMenu" parent="." instance=ExtResource("3_qm2bx")]
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+visible = false
+navigation_polygon = SubResource("NavigationPolygon_kgy2o")
+script = ExtResource("4_ypbld")
+metadata/_edit_lock_ = true

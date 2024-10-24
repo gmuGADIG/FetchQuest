@@ -31,5 +31,7 @@ shape = SubResource("RectangleShape2D_fdgx0")
 scale = Vector2(5.8, 5.5)
 script = ExtResource("3_ikojr")
 
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+
 [connection signal="player_detected" from="PlayerDetectionComponent" to="PlayerDetectionComponent" method="_on_player_detected"]
 [connection signal="body_entered" from="HittingArea" to="." method="_on_hitting_area_body_entered"]
