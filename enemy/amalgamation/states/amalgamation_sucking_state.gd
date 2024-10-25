@@ -1,8 +1,10 @@
 class_name AmalgamationSuckingState extends AmalgamationState
 
-
+@onready var sucking_effect:CPUParticles2D = $"../../SuckingEffect"
 @export var sucking_speed:float = 200
 func enter() -> void:
+	sucking_effect.emitting = true
+	 
 	# Idle after sucking for 10 seconds
 	await get_tree().create_timer(10).timeout
 	if state_machine.current_state != self:
@@ -22,7 +24,7 @@ func update(_delta:float) -> void:
 		body.position += direction_to_mouth * _delta * sucking_speed
 
 func exit() -> void:
-	pass
+	sucking_effect.emitting = false
 
 # Called when a bomb or player enters the mouth of the amalgamation
 func _on_mouth_area_body_entered(body: Node2D) -> void:

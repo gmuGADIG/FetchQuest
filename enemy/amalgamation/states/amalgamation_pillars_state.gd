@@ -4,6 +4,8 @@ class_name AmalgamationPillarsState extends AmalgamationState
 @export var pillar_scene:PackedScene
 ## How many pillars to spawn
 @export var pillar_count:int = 15
+## The
+@export var pillar_lifetime:float = 5
 
 ## The current pillars that exist
 var pillars_spawned: Array[Node2D] = []
@@ -12,7 +14,7 @@ func enter() -> void:
 	# Summon the pillars
 	summon_pillars()
 	# Idle after 8 seconds
-	await get_tree().create_timer(8).timeout
+	await get_tree().create_timer(pillar_lifetime * 1.25).timeout
 	if state_machine.current_state != self:
 		return
 	state_machine.change_state(self, "Idle")
@@ -31,8 +33,8 @@ func spawn_pillar(location:Vector2) -> Node2D:
 	# Summon a pillar at the requested location
 	var pillar:Node2D = pillar_scene.instantiate()
 	pillar.global_position = location
+	pillar.lifetime = pillar_lifetime
 	state_machine.get_parent().add_sibling(pillar)
-	
 	# Return the pillar for tracking purposes
 	return pillar
 

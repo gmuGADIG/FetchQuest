@@ -31,7 +31,7 @@ var previous_attack_state:AmalgamationState;
 func enter() -> void:
 	# Switch to a random attack state after a timer ends
 	desired_state = get_random_attack()
-	await get_tree().create_timer(1).timeout
+	await get_tree().create_timer(2).timeout
 	if state_machine.current_state != self:
 		return
 	state_machine.change_state(self, desired_state.name)

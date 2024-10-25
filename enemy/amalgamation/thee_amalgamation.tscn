@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://xgwwcejvha1d"]
+[gd_scene load_steps=18 format=3 uid="uid://xgwwcejvha1d"]
 
 [ext_resource type="Texture2D" uid="uid://dkcslmk1lo8iw" path="res://enemy/amalgamation/amalgamation.png" id="1_11my7"]
 [ext_resource type="Script" path="res://enemy/amalgamation/thee_amalgamation.gd" id="1_q0tx4"]
@@ -24,6 +24,10 @@ radius = 66.0076
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fcu4u"]
 size = Vector2(78, 30)
 
+[sub_resource type="Gradient" id="Gradient_rareu"]
+offsets = PackedFloat32Array(0.0901408, 1)
+colors = PackedColorArray(0.85, 0.85, 0.85, 1, 1, 1, 1, 0)
+
 [node name="Amalgamation" type="Node2D"]
 script = ExtResource("1_q0tx4")
 
@@ -37,17 +41,16 @@ script = ExtResource("3_uo18w")
 [node name="Chewing" type="Node" parent="StateMachine"]
 script = ExtResource("4_f6qwh")
 
+[node name="Pillars" type="Node" parent="StateMachine"]
+script = ExtResource("6_cos00")
+pillar_scene = ExtResource("7_24me5")
+
 [node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("sucking_state", "pillar_state", "spit_state")]
 script = ExtResource("5_ul5i8")
 sucking_state = NodePath("../Sucking")
 pillar_state = NodePath("../Pillars")
 spit_state = NodePath("../Spitting")
 sucking_weight = 100.0
-spit_weight = 50.0
-
-[node name="Pillars" type="Node" parent="StateMachine"]
-script = ExtResource("6_cos00")
-pillar_scene = ExtResource("7_24me5")
 
 [node name="Spitting" type="Node" parent="StateMachine"]
 script = ExtResource("7_kvuo0")
@@ -98,6 +101,22 @@ collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxArea"]
 shape = SubResource("RectangleShape2D_fcu4u")
+
+[node name="SuckingEffect" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 150
+lifetime = 1.5
+local_coords = true
+emission_shape = 2
+emission_sphere_radius = 66.01
+gravity = Vector2(0, 0)
+angular_velocity_min = -720.0
+angular_velocity_max = 720.0
+radial_accel_min = -12.0
+radial_accel_max = -10.0
+scale_amount_min = 0.5
+scale_amount_max = 1.5
+color_ramp = SubResource("Gradient_rareu")
 
 [connection signal="body_entered" from="MouthArea" to="StateMachine/Asleep" method="_on_mouth_area_body_entered"]
 [connection signal="body_entered" from="MouthArea" to="StateMachine/Sucking" method="_on_mouth_area_body_entered"]

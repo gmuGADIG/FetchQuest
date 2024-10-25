@@ -1,16 +1,19 @@
 extends Node2D
 
-var animation_speed:float = 1.5
-var sustain_time:float = 3
+## How long the pillar will fall for (set in the amalg pillars state)
+var lifetime:float = 0
 
-# Called when the node enters the scene tree for the first time.
+var check_for_player:bool = false
 func _ready() -> void:
+	# Animate the transparency towards 1
 	var tween := create_tween()
-	$EnterTimer.wait_time = animation_speed
-	$EnterTimer.start()
-	tween.tween_property($ShadowSprite,"modulate:a", 1.0, animation_speed)
+	tween.tween_property($ShadowSprite,"modulate:a", 1.0, lifetime)
+	await tween.finished
+	check_for_player = true
+
 
 func _process(delta: float) -> void:
-	if $PlayerDetector.overlaps_body(Player.instance) and $EnterTimer.is_stopped():
+	# Hurt the player once the animation is over
+	if $PlayerDetector.overlaps_body(Player.instance) and check_for_player:
 		Player.instance.hurt(DamageEvent.new(1))
 		queue_free()
