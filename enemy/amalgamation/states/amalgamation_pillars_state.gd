@@ -1,11 +1,11 @@
 class_name AmalgamationPillarsState extends AmalgamationState
 
 ## The actual pillar that will be spawned
-@export var pillar_scene:PackedScene
+@onready var pillar_scene:PackedScene = preload("res://enemy/amalgamation/amalgamation_pillar_of_light.tscn")
 ## How many pillars to spawn
-@export var pillar_count:int = 15
-## The
-@export var pillar_lifetime:float = 5
+@onready var pillar_count:int = amalgamation.pillar_count
+## The time the pillar takes to fall
+@onready var pillar_fall_time:float = amalgamation.pillar_fall_time
 
 ## The current pillars that exist
 var pillars_spawned: Array[Node2D] = []
@@ -14,10 +14,10 @@ func enter() -> void:
 	# Summon the pillars
 	summon_pillars()
 	# Idle after 8 seconds
-	await get_tree().create_timer(pillar_lifetime * 1.25).timeout
-	if state_machine.current_state != self:
+	await get_tree().create_timer(pillar_fall_time * 1.25).timeout
+	if amalgamation.state_machine.current_state != self:
 		return
-	state_machine.change_state(self, "Idle")
+	amalgamation.state_machine.change_state(self, "Idle")
 
 func update(_delta:float) -> void:
 	pass
@@ -33,8 +33,9 @@ func spawn_pillar(location:Vector2) -> Node2D:
 	# Summon a pillar at the requested location
 	var pillar:Node2D = pillar_scene.instantiate()
 	pillar.global_position = location
-	pillar.lifetime = pillar_lifetime
-	state_machine.get_parent().add_sibling(pillar)
+	pillar.fall_time = pillar_fall_time
+	amalgamation.state_machine.get_parent().add_sibling(pillar)
+	
 	# Return the pillar for tracking purposes
 	return pillar
 

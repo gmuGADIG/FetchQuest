@@ -1,15 +1,19 @@
 class_name AmalgamationSuckingState extends AmalgamationState
 
+## The particle effect that will be triggered when the boss is sucking
 @onready var sucking_effect:CPUParticles2D = $"../../SuckingEffect"
-@export var sucking_speed:float = 200
+## The speed in pixels per second that the amalgamation everything in at
+@onready var sucking_speed:float = amalgamation.sucking_speed
+
 func enter() -> void:
+	# Turn on the particles
 	sucking_effect.emitting = true
 	 
 	# Idle after sucking for 10 seconds
 	await get_tree().create_timer(10).timeout
-	if state_machine.current_state != self:
+	if amalgamation.state_machine.current_state != self:
 		return
-	state_machine.change_state(self, "Idle")
+	amalgamation.state_machine.change_state(self, "Idle")
 	pass
 
 func update(_delta:float) -> void:
@@ -24,18 +28,19 @@ func update(_delta:float) -> void:
 		body.position += direction_to_mouth * _delta * sucking_speed
 
 func exit() -> void:
+	# Turn off the particles
 	sucking_effect.emitting = false
 
 # Called when a bomb or player enters the mouth of the amalgamation
 func _on_mouth_area_body_entered(body: Node2D) -> void:
-	if state_machine.current_state != self:
+	if amalgamation.state_machine.current_state != self:
 		return
 	if body is Player:
 		# Eat the player 
-		state_machine.change_state(self, "Chewing")
+		amalgamation.state_machine.change_state(self, "Chewing")
 	elif body is not ThrownSword:
 		# Blow up the bomb (body must be bomb due to collision mask)
 		body.hurt(DamageEvent.new(0))
 
 		# Switch to vulnerable state
-		state_machine.change_state(self, "Vulnerable")
+		amalgamation.state_machine.change_state(self, "Vulnerable")

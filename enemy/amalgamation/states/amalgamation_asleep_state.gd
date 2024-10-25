@@ -13,7 +13,7 @@ func exit() -> void:
 
 # Called when a bomb or player enters the mouth of the amalgamation
 func _on_mouth_area_body_entered(body: Node2D) -> void:
-	if state_machine.current_state != self:
+	if amalgamation.state_machine.current_state != self:
 		return
 	if body is Player or body is ThrownSword:
 		return
@@ -22,4 +22,4 @@ func _on_mouth_area_body_entered(body: Node2D) -> void:
 	body.hurt(DamageEvent.new(0))
 	
 	# Switch to idle
-	state_machine.change_state(self, "Idle")
+	amalgamation.state_machine.change_state(self, "Idle")

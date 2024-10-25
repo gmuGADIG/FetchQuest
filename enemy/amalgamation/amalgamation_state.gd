@@ -1,9 +1,11 @@
 extends Node
 class_name AmalgamationState
 
+## Emitted when leaving the state 
 signal state_transition
-## The state machine 
-@onready var state_machine:AmalgamationStateMachine = get_parent()
+
+## The amalgamation
+@onready var amalgamation:Amalgamation = get_parent().get_parent()
 
 func enter() -> void:
 	pass

@@ -1,27 +1,11 @@
 class_name AmalgamationIdleState extends AmalgamationState
 
 
-@export_group("Attack States")
-## The node that contains the sucking logic
-@export var sucking_state:AmalgamationSuckingState
-## The node that contains the pillars logic
-@export var pillar_state:AmalgamationPillarsState
-## The node that contains the spitting logic
-@export var spit_state:AmalgamationSpittingState
-
 ## The states that are considered attacking states 
-@onready var attack_states:Array[AmalgamationState] = [sucking_state, pillar_state, spit_state]
-
-@export_group("Attack Weights")
-## The weight of the sucking state being selected
-@export var sucking_weight:float = 1
-## The weight of the pillar state being selected
-@export var pillar_weight:float = 1
-## The weight of the spitting state being selected
-@export var spit_weight:float = 1
+@onready var attack_states:Array[AmalgamationState] = [amalgamation.sucking_state, amalgamation.pillar_state, amalgamation.spit_state]
 
 ## The weights of each attack state being chosen (in order of the attack_states array)
-@onready var attack_state_weights:Array[float] = [sucking_weight, pillar_weight, spit_weight];
+@onready var attack_state_weights:Array[float] = [amalgamation.sucking_weight, amalgamation.pillar_weight, amalgamation.spit_weight];
 
 ## The next state amalgamation will be in once ready to switch 
 var desired_state:AmalgamationState;
@@ -32,9 +16,9 @@ func enter() -> void:
 	# Switch to a random attack state after a timer ends
 	desired_state = get_random_attack()
 	await get_tree().create_timer(2).timeout
-	if state_machine.current_state != self:
+	if amalgamation.state_machine.current_state != self:
 		return
-	state_machine.change_state(self, desired_state.name)
+	amalgamation.state_machine.change_state(self, desired_state.name)
 
 func update(_delta:float) -> void:
 	pass

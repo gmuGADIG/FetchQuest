@@ -1,22 +1,16 @@
-[gd_scene load_steps=18 format=3 uid="uid://xgwwcejvha1d"]
+[gd_scene load_steps=17 format=3 uid="uid://xgwwcejvha1d"]
 
 [ext_resource type="Texture2D" uid="uid://dkcslmk1lo8iw" path="res://enemy/amalgamation/amalgamation.png" id="1_11my7"]
 [ext_resource type="Script" path="res://enemy/amalgamation/thee_amalgamation.gd" id="1_q0tx4"]
+[ext_resource type="PackedScene" uid="uid://yllbcpq24cl0" path="res://enemy/creep_enemy/creep_enemy.tscn" id="2_kbojl"]
 [ext_resource type="Script" path="res://enemy/amalgamation/amalgamation_state_machine.gd" id="3_6vw41"]
 [ext_resource type="Script" path="res://enemy/amalgamation/states/amalgamation_asleep_state.gd" id="3_uo18w"]
 [ext_resource type="Script" path="res://enemy/amalgamation/states/amalgamation_chewing_state.gd" id="4_f6qwh"]
 [ext_resource type="Script" path="res://enemy/amalgamation/states/amalgamation_idle_state.gd" id="5_ul5i8"]
 [ext_resource type="Script" path="res://enemy/amalgamation/states/amalgamation_pillars_state.gd" id="6_cos00"]
-[ext_resource type="PackedScene" uid="uid://dtclkg07t3rcj" path="res://enemy/amalgamation/amalgamation_pillar_of_light.tscn" id="7_24me5"]
 [ext_resource type="Script" path="res://enemy/amalgamation/states/amalgamation_spitting_state.gd" id="7_kvuo0"]
 [ext_resource type="Script" path="res://enemy/amalgamation/states/amalgamation_sucking_state.gd" id="8_1g38x"]
 [ext_resource type="Script" path="res://enemy/amalgamation/states/amalgamation_vulnerable_state.gd" id="9_0n3tp"]
-[ext_resource type="PackedScene" uid="uid://uj2rytnj1h4" path="res://enemy/test_enemy/test_enemy.tscn" id="9_sxcn4"]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_roexs"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_vau65"]
-size = Vector2(78, 30)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_tq8je"]
 radius = 66.0076
@@ -24,12 +18,21 @@ radius = 66.0076
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fcu4u"]
 size = Vector2(78, 30)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vau65"]
+size = Vector2(78, 30)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_roexs"]
+
 [sub_resource type="Gradient" id="Gradient_rareu"]
 offsets = PackedFloat32Array(0.0901408, 1)
 colors = PackedColorArray(0.85, 0.85, 0.85, 1, 1, 1, 1, 0)
 
-[node name="Amalgamation" type="Node2D"]
+[node name="Amalgamation" type="Node2D" node_paths=PackedStringArray("sucking_state", "pillar_state", "spit_state")]
 script = ExtResource("1_q0tx4")
+sucking_state = NodePath("StateMachine/Sucking")
+pillar_state = NodePath("StateMachine/Pillars")
+spit_state = NodePath("StateMachine/Spitting")
+spitting_possible_enemies = Array[PackedScene]([ExtResource("2_kbojl")])
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("3_6vw41")
@@ -43,18 +46,12 @@ script = ExtResource("4_f6qwh")
 
 [node name="Pillars" type="Node" parent="StateMachine"]
 script = ExtResource("6_cos00")
-pillar_scene = ExtResource("7_24me5")
 
-[node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("sucking_state", "pillar_state", "spit_state")]
+[node name="Idle" type="Node" parent="StateMachine"]
 script = ExtResource("5_ul5i8")
-sucking_state = NodePath("../Sucking")
-pillar_state = NodePath("../Pillars")
-spit_state = NodePath("../Spitting")
-sucking_weight = 100.0
 
 [node name="Spitting" type="Node" parent="StateMachine"]
 script = ExtResource("7_kvuo0")
-possible_enemies = Array[PackedScene]([ExtResource("9_sxcn4")])
 
 [node name="Sucking" type="Node" parent="StateMachine"]
 script = ExtResource("8_1g38x")
@@ -65,26 +62,6 @@ script = ExtResource("9_0n3tp")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.07, 0.07)
 texture = ExtResource("1_11my7")
-
-[node name="MouthArea" type="Area2D" parent="."]
-unique_name_in_owner = true
-position = Vector2(0, 7)
-collision_layer = 4
-collision_mask = 130
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="MouthArea"]
-position = Vector2(0, -6)
-shape = SubResource("CircleShape2D_roexs")
-debug_color = Color(0, 0.613978, 0.600604, 0.658824)
-
-[node name="VulnerableHitArea" type="Area2D" parent="."]
-unique_name_in_owner = true
-collision_layer = 4
-collision_mask = 130
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="VulnerableHitArea"]
-shape = SubResource("RectangleShape2D_vau65")
-debug_color = Color(0.957987, 0, 0.529598, 0.42)
 
 [node name="SuckingArea" type="Area2D" parent="."]
 unique_name_in_owner = true
@@ -102,7 +79,27 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxArea"]
 shape = SubResource("RectangleShape2D_fcu4u")
 
+[node name="VulnerableHitArea" type="Area2D" parent="."]
+unique_name_in_owner = true
+collision_layer = 4
+collision_mask = 130
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="VulnerableHitArea"]
+shape = SubResource("RectangleShape2D_vau65")
+debug_color = Color(0.957987, 0, 0.529598, 0.42)
+
+[node name="MouthArea" type="Area2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, 6)
+collision_layer = 4
+collision_mask = 130
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MouthArea"]
+shape = SubResource("CircleShape2D_roexs")
+debug_color = Color(0, 0.613978, 0.600604, 0.658824)
+
 [node name="SuckingEffect" type="CPUParticles2D" parent="."]
+position = Vector2(0, 6)
 emitting = false
 amount = 150
 lifetime = 1.5
@@ -118,6 +115,7 @@ scale_amount_min = 0.5
 scale_amount_max = 1.5
 color_ramp = SubResource("Gradient_rareu")
 
+[connection signal="body_entered" from="HurtboxArea" to="." method="_on_hurtbox_area_body_entered"]
+[connection signal="body_entered" from="VulnerableHitArea" to="StateMachine/Vulnerable" method="_on_vulnerable_hit_area_body_entered"]
 [connection signal="body_entered" from="MouthArea" to="StateMachine/Asleep" method="_on_mouth_area_body_entered"]
 [connection signal="body_entered" from="MouthArea" to="StateMachine/Sucking" method="_on_mouth_area_body_entered"]
-[connection signal="body_entered" from="VulnerableHitArea" to="StateMachine/Vulnerable" method="_on_vulnerable_hit_area_body_entered"]

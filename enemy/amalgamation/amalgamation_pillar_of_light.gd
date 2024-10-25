@@ -1,13 +1,13 @@
 extends Node2D
 
 ## How long the pillar will fall for (set in the amalg pillars state)
-var lifetime:float = 0
+var fall_time:float = 0
 
 var check_for_player:bool = false
 func _ready() -> void:
 	# Animate the transparency towards 1
 	var tween := create_tween()
-	tween.tween_property($ShadowSprite,"modulate:a", 1.0, lifetime)
+	tween.tween_property($ShadowSprite,"modulate:a", 1.0, fall_time)
 	await tween.finished
 	check_for_player = true
 
