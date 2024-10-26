@@ -1,0 +1,43 @@
+[gd_scene load_steps=7 format=3 uid="uid://b8elsmaoe5so8"]
+
+[ext_resource type="PackedScene" uid="uid://b60qs6jc07tbj" path="res://world/interactable/activators/switch/switch.tscn" id="1_f1drm"]
+[ext_resource type="PackedScene" uid="uid://blh1fs712dql8" path="res://world/interactable/activatable/locked_door/locked_door.tscn" id="1_s3dps"]
+[ext_resource type="PackedScene" uid="uid://c7ck7ril2jix2" path="res://player/player.tscn" id="2_cm2wf"]
+[ext_resource type="Texture2D" uid="uid://dc4pcxr2lfkka" path="res://demo_art/dungeon_entrance.png" id="4_5qmbd"]
+[ext_resource type="Script" path="res://world/interactable/transition_trigger/transition_trigger.gd" id="5_6u1x0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8t4qg"]
+size = Vector2(158, 146)
+
+[node name="ActivatorTest" type="Node2D"]
+
+[node name="Switch" parent="." instance=ExtResource("1_f1drm")]
+position = Vector2(228, 156)
+metadata/Activatables = [NodePath("../LockedDoor")]
+
+[node name="Player" parent="." instance=ExtResource("2_cm2wf")]
+position = Vector2(629, 307)
+
+[node name="DungeonEntrance" type="Sprite2D" parent="."]
+position = Vector2(865, 171)
+scale = Vector2(2.33037, 2.33037)
+texture = ExtResource("4_5qmbd")
+
+[node name="TransitionScene" type="Area2D" parent="DungeonEntrance"]
+position = Vector2(-6.00761, 27.8925)
+scale = Vector2(0.429116, 0.429116)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("5_6u1x0")
+scene_name = "demo_dungeon"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DungeonEntrance/TransitionScene"]
+position = Vector2(6, -13)
+shape = SubResource("RectangleShape2D_8t4qg")
+
+[node name="LockedDoor" parent="." instance=ExtResource("1_s3dps")]
+position = Vector2(867, 234)
+scale = Vector2(0.749473, 0.806908)
+key_usable = false
+
+[connection signal="body_entered" from="DungeonEntrance/TransitionScene" to="DungeonEntrance/TransitionScene" method="_on_body_entered"]
