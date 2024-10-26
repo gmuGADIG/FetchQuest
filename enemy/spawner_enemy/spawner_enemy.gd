@@ -29,11 +29,19 @@ func _ready() -> void:
 		TimeToSpawnTimer.connect("timeout", spawn_mini_enemy)
 
 func _physics_process(_delta: float) -> void:
-	if Player.instance == null: return
-	else: if is_spawning: return
-	move_and_slide()
+	if Player.instance == null: 
+		return
 
+	# Move towards and look at the player 
+	var movement_direction := (Player.instance.global_position - global_position).normalized()
+	
+	# to fix the movement speed issue
+	if not is_spawning:
+		velocity = movement_direction * 100 
+	else:
+		velocity = movement_direction * 0
 	look_at(Player.instance.global_position)
+	move_and_slide()
 
 func _process_agressive(delta : float) -> void :
 	pass
