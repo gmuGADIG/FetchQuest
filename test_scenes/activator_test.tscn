@@ -80,11 +80,11 @@ scene_name = "demo_dungeon"
 position = Vector2(6, -13)
 shape = SubResource("RectangleShape2D_jbjxn")
 
-[node name="LockedDoor" parent="." index="10" instance=ExtResource("1_s3dps")]
-position = Vector2(867, 234)
-scale = Vector2(0.749473, 0.806908)
+[node name="LockedDoor" parent="DungeonEntrance" index="1" instance=ExtResource("1_s3dps")]
+position = Vector2(0.858246, 27.0343)
+scale = Vector2(0.321611, 0.346257)
 
-[node name="RedCoinPuzzle" type="Node2D" parent="." index="11"]
+[node name="RedCoinPuzzle" type="Node2D" parent="." index="10"]
 position = Vector2(-166, -422)
 
 [node name="RedCoinManager" parent="RedCoinPuzzle" index="0" instance=ExtResource("7_1fg4c")]
@@ -127,7 +127,7 @@ color_initial_ramp = SubResource("Gradient_chl02")
 
 [node name="ParticleFixer" parent="RedCoinPuzzle/EntitySpawner/CPUParticles2D" index="0" instance=ExtResource("12_ow5kj")]
 
-[node name="Enemies" parent="." index="12" instance=ExtResource("9_wclgf")]
+[node name="Enemies" parent="." index="11" instance=ExtResource("9_wclgf")]
 position = Vector2(832, 521)
 
 [node name="TestEnemy" parent="Enemies" index="0" instance=ExtResource("13_w55na")]
@@ -138,7 +138,7 @@ position = Vector2(250, 0)
 [node name="TestEnemy3" parent="Enemies" index="2" instance=ExtResource("13_w55na")]
 position = Vector2(-214, 0)
 
-[node name="PlatformMover" parent="." index="13" instance=ExtResource("14_6nkom")]
+[node name="PlatformMover" parent="." index="12" instance=ExtResource("14_6nkom")]
 position = Vector2(1219, -306)
 scale = Vector2(0.439749, 0.439749)
 activate_type = 3
@@ -151,7 +151,7 @@ offset_bottom = -43.879
 theme_override_font_sizes/font_size = 45
 text = "half full activate type"
 
-[node name="PlatformMover2" parent="." index="14" instance=ExtResource("14_6nkom")]
+[node name="PlatformMover2" parent="." index="13" instance=ExtResource("14_6nkom")]
 position = Vector2(1219, -531)
 scale = Vector2(0.439749, 0.439749)
 activate_type = 2
@@ -164,7 +164,7 @@ offset_bottom = -43.879
 theme_override_font_sizes/font_size = 45
 text = "full activate type"
 
-[node name="PlatformMover3" parent="." index="15" instance=ExtResource("14_6nkom")]
+[node name="PlatformMover3" parent="." index="14" instance=ExtResource("14_6nkom")]
 position = Vector2(1219, -984)
 scale = Vector2(0.439749, 0.439749)
 
@@ -176,12 +176,12 @@ offset_bottom = -43.879
 theme_override_font_sizes/font_size = 45
 text = "automatic activate type"
 
-[node name="Switch5" parent="." index="16" instance=ExtResource("1_f1drm")]
+[node name="Switch5" parent="." index="15" instance=ExtResource("1_f1drm")]
 position = Vector2(725, -723)
 type = 1
 metadata/Activatables = [NodePath("../PlatformMover4")]
 
-[node name="PlatformMover4" parent="." index="17" instance=ExtResource("14_6nkom")]
+[node name="PlatformMover4" parent="." index="16" instance=ExtResource("14_6nkom")]
 position = Vector2(1219, -776)
 scale = Vector2(0.439749, 0.439749)
 activate_type = 1

@@ -9,7 +9,7 @@ func _enter_tree() -> void:
 
 func activate() -> void:
 	for child in children:
-		add_child(child)
+		add_child.call_deferred(child)
 	
 	# make sure to avoid double activation
 	children = []
