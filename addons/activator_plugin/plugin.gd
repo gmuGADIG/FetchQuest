@@ -35,6 +35,7 @@ func _toggle_connection_actual(node: Node) -> void:
 
 
 func _toggle_connection(node: Node) -> void:
+	print("_toggle_connection(%s)" % node.name)
 	assert(node.is_in_group(ACTIVATABLE_GROUP))
 
 	var list: Array = activator.get_meta(META_NAME, [])
@@ -64,7 +65,30 @@ func _forward_canvas_draw_over_viewport(overlay: Control) -> void:
 		var p2 := t * node.global_position
 		overlay.draw_line(p1, p2, Color.YELLOW, 5, true)
 
-func _on_selection_changed():
+func _on_selection_changed_tool_active() -> void:
+	var selection := EditorInterface.get_selection()
+	var nodes := selection.get_selected_nodes()
+
+	if nodes.is_empty():
+		EditorInterface.edit_node(activator)
+		return
+
+	var n := nodes[0]
+
+	# reset selection
+	selection.clear()
+	EditorInterface.edit_node(activator)
+
+	if n == activator: return
+	if not n.is_in_group(ACTIVATABLE_GROUP): 
+		if n.get_parent().is_in_group(ACTIVATABLE_GROUP):
+			n = n.get_parent()
+		else:
+			return
+
+	_toggle_connection(n)
+
+func _on_selection_changed() -> void:
 	if activator == null or not EditorInterface.get_edited_scene_root().is_ancestor_of(activator):
 		_reset()
 
@@ -72,16 +96,7 @@ func _on_selection_changed():
 	var nodes := selection.get_selected_nodes()
 
 	if tool_active:
-		var n := nodes[0]
-		if n == activator: return
-		if not n.is_in_group(ACTIVATABLE_GROUP): return
-
-		_toggle_connection(n)
-
-		# reset selection
-		selection.clear()
-		EditorInterface.edit_node(activator)
-
+		_on_selection_changed_tool_active()
 		return
 
 	activator = null

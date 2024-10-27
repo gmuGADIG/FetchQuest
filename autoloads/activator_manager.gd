@@ -8,9 +8,9 @@ func _on_scene_ready() -> void:
 		for np: NodePath in activator.get_meta(ActivatorPlugin.META_NAME, []):
 			var activatable := activator.get_node(np)
 
-			if activatable.has_method("activate"):
+			if activatable.has_method("activate") and activator.has_signal("switch_activated"):
 				activator.switch_activated.connect(activatable.activate)
-			if activatable.has_method("deactivate"):
+			if activatable.has_method("deactivate") and activator.has_signal("switch_deactivated"):
 				activator.switch_deactivated.connect(activatable.deactivate)
 
 
