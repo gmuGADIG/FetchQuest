@@ -19,6 +19,8 @@ static var instance: Player
 @onready var force_applied: Vector2 = Vector2.ZERO ## All external forces applied
 @onready var bomb_scene := preload("bomb.tscn")
 
+@onready var animation_player: AnimationPlayer = %AnimationPlayer
+
 var active_sword: ThrownSword ## The active thrown sword. Null if the player is currently holding the sword
 
 ## On controller, if the aim stick isn't held in any direction, the last non-zero aim will be used
@@ -175,6 +177,6 @@ func pickup_item(item: Item) -> void:
 	
 func activate_iframes() -> void:
 	invincible = true
-	$AnimationPlayer.play("hurt_flash")
-	await get_tree().create_timer(2.0).timeout
+	animation_player.play("hurt_flash")
+	await animation_player.animation_finished
 	invincible = false
