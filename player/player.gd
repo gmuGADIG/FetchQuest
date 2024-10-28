@@ -15,7 +15,11 @@ static var instance: Player
 		health = value
 		health_changed.emit()
 
-@onready var stamina: float = max_stamina
+@onready var stamina: float = max_stamina:
+	set(value):
+		stamina = value
+		stamina_changed.emit()
+
 @onready var force_applied: Vector2 = Vector2.ZERO ## All external forces applied
 @onready var bomb_scene := preload("bomb.tscn")
 
@@ -34,6 +38,7 @@ var roll_timer: float = 0.25
 
 
 signal health_changed
+signal stamina_changed
 
 # returns true if a stamina pip was used, false otherwise
 func expend_stamina() -> bool:
