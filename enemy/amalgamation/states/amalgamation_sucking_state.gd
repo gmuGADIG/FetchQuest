@@ -6,6 +6,7 @@ class_name AmalgamationSuckingState extends AmalgamationState
 @onready var sucking_speed:float = amalgamation.sucking_speed
 
 func enter() -> void:
+	print("amalgamation_sucking_state.gd: vacuum noises")
 	# Turn on the particles
 	sucking_effect.emitting = true
 	 
@@ -38,9 +39,11 @@ func _on_mouth_area_body_entered(body: Node2D) -> void:
 	if body is Player:
 		# Eat the player 
 		amalgamation.state_machine.change_state(self, "Chewing")
-	elif body is not ThrownSword:
-		# Blow up the bomb (body must be bomb due to collision mask)
-		body.hurt(DamageEvent.new(0))
-
-		# Switch to vulnerable state
+	elif body is Bomb:
+		# Wait for the bomb to explode
+		for child in body.get_children():
+			if child is Timer:
+				await child.timeout
+				break;
+		# Switch to vulnerable state after explosion
 		amalgamation.state_machine.change_state(self, "Vulnerable")

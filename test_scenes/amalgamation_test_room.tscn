@@ -58,9 +58,11 @@ shape = SubResource("RectangleShape2D_iykh3")
 scale = Vector2(0.15625, 1.73438)
 texture = ExtResource("2_12cc7")
 
-[node name="Amalgamation" parent="." instance=ExtResource("3_ekyvy")]
+[node name="Amalgamation" parent="." node_paths=PackedStringArray("room_center") instance=ExtResource("3_ekyvy")]
 position = Vector2(-9, -397)
 scale = Vector2(18.4817, 18.4817)
+room_center = NodePath("../RoomCenter")
+room_size = Vector2(1360, 800)
 
 [node name="Player" parent="." instance=ExtResource("3_ghdmu")]
 position = Vector2(-7, 260)
@@ -74,3 +76,6 @@ limit_right = 1890
 [node name="HUD" parent="." instance=ExtResource("5_cgoug")]
 
 [node name="PauseMenu" parent="." instance=ExtResource("6_2tdf1")]
+
+[node name="RoomCenter" type="Node2D" parent="."]
+position = Vector2(0, 336)

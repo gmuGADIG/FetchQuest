@@ -39,6 +39,10 @@ signal health_changed
 @export var pillar_count:int = 15
 ## How long the pillar will be falling
 @export var pillar_fall_time:float = 5
+## The center of the room (for pillar spawning)
+@export var room_center:Node2D
+## The size of the room (for pillar spawning)
+@export var room_size:Vector2
 
 @export_group("Spitting Attack")
 ## The enemies that can be spat out by the amalgamation
@@ -47,6 +51,8 @@ signal health_changed
 @export var spitting_number:int = 3
 ## The distance from the mouth that enemies and the player will be spat out
 @export var spitting_distance:float = 400
+## The time in seconds between each enemy being spat out
+@export var spitting_delay:float = 4
 
 @export_group("Sucking Attack")
 ## The speed in pixels per second that the amalgamation everything in at
@@ -55,10 +61,16 @@ signal health_changed
 @export_group("Vulnerability")
 ## How long the boss stays vulnerable after it is triggered
 @export var vulnerability_duration:float = 5
+
 func hurt(damage_event: DamageEvent) -> void:
 	# Dont die twice
-	if health <= 0: 
-		return 
+	if health <= 0:
+		return
+	
+	# Only take damage when vulnerable
+	if state_machine.current_state is not AmalgamationVulnerableState:
+		return
+	
 	# Take damage
 	health -= damage_event.damage
 	health = clampi(health, 0, max_health)
