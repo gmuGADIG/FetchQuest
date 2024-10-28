@@ -19,14 +19,19 @@ static var instance: Player
 @onready var force_applied: Vector2 = Vector2.ZERO ## All external forces applied
 @onready var bomb_scene := preload("bomb.tscn")
 
+@onready var animation_player: AnimationPlayer = %AnimationPlayer
+
 var active_sword: ThrownSword ## The active thrown sword. Null if the player is currently holding the sword
 
 ## On controller, if the aim stick isn't held in any direction, the last non-zero aim will be used
 var last_aim_direction := Vector2.RIGHT
 
+var invincible: bool = false
+
 var rolling: bool = false
 var roll_vector: Vector2 = Vector2(0, 0)
 var roll_timer: float = 0.25
+
 
 signal health_changed
 
@@ -145,14 +150,16 @@ func _input(event: InputEvent) -> void:
 func hurt(damage_event: DamageEvent) -> void:
 	if health <= 0: return # don't die twice
 	if rolling: return # immune while rolling
-	
+	if invincible: return # immune if invincible is true for i frames
 	health -= damage_event.damage
 	add_force(damage_event.knockback)
 	print("player.gd: Health lowered to %s/%s" % [health, max_health])
 	
 	if health <= 0:
 		get_tree().change_scene_to_file.call_deferred("uid://b6jsq4syp4v0w")
-
+	
+	activate_iframes()
+	
 ## Increases the player, not exceeding its max health
 func heal(gained: int) -> void:
 	if health >= max_health: return
@@ -168,3 +175,8 @@ func add_force(force: Vector2) -> void:
 func pickup_item(item: Item) -> void:
 	item.consume(self)
 	
+func activate_iframes() -> void:
+	invincible = true
+	animation_player.play("hurt_flash")
+	await animation_player.animation_finished
+	invincible = false

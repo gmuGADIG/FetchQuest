@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://c7ck7ril2jix2"]
+[gd_scene load_steps=16 format=3 uid="uid://c7ck7ril2jix2"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_x43mx"]
 [ext_resource type="Texture2D" uid="uid://b5x2oki2ophn1" path="res://demo_art/skin3.jpg" id="2_46qke"]
@@ -16,6 +16,43 @@ size = Vector2(66, 50)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pjh8c"]
 size = Vector2(1, 1)
+
+[sub_resource type="Animation" id="Animation_tyilq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Icon:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_62xkx"]
+resource_name = "hurt_flash"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Icon:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0.384314), Color(1, 1, 1, 1), Color(1, 1, 1, 0.384314), Color(1, 1, 1, 1), Color(1, 1, 1, 0.384314), Color(1, 1, 1, 1), Color(1, 1, 1, 0.384314), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jsxs5"]
+_data = {
+"RESET": SubResource("Animation_tyilq"),
+"hurt_flash": SubResource("Animation_62xkx")
+}
 
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 y_sort_enabled = true
@@ -79,5 +116,11 @@ position = Vector2(10, 3)
 scale = Vector2(0.125882, 0.119594)
 texture = ExtResource("10_6yoee")
 script = ExtResource("3_f3hsb")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+libraries = {
+"": SubResource("AnimationLibrary_jsxs5")
+}
 
 [connection signal="timeout" from="RollTimer" to="." method="stop_roll"]
