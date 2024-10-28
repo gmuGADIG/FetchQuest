@@ -8,7 +8,7 @@
 [ext_resource type="Script" path="res://player/abilities/speak/speak.gd" id="3_ne4cx"]
 [ext_resource type="PackedScene" uid="uid://qgyqqokyd0ia" path="res://player/abilities/speak/speak_aura.tscn" id="4_8n4by"]
 [ext_resource type="Script" path="res://player/hole_detector.gd" id="5_dhnyf"]
-[ext_resource type="Script" path="res://player/check_sprite.gd" id="9_de2wb"]
+[ext_resource type="Script" path="res://player/skin_chooser.gd" id="9_de2wb"]
 [ext_resource type="Texture2D" uid="uid://c4npbv2iscbsk" path="res://demo_art/skin2.jpg" id="10_6yoee"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_krk6c"]
@@ -29,12 +29,14 @@ visible = false
 position = Vector2(14, 9)
 scale = Vector2(0.105882, 0.134111)
 texture = ExtResource("2_46qke")
+script = ExtResource("3_f3hsb")
 
 [node name="skin1" type="Sprite2D" parent="."]
 visible = false
 position = Vector2(19, 14)
 scale = Vector2(0.412805, 0.277763)
 texture = ExtResource("3_4uqbb")
+script = ExtResource("3_f3hsb")
 
 [node name="Icon" type="Sprite2D" parent="."]
 visible = false
@@ -68,7 +70,7 @@ script = ExtResource("5_dhnyf")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HoleDetector"]
 shape = SubResource("RectangleShape2D_pjh8c")
 
-[node name="check_sprite" type="Node" parent="."]
+[node name="SkinChooser" type="Node" parent="."]
 script = ExtResource("9_de2wb")
 
 [node name="skin2" type="Sprite2D" parent="."]
@@ -76,5 +78,6 @@ visible = false
 position = Vector2(10, 3)
 scale = Vector2(0.125882, 0.119594)
 texture = ExtResource("10_6yoee")
+script = ExtResource("3_f3hsb")
 
 [connection signal="timeout" from="RollTimer" to="." method="stop_roll"]
