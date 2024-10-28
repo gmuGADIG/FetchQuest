@@ -22,7 +22,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Icon:modulate")
+tracks/0/path = NodePath("SkinHolder:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -38,8 +38,8 @@ length = 2.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Icon:modulate")
-tracks/0/interp = 2
+tracks/0/path = NodePath("SkinHolder:modulate")
+tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2),
@@ -61,27 +61,39 @@ collision_mask = 33
 motion_mode = 1
 script = ExtResource("1_x43mx")
 
-[node name="skin3" type="Sprite2D" parent="."]
+[node name="SkinHolder" type="Node2D" parent="."]
+
+[node name="skin3" type="Sprite2D" parent="SkinHolder"]
 visible = false
 position = Vector2(14, 9)
 scale = Vector2(0.105882, 0.134111)
 texture = ExtResource("2_46qke")
 script = ExtResource("3_f3hsb")
 
-[node name="skin1" type="Sprite2D" parent="."]
+[node name="skin1" type="Sprite2D" parent="SkinHolder"]
 visible = false
 position = Vector2(19, 14)
 scale = Vector2(0.412805, 0.277763)
 texture = ExtResource("3_4uqbb")
 script = ExtResource("3_f3hsb")
 
-[node name="Icon" type="Sprite2D" parent="."]
+[node name="Icon" type="Sprite2D" parent="SkinHolder"]
 visible = false
 position = Vector2(0, 53)
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("2_ts2mf")
 offset = Vector2(0, -300)
 script = ExtResource("3_f3hsb")
+
+[node name="skin2" type="Sprite2D" parent="SkinHolder"]
+visible = false
+position = Vector2(10, 3)
+scale = Vector2(0.125882, 0.119594)
+texture = ExtResource("10_6yoee")
+script = ExtResource("3_f3hsb")
+
+[node name="SkinChooser" type="Node" parent="SkinHolder"]
+script = ExtResource("9_de2wb")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(13, 38)
@@ -106,16 +118,6 @@ script = ExtResource("5_dhnyf")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HoleDetector"]
 shape = SubResource("RectangleShape2D_pjh8c")
-
-[node name="SkinChooser" type="Node" parent="."]
-script = ExtResource("9_de2wb")
-
-[node name="skin2" type="Sprite2D" parent="."]
-visible = false
-position = Vector2(10, 3)
-scale = Vector2(0.125882, 0.119594)
-texture = ExtResource("10_6yoee")
-script = ExtResource("3_f3hsb")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 unique_name_in_owner = true
