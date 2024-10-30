@@ -8,11 +8,12 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dkb7p"]
 size = Vector2(117, 108)
 
-[node name="CreepEnemy" instance=ExtResource("1_mhp5o")]
+[node name="CreepEnemy" node_paths=PackedStringArray("enemy_sprite") instance=ExtResource("1_mhp5o")]
 scale = Vector2(0.75, 0.75)
 script = ExtResource("2_dr0mb")
 creep_prefab = ExtResource("3_mgyv2")
 creep_spawn_time = 3.0
+enemy_sprite = NodePath("Sprite2D")
 
 [node name="Sprite2D" type="Sprite2D" parent="." index="0"]
 self_modulate = Color(0, 1, 0.266667, 1)
