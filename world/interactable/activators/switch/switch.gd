@@ -2,6 +2,7 @@ extends Area2D
 
 signal switch_activated
 signal switch_deactivated
+
 var activated := false
 
 enum SWITCH_TYPE {

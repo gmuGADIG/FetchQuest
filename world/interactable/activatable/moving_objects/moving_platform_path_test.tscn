@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://js1w87dr6rlt"]
 
-[ext_resource type="Script" path="res://world/interactable/moving_objects/platform_mover.gd" id="1_52qp3"]
+[ext_resource type="Script" path="res://world/interactable/activatable/moving_objects/platform_mover.gd" id="1_52qp3"]
 [ext_resource type="Texture2D" uid="uid://dymucenpxmluo" path="res://icon.svg" id="2_qiosj"]
 
 [sub_resource type="Curve2D" id="Curve2D_erawb"]
@@ -15,6 +15,7 @@ size = Vector2(122, 108)
 [node name="MovingPlatformPath" type="Path2D"]
 curve = SubResource("Curve2D_erawb")
 script = ExtResource("1_52qp3")
+repeat_type = 0
 
 [node name="Platform" type="PathFollow2D" parent="."]
 position = Vector2(250, 14)
