@@ -3,7 +3,7 @@ class_name Player extends CharacterBody2D
 static var instance: Player
 
 @export var move_speed: float = 500.0 ## Move speed in pixels per second
-@export var max_health: int = 3 ## Max health and starting health
+@export var max_health: int = 6 ## Max health and starting health
 @export var bomb_throw_speed: float = 1000.0 ## Bombs are thrown with this much velocity
 @export var max_stamina: float = 3.0
 @export var stamina_recovery_rate: float = 1.0 ## How much stamina 
