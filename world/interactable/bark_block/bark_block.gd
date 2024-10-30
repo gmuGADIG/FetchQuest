@@ -22,10 +22,7 @@ func _physics_process(delta: float) -> void:
 			if oldPos.distance_to(newPos) < 1: # Zero out velocity when collisions stop movement
 				velocity = Vector2.ZERO
 
-func hurt(damage_event: DamageEvent) -> void: # Needed to avoid Bark throwing errors, as it expects a hurt function
-	pass
-
-func stun() -> void:  
+func barked() -> void:  
 	var player := Player.instance
 	if player != null:
 		
