@@ -34,7 +34,13 @@ signal health_changed
 
 @onready var navigation_agent: NavigationAgent2D = get_node("NavigationAgent2D")
 
-var enemy_state := EnemyState.ROAMING
+
+#The desired range the enemy wants to navigate to
+@export var agressive_target_distance_min: int = 1
+@export var agressive_target_distance_max: int = 300
+
+var enemy_state : EnemyState = EnemyState.ROAMING
+var navigation_target: Vector2 = self.position
 
 @onready var original_position : Vector2 = position
 @onready var target_position: Vector2 = _get_roaming_target()
@@ -47,6 +53,7 @@ enum EnemyState {
 }
 
 func _ready() -> void:
+	enemy_state = EnemyState.AGRESSIVE
 	assert(navigation_agent != null, "Enemy must have a navigation agent")
 	navigation_agent.velocity_computed.connect(self._on_velocity_computed)
 	actor_setup.call_deferred()
@@ -55,7 +62,7 @@ func actor_setup() -> void:
 	await get_tree().physics_frame
 	approach(Player.instance.global_position)
 
-func _process(delta: float) -> void:		
+func _process(delta: float) -> void:
 	match enemy_state:
 		EnemyState.ROAMING:
 			_process_roaming(delta)
@@ -121,9 +128,30 @@ func _get_roaming_target() -> Vector2:
 	var distance: float =  randf_range(0, roaming_radius)
 	return original_position + Vector2(distance * cos(radian), distance * sin(radian))
 
-func _process_agressive(_delta: float) -> void:
-	pass
 	
+func _process_agressive(delta: float) -> void:
+	#Note that these variables are the square distance
+	var enemy_distance: float = self.position.distance_to(Player.instance.position)
+	var navigation_target_distance: float = navigation_target.distance_to(Player.instance.position)
+	var player_location: Vector2 = Player.instance.position
+	var target_distance: float = agressive_target_distance_min+(agressive_target_distance_max-agressive_target_distance_min)/2
+	var target_direction: Vector2
+	
+	var target : Vector2
+	#When the enemy is inside of the valid target region
+	
+	
+	if (enemy_distance > agressive_target_distance_min) && (enemy_distance < agressive_target_distance_max):
+		if(self.position.distance_squared_to(navigation_target)>10):
+			pass
+		const angle_variance := deg_to_rad(10)
+		target_direction = player_location.direction_to(self.position).rotated(randf_range(-1, 1) * angle_variance)
+		target = player_location+target_direction*target_distance;
+	else:
+		target_direction = player_location.direction_to(self.position)
+		target = player_location+target_direction*target_distance;
+	approach(target)
+		
 func _process_stunned(_delta: float) -> void:
 	pass
 	
@@ -131,13 +159,18 @@ func approach(target: Vector2) -> void:
 	if navigation_agent:
 		navigation_agent.set_target_position(target)
 
+## Helper function for derived Enemy types to check whether or not they have
+## reached their target position.
+func is_at_nav_target_position() -> bool:
+	return navigation_agent.is_navigation_finished()
+
 func _physics_process(delta: float) -> void:
 	if navigation_agent.is_navigation_finished():
 		_on_velocity_computed(Vector2.ZERO)
 		return
 		
 	var next_path_position: Vector2 = navigation_agent.get_next_path_position()
-	var new_velocity: Vector2 = global_position.direction_to(next_path_position) * movement_speed
+	var new_velocity: Vector2 = global_position.direction_to(next_path_position) * _get_movement_speed()
 	if navigation_agent.avoidance_enabled:
 		# this implicitly calls _on_velocity_computed.
 		navigation_agent.set_velocity(new_velocity)
@@ -163,3 +196,13 @@ func hitFlicker() -> void:
 		enemy_sprite.modulate=Color(0.4,0.4,0.4,1)
 		await get_tree().create_timer(0.1).timeout
 		enemy_sprite.modulate= enemy_normal_modulate
+
+## Override this to provide different contact damage for each enemy.
+func _get_contact_damage() -> int:
+	return damage
+	
+## Override this to dynamically set the movement speed fo the default movement
+## logic.
+## NOTE: This will be called by _physics_process().
+func _get_movement_speed() -> float:
+	return movement_speed

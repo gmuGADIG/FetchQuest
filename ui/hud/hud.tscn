@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://70lp7kfk3yw6"]
+[gd_scene load_steps=6 format=3 uid="uid://70lp7kfk3yw6"]
 
 [ext_resource type="Script" path="res://ui/hud/heart_display.gd" id="1_k7sf5"]
 [ext_resource type="PackedScene" uid="uid://crx66rsu01asx" path="res://ui/hud/heart.tscn" id="2_b3c5i"]
 [ext_resource type="Texture2D" uid="uid://8vhne25d4h2h" path="res://demo_art/staminabar.png" id="3_j86gt"]
 [ext_resource type="Texture2D" uid="uid://deern6512fesn" path="res://demo_art/test_enemy.svg" id="4_78gs1"]
+[ext_resource type="Script" path="res://ui/hud/stamina_bar.gd" id="4_bod0y"]
 
 [node name="HUD" type="CanvasLayer"]
 
@@ -44,6 +45,7 @@ layout_mode = 2
 size_flags_horizontal = 0
 value = 100.0
 texture_progress = ExtResource("3_j86gt")
+script = ExtResource("4_bod0y")
 
 [node name="GBPContainer" type="CenterContainer" parent="ContainerContainer"]
 layout_mode = 2
