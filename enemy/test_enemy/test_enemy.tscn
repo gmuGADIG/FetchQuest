@@ -7,10 +7,11 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6fsdk"]
 size = Vector2(96, 96)
 
-[node name="TestEnemy" instance=ExtResource("1_oqpld")]
+[node name="TestEnemy" node_paths=PackedStringArray("enemy_sprite") instance=ExtResource("1_oqpld")]
 collision_mask = 1
 script = ExtResource("2_yeqgq")
 pickup_drop_chance = 1.0
+enemy_sprite = NodePath("TestEnemy")
 
 [node name="TestEnemy" type="Sprite2D" parent="." index="0"]
 scale = Vector2(0.75, 0.75)
