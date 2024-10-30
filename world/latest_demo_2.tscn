@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=4 uid="uid://c0b860627rcs5"]
+[gd_scene load_steps=29 format=4 uid="uid://c0b860627rcs5"]
 
 [ext_resource type="PackedScene" uid="uid://cnd06dpkgufe4" path="res://world/level_base.tscn" id="1_2iy6g"]
 [ext_resource type="Script" path="res://world/decoration/trees/tree_gen.gd" id="2_n44bl"]
@@ -25,6 +25,7 @@
 [ext_resource type="PackedScene" uid="uid://cg2jt0166hik8" path="res://world/interactable/red_coin/red_coin_manager.tscn" id="20_cbi4s"]
 [ext_resource type="PackedScene" uid="uid://gp1o7iklljk2" path="res://world/interactable/red_coin/red_coin.tscn" id="21_7gu4x"]
 [ext_resource type="PackedScene" uid="uid://5x8wo3lcwigq" path="res://world/objects/breakable_object/breakable_object.tscn" id="24_xolg5"]
+[ext_resource type="PackedScene" uid="uid://duhvhegf6byvr" path="res://enemy/spawner_enemy/spawner_enemy.tscn" id="26_j44ix"]
 
 [sub_resource type="Curve2D" id="Curve2D_j10fm"]
 _data = {
@@ -1124,6 +1125,10 @@ position = Vector2(558, 2259)
 
 [node name="CreepEnemy" parent="FirstEnemyArea/Enemies" index="3" instance=ExtResource("2_usfpa")]
 position = Vector2(845, 2130)
+
+[node name="SpawnerEnemy" parent="FirstEnemyArea/Enemies" index="4" instance=ExtResource("26_j44ix")]
+position = Vector2(1704, 2154)
+spawned_enemy = ExtResource("10_8dpie")
 
 [node name="BushedOutside" type="Node2D" parent="FirstEnemyArea" index="3"]
 y_sort_enabled = true
