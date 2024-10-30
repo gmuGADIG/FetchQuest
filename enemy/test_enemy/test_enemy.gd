@@ -5,14 +5,13 @@
 class_name TestEnemy extends Enemy
 
 func _ready() -> void:
-	# wait a single frame in case our _ready was called before the player's
-	await get_tree().process_frame
-
-func _physics_process(_delta: float) -> void:
-	if Player.instance == null: return
+	# All enemy subclasses must call super._ready().
+	super._ready()
 	
-	else:
-		velocity = (Player.instance.global_position - global_position).normalized() * 300
-	move_and_slide()
+func _physics_process(delta: float) -> void:
+	super._physics_process(delta)
 
-	look_at(Player.instance.global_position)
+func _on_hitting_area_body_entered(body: Node2D) -> void:
+	var player := body as Player
+	if player != null:
+		player.hurt(DamageEvent.new(1))
