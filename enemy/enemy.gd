@@ -154,13 +154,18 @@ func approach(target: Vector2) -> void:
 	if navigation_agent:
 		navigation_agent.set_target_position(target)
 
+## Helper function for derived Enemy types to check whether or not they have
+## reached their target position.
+func is_at_nav_target_position() -> bool:
+	return navigation_agent.is_navigation_finished()
+
 func _physics_process(delta: float) -> void:
 	if navigation_agent.is_navigation_finished():
 		_on_velocity_computed(Vector2.ZERO)
 		return
 		
 	var next_path_position: Vector2 = navigation_agent.get_next_path_position()
-	var new_velocity: Vector2 = global_position.direction_to(next_path_position) * movement_speed
+	var new_velocity: Vector2 = global_position.direction_to(next_path_position) * _get_movement_speed()
 	if navigation_agent.avoidance_enabled:
 		# this implicitly calls _on_velocity_computed.
 		navigation_agent.set_velocity(new_velocity)
@@ -179,4 +184,14 @@ func _on_hitting_area_body_entered(body: Node2D) -> void:
 	var player := body as Player
 	if player != null:
 		var knockback := global_position.direction_to(player.global_position) * knockback_force
-		player.hurt(DamageEvent.new(damage, knockback))
+		player.hurt(DamageEvent.new(_get_contact_damage(), knockback))
+
+## Override this to provide different contact damage for each enemy.
+func _get_contact_damage() -> int:
+	return damage
+	
+## Override this to dynamically set the movement speed fo the default movement
+## logic.
+## NOTE: This will be called by _physics_process().
+func _get_movement_speed() -> float:
+	return movement_speed
