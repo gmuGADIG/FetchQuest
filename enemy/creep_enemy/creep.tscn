@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://ipqd2c6snnqc" path="res://demo_art/creep.png" id="2_xc1fu"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_dmixx"]
-radius = 106.005
+radius = 80.0
 
 [node name="Creep" type="Area2D"]
 scale = Vector2(0.05, 0.05)
@@ -16,12 +16,12 @@ sustain_time = 3.0
 [node name="DamageTimer" type="Timer" parent="."]
 one_shot = true
 
-[node name="DamageCollider" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_dmixx")
-
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.319955, 0.319955)
 texture = ExtResource("2_xc1fu")
+
+[node name="DamageCollider" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_dmixx")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="timeout" from="DamageTimer" to="." method="_on_damage_timer_timeout"]
