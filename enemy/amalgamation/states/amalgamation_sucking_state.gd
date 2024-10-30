@@ -46,4 +46,5 @@ func _on_mouth_area_body_entered(body: Node2D) -> void:
 				await child.timeout
 				break;
 		# Switch to vulnerable state after explosion
-		amalgamation.state_machine.change_state(self, "Vulnerable")
+		if amalgamation.state_machine.current_state == self:
+			amalgamation.state_machine.change_state(self, "Vulnerable")

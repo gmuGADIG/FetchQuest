@@ -30,9 +30,14 @@ func _on_vulnerable_hit_area_body_entered(body: Node2D) -> void:
 	if body is ThrownSword:
 		damage = 1
 	# Bomb case
-	else:
-		damage = body.damage
-		body.hurt(DamageEvent.new(0))
-	amalgamation.hurt(DamageEvent.new(damage))
-	#print("amalgamation_vulnerable_state.gd: Amalgamation takes " + str(damage) + " damage")
-	
+	elif body is Bomb:
+	# Wait for the bomb's timer to go off
+		for child in body.get_children():
+			if child is Timer:
+				await child.timeout
+				damage = body.damage
+				break
+
+	# Hurt the boss if still vulnerable (necessary check due to waiting on the bomb timer)
+	if amalgamation.state_machine.current_state == self:
+		amalgamation.hurt(DamageEvent.new(damage))

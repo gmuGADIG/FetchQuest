@@ -75,7 +75,12 @@ func hurt(damage_event: DamageEvent) -> void:
 	health -= damage_event.damage
 	health = clampi(health, 0, max_health)
 	
-	print("thee_amalgamation.gd: Health was lowered to %s/%s" % [health, max_health])
+	print("thee_amalgamation.gd: Id rate my health %s/%s" % [health, max_health])
+	
+	# Temporary hit effect
+	var tween := create_tween()
+	tween.tween_property(self,"modulate",Color(1,.5,.5,1),.25)
+	tween.tween_property(self,"modulate",Color(1,1,1,1),.25)
 	
 	# Die if dead X_X
 	if health <= 0:
