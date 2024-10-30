@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://deo11h81nnpyw" path="res://world/interactable/pickups/pickup_bomb.tscn" id="4_xhn3s"]
 [ext_resource type="PackedScene" uid="uid://ch344rluh4xbs" path="res://world/camera/main_cam.tscn" id="7_7fnsb"]
 [ext_resource type="PackedScene" uid="uid://d3xngexqsy6m7" path="res://enemy_spawner/enemy_spawner.tscn" id="7_007xo"]
-[ext_resource type="PackedScene" uid="uid://70lp7kfk3yw6" path="res://ui/hud/hud.tscn" id="8_6bf8d"]
+[ext_resource type="PackedScene" uid="uid://70lp7kfk3yw6" path="res://UI/hud/hud.tscn" id="8_6bf8d"]
 [ext_resource type="Texture2D" uid="uid://dymucenpxmluo" path="res://icon.svg" id="8_umcft"]
 [ext_resource type="PackedScene" uid="uid://dutetduietx8r" path="res://enemy/shield_enemy/shield_enemy.tscn" id="9_opy6u"]
 [ext_resource type="PackedScene" uid="uid://cg2jt0166hik8" path="res://world/interactable/activators/red_coin/red_coin_manager.tscn" id="9_svfaa"]
@@ -116,6 +116,7 @@ texture = ExtResource("8_umcft")
 
 [node name="EnemySpawner" parent="." instance=ExtResource("7_007xo")]
 position = Vector2(643, 624)
+enabled = false
 
 [node name="RedCoinManager" parent="." node_paths=PackedStringArray("reward") instance=ExtResource("9_svfaa")]
 position = Vector2(-415, 100)
