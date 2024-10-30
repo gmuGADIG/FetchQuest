@@ -18,10 +18,18 @@ func _ready() -> void:
 	tween.tween_property(self, "scale" , fully_grown_scale, abs(scale.distance_to(fully_grown_scale)) / growth)
 	tween.tween_property(self, "scale" , fully_grown_scale, sustain_time)
 	tween.tween_property(self, "scale" , Vector2.ZERO, abs(fully_grown_scale.distance_to(Vector2.ZERO)) / growth)
+	# Remove the creep once it shrinks away
+	tween.finished.connect(queue_free) 
 
-	tween.finished.connect(queue_free) # remove the creep once it shrinks away
+func _on_body_entered(body: Node2D) -> void:
+	# Immediately hurt the player and begin DOT
+	if body is Player:
+		Player.instance.hurt(DamageEvent.new(damage))
+		$DamageTimer.stop()
+		$DamageTimer.start()
 
 func _on_damage_timer_timeout() -> void:
-	# Check if the player is in the creep based off 'DamageTimer' (to prevent instant kills)
+	# Hurt the player each second they are in the creep 
 	if overlaps_body(Player.instance):
 		Player.instance.hurt(DamageEvent.new(damage))
+		$DamageTimer.start()
