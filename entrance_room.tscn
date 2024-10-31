@@ -1,0 +1,147 @@
+[gd_scene load_steps=28 format=3 uid="uid://cshg82thkhmux"]
+
+[ext_resource type="PackedScene" uid="uid://cnd06dpkgufe4" path="res://world/level_base.tscn" id="1_rvs7s"]
+[ext_resource type="Script" path="res://addons/rmsmartshape/shapes/shape.gd" id="2_4u3tj"]
+[ext_resource type="PackedScene" uid="uid://c7ck7ril2jix2" path="res://player/player.tscn" id="2_wqd0o"]
+[ext_resource type="Script" path="res://addons/rmsmartshape/vertex_properties.gd" id="3_cr00p"]
+[ext_resource type="Script" path="res://addons/rmsmartshape/shapes/point_array.gd" id="3_ka1ug"]
+[ext_resource type="Script" path="res://addons/rmsmartshape/shapes/point.gd" id="4_us4js"]
+[ext_resource type="Script" path="res://addons/rmsmartshape/materials/edge_material_metadata.gd" id="4_vu07j"]
+[ext_resource type="Script" path="res://addons/rmsmartshape/materials/shape_material.gd" id="5_j68mv"]
+[ext_resource type="Script" path="res://addons/rmsmartshape/materials/edge_material.gd" id="7_m11cj"]
+[ext_resource type="Script" path="res://addons/rmsmartshape/normal_range.gd" id="8_ma656"]
+[ext_resource type="Texture2D" uid="uid://l4pgl44h8y7q" path="res://dialogic_example/level_example_textures/grass_edge.png" id="9_8gst6"]
+[ext_resource type="Texture2D" uid="uid://vm33ci7bxmfx" path="res://dialogic_example/level_example_textures/grass_fill.png" id="11_xwcqh"]
+
+[sub_resource type="Resource" id="Resource_7ldel"]
+script = ExtResource("3_cr00p")
+texture_idx = 0
+flip = false
+width = 1.0
+
+[sub_resource type="Resource" id="Resource_wxav2"]
+script = ExtResource("4_us4js")
+position = Vector2(-256, -192)
+point_in = Vector2(0, 0)
+point_out = Vector2(0, 0)
+properties = SubResource("Resource_7ldel")
+
+[sub_resource type="Resource" id="Resource_25s2t"]
+script = ExtResource("3_cr00p")
+texture_idx = 0
+flip = false
+width = 1.0
+
+[sub_resource type="Resource" id="Resource_w26ku"]
+script = ExtResource("4_us4js")
+position = Vector2(-256, 1088)
+point_in = Vector2(0, 0)
+point_out = Vector2(0, 0)
+properties = SubResource("Resource_25s2t")
+
+[sub_resource type="Resource" id="Resource_0ggo7"]
+script = ExtResource("3_cr00p")
+texture_idx = 0
+flip = false
+width = 1.0
+
+[sub_resource type="Resource" id="Resource_g257d"]
+script = ExtResource("4_us4js")
+position = Vector2(1792, 1088)
+point_in = Vector2(0, 0)
+point_out = Vector2(0, 0)
+properties = SubResource("Resource_0ggo7")
+
+[sub_resource type="Resource" id="Resource_c6sbb"]
+script = ExtResource("3_cr00p")
+texture_idx = 0
+flip = false
+width = 1.0
+
+[sub_resource type="Resource" id="Resource_8bgtt"]
+script = ExtResource("4_us4js")
+position = Vector2(1792, -192)
+point_in = Vector2(0, 0)
+point_out = Vector2(0, 0)
+properties = SubResource("Resource_c6sbb")
+
+[sub_resource type="Resource" id="Resource_bikqc"]
+script = ExtResource("3_cr00p")
+texture_idx = 0
+flip = false
+width = 1.0
+
+[sub_resource type="Resource" id="Resource_5blle"]
+script = ExtResource("4_us4js")
+position = Vector2(-256, -192)
+point_in = Vector2(0, 0)
+point_out = Vector2(0, 0)
+properties = SubResource("Resource_bikqc")
+
+[sub_resource type="Resource" id="Resource_a4tuc"]
+script = ExtResource("3_ka1ug")
+_points = {
+0: SubResource("Resource_wxav2"),
+6: SubResource("Resource_w26ku"),
+7: SubResource("Resource_g257d"),
+8: SubResource("Resource_8bgtt"),
+9: SubResource("Resource_5blle")
+}
+_point_order = Array[int]([9, 8, 7, 6, 0])
+_constraints = {
+Array[int]([0, 9]): 15
+}
+_next_key = 10
+_material_overrides = {}
+
+[sub_resource type="Resource" id="Resource_j70ii"]
+script = ExtResource("7_m11cj")
+textures = Array[Texture2D]([ExtResource("9_8gst6")])
+textures_corner_outer = Array[Texture2D]([])
+textures_corner_inner = Array[Texture2D]([])
+textures_taper_left = Array[Texture2D]([])
+textures_taper_right = Array[Texture2D]([])
+randomize_texture = false
+use_corner_texture = true
+use_taper_texture = true
+fit_mode = 0
+
+[sub_resource type="Resource" id="Resource_u6lnt"]
+script = ExtResource("8_ma656")
+begin = 0.0
+distance = 360.0
+edgeRendering = Vector2(0, 0)
+
+[sub_resource type="Resource" id="Resource_xwyqr"]
+script = ExtResource("4_vu07j")
+edge_material = SubResource("Resource_j70ii")
+normal_range = SubResource("Resource_u6lnt")
+weld = true
+render = true
+z_index = 0
+z_as_relative = true
+offset = 0.0
+
+[sub_resource type="Resource" id="Resource_qxw4f"]
+script = ExtResource("5_j68mv")
+_edge_meta_materials = Array[ExtResource("4_vu07j")]([SubResource("Resource_xwyqr")])
+fill_textures = Array[Texture2D]([ExtResource("11_xwcqh")])
+fill_texture_z_index = -10
+fill_texture_show_behind_parent = false
+fill_texture_scale = 1.0
+fill_texture_absolute_position = false
+fill_texture_absolute_rotation = false
+fill_texture_offset = Vector2(0, 0)
+fill_texture_angle_offset = 0.0
+fill_mesh_offset = 0.0
+render_offset = 0.0
+
+[node name="LevelBase" instance=ExtResource("1_rvs7s")]
+
+[node name="Player" parent="." index="4" instance=ExtResource("2_wqd0o")]
+position = Vector2(584, 304)
+
+[node name="SS2D_Shape" type="Node2D" parent="." index="5"]
+script = ExtResource("2_4u3tj")
+_points = SubResource("Resource_a4tuc")
+shape_material = SubResource("Resource_qxw4f")
