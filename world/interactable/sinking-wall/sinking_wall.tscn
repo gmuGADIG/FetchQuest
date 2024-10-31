@@ -22,3 +22,8 @@ texture = ExtResource("2_8trb1")
 position = Vector2(0, 55.5)
 scale = Vector2(1, 0.132812)
 texture = ExtResource("2_8trb1")
+
+[node name="wallTimer" type="Timer" parent="."]
+wait_time = 8.0
+
+[connection signal="timeout" from="wallTimer" to="." method="raiseWall"]
