@@ -15,16 +15,12 @@ func _on_body_entered(body: Node2D) -> void:
 	if body is Player:
 		body.hurt(DamageEvent.new(damage, direction * knockback_strength))
 		queue_free()
-	elif body is SpeakAura:
-		deflect(body)
 
 func _on_despawn_timer_timeout() -> void:
 	queue_free()
 
-func hurt(damage: DamageEvent) -> void: pass
 
-func deflect(source: SpeakAura) -> void:
+func on_bark(source: SpeakAura) -> void:
 	# Deflect projectiles on bark
-	print("i have seen dog deflect bullet")
-	rotation = source.position.angle_to_point(position)
+	rotation = source.global_position.angle_to_point(global_position)
 	
