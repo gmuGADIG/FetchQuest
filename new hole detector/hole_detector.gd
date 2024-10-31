@@ -9,7 +9,6 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	
 	#Overlaps from Close to Hole
 	var closeOverlaps : Array[Node2D] = $closeToHole.get_overlapping_bodies()
 	
@@ -18,16 +17,31 @@ func _process(delta: float) -> void:
 	var overlaps : Array[Node2D] = $inHole.get_overlapping_bodies()
 	
 	#check if there are close overlaps but no hole overlaps (aka close but not in hole)
-	if overlaps.size() == 0:
+	#if overlaps.size() == 0:
 		
 		# the entity is in a hole
-		for body in overlaps:
-			if body.is_in_group("HoleOccluder"):
-				inHole.emit()
-				
+		#for body in overlaps:
+		#	if body.is_in_group("Hole"):
+		#		inHole.emit()
+		#		print("fell in hole")
 		# the entity is close to a hole
-		for body in closeOverlaps:
-			if body.is_in_group("HoleOccluder"):
-				closeToHole.emit() 
+		#for body in closeOverlaps:
+		#	if body.is_in_group("Hole"):
+		#		closeToHole.emit() 
 	
 	pass
+
+
+func _on_close_to_hole_body_entered(body: Node2D) -> void:
+	print("body entered")
+	if body.is_in_group("Hole"):
+		closeToHole.emit()
+		print("body is hole")		
+	pass # Replace with function body.
+
+
+func _on_in_hole_body_entered(body: Node2D) -> void:
+	if body.is_in_group("Hole"):
+		inHole.emit()
+		print("fell in hole")
+	pass # Replace with function body.

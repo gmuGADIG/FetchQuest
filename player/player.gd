@@ -9,6 +9,8 @@ static var instance: Player
 @export var stamina_recovery_rate: float = 1.0 ## How much stamina 
 @export var knockback_friction: float = 5.0 ## How fast the player slows down from knockback
 @export var roll_speed: float = 1000.0
+var immune_falling :bool= false
+var last_safe_position :Vector2= Vector2.ZERO
 
 @onready var health: int = max_health: ## Current health
 	set(value):
@@ -71,7 +73,7 @@ func start_roll() -> void:
 	roll_vector = Input.get_vector("move_left", "move_right", "move_up", "move_down").normalized()
 	# switch off collision with enemy bullets and the holes
 	self.set_collision_mask_value(6, false)
-	%HoleDetector.monitoring = false
+	immune_falling = true
 	
 	# make the timer go
 	$RollTimer.start(roll_timer)
@@ -79,7 +81,7 @@ func start_roll() -> void:
 # callback from roll timer. reverts changes made by start_roll
 func stop_roll() -> void:
 	rolling = false
-	%HoleDetector.monitoring = true
+	immune_falling = false
 	
 	self.set_collision_mask_value(6, true)
 
@@ -168,3 +170,19 @@ func add_force(force: Vector2) -> void:
 func pickup_item(item: Item) -> void:
 	item.consume(self)
 	
+	
+func inHole() -> void:
+	#damage player
+	hurt(DamageEvent.new(1))
+	#play animation?
+	
+	#set postion to last safe position
+	#var dir : Vector2 = position.direction_to(last_safe_position)
+	position = last_safe_position
+	pass
+
+
+func close_to_hole() -> void:
+	last_safe_position = position;
+	print("safe pos")
+	pass # Replace with function body.
