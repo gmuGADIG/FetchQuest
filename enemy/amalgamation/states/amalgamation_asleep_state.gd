@@ -2,8 +2,13 @@ class_name AmalgamationAsleepState extends AmalgamationState
 
 
 func enter() -> void:
-	print("amalgamation_asleep_state.gd: Honk shoooooo mimimimimimimimimi")
+	# Wait until all values are set (it takes one frame)
+	await get_tree().process_frame
+	
+	# Play animation
 	amalgamation.animation_player.play("Sleeping")
+	
+	print("amalgamation_asleep_state.gd: Honk shoooooo mimimimimimimimimi")
 
 func update(_delta:float) -> void:
 	pass
@@ -18,8 +23,7 @@ func _on_mouth_area_body_entered(body: Node2D) -> void:
 		return
 	if body is not Bomb:
 		return
-	#TODO maybe move the bomb into the mouth
-	
+			
 	# Get the bomb timer and wait until it ends
 	for child in body.get_children():
 		if child is Timer:

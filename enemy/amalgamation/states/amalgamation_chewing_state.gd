@@ -2,13 +2,20 @@ class_name AmalgamationChewingState extends AmalgamationState
 
 ## The distance that the player is spat out
 @onready var spitting_distance:float = amalgamation.spitting_distance
+## The duration of this state
+@onready var duration:float = amalgamation.chewing_state_duration;
 
 func enter() -> void:
+	# Play animation
 	amalgamation.animation_player.play("Chewing")
+	
 	print("amalgamation_chewing_state.gd: nom nom nom nom nom")
+	
+	# Hide the player while chewing
 	Player.instance.modulate.a = 0
-	# Chew for 3 seconds, then idle
-	await get_tree().create_timer(3).timeout
+	
+	# Chew for 'duration' seconds, then idle
+	await get_tree().create_timer(duration).timeout
 	if amalgamation.state_machine.current_state != self:
 		return
 	amalgamation.state_machine.change_state(self, "Idle")

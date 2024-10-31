@@ -6,12 +6,15 @@ class_name AmalgamationSpittingState extends AmalgamationState
 @onready var spitting_number:int = amalgamation.spitting_number
 ## The distance from the mouth that enemies and the player will be spat out
 @onready var spitting_distance:float = amalgamation.spitting_distance
+## The duration of this state
+@onready var duration:float = amalgamation.spitting_state_duration;
 ## The time in seconds between each enemy being spat out
-@onready var spitting_delay:float = amalgamation.spitting_delay
-
+@onready var spitting_delay:float = duration / spitting_number;
 
 func enter() -> void:
+	# Play animation
 	amalgamation.animation_player.play("Spitting")
+	
 	# Spit however much we want (with a delay)
 	for i in range(spitting_number):
 		spit()
@@ -30,6 +33,7 @@ func exit() -> void:
 
 func spit() -> void:
 	print("amalgamation_spitting_state.gd: insert pokemon reference")
+	
 	# Spawn a random enemy in the mouth
 	var enemy:Enemy = possible_enemies.pick_random().instantiate()	
 	enemy.global_position = %MouthArea.global_position

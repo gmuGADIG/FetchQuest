@@ -4,23 +4,29 @@ class_name AmalgamationPillarsState extends AmalgamationState
 @onready var pillar_scene:PackedScene = preload("res://enemy/amalgamation/amalgamation_pillar_of_light.tscn")
 ## How many pillars to spawn
 @onready var pillar_count:int = amalgamation.pillar_count
-## The time the pillar takes to fall
-@onready var pillar_fall_time:float = amalgamation.pillar_fall_time
 ## The center of the room (for pillar spawning)
 @onready var room_center:Node2D = amalgamation.room_center
 ## The center of the room (for pillar spawning)
 @onready var room_size:Vector2 = amalgamation.room_size
+## The duration of this state
+@onready var duration:float = amalgamation.pillar_state_duration;
+## The time the pillar takes to fall
+@onready var pillar_fall_time:float = duration * 0.75;
 
 ## The current pillars that exist
 var pillars_spawned: Array[Node2D] = []
 
 func enter() -> void:
+	# Play the animation
 	amalgamation.animation_player.play("Pillars")
+	
 	print("amalgamation_pillars_state.gd: final destination reference")
+	
 	# Summon the pillars
 	summon_pillars()
-	# Idle after 8 seconds
-	await get_tree().create_timer(pillar_fall_time * 1.25).timeout
+	
+	# Idle after 'duration' seconds
+	await get_tree().create_timer(duration).timeout
 	if amalgamation.state_machine.current_state != self:
 		return
 	amalgamation.state_machine.change_state(self, "Idle")

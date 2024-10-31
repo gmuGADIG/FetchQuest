@@ -7,16 +7,21 @@ class_name AmalgamationIdleState extends AmalgamationState
 ## The weights of each attack state being chosen (in order of the attack_states array)
 @onready var attack_state_weights:Array[float] = [amalgamation.sucking_weight, amalgamation.pillar_weight, amalgamation.spit_weight];
 
+## The duration of this state
+@onready var duration:float = amalgamation.idle_state_duration;
+
 ## The next state amalgamation will be in once ready to switch 
 var desired_state:AmalgamationState;
 ## The attack state that amalgamation was in most recently 
 var previous_attack_state:AmalgamationState;
 
 func enter() -> void:
+	# Play animation
 	amalgamation.animation_player.play("Idle")
+
 	# Switch to a random attack state after a timer ends
 	desired_state = get_random_attack()
-	await get_tree().create_timer(2).timeout
+	await get_tree().create_timer(duration).timeout
 	if amalgamation.state_machine.current_state != self:
 		return
 	amalgamation.state_machine.change_state(self, desired_state.name)

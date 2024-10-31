@@ -1,12 +1,14 @@
 class_name AmalgamationVulnerableState extends AmalgamationState
 
 ## How long the boss stays vulnerable after it is triggered
-@onready var duration:float = amalgamation.vulnerability_duration
+@onready var duration:float = amalgamation.vulnerable_state_duration
 
 func enter() -> void:
+	# Play animation
 	amalgamation.animation_player.play("Vulnerable")
+
 	# Enable taking damage for 'duration' seconds, then idle
-	%VulnerableHitArea.set_process(true)
+	%VulnerableHurtArea.set_process(true)
 	await get_tree().create_timer(duration).timeout
 	if amalgamation.state_machine.current_state != self:
 		return
@@ -17,7 +19,7 @@ func update(_delta:float) -> void:
 
 func exit() -> void:
 	# Disable taking damage
-	%VulnerableHitArea.set_process(false)
+	%VulnerableHurtArea.set_process(false)
 
 # Called when the amalgamation is hit by the player's attacks
 func _on_vulnerable_hit_area_body_entered(body: Node2D) -> void:
