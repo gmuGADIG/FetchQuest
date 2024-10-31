@@ -11,8 +11,19 @@ func assign_quest(id: String) -> void:
 func complete_quest(id: String) -> void:
 	_find_quest_by_id(id).complete_quest()
 
-# TODO: func get_assigned_quests() -> Array[Quest]
-# TODO: func get_completed_quests() -> Array[Quest]
+func get_assigned_quests() -> Array[Quest]:
+	var array:Array[Quest]
+	for quest in quests:
+		if quest.is_assigned:
+			array.append(quest)
+	return array
+
+func get_completed_quests() -> Array[Quest]:
+	var array:Array[Quest]
+	for quest in quests:
+		if quest.is_completed:
+			array.append(quest)
+	return array
 
 func _find_quest_by_id(id: String) -> Quest:
 	for q in quests:
