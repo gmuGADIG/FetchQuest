@@ -35,10 +35,14 @@ func _order_check() -> void:
 	if correct_order:
 		print("You hit the switches in the correct order!")
 	else:
+		num_hit = 0
+		correct_order = false
 		var delay := Timer.new()
 		add_child(delay)
+		delay.one_shot = true
 		delay.start(0.1)
 		delay.timeout.connect(flip_switches)
+		
 		
 	pass
 	

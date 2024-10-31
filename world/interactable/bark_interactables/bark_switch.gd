@@ -29,12 +29,15 @@ func stun() -> void:
 		_off_sprite.visible = false
 
 func _on_area_entered(area: Area2D) -> void:
-	if !activated:
-		activated = true
-		get_parent().switch_hit(self.name)
-		_on_sprite.visible = true
-		_off_sprite.visible = false
-	pass # Replace with function body.
+	print(area.name)
+	if(area.name == "SpeakAura"):
+		stun()
+	#if !activated:
+		#activated = true
+		#get_parent().switch_hit(self.name)
+		#_on_sprite.visible = true
+		#_off_sprite.visible = false
+	#pass # Replace with function body.
 
 
 func deactivate() -> void:
