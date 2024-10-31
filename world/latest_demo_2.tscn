@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=4 uid="uid://c0b860627rcs5"]
+[gd_scene load_steps=27 format=4 uid="uid://c0b860627rcs5"]
 
 [ext_resource type="PackedScene" uid="uid://cnd06dpkgufe4" path="res://world/level_base.tscn" id="1_2iy6g"]
 [ext_resource type="Script" path="res://world/decoration/trees/tree_gen.gd" id="2_n44bl"]
@@ -32,9 +32,6 @@ _data = {
 point_count = 2
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c0qo5"]
-size = Vector2(158, 146)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_8wpay"]
 size = Vector2(158, 146)
 
 [node name="LatestDemo2" instance=ExtResource("1_2iy6g")]
@@ -1738,6 +1735,7 @@ collision_layer = 0
 collision_mask = 2
 script = ExtResource("18_u8qny")
 scene_name = "demo_dungeon"
+other_point_name = "EntryPoint2_1"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PuzzleArea/DungeonEntrance/TransitionScene" index="0"]
 position = Vector2(6, -13)
@@ -1768,7 +1766,7 @@ position = Vector2(323, 124)
 
 [node name="Player" parent="." index="4" instance=ExtResource("16_sqpfi")]
 unique_name_in_owner = true
-position = Vector2(835, 839)
+position = Vector2(903, 746)
 
 [node name="MainCam" parent="." index="5"]
 position = Vector2(1815, -250)
@@ -1781,27 +1779,9 @@ script = ExtResource("8_gqbog")
 despawn_margin = 650.0
 
 [node name="EntryPoints" type="Node2D" parent="." index="9"]
-position = Vector2(533, 1591)
-scale = Vector2(0.429116, 0.429116)
 script = ExtResource("24_rvkrf")
 
 [node name="EntryPoint1_0" type="Node2D" parent="EntryPoints" index="0"]
-position = Vector2(351.886, -1908.57)
-
-[node name="EntryPoint1_1" type="Area2D" parent="EntryPoints" index="1"]
-collision_layer = 0
-collision_mask = 2
-script = ExtResource("18_u8qny")
-scene_name = "latest_demo_2"
-
-[node name="DungeonEntrance" type="Sprite2D" parent="EntryPoints/EntryPoint1_1" index="0"]
-position = Vector2(14, -64.9999)
-scale = Vector2(2.33037, 2.33037)
-texture = ExtResource("17_o8ma7")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="EntryPoints/EntryPoint1_1" index="1"]
-position = Vector2(6, -13)
-shape = SubResource("RectangleShape2D_8wpay")
+position = Vector2(-2410, 2396)
 
 [connection signal="body_entered" from="PuzzleArea/DungeonEntrance/TransitionScene" to="PuzzleArea/DungeonEntrance/TransitionScene" method="_on_body_entered"]
-[connection signal="body_entered" from="EntryPoints/EntryPoint1_1" to="EntryPoints/EntryPoint1_1" method="_on_body_entered"]

@@ -36,64 +36,61 @@ limit_top = -100
 limit_right = 2700
 limit_bottom = 1500
 
-[node name="EntryPoints" type="Node2D" parent="." index="6"]
-unique_name_in_owner = true
-position = Vector2(247, 161)
-scale = Vector2(2.33037, 2.33037)
-script = ExtResource("4_e3coe")
-
-[node name="EntryPoint_2_1" type="Area2D" parent="EntryPoints" index="0"]
-position = Vector2(-6.00761, 27.8925)
-scale = Vector2(0.429116, 0.429116)
+[node name="MainEntry" type="Area2D" parent="." index="6"]
+position = Vector2(241, 244)
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("5_vk2sh")
 scene_name = "latest_demo_2"
-other_point_name = "EntryPoint1_1"
+other_point_name = "EntryPoint1_0"
 
-[node name="DungeonEntrance" type="Sprite2D" parent="EntryPoints/EntryPoint_2_1" index="0"]
+[node name="DungeonEntrance" type="Sprite2D" parent="MainEntry" index="0"]
 position = Vector2(14, -64.9999)
 scale = Vector2(2.33037, 2.33037)
 texture = ExtResource("4_34qux")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="EntryPoints/EntryPoint_2_1" index="1"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MainEntry" index="1"]
 position = Vector2(6, -13)
 shape = SubResource("RectangleShape2D_nbank")
 
-[node name="EntryPoint2_2" type="Node2D" parent="EntryPoints" index="1"]
-position = Vector2(215.846, 0)
+[node name="EntryPoints" type="Node2D" parent="." index="7"]
+unique_name_in_owner = true
+script = ExtResource("4_e3coe")
 
-[node name="Switch" parent="." index="7" instance=ExtResource("6_7v37d")]
+[node name="EntryPoint2_1" type="Node2D" parent="EntryPoints" index="0"]
+position = Vector2(240, 429)
+
+[node name="Switch" parent="." index="8" instance=ExtResource("6_7v37d")]
 position = Vector2(2285, 566)
 
-[node name="Switch2" parent="." index="8" instance=ExtResource("6_7v37d")]
+[node name="Switch2" parent="." index="9" instance=ExtResource("6_7v37d")]
 position = Vector2(2288, 861)
 type = 1
 
-[node name="Switch3" parent="." index="9" instance=ExtResource("6_7v37d")]
+[node name="Switch3" parent="." index="10" instance=ExtResource("6_7v37d")]
 position = Vector2(2285, 1137)
 type = 2
 
-[node name="StaticBody2D" type="StaticBody2D" parent="." index="10"]
+[node name="StaticBody2D" type="StaticBody2D" parent="." index="11"]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D" index="0"]
 build_mode = 1
 polygon = PackedVector2Array(-1, 2, 1020, 1, 1020, 386, 2554, 387, 2556, 1402, 645, 1403, 645, 891, 5, 891)
 
-[node name="PushableBlock" parent="." index="11" instance=ExtResource("7_7ljqg")]
+[node name="PushableBlock" parent="." index="12" instance=ExtResource("7_7ljqg")]
 position = Vector2(832, 704)
 push_unit = 128.0
 
-[node name="PushableBlock3" parent="." index="12" instance=ExtResource("7_7ljqg")]
+[node name="PushableBlock3" parent="." index="13" instance=ExtResource("7_7ljqg")]
 position = Vector2(704, 832)
 push_unit = 128.0
 
-[node name="PushableBlock2" parent="." index="13" instance=ExtResource("7_7ljqg")]
+[node name="PushableBlock2" parent="." index="14" instance=ExtResource("7_7ljqg")]
 position = Vector2(959, 448)
 push_unit = 128.0
 
-[node name="PushableBlock4" parent="." index="14" instance=ExtResource("7_7ljqg")]
+[node name="PushableBlock4" parent="." index="15" instance=ExtResource("7_7ljqg")]
 position = Vector2(831, 576)
 push_unit = 128.0
 
-[connection signal="body_entered" from="EntryPoints/EntryPoint_2_1" to="EntryPoints/EntryPoint_2_1" method="_on_body_entered"]
+[connection signal="body_entered" from="MainEntry" to="MainEntry" method="_on_body_entered"]

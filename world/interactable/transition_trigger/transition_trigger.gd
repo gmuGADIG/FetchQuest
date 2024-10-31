@@ -5,6 +5,8 @@ class_name TransitionScene extends Area2D
 ## Note that the scene must be present in the worlds or test_scenes folder (but it can be several folders deep within one of those).
 ## Avoid giving two scenes the same name or this will behave unpredictably.
 @export var scene_name: String
+#This tracks the other node in the scene with the name scene_name (the variable above). When the player enters
+#a new scene, the game looks for a node with the name of other_point_name and sets the players' position to it
 @export var other_point_name: String
 
 static var _scene_dict: Dictionary = {}
