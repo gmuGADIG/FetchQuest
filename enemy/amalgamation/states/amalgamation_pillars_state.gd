@@ -15,6 +15,7 @@ class_name AmalgamationPillarsState extends AmalgamationState
 var pillars_spawned: Array[Node2D] = []
 
 func enter() -> void:
+	amalgamation.animation_player.play("Pillars")
 	print("amalgamation_pillars_state.gd: final destination reference")
 	# Summon the pillars
 	summon_pillars()

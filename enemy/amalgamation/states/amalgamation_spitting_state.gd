@@ -11,6 +11,7 @@ class_name AmalgamationSpittingState extends AmalgamationState
 
 
 func enter() -> void:
+	amalgamation.animation_player.play("Spitting")
 	# Spit however much we want (with a delay)
 	for i in range(spitting_number):
 		spit()

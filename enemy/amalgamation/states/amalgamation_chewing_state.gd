@@ -4,6 +4,7 @@ class_name AmalgamationChewingState extends AmalgamationState
 @onready var spitting_distance:float = amalgamation.spitting_distance
 
 func enter() -> void:
+	amalgamation.animation_player.play("Chewing")
 	print("amalgamation_chewing_state.gd: nom nom nom nom nom")
 	Player.instance.modulate.a = 0
 	# Chew for 3 seconds, then idle

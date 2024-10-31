@@ -3,6 +3,7 @@ class_name AmalgamationAsleepState extends AmalgamationState
 
 func enter() -> void:
 	print("amalgamation_asleep_state.gd: Honk shoooooo mimimimimimimimimi")
+	amalgamation.animation_player.play("Sleeping")
 
 func update(_delta:float) -> void:
 	pass

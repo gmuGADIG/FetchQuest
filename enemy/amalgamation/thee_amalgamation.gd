@@ -20,6 +20,8 @@ signal health_changed
 ## The state machine
 @onready var state_machine:AmalgamationStateMachine = $StateMachine
 
+@export var animation_player:AnimationPlayer
+
 @export_group("Attack Selection")
 ## The node that contains the sucking logic
 @export var sucking_state:AmalgamationSuckingState
@@ -78,9 +80,9 @@ func hurt(damage_event: DamageEvent) -> void:
 	print("thee_amalgamation.gd: Id rate my health %s/%s" % [health, max_health])
 	
 	# Temporary hit effect
-	var tween := create_tween()
-	tween.tween_property(self,"modulate",Color(1,.5,.5,1),.25)
-	tween.tween_property(self,"modulate",Color(1,1,1,1),.25)
+	animation_player.play("Hurt")
+	await animation_player.animation_finished
+	animation_player.play("Vulnerable")
 	
 	# Die if dead X_X
 	if health <= 0:

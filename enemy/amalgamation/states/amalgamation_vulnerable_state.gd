@@ -4,6 +4,7 @@ class_name AmalgamationVulnerableState extends AmalgamationState
 @onready var duration:float = amalgamation.vulnerability_duration
 
 func enter() -> void:
+	amalgamation.animation_player.play("Vulnerable")
 	# Enable taking damage for 'duration' seconds, then idle
 	%VulnerableHitArea.set_process(true)
 	await get_tree().create_timer(duration).timeout

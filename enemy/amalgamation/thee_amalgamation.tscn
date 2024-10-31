@@ -1,6 +1,6 @@
-[gd_scene load_steps=17 format=3 uid="uid://xgwwcejvha1d"]
+[gd_scene load_steps=34 format=3 uid="uid://xgwwcejvha1d"]
 
-[ext_resource type="Texture2D" uid="uid://dkcslmk1lo8iw" path="res://enemy/amalgamation/amalgamation.png" id="1_11my7"]
+[ext_resource type="Texture2D" uid="uid://dkcslmk1lo8iw" path="res://enemy/amalgamation/sprites/amalgamation.png" id="1_11my7"]
 [ext_resource type="Script" path="res://enemy/amalgamation/thee_amalgamation.gd" id="1_q0tx4"]
 [ext_resource type="PackedScene" uid="uid://yllbcpq24cl0" path="res://enemy/creep_enemy/creep_enemy.tscn" id="2_kbojl"]
 [ext_resource type="Script" path="res://enemy/amalgamation/amalgamation_state_machine.gd" id="3_6vw41"]
@@ -11,6 +11,13 @@
 [ext_resource type="Script" path="res://enemy/amalgamation/states/amalgamation_spitting_state.gd" id="7_kvuo0"]
 [ext_resource type="Script" path="res://enemy/amalgamation/states/amalgamation_sucking_state.gd" id="8_1g38x"]
 [ext_resource type="Script" path="res://enemy/amalgamation/states/amalgamation_vulnerable_state.gd" id="9_0n3tp"]
+[ext_resource type="Texture2D" uid="uid://bhjjc1hun7mka" path="res://enemy/amalgamation/sprites/AmalgamationS.png" id="12_t4p4x"]
+[ext_resource type="Texture2D" uid="uid://ct7wxe3724bd4" path="res://enemy/amalgamation/sprites/AmalgamationSpit.png" id="13_qxcv8"]
+[ext_resource type="Texture2D" uid="uid://duosjvqt52nbh" path="res://enemy/amalgamation/sprites/AmalgamationL.png" id="14_vv8k2"]
+[ext_resource type="Texture2D" uid="uid://csapp2xwf1ot0" path="res://enemy/amalgamation/sprites/AmalgamationSpitV.png" id="15_e3qub"]
+[ext_resource type="Texture2D" uid="uid://dlx7k0jbtmgmk" path="res://enemy/amalgamation/sprites/AmalgamationC.png" id="16_nyk0w"]
+[ext_resource type="Texture2D" uid="uid://jp7ipf3du2cn" path="res://enemy/amalgamation/sprites/AmalgamationSpitI.png" id="17_t2nf2"]
+[ext_resource type="Texture2D" uid="uid://b8ggh1nk4063o" path="res://enemy/amalgamation/sprites/AmalgamationSpitH.png" id="18_6lgjy"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_tq8je"]
 radius = 66.0076
@@ -27,8 +34,158 @@ size = Vector2(78, 30)
 offsets = PackedFloat32Array(0.0901408, 1)
 colors = PackedColorArray(0.85, 0.85, 0.85, 1, 1, 1, 1, 0)
 
-[node name="Amalgamation" type="Node2D" node_paths=PackedStringArray("sucking_state", "pillar_state", "spit_state")]
+[sub_resource type="Animation" id="Animation_41q6o"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_11my7")]
+}
+
+[sub_resource type="Animation" id="Animation_ayfy6"]
+resource_name = "Sleeping"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_11my7")]
+}
+
+[sub_resource type="Animation" id="Animation_kqdja"]
+resource_name = "Sucking"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("12_t4p4x")]
+}
+
+[sub_resource type="Animation" id="Animation_5fxhe"]
+resource_name = "Spitting"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("13_qxcv8")]
+}
+
+[sub_resource type="Animation" id="Animation_ofwbp"]
+resource_name = "Pillars"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("14_vv8k2")]
+}
+
+[sub_resource type="Animation" id="Animation_5hnde"]
+resource_name = "Vulnerable"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("15_e3qub")]
+}
+
+[sub_resource type="Animation" id="Animation_60t48"]
+resource_name = "Chewing"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("16_nyk0w")]
+}
+
+[sub_resource type="Animation" id="Animation_hgvlx"]
+resource_name = "Idle"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("17_t2nf2")]
+}
+
+[sub_resource type="Animation" id="Animation_2kpdb"]
+resource_name = "Hurt"
+length = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("18_6lgjy")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tawbk"]
+_data = {
+"Chewing": SubResource("Animation_60t48"),
+"Hurt": SubResource("Animation_2kpdb"),
+"Idle": SubResource("Animation_hgvlx"),
+"Pillars": SubResource("Animation_ofwbp"),
+"RESET": SubResource("Animation_41q6o"),
+"Sleeping": SubResource("Animation_ayfy6"),
+"Spitting": SubResource("Animation_5fxhe"),
+"Sucking": SubResource("Animation_kqdja"),
+"Vulnerable": SubResource("Animation_5hnde")
+}
+
+[node name="Amalgamation" type="Node2D" node_paths=PackedStringArray("animation_player", "sucking_state", "pillar_state", "spit_state")]
 script = ExtResource("1_q0tx4")
+animation_player = NodePath("AnimationPlayer")
 sucking_state = NodePath("StateMachine/Sucking")
 pillar_state = NodePath("StateMachine/Pillars")
 spit_state = NodePath("StateMachine/Spitting")
@@ -114,6 +271,11 @@ radial_accel_max = -10.0
 scale_amount_min = 0.5
 scale_amount_max = 1.5
 color_ramp = SubResource("Gradient_rareu")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_tawbk")
+}
 
 [connection signal="body_entered" from="HurtboxArea" to="." method="_on_hurtbox_area_body_entered"]
 [connection signal="body_entered" from="VulnerableHitArea" to="StateMachine/Vulnerable" method="_on_vulnerable_hit_area_body_entered"]

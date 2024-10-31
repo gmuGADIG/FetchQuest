@@ -6,6 +6,7 @@ class_name AmalgamationSuckingState extends AmalgamationState
 @onready var sucking_speed:float = amalgamation.sucking_speed
 
 func enter() -> void:
+	amalgamation.animation_player.play("Sucking")
 	print("amalgamation_sucking_state.gd: vacuum noises")
 	# Turn on the particles
 	sucking_effect.emitting = true
