@@ -21,12 +21,9 @@ func _on_body_entered(body: Node2D) -> void:
 			else:
 				printerr("Aura collided with an enemy that does not have a stun script!")
 			
-			
-	if(body is Area2D):
-		var area2D: Area2D = body
-		if(area2D.get_collision_layer_value(3)):
-			if(area2D.has_method("stun")):
-				print("I should be stunning an Area 2D")
-				area2D.stun()
-			
 	pass # Replace with function body.
+
+#can stun Area2D (bark switches)
+func _on_area_entered(area: Area2D) -> void:
+	if(area.has_method("stun")):
+		area.stun()

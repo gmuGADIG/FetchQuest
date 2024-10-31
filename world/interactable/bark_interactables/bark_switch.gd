@@ -1,5 +1,5 @@
 extends Area2D
-
+##switches that only work with speak_aura
 signal switch_activated(switch:Node2D)
 signal switch_deactivated
 var activated := false
@@ -7,7 +7,7 @@ var activated := false
 var _off_sprite: Sprite2D
 var _on_sprite: Sprite2D
 # Called when the node enters the scene tree for the first time.
-func _ready() -> void:
+func _ready() -> void: #get sprite visuals make sure it is set to off
 	_off_sprite = get_node("Off")
 	_on_sprite = get_node("On")
 	
@@ -16,30 +16,15 @@ func _ready() -> void:
 	pass # Replace with function body.
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-
+#stun function gets called by speak_arua when they overlap
 func stun() -> void:
-	print("stunned")
 	if !activated:
 		activated = true
-		get_parent().switch_hit(self.name)
+		get_parent().switch_hit(self.name) #tell bark_interactable switches it has been hit
 		_on_sprite.visible = true
 		_off_sprite.visible = false
 
-func _on_area_entered(area: Area2D) -> void:
-	print(area.name)
-	if(area.name == "SpeakAura"):
-		stun()
-	#if !activated:
-		#activated = true
-		#get_parent().switch_hit(self.name)
-		#_on_sprite.visible = true
-		#_off_sprite.visible = false
-	#pass # Replace with function body.
-
-
+#turns off switches, gets called by bark_interactable_switches
 func deactivate() -> void:
 	activated = false
 	_on_sprite.visible = false
