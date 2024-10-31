@@ -1,0 +1,156 @@
+[gd_scene load_steps=30 format=3 uid="uid://crafsmnpblvul"]
+
+[ext_resource type="PackedScene" uid="uid://cnd06dpkgufe4" path="res://world/level_base.tscn" id="1_par5h"]
+[ext_resource type="PackedScene" uid="uid://c7ck7ril2jix2" path="res://player/player.tscn" id="2_wb3hm"]
+[ext_resource type="PackedScene" uid="uid://b5bscusffqp5h" path="res://world/interactable/activators/pressure_plate/pressure_plate.tscn" id="3_hmyai"]
+[ext_resource type="PackedScene" uid="uid://blh1fs712dql8" path="res://world/interactable/activatable/locked_door/locked_door.tscn" id="4_fe3jp"]
+[ext_resource type="Script" path="res://addons/rmsmartshape/shapes/shape_closed.gd" id="5_4wu6r"]
+[ext_resource type="Script" path="res://addons/rmsmartshape/vertex_properties.gd" id="6_rop5f"]
+[ext_resource type="Script" path="res://addons/rmsmartshape/shapes/point.gd" id="7_rsb68"]
+[ext_resource type="Script" path="res://addons/rmsmartshape/shapes/point_array.gd" id="8_jh7lr"]
+[ext_resource type="Script" path="res://addons/rmsmartshape/materials/edge_material_metadata.gd" id="9_tbyv4"]
+[ext_resource type="Script" path="res://addons/rmsmartshape/materials/edge_material.gd" id="10_efuxa"]
+[ext_resource type="Texture2D" uid="uid://l4pgl44h8y7q" path="res://dialogic_example/level_example_textures/grass_edge.png" id="11_yr4an"]
+[ext_resource type="Script" path="res://addons/rmsmartshape/normal_range.gd" id="12_v7ebb"]
+[ext_resource type="Texture2D" uid="uid://vm33ci7bxmfx" path="res://dialogic_example/level_example_textures/grass_fill.png" id="13_yjt4t"]
+[ext_resource type="Script" path="res://addons/rmsmartshape/materials/shape_material.gd" id="14_aj743"]
+
+[sub_resource type="Resource" id="Resource_hp0s4"]
+script = ExtResource("6_rop5f")
+texture_idx = 0
+flip = false
+width = 1.0
+
+[sub_resource type="Resource" id="Resource_64y4j"]
+script = ExtResource("7_rsb68")
+position = Vector2(-495.516, -234.445)
+point_in = Vector2(0, 0)
+point_out = Vector2(0, 0)
+properties = SubResource("Resource_hp0s4")
+
+[sub_resource type="Resource" id="Resource_khh61"]
+script = ExtResource("6_rop5f")
+texture_idx = 0
+flip = false
+width = 1.0
+
+[sub_resource type="Resource" id="Resource_vnkig"]
+script = ExtResource("7_rsb68")
+position = Vector2(1412.51, -228.26)
+point_in = Vector2(0, 0)
+point_out = Vector2(0, 0)
+properties = SubResource("Resource_khh61")
+
+[sub_resource type="Resource" id="Resource_axqy0"]
+script = ExtResource("6_rop5f")
+texture_idx = 0
+flip = false
+width = 1.0
+
+[sub_resource type="Resource" id="Resource_0w6ak"]
+script = ExtResource("7_rsb68")
+position = Vector2(1631.89, 1271.4)
+point_in = Vector2(0, 0)
+point_out = Vector2(0, 0)
+properties = SubResource("Resource_axqy0")
+
+[sub_resource type="Resource" id="Resource_t7tg0"]
+script = ExtResource("6_rop5f")
+texture_idx = 0
+flip = false
+width = 1.0
+
+[sub_resource type="Resource" id="Resource_5qq3e"]
+script = ExtResource("7_rsb68")
+position = Vector2(-684.807, 1279.88)
+point_in = Vector2(0, 0)
+point_out = Vector2(0, 0)
+properties = SubResource("Resource_t7tg0")
+
+[sub_resource type="Resource" id="Resource_8p8sb"]
+script = ExtResource("6_rop5f")
+texture_idx = 0
+flip = false
+width = 1.0
+
+[sub_resource type="Resource" id="Resource_7sakk"]
+script = ExtResource("7_rsb68")
+position = Vector2(-495.516, -234.445)
+point_in = Vector2(0, 0)
+point_out = Vector2(0, 0)
+properties = SubResource("Resource_8p8sb")
+
+[sub_resource type="Resource" id="Resource_cwgnq"]
+script = ExtResource("8_jh7lr")
+_points = {
+0: SubResource("Resource_64y4j"),
+1: SubResource("Resource_vnkig"),
+2: SubResource("Resource_0w6ak"),
+3: SubResource("Resource_5qq3e"),
+4: SubResource("Resource_7sakk")
+}
+_point_order = Array[int]([0, 1, 2, 3, 4])
+_constraints = {
+Array[int]([0, 4]): 15
+}
+_next_key = 6
+_material_overrides = {}
+
+[sub_resource type="Resource" id="Resource_ib1nm"]
+script = ExtResource("10_efuxa")
+textures = Array[Texture2D]([ExtResource("11_yr4an")])
+textures_corner_outer = Array[Texture2D]([])
+textures_corner_inner = Array[Texture2D]([])
+textures_taper_left = Array[Texture2D]([])
+textures_taper_right = Array[Texture2D]([])
+randomize_texture = false
+use_corner_texture = false
+use_taper_texture = true
+fit_mode = 0
+
+[sub_resource type="Resource" id="Resource_2okn6"]
+script = ExtResource("12_v7ebb")
+begin = 0.0
+distance = 360.0
+edgeRendering = Vector2(0, 0)
+
+[sub_resource type="Resource" id="Resource_j14ev"]
+script = ExtResource("9_tbyv4")
+edge_material = SubResource("Resource_ib1nm")
+normal_range = SubResource("Resource_2okn6")
+weld = true
+render = true
+z_index = 0
+z_as_relative = true
+offset = 0.0
+
+[sub_resource type="Resource" id="Resource_ptudl"]
+script = ExtResource("14_aj743")
+_edge_meta_materials = Array[ExtResource("9_tbyv4")]([SubResource("Resource_j14ev")])
+fill_textures = Array[Texture2D]([ExtResource("13_yjt4t")])
+fill_texture_z_index = -10
+fill_texture_show_behind_parent = false
+fill_texture_scale = 1.0
+fill_texture_absolute_position = false
+fill_texture_absolute_rotation = false
+fill_texture_offset = Vector2(0, 0)
+fill_texture_angle_offset = 0.0
+fill_mesh_offset = 0.0
+render_offset = 0.0
+
+[node name="LevelBase" instance=ExtResource("1_par5h")]
+
+[node name="Player" parent="." index="4" instance=ExtResource("2_wb3hm")]
+position = Vector2(670, 204)
+
+[node name="PressurePlate" parent="." index="5" instance=ExtResource("3_hmyai")]
+position = Vector2(109, 236)
+metadata/Activatables = [NodePath("../LockedDoor")]
+
+[node name="LockedDoor" parent="." index="6" instance=ExtResource("4_fe3jp")]
+position = Vector2(235, 561)
+
+[node name="SS2D_Shape_Closed" type="Node2D" parent="." index="7"]
+script = ExtResource("5_4wu6r")
+_points = SubResource("Resource_cwgnq")
+shape_material = SubResource("Resource_ptudl")
