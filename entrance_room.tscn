@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=3 uid="uid://cshg82thkhmux"]
+[gd_scene load_steps=51 format=3 uid="uid://cshg82thkhmux"]
 
 [ext_resource type="PackedScene" uid="uid://cnd06dpkgufe4" path="res://world/level_base.tscn" id="1_rvs7s"]
 [ext_resource type="PackedScene" uid="uid://c7ck7ril2jix2" path="res://player/player.tscn" id="2_wqd0o"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" path="res://addons/rmsmartshape/normal_range.gd" id="8_ma656"]
 [ext_resource type="Texture2D" uid="uid://v54e4tmx6wf7" path="res://dialogic_example/level_example_textures/pond_edge.png" id="9_n5ds0"]
 [ext_resource type="Texture2D" uid="uid://j28iyvy1k4vq" path="res://dialogic_example/level_example_textures/pond_fill.png" id="11_l5rpv"]
+[ext_resource type="PackedScene" uid="uid://blh1fs712dql8" path="res://world/interactable/activatable/locked_door/locked_door.tscn" id="13_pg8lj"]
 
 [sub_resource type="Resource" id="Resource_1yh1f"]
 script = ExtResource("3_cr00p")
@@ -144,7 +145,7 @@ width = 1.0
 
 [sub_resource type="Resource" id="Resource_oio88"]
 script = ExtResource("4_us4js")
-position = Vector2(496, -208)
+position = Vector2(576, -200)
 point_in = Vector2(0, 0)
 point_out = Vector2(0, 0)
 properties = SubResource("Resource_1inuv")
@@ -183,7 +184,7 @@ width = 1.0
 
 [sub_resource type="Resource" id="Resource_in1s4"]
 script = ExtResource("4_us4js")
-position = Vector2(496, -208)
+position = Vector2(576, -200)
 point_in = Vector2(0, 0)
 point_out = Vector2(0, 0)
 properties = SubResource("Resource_ya1ft")
@@ -252,7 +253,7 @@ width = 1.0
 
 [sub_resource type="Resource" id="Resource_0cb2v"]
 script = ExtResource("4_us4js")
-position = Vector2(936, -200)
+position = Vector2(840, -200)
 point_in = Vector2(0, 0)
 point_out = Vector2(0, 0)
 properties = SubResource("Resource_52a11")
@@ -335,56 +336,20 @@ collision_polygon_node_path = NodePath("../CollisionPolygon2D")
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="wall1" index="1"]
 visible = false
 modulate = Color(1, 1, 1, 0.3)
-polygon = PackedVector2Array(496.444, -207.952, -344.104, -207.896, -344, -328, -344.117, -392.145)
+polygon = PackedVector2Array(576.448, -199.952, -344.103, -207.898, -344, -328, -344.116, -392.143)
 
 [node name="wall2" type="StaticBody2D" parent="." index="7"]
 
 [node name="SS2D_Shape_Closed" type="Node2D" parent="wall2" index="0"]
 script = ExtResource("3_h5nst")
-_points = SubResource("Resource_msjfk")
-shape_material = SubResource("Resource_6aqke")
+_points = SubResource("Resource_qaijx")
+shape_material = SubResource("Resource_omi2p")
 collision_polygon_node_path = NodePath("../CollisionPolygon2D")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="wall2" index="1"]
 visible = false
 modulate = Color(1, 1, 1, 0.3)
-polygon = PackedVector2Array(496.444, -207.952, -344.104, -207.896, -344, -328, -344.117, -392.145)
+polygon = PackedVector2Array(1680.4, -207.929, 839.601, -199.921, 1256, -368.034)
 
-[node name="wall3" type="StaticBody2D" parent="." index="8"]
-
-[node name="SS2D_Shape_Closed" type="Node2D" parent="wall3" index="0"]
-script = ExtResource("3_h5nst")
-_points = SubResource("Resource_msjfk")
-shape_material = SubResource("Resource_6aqke")
-collision_polygon_node_path = NodePath("../CollisionPolygon2D")
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="wall3" index="1"]
-visible = false
-modulate = Color(1, 1, 1, 0.3)
-polygon = PackedVector2Array(496.444, -207.952, -344.104, -207.896, -344, -328, -344.117, -392.145)
-
-[node name="wall4" type="StaticBody2D" parent="." index="9"]
-
-[node name="SS2D_Shape_Closed" type="Node2D" parent="wall4" index="0"]
-script = ExtResource("3_h5nst")
-_points = SubResource("Resource_msjfk")
-shape_material = SubResource("Resource_6aqke")
-collision_polygon_node_path = NodePath("../CollisionPolygon2D")
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="wall4" index="1"]
-visible = false
-modulate = Color(1, 1, 1, 0.3)
-polygon = PackedVector2Array(496.444, -207.952, -344.104, -207.896, -344, -328, -344.117, -392.145)
-
-[node name="wall5" type="StaticBody2D" parent="." index="10"]
-
-[node name="SS2D_Shape_Closed" type="Node2D" parent="wall5" index="0"]
-script = ExtResource("3_h5nst")
-_points = SubResource("Resource_qaijx")
-shape_material = SubResource("Resource_omi2p")
-collision_polygon_node_path = NodePath("../CollisionPolygon2D")
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="wall5" index="1"]
-visible = false
-modulate = Color(1, 1, 1, 0.3)
-polygon = PackedVector2Array(1680.4, -207.929, 935.629, -199.906, 1256, -368.044)
+[node name="LockedDoor" parent="." index="8" instance=ExtResource("13_pg8lj")]
+position = Vector2(704, -208)
