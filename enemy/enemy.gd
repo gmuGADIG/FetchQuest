@@ -6,6 +6,11 @@
 # If you override _ready, _process, or _physics_process, you MUST call
 # super._ready() (or super._process(delta), etc) in your overridden method.
 #
+# How to make a new enemy:
+# For a base level enemy, the only thing that needs to be done is state switching. 
+# If custom movement is desired, override the respective state's _process function
+# (_process_roaming, _process_stunned, etc.)
+#
 # Each enemy should have a collision shape that has a radius associated with
 # one of the navigation layers. That way the enemy navigation will work correctly.
 # Right now, the only supported radius is associated with a square collision
@@ -39,7 +44,7 @@ signal health_changed
 @export var agressive_target_distance_min: int = 1
 @export var agressive_target_distance_max: int = 300
 
-var enemy_state : EnemyState = EnemyState.ROAMING
+@export var enemy_state : EnemyState = EnemyState.ROAMING
 var navigation_target: Vector2 = self.position
 
 @onready var original_position : Vector2 = position

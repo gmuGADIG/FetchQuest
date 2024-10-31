@@ -1,5 +1,8 @@
 extends Enemy
 
+#DO NOT USE AS AN EXAMPLE OF HOW TO USE ENEMY!!!!
+#USE NORMAL_ENEMY INSTEAD!!!!
+
 @onready var sprite_normal: Sprite2D = $Sprite_Normal
 @onready var sprite_activated: Sprite2D = $Sprite_Activated
 @onready var sprite_stunned: Sprite2D = $Sprite_Stunned
