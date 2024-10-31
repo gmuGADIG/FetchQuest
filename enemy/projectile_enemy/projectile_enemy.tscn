@@ -1,9 +1,12 @@
-[gd_scene load_steps=6 format=3 uid="uid://bs6o5glcfe2as"]
+[gd_scene load_steps=7 format=3 uid="uid://bs6o5glcfe2as"]
 
 [ext_resource type="PackedScene" uid="uid://blpi4x6if673v" path="res://enemy/base_enemy.tscn" id="1_27jju"]
 [ext_resource type="Texture2D" uid="uid://bf0rs7x60qf5e" path="res://enemy/projectile_enemy/octorok.png" id="2_8e4mk"]
 [ext_resource type="Script" path="res://enemy/projectile_enemy/projectile_enemy.gd" id="2_rirh3"]
 [ext_resource type="Script" path="res://enemy/projectile_enemy/shoot_projectile_behavior.gd" id="3_qdk2l"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qplrn"]
+radius = 304.105
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3wk5l"]
 size = Vector2(112, 112)
@@ -11,7 +14,7 @@ size = Vector2(112, 112)
 [node name="ProjectileEnemy" instance=ExtResource("1_27jju")]
 script = ExtResource("2_rirh3")
 attack_speed = 1.0
-attack_range = 25.0
+attack_range = 2.0
 attack_spread = 0.0
 animation_length = 1.0
 
@@ -23,14 +26,18 @@ texture = ExtResource("2_8e4mk")
 
 [node name="ShootProjectileBehavior" type="Node2D" parent="." index="4"]
 script = ExtResource("3_qdk2l")
-attack_range = 24.805
-attack_spread = 90.0
-animation_length = 1.77
 
-[node name="Timer" type="Timer" parent="ShootProjectileBehavior" index="0"]
+[node name="CooldownTimer" type="Timer" parent="ShootProjectileBehavior" index="0"]
 autostart = true
+
+[node name="AttackRange" type="Area2D" parent="ShootProjectileBehavior" index="1"]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ShootProjectileBehavior/AttackRange" index="0"]
+shape = SubResource("CircleShape2D_qplrn")
 
 [node name="Hurtbox" type="CollisionShape2D" parent="." index="5"]
 shape = SubResource("RectangleShape2D_3wk5l")
 
-[connection signal="timeout" from="ShootProjectileBehavior/Timer" to="ShootProjectileBehavior" method="shoot"]
+[connection signal="timeout" from="ShootProjectileBehavior/CooldownTimer" to="ShootProjectileBehavior" method="timeout"]

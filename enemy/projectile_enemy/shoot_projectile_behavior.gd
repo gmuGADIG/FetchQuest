@@ -5,7 +5,7 @@ static var projectile :PackedScene = preload("res://enemy/projectile_enemy/proje
 @export var attack_speed : float = 1.0
 
 #How close the enemy must be to start shooting.
-@export var attack_range : float = 25.0
+@export var attack_range : float = 2.0
 
 #Accuracy
 @export_range(0, 90) var attack_spread : float = 0
@@ -16,9 +16,14 @@ static var projectile :PackedScene = preload("res://enemy/projectile_enemy/proje
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	assert(projectile != null)
-	$Timer.wait_time = attack_speed
+	$"CooldownTimer".wait_time = attack_speed
+	$AttackRange/CollisionShape2D.scale *= attack_range
 
-		
+func timeout() -> void:
+	for body: Node2D in $"AttackRange".get_overlapping_bodies():
+		if body is Player:
+			shoot()
+
 func shoot() -> void:
 	var proj : Node2D = projectile.instantiate()
 	proj.global_position = self.global_position
