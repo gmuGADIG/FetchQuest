@@ -20,11 +20,11 @@ func _ready() -> void: #get sprite visuals make sure it is set to off
 func stun() -> void:
 	if !activated:
 		activated = true
-		get_parent().switch_hit(self.name) #tell bark_interactable switches it has been hit
+		get_parent().switch_hit(self.name) #tell bark_interactable_switch_manager it has been hit
 		_on_sprite.visible = true
 		_off_sprite.visible = false
 
-#turns off switches, gets called by bark_interactable_switches
+#turns off switches, gets called by bark_interactable_switch_manager
 func deactivate() -> void:
 	activated = false
 	_on_sprite.visible = false

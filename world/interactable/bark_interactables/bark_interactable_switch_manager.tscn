@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://dgjuqwgpcueea"]
+
+[ext_resource type="Script" path="res://world/interactable/bark_interactables/bark_interactable_switch_manager.gd" id="1_sqo4d"]
+[ext_resource type="PackedScene" uid="uid://c3j0fehxpbbjh" path="res://world/interactable/bark_interactables/bark_switch.tscn" id="2_1c7if"]
+
+[node name="BarkInteractableSwitchManager" type="Node2D" node_paths=PackedStringArray("bark_switches")]
+position = Vector2(368, 447)
+script = ExtResource("1_sqo4d")
+bark_switches = [NodePath("BarkSwitch"), NodePath("BarkSwitch2"), NodePath("BarkSwitch3")]
+
+[node name="BarkSwitch" parent="." instance=ExtResource("2_1c7if")]
+position = Vector2(-204, 2)
+
+[node name="BarkSwitch2" parent="." instance=ExtResource("2_1c7if")]
+position = Vector2(679, 7)
+
+[node name="BarkSwitch3" parent="." instance=ExtResource("2_1c7if")]
+position = Vector2(289, -375)

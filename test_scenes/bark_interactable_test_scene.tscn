@@ -1,11 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://88wgf8hq5ksx"]
+[gd_scene load_steps=6 format=3 uid="uid://88wgf8hq5ksx"]
 
 [ext_resource type="PackedScene" uid="uid://c7ck7ril2jix2" path="res://player/player.tscn" id="1_2qa47"]
 [ext_resource type="PackedScene" uid="uid://cg2jt0166hik8" path="res://world/interactable/red_coin/red_coin_manager.tscn" id="2_ryc1t"]
 [ext_resource type="PackedScene" uid="uid://gp1o7iklljk2" path="res://world/interactable/red_coin/red_coin.tscn" id="3_5nxao"]
 [ext_resource type="PackedScene" uid="uid://bv2blm5myu3gk" path="res://world/interactable/pickups/pickup_health.tscn" id="4_37ii3"]
-[ext_resource type="Script" path="res://world/interactable/bark_interactables/bark_interactable_switch_manager.gd" id="6_h80ng"]
-[ext_resource type="PackedScene" uid="uid://c3j0fehxpbbjh" path="res://world/interactable/bark_interactables/bark_switch.tscn" id="8_4gtee"]
+[ext_resource type="PackedScene" uid="uid://dgjuqwgpcueea" path="res://world/interactable/bark_interactables/bark_interactable_switch_manager.tscn" id="5_gcob3"]
 
 [node name="BarkInteractableTestScene" type="Node2D"]
 position = Vector2(-1, 1)
@@ -27,16 +26,4 @@ position = Vector2(906, 266)
 [node name="pickup_health" parent="RedCoinManager" instance=ExtResource("4_37ii3")]
 position = Vector2(678, 352)
 
-[node name="BarkInteractableSwitchManager" type="Node2D" parent="." node_paths=PackedStringArray("bark_switches")]
-position = Vector2(368, 447)
-script = ExtResource("6_h80ng")
-bark_switches = [NodePath("BarkSwitch"), NodePath("BarkSwitch2"), NodePath("BarkSwitch3")]
-
-[node name="BarkSwitch" parent="BarkInteractableSwitchManager" instance=ExtResource("8_4gtee")]
-position = Vector2(-204, 2)
-
-[node name="BarkSwitch2" parent="BarkInteractableSwitchManager" instance=ExtResource("8_4gtee")]
-position = Vector2(679, 7)
-
-[node name="BarkSwitch3" parent="BarkInteractableSwitchManager" instance=ExtResource("8_4gtee")]
-position = Vector2(289, -375)
+[node name="BarkInteractableSwitchManager" parent="." instance=ExtResource("5_gcob3")]
