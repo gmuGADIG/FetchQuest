@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://cy3yhmb2juer5"]
+
+[ext_resource type="Script" path="res://addons/activator_plugin/toolbar.gd" id="1_hwx1l"]
+
+[node name="Toolbar" type="HBoxContainer"]
+script = ExtResource("1_hwx1l")
+
+[node name="Button" type="Button" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+toggle_mode = true
+text = "Edit Activations"
+
+[connection signal="toggled" from="Button" to="." method="_on_button_toggled"]
