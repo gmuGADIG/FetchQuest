@@ -16,11 +16,15 @@ static var projectile :PackedScene = preload("res://enemy/projectile_enemy/proje
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	assert(projectile != null)
+	$Timer.wait_time = attack_speed
 
 		
 func shoot() -> void:
 	var proj : Node2D = projectile.instantiate()
 	proj.global_position = self.global_position
-	proj.global_rotation = self.global_rotation
+	proj.global_rotation_degrees = add_spread(self.global_rotation_degrees, attack_spread)
 	get_parent().add_sibling(proj)
-	pass
+
+func add_spread(rot: float, spread: float) -> float:
+	var rand_factor :float = randf()*spread *2 - spread
+	return rot + rand_factor
