@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=4 uid="uid://c0b860627rcs5"]
+[gd_scene load_steps=33 format=4 uid="uid://c0b860627rcs5"]
 
 [ext_resource type="PackedScene" uid="uid://cnd06dpkgufe4" path="res://world/level_base.tscn" id="1_2iy6g"]
 [ext_resource type="Script" path="res://world/decoration/trees/tree_gen.gd" id="2_n44bl"]
@@ -25,9 +25,7 @@
 [ext_resource type="PackedScene" uid="uid://gp1o7iklljk2" path="res://world/interactable/activators/red_coin/red_coin.tscn" id="21_7gu4x"]
 [ext_resource type="PackedScene" uid="uid://5x8wo3lcwigq" path="res://world/objects/breakable_object/breakable_object.tscn" id="24_xolg5"]
 [ext_resource type="PackedScene" uid="uid://mpm2bfwj3tbw" path="res://world/interactable/activatable/activatable_spawner/activatable_spawner.tscn" id="26_cl53y"]
-[ext_resource type="Script" path="res://world/entry_points/entry_points.gd" id="27_flf73"]
 [ext_resource type="PackedScene" uid="uid://dovs54pxe1oba" path="res://generic/particle_fixer/particle_fixer.tscn" id="27_h03p2"]
-[ext_resource type="PackedScene" uid="uid://c7ck7ril2jix2" path="res://player/player.tscn" id="28_48255"]
 
 [sub_resource type="Curve2D" id="Curve2D_j10fm"]
 _data = {
@@ -1834,9 +1832,6 @@ color_initial_ramp = SubResource("Gradient_5edvf")
 
 [node name="ParticleFixer" parent="EntitySpawner/CPUParticles2D" index="0" instance=ExtResource("27_h03p2")]
 
-[node name="EntryPoints" type="Node2D" parent="." index="15"]
-script = ExtResource("27_flf73")
-
 [node name="Main" type="Node2D" parent="EntryPoints" index="0"]
 position = Vector2(617, 702)
 
@@ -1844,6 +1839,6 @@ position = Vector2(617, 702)
 position = Vector2(-2330, 2364)
 
 [node name="Player" parent="." index="16"]
-position = Vector2(-2535, 1515)
+position = Vector2(534, 628)
 
 [connection signal="body_entered" from="PuzzleArea/DungeonEntrance/TransitionScene" to="PuzzleArea/DungeonEntrance/TransitionScene" method="_on_body_entered"]
