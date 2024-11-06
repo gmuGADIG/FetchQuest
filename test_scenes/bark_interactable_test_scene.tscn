@@ -1,10 +1,34 @@
-[gd_scene load_steps=6 format=3 uid="uid://88wgf8hq5ksx"]
+[gd_scene load_steps=13 format=3 uid="uid://88wgf8hq5ksx"]
 
 [ext_resource type="PackedScene" uid="uid://c7ck7ril2jix2" path="res://player/player.tscn" id="1_2qa47"]
-[ext_resource type="PackedScene" uid="uid://cg2jt0166hik8" path="res://world/interactable/red_coin/red_coin_manager.tscn" id="2_ryc1t"]
-[ext_resource type="PackedScene" uid="uid://gp1o7iklljk2" path="res://world/interactable/red_coin/red_coin.tscn" id="3_5nxao"]
-[ext_resource type="PackedScene" uid="uid://bv2blm5myu3gk" path="res://world/interactable/pickups/pickup_health.tscn" id="4_37ii3"]
+[ext_resource type="PackedScene" uid="uid://cg2jt0166hik8" path="res://world/interactable/activators/red_coin/red_coin_manager.tscn" id="2_ryc1t"]
+[ext_resource type="PackedScene" uid="uid://gp1o7iklljk2" path="res://world/interactable/activators/red_coin/red_coin.tscn" id="3_5nxao"]
 [ext_resource type="PackedScene" uid="uid://dgjuqwgpcueea" path="res://world/interactable/bark_interactables/bark_interactable_switch_manager.tscn" id="5_gcob3"]
+[ext_resource type="PackedScene" uid="uid://mpm2bfwj3tbw" path="res://world/interactable/activatable/activatable_spawner/activatable_spawner.tscn" id="6_et7rl"]
+[ext_resource type="PackedScene" uid="uid://bom8mopkckp5y" path="res://world/interactable/chest/chest.tscn" id="7_0mt01"]
+[ext_resource type="PackedScene" uid="uid://deo11h81nnpyw" path="res://world/interactable/pickups/pickup_bomb.tscn" id="8_vxxoe"]
+[ext_resource type="PackedScene" uid="uid://dovs54pxe1oba" path="res://generic/particle_fixer/particle_fixer.tscn" id="9_tf7sn"]
+
+[sub_resource type="Gradient" id="Gradient_qlg4y"]
+offsets = PackedFloat32Array(0, 0.301775, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_lfl04"]
+gradient = SubResource("Gradient_qlg4y")
+width = 32
+height = 32
+fill = 1
+fill_from = Vector2(0.504274, 0.581197)
+fill_to = Vector2(0.82906, 0.260684)
+
+[sub_resource type="Gradient" id="Gradient_akttc"]
+offsets = PackedFloat32Array(0.33815, 0.520231)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="Gradient" id="Gradient_lvw0i"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.517341, 0.846821)
+colors = PackedColorArray(1, 1, 0, 1, 1, 0.643137, 0, 1, 1, 1, 1, 1)
 
 [node name="BarkInteractableTestScene" type="Node2D"]
 position = Vector2(-1, 1)
@@ -12,8 +36,7 @@ position = Vector2(-1, 1)
 [node name="Player" parent="." instance=ExtResource("1_2qa47")]
 position = Vector2(534, 261)
 
-[node name="RedCoinManager" parent="." node_paths=PackedStringArray("reward") instance=ExtResource("2_ryc1t")]
-reward = NodePath("pickup_health")
+[node name="RedCoinManager" parent="." instance=ExtResource("2_ryc1t")]
 
 [node name="RedCoin" parent="RedCoinManager" instance=ExtResource("3_5nxao")]
 
@@ -23,7 +46,29 @@ position = Vector2(560, 82)
 [node name="RedCoin3" parent="RedCoinManager" instance=ExtResource("3_5nxao")]
 position = Vector2(906, 266)
 
-[node name="pickup_health" parent="RedCoinManager" instance=ExtResource("4_37ii3")]
-position = Vector2(678, 352)
-
 [node name="BarkInteractableSwitchManager" parent="." instance=ExtResource("5_gcob3")]
+metadata/Activatables = [NodePath("../EntitySpawner")]
+
+[node name="EntitySpawner" parent="." instance=ExtResource("6_et7rl")]
+position = Vector2(186, 161)
+
+[node name="Chest" parent="EntitySpawner" instance=ExtResource("7_0mt01")]
+loot_table = Array[PackedScene]([ExtResource("8_vxxoe")])
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="EntitySpawner"]
+emitting = false
+amount = 10
+lifetime = 1.5
+one_shot = true
+explosiveness = 1.0
+texture = SubResource("GradientTexture2D_lfl04")
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 300.0
+initial_velocity_max = 400.0
+damping_min = 400.0
+damping_max = 400.0
+color_ramp = SubResource("Gradient_akttc")
+color_initial_ramp = SubResource("Gradient_lvw0i")
+
+[node name="ParticleFixer" parent="EntitySpawner/CPUParticles2D" instance=ExtResource("9_tf7sn")]

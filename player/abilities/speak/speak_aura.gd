@@ -23,6 +23,7 @@ func _on_body_entered(body: Node2D) -> void:
 			
 	pass # Replace with function body.
 
+# TODO: use barkables layer
 #can stun Area2D (bark switches)
 func _on_area_entered(area: Area2D) -> void:
 	if(area.has_method("stun")):
