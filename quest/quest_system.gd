@@ -1,5 +1,10 @@
 extends Node
 
+## Emitted when the quest is assigned by an NPC.
+signal quest_assigned(quest: Quest)
+## Emitted when the quest is completed by the player and needs to be turned in.
+signal quest_completed(quest: Quest)
+
 ## This list contains every quest the player can obtain.
 @export var quests:Array[Quest]
 
@@ -7,23 +12,14 @@ extends Node
 func assign_quest(id: String) -> void:
 	_find_quest_by_id(id).assign_quest()
 
-## Finishes a quest
-func complete_quest(id: String) -> void:
-	_find_quest_by_id(id).complete_quest()
-
 func get_assigned_quests() -> Array[Quest]:
-	var array:Array[Quest]
-	for quest in quests:
-		if quest.is_assigned:
-			array.append(quest)
-	return array
+	return quests.filter(func(q: Quest) -> bool: return q.is_assigned())
 
 func get_completed_quests() -> Array[Quest]:
-	var array:Array[Quest]
-	for quest in quests:
-		if quest.is_completed:
-			array.append(quest)
-	return array
+	return quests.filter(func(q: Quest) -> bool: return q.is_completed())
+
+func get_turned_in_quests() -> Array[Quest]:
+	return quests.filter(func(q: Quest) -> bool: return q.is_turned_in())
 
 func _find_quest_by_id(id: String) -> Quest:
 	for q in quests:
