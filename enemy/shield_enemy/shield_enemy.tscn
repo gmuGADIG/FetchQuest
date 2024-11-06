@@ -11,12 +11,11 @@ size = Vector2(195, 195)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rnx4b"]
 size = Vector2(118, 106)
 
-[node name="ShieldEnemy" instance=ExtResource("2_k6ptp")]
+[node name="ShieldEnemy" node_paths=PackedStringArray("enemy_sprite") instance=ExtResource("2_k6ptp")]
 position = Vector2(0, -1)
-collision_mask = 1
 script = ExtResource("1_35cbv")
-movement_speed = 300.0
 shield_size = 60.0
+enemy_sprite = NodePath("EnemySprite")
 
 [node name="Shield" type="Area2D" parent="." index="0"]
 collision_layer = 0
