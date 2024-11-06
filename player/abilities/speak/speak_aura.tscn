@@ -6,8 +6,8 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_r42l4"]
 
 [node name="SpeakAura" type="Area2D"]
-collision_layer = 0
-collision_mask = 4
+collision_layer = 4
+collision_mask = 68
 script = ExtResource("1_vjeyh")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -23,4 +23,5 @@ position = Vector2(2.5, 2.2)
 scale = Vector2(0.017, 0.017)
 texture = ExtResource("1_kgh2v")
 
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
