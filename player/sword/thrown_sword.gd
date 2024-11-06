@@ -85,7 +85,7 @@ func sword_bounce() -> void:
 	num_bounces += 1     # Increment bounce count
 	last_bounce = position
 	
-	local_acceleration = 0
+	local_acceleration = -400
 	# Calculate max velocity based on acceleration and max distance
 	var max_velocity: float = initial_speed if acceleration == 0 else sqrt(2 * abs(acceleration) * throw_distance)
 	
@@ -98,6 +98,8 @@ func sword_bounce() -> void:
 
 ## Handles collision detection and response
 func _on_collision(collision: KinematicCollision2D) -> void:
+	if collision.get_collider().has_method("hurt"):
+		collision.get_collider().hurt(DamageEvent.new(0, velocity.normalized()))
 	var collision_normal: Vector2 = collision.get_normal()  # Get the normal of the surface hit
 	velocity = velocity.bounce(collision_normal)
 	direction = velocity  # Update direction after bounce

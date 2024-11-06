@@ -1,0 +1,34 @@
+[gd_scene load_steps=5 format=3 uid="uid://js1w87dr6rlt"]
+
+[ext_resource type="Script" path="res://world/interactable/activatable/moving_objects/platform_mover.gd" id="1_52qp3"]
+[ext_resource type="Texture2D" uid="uid://dymucenpxmluo" path="res://icon.svg" id="2_qiosj"]
+
+[sub_resource type="Curve2D" id="Curve2D_erawb"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 250, 14, 0, 0, 0, 0, 347, -38, 0, 0, 0, 0, 496, -79, 0, 0, 0, 0, 661, -99, 0, 0, 0, 0, 728, -98, 0, 0, 0, 0, 972, -81, 0, 0, 0, 0, 1244, -22, 0, 0, 0, 0, 1402, 92, 0, 0, 0, 0, 1435, 223, 0, 0, 0, 0, 1421, 404, 0, 0, 0, 0, 1365, 583, 0, 0, 0, 0, 1293, 655, 0, 0, 0, 0, 1146, 687, 0, 0, 0, 0, 739, 700)
+}
+point_count = 14
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5f45b"]
+size = Vector2(122, 108)
+
+[node name="MovingPlatformPath" type="Path2D"]
+curve = SubResource("Curve2D_erawb")
+script = ExtResource("1_52qp3")
+repeat_type = 0
+
+[node name="Platform" type="PathFollow2D" parent="."]
+position = Vector2(250, 14)
+rotates = false
+loop = false
+
+[node name="Sprite2D" type="Sprite2D" parent="Platform"]
+modulate = Color(0.493545, 0.493546, 0.493546, 1)
+texture = ExtResource("2_qiosj")
+
+[node name="Area2D" type="Area2D" parent="Platform"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platform/Area2D"]
+shape = SubResource("RectangleShape2D_5f45b")
+
+[connection signal="body_exited" from="Platform/Area2D" to="Platform" method="_on_area_2d_body_exited"]
