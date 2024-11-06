@@ -13,10 +13,6 @@ class_name TransitionScene extends Area2D
 
 static var _scene_dict: Dictionary = {}
 
-static func _static_init() -> void:
-	update_scene_dict("res://test_scenes/")
-	update_scene_dict("res://world/")
-
 func _ready() -> void:
 	# do a ton of asserts, to give a pretty little error message in case:
 	# file is a uid, path, has an extension, is empty, or couldn't be found
@@ -24,7 +20,9 @@ func _ready() -> void:
 	assert(not scene_name.is_absolute_path(), "Transition trigger at %s uses an absolute path as a scene name, instead of just the file name." % self.get_path())
 	assert(scene_name.get_extension() == "", "Transition trigger at %s uses a scene name with a file extension, which should be removed." % self.get_path())
 	assert(scene_name != "", "Transition trigger at %s has an empty scene name." % self.get_path())
-	assert(SceneManager.scene_exists(scene_name), "Transition trigger at %s could not resolve scene name: '%s'" % [self.get_path(), scene_name])
+	assert(entry_point != "", "Transition trigger at %s has an empty entry point." % self.get_path())
+	if not SceneManager.scene_exists(scene_name):
+		printerr("Transition trigger at %s could not resolve scene name: '%s'" % [self.get_path(), scene_name])
 
 func _on_body_entered(body: Node2D) -> void:
 	if body is Player:

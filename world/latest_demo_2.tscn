@@ -1,6 +1,6 @@
-[gd_scene load_steps=34 format=4 uid="uid://c0b860627rcs5"]
+[gd_scene load_steps=33 format=4 uid="uid://c0b860627rcs5"]
 
-[ext_resource type="PackedScene" path="res://world/level_base.tscn" id="1_2iy6g"]
+[ext_resource type="PackedScene" uid="uid://cnd06dpkgufe4" path="res://world/level_base.tscn" id="1_2iy6g"]
 [ext_resource type="Script" path="res://world/decoration/trees/tree_gen.gd" id="2_n44bl"]
 [ext_resource type="PackedScene" uid="uid://yllbcpq24cl0" path="res://enemy/creep_enemy/creep_enemy.tscn" id="2_usfpa"]
 [ext_resource type="PackedScene" uid="uid://gkyoiixhetyn" path="res://world/decoration/bushes/bush_big.tscn" id="3_a0yt1"]
@@ -17,7 +17,6 @@
 [ext_resource type="PackedScene" uid="uid://bxaar1hpspnom" path="res://world/interactable/activatable/moving_objects/movable_platform.tscn" id="14_hyg0y"]
 [ext_resource type="PackedScene" uid="uid://bm05x1jwytuuc" path="res://world/tilemap/main_tile_layer.tscn" id="15_nkduh"]
 [ext_resource type="PackedScene" uid="uid://blh1fs712dql8" path="res://world/interactable/activatable/locked_door/locked_door.tscn" id="16_be0xc"]
-[ext_resource type="PackedScene" uid="uid://c7ck7ril2jix2" path="res://player/player.tscn" id="16_sqpfi"]
 [ext_resource type="PackedScene" uid="uid://cl1lr3ddw0s8j" path="res://world/decoration/trees/evergreen_tree.tscn" id="17_0qa0k"]
 [ext_resource type="Texture2D" uid="uid://dc4pcxr2lfkka" path="res://demo_art/dungeon_entrance.png" id="17_o8ma7"]
 [ext_resource type="PackedScene" uid="uid://bom8mopkckp5y" path="res://world/interactable/chest/chest.tscn" id="18_ricm7"]
@@ -1759,6 +1758,7 @@ collision_layer = 0
 collision_mask = 2
 script = ExtResource("18_u8qny")
 scene_name = "demo_dungeon"
+entry_point = "Main"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PuzzleArea/DungeonEntrance/TransitionScene" index="0"]
 position = Vector2(6, -13)
@@ -1784,34 +1784,31 @@ position = Vector2(-842, 241)
 [node name="RedCoin5" parent="PuzzleArea/RedCoinManager" index="3" instance=ExtResource("21_7gu4x")]
 position = Vector2(751, 531)
 
-[node name="Player" parent="." index="4" instance=ExtResource("16_sqpfi")]
-position = Vector2(556, 639)
-
-[node name="MainCam" parent="." index="5"]
+[node name="MainCam" parent="." index="4"]
 position = Vector2(1815, -250)
 limit_top = -600
 limit_right = 1890
 
-[node name="Reloader" type="Node" parent="." index="8"]
+[node name="Reloader" type="Node" parent="." index="7"]
 script = ExtResource("8_gqbog")
 despawn_margin = 650.0
 
-[node name="BreakableObject" parent="." index="10" instance=ExtResource("24_xolg5")]
+[node name="BreakableObject" parent="." index="9" instance=ExtResource("24_xolg5")]
 position = Vector2(885, 1214)
 
-[node name="BreakableObject2" parent="." index="11" instance=ExtResource("24_xolg5")]
+[node name="BreakableObject2" parent="." index="10" instance=ExtResource("24_xolg5")]
 position = Vector2(760, 1214)
 
-[node name="BreakableObject3" parent="." index="12" instance=ExtResource("24_xolg5")]
+[node name="BreakableObject3" parent="." index="11" instance=ExtResource("24_xolg5")]
 position = Vector2(633, 1216)
 
-[node name="BreakableObject4" parent="." index="13" instance=ExtResource("24_xolg5")]
+[node name="BreakableObject4" parent="." index="12" instance=ExtResource("24_xolg5")]
 position = Vector2(560, 1052)
 
-[node name="BreakableObject5" parent="." index="14" instance=ExtResource("24_xolg5")]
+[node name="BreakableObject5" parent="." index="13" instance=ExtResource("24_xolg5")]
 position = Vector2(915, 1043)
 
-[node name="EntitySpawner" parent="." index="15" instance=ExtResource("26_cl53y")]
+[node name="EntitySpawner" parent="." index="14" instance=ExtResource("26_cl53y")]
 position = Vector2(-1286, 2227)
 
 [node name="Chest" parent="EntitySpawner" index="0" instance=ExtResource("18_ricm7")]
@@ -1834,5 +1831,14 @@ color_ramp = SubResource("Gradient_j0x6n")
 color_initial_ramp = SubResource("Gradient_5edvf")
 
 [node name="ParticleFixer" parent="EntitySpawner/CPUParticles2D" index="0" instance=ExtResource("27_h03p2")]
+
+[node name="Main" type="Node2D" parent="EntryPoints" index="0"]
+position = Vector2(617, 702)
+
+[node name="Dungeon" type="Node2D" parent="EntryPoints" index="1"]
+position = Vector2(-2330, 2364)
+
+[node name="Player" parent="." index="16"]
+position = Vector2(-2535, 1515)
 
 [connection signal="body_entered" from="PuzzleArea/DungeonEntrance/TransitionScene" to="PuzzleArea/DungeonEntrance/TransitionScene" method="_on_body_entered"]
