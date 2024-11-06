@@ -85,7 +85,7 @@ func sword_bounce() -> void:
 	num_bounces += 1     # Increment bounce count
 	last_bounce = position
 	
-	local_acceleration = 0
+	local_acceleration = -400
 	# Calculate max velocity based on acceleration and max distance
 	var max_velocity: float = initial_speed if acceleration == 0 else sqrt(2 * abs(acceleration) * throw_distance)
 	

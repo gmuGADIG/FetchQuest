@@ -1,7 +1,7 @@
 extends Node2D
 
 
-@export var enemy: PackedScene = preload("res://enemy/test_enemy/test_enemy.tscn")
+@export var enemy: PackedScene = preload("res://enemy/spawner_enemy/spawner_enemy.tscn")
 
 
 
