@@ -5,9 +5,10 @@ class_name TransitionScene extends Area2D
 ## Note that the scene must be present in the worlds or test_scenes folder (but it can be several folders deep within one of those).
 ## Avoid giving two scenes the same name or this will behave unpredictably.
 @export var scene_name: String
-#This tracks the other node in the scene with the name scene_name (the variable above). When the player enters
-#a new scene, the game looks for a node with the name of other_point_name and sets the players' position to it
-@export var other_point_name: String
+
+## The entry point the player should entry the new scene from. [br]
+## The scene's `EntryPoint` node should have a child of this name.
+@export var entry_point: String
 
 static var _scene_dict: Dictionary = {}
 
@@ -43,5 +44,5 @@ static func update_scene_dict(path: String) -> void:
 
 func _on_body_entered(body: Node2D) -> void:
 	if body is Player:
-		EntryPointSave.set_point(other_point_name)
+		EntryPoints.set_entry_point(entry_point)
 		SceneTransition.change_scene(load(_scene_dict[scene_name]))
