@@ -4,12 +4,11 @@
 [ext_resource type="Texture2D" uid="uid://pdvgqevj0py3" path="res://demo_art/Red_circle.png" id="2_r1boj"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4gm5v"]
-radius = 31.0161
+radius = 43.1045
 
-[node name="RedCoin" type="Area2D" groups=["RedCoin"]]
+[node name="RedCoin" type="CharacterBody2D" groups=["RedCoin"]]
 position = Vector2(325, 260)
-collision_layer = 3
-collision_mask = 3
+collision_layer = 16
 script = ExtResource("1_7hdjs")
 label_visible_time = 0.6
 
@@ -27,4 +26,11 @@ offset_right = 21.0
 offset_bottom = -36.0
 horizontal_alignment = 1
 
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_4gm5v")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_pickup_area_body_entered"]
