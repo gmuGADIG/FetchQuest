@@ -1,5 +1,42 @@
-[gd_scene load_steps=2 format=3 uid="uid://cgfglx0lxku18"]
+[gd_scene load_steps=4 format=3 uid="uid://cgfglx0lxku18"]
 
 [ext_resource type="PackedScene" uid="uid://cnd06dpkgufe4" path="res://world/level_base.tscn" id="1_g5wrv"]
+[ext_resource type="Texture2D" uid="uid://c4tqrgyodg8vo" path="res://world/main_town/IMG_3598.jpg" id="6_e1r1a"]
+[ext_resource type="PackedScene" uid="uid://c7ck7ril2jix2" path="res://player/player.tscn" id="7_xye75"]
 
 [node name="GeneralStore" instance=ExtResource("1_g5wrv")]
+
+[node name="HUD" parent="." index="1"]
+visible = false
+
+[node name="PauseMenu" parent="." index="2"]
+visible = false
+
+[node name="Player" parent="." index="4" instance=ExtResource("7_xye75")]
+position = Vector2(549, 449)
+
+[node name="Polygon2D" type="Polygon2D" parent="." index="5"]
+modulate = Color(0.401098, 0.372128, 0.351443, 1)
+z_index = -1
+scale = Vector2(-5.44241, 1.47861)
+polygon = PackedVector2Array(39.1371, 616.117, -261.833, 610.031, -261.282, -156.904, 40.2396, -156.904)
+
+[node name="Img3598" type="Sprite2D" parent="." index="6"]
+modulate = Color(1, 1, 1, 0.678431)
+position = Vector2(636, 396)
+rotation = -1.58376
+scale = Vector2(0.523098, 0.470528)
+texture = ExtResource("6_e1r1a")
+
+[node name="shoppingTable" type="Node2D" parent="." index="7"]
+position = Vector2(10, -7)
+rotation = 3.14159
+scale = Vector2(5.44241, -1.47861)
+
+[node name="Polygon2D" type="Polygon2D" parent="shoppingTable" index="0"]
+polygon = PackedVector2Array(43.1794, 110.915, -260.363, 121.059, -261.098, 243.471, 43.9144, 237.384)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="shoppingTable" index="1"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="shoppingTable/StaticBody2D" index="0"]
+polygon = PackedVector2Array(43.5469, 110.915, -260.73, 119.707, -261.098, 238.737, 43.5469, 236.708)
