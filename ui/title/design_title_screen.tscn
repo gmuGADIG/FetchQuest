@@ -1,0 +1,67 @@
+[gd_scene load_steps=12 format=3 uid="uid://dlqewjtyi44jq"]
+
+[ext_resource type="Texture2D" uid="uid://m8uan60y3dfh" path="res://ui/title/Fetch Quest Title Screen Background.png" id="1_6hwyi"]
+[ext_resource type="Theme" uid="uid://c1fnrmf3wvqgr" path="res://ui/title/Continue.tres" id="2_jw46e"]
+[ext_resource type="Theme" uid="uid://coykutqq7m7m1" path="res://ui/title/Quit Button.tres" id="3_es30q"]
+[ext_resource type="Theme" uid="uid://b3sfpfttk5ia5" path="res://NewGame.tres" id="4_f12hv"]
+[ext_resource type="Texture2D" uid="uid://dksmpwoovhna3" path="res://ui/Options Shadow Gear.png" id="5_cbj6e"]
+[ext_resource type="Texture2D" uid="uid://c2is5t54bjncw" path="res://ui/Options Gear.png" id="5_rkmpt"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7u48l"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_s3ow0"]
+texture = ExtResource("5_cbj6e")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hwso8"]
+texture = ExtResource("5_rkmpt")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ckcfv"]
+texture = ExtResource("5_rkmpt")
+
+[sub_resource type="Theme" id="Theme_o581r"]
+Button/styles/focus = SubResource("StyleBoxTexture_7u48l")
+Button/styles/hover = SubResource("StyleBoxTexture_s3ow0")
+Button/styles/normal = SubResource("StyleBoxTexture_hwso8")
+Button/styles/pressed = SubResource("StyleBoxTexture_ckcfv")
+
+[node name="CanvasLayer" type="CanvasLayer"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="FetchQuestTitleScreenBackground" type="Sprite2D" parent="."]
+position = Vector2(575.5, 321.5)
+scale = Vector2(0.601563, 0.589815)
+texture = ExtResource("1_6hwyi")
+
+[node name="Button" type="Button" parent="."]
+offset_left = 429.0
+offset_top = 430.0
+offset_right = 693.0
+offset_bottom = 508.0
+theme = ExtResource("2_jw46e")
+theme_type_variation = &"FlatButton"
+text = "CONTINUE"
+
+[node name="Button2" type="Button" parent="."]
+offset_left = 430.0
+offset_top = 526.0
+offset_right = 694.0
+offset_bottom = 606.0
+theme = ExtResource("3_es30q")
+theme_type_variation = &"FlatButton"
+text = "QUIT"
+
+[node name="Button3" type="Button" parent="."]
+offset_left = 430.0
+offset_top = 334.0
+offset_right = 695.0
+offset_bottom = 420.0
+theme = ExtResource("4_f12hv")
+text = "NEW GAME"
+
+[node name="Button4" type="Button" parent="."]
+offset_left = 941.0
+offset_top = 505.0
+offset_right = 1117.0
+offset_bottom = 649.0
+theme = SubResource("Theme_o581r")
