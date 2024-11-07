@@ -32,6 +32,8 @@ var roll_timer: float = 0.25
 
 signal health_changed
 
+var onPlatform : bool = false 
+
 # returns true if a stamina pip was used, false otherwise
 func expend_stamina() -> bool:
 	var int_stamina: int = int(stamina)
@@ -173,16 +175,29 @@ func pickup_item(item: Item) -> void:
 	
 func inHole() -> void:
 	#damage player
-	hurt(DamageEvent.new(1))
-	#play animation?
-	
-	#set postion to last safe position
-	#var dir : Vector2 = position.direction_to(last_safe_position)
-	position = last_safe_position
+	if(onPlatform == false):
+		hurt(DamageEvent.new(1))
+		#play animation?
+		
+		#set postion to last safe position
+		#var dir : Vector2 = position.direction_to(last_safe_position)
+		position = last_safe_position
 	pass
 
 
 func close_to_hole() -> void:
 	last_safe_position = position;
 	print("safe pos")
+	pass # Replace with function body.
+
+
+func _on_hole_detector_on_platform() -> void:
+	print("on platform")
+	onPlatform = true
+	pass # Replace with function body.
+
+
+func _on_hole_detector_off_platform() -> void:
+	print("on platform")
+	onPlatform = false
 	pass # Replace with function body.
