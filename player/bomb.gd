@@ -32,10 +32,18 @@ func explode() -> void:
 
 	queue_free()
 
+#Only will be called when the bomb is hit by the players' sword, and will only explode if the bomb is stopped.
+#This change was made in response to the bomb immediately exploding if it was hit by the sword, which caused the player
+#to have a chance if damaging themselves as soon as they threw the bomb.
 func hurt(_damage_event: DamageEvent) -> void:
-	explode()
-	return
+	if(velocity == Vector2(0,0)):
+		explode()
 
+#Updates the velocity of the bomb, and ensures that after the bomb has reached a small enough velocity it stops
 func _physics_process(_delta: float) -> void:
 	velocity *= 0.9
+	
+	if(abs(velocity.x) < 10 and abs(velocity.y) < 10):
+		velocity = Vector2(0,0)
+		
 	move_and_slide()
