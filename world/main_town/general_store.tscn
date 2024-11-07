@@ -1,8 +1,16 @@
-[gd_scene load_steps=4 format=3 uid="uid://cgfglx0lxku18"]
+[gd_scene load_steps=8 format=3 uid="uid://cgfglx0lxku18"]
 
 [ext_resource type="PackedScene" uid="uid://cnd06dpkgufe4" path="res://world/level_base.tscn" id="1_g5wrv"]
+[ext_resource type="Texture2D" uid="uid://dymucenpxmluo" path="res://icon.svg" id="4_536er"]
+[ext_resource type="Texture2D" uid="uid://c3q7u3yjdqdg7" path="res://world/main_town/MM3D_Jar_Model.webp" id="5_ca04d"]
 [ext_resource type="Texture2D" uid="uid://c4tqrgyodg8vo" path="res://world/main_town/IMG_3598.jpg" id="6_e1r1a"]
 [ext_resource type="PackedScene" uid="uid://c7ck7ril2jix2" path="res://player/player.tscn" id="7_xye75"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h73wv"]
+size = Vector2(122.821, 124.878)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5npac"]
+radius = 747.918
 
 [node name="GeneralStore" instance=ExtResource("1_g5wrv")]
 
@@ -22,6 +30,7 @@ scale = Vector2(-5.44241, 1.47861)
 polygon = PackedVector2Array(39.1371, 616.117, -261.833, 610.031, -261.282, -156.904, 40.2396, -156.904)
 
 [node name="Img3598" type="Sprite2D" parent="." index="6"]
+visible = false
 modulate = Color(1, 1, 1, 0.678431)
 position = Vector2(636, 396)
 rotation = -1.58376
@@ -40,3 +49,104 @@ polygon = PackedVector2Array(43.1794, 110.915, -260.363, 121.059, -261.098, 243.
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="shoppingTable/StaticBody2D" index="0"]
 polygon = PackedVector2Array(43.5469, 110.915, -260.73, 119.707, -261.098, 238.737, 43.5469, 236.708)
+
+[node name="Shopekeep place holder" type="Sprite2D" parent="." index="8"]
+position = Vector2(509, 93)
+texture = ExtResource("4_536er")
+
+[node name="Box Placeholder" type="Sprite2D" parent="." index="9"]
+modulate = Color(0.792898, 0.621307, 0.273935, 1)
+position = Vector2(-108, 451)
+scale = Vector2(1.35156, 1.28125)
+texture = ExtResource("4_536er")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Box Placeholder" index="0"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Box Placeholder/StaticBody2D" index="0"]
+position = Vector2(0.739891, -3.12198)
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_h73wv")
+
+[node name="Box Placeholder2" type="Sprite2D" parent="." index="10"]
+modulate = Color(0.792898, 0.621307, 0.273935, 1)
+position = Vector2(-105, 635)
+scale = Vector2(1.35156, 1.28125)
+texture = ExtResource("4_536er")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Box Placeholder2" index="0"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Box Placeholder2/StaticBody2D" index="0"]
+position = Vector2(0.739891, -3.12198)
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_h73wv")
+
+[node name="Box Placeholder3" type="Sprite2D" parent="." index="11"]
+modulate = Color(0.792898, 0.621307, 0.273935, 1)
+position = Vector2(-102, 814)
+scale = Vector2(1.35156, 1.28125)
+texture = ExtResource("4_536er")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Box Placeholder3" index="0"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Box Placeholder3/StaticBody2D" index="0"]
+position = Vector2(0.739891, -3.12198)
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_h73wv")
+
+[node name="Pots(group)" type="Node2D" parent="." index="12"]
+position = Vector2(1185, 425)
+scale = Vector2(0.138808, 0.138808)
+
+[node name="Pot Place Hold" type="Sprite2D" parent="Pots(group)" index="0"]
+texture = ExtResource("5_ca04d")
+
+[node name="Pot Place Hold5" type="Sprite2D" parent="Pots(group)" index="1"]
+position = Vector2(-14.4092, 785.257)
+texture = ExtResource("5_ca04d")
+
+[node name="Pot Place Hold2" type="Sprite2D" parent="Pots(group)" index="2"]
+position = Vector2(641.172, -50.4294)
+texture = ExtResource("5_ca04d")
+
+[node name="Pot Place Hold3" type="Sprite2D" parent="Pots(group)" index="3"]
+position = Vector2(641.172, -50.4294)
+texture = ExtResource("5_ca04d")
+
+[node name="Pot Place Hold4" type="Sprite2D" parent="Pots(group)" index="4"]
+position = Vector2(662.785, 770.849)
+texture = ExtResource("5_ca04d")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Pots(group)" index="5"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Pots(group)/StaticBody2D" index="0"]
+position = Vector2(345.8, 446.66)
+shape = SubResource("CircleShape2D_5npac")
+
+[node name="Pots(group)2" type="Node2D" parent="." index="13"]
+position = Vector2(1183, 681)
+scale = Vector2(0.138808, 0.138808)
+
+[node name="Pot Place Hold" type="Sprite2D" parent="Pots(group)2" index="0"]
+texture = ExtResource("5_ca04d")
+
+[node name="Pot Place Hold5" type="Sprite2D" parent="Pots(group)2" index="1"]
+position = Vector2(-14.4092, 785.257)
+texture = ExtResource("5_ca04d")
+
+[node name="Pot Place Hold2" type="Sprite2D" parent="Pots(group)2" index="2"]
+position = Vector2(641.172, -50.4294)
+texture = ExtResource("5_ca04d")
+
+[node name="Pot Place Hold3" type="Sprite2D" parent="Pots(group)2" index="3"]
+position = Vector2(641.172, -50.4294)
+texture = ExtResource("5_ca04d")
+
+[node name="Pot Place Hold4" type="Sprite2D" parent="Pots(group)2" index="4"]
+position = Vector2(662.785, 770.849)
+texture = ExtResource("5_ca04d")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Pots(group)2" index="5"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Pots(group)2/StaticBody2D" index="0"]
+position = Vector2(345.8, 446.66)
+shape = SubResource("CircleShape2D_5npac")
