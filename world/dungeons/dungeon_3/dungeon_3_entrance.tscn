@@ -1,0 +1,179 @@
+[gd_scene load_steps=27 format=3 uid="uid://bbbt874mvpecx"]
+
+[ext_resource type="PackedScene" uid="uid://cnd06dpkgufe4" path="res://world/level_base.tscn" id="1_igkpq"]
+[ext_resource type="Script" path="res://addons/rmsmartshape/shapes/shape.gd" id="2_uusd1"]
+[ext_resource type="Script" path="res://addons/rmsmartshape/vertex_properties.gd" id="3_bbwa1"]
+[ext_resource type="Script" path="res://addons/rmsmartshape/shapes/point.gd" id="4_tuxw6"]
+[ext_resource type="Script" path="res://addons/rmsmartshape/shapes/point_array.gd" id="5_rjwav"]
+[ext_resource type="Script" path="res://addons/rmsmartshape/materials/edge_material_metadata.gd" id="6_0ca61"]
+[ext_resource type="Texture2D" uid="uid://hku5aotap48r" path="res://world/decoration/floors/stone/Center.png" id="7_3i24l"]
+[ext_resource type="Script" path="res://addons/rmsmartshape/materials/shape_material.gd" id="8_xmp5t"]
+[ext_resource type="PackedScene" uid="uid://b5bscusffqp5h" path="res://world/interactable/activators/pressure_plate/pressure_plate.tscn" id="9_4lf8a"]
+[ext_resource type="PackedScene" uid="uid://blh1fs712dql8" path="res://world/interactable/activatable/locked_door/locked_door.tscn" id="10_srchd"]
+
+[sub_resource type="Resource" id="Resource_oxeeg"]
+script = ExtResource("3_bbwa1")
+texture_idx = 0
+flip = false
+width = 1.0
+
+[sub_resource type="Resource" id="Resource_ac1qy"]
+script = ExtResource("4_tuxw6")
+position = Vector2(-240, -128)
+point_in = Vector2(0, 0)
+point_out = Vector2(0, 0)
+properties = SubResource("Resource_oxeeg")
+
+[sub_resource type="Resource" id="Resource_la30i"]
+script = ExtResource("3_bbwa1")
+texture_idx = 0
+flip = false
+width = 1.0
+
+[sub_resource type="Resource" id="Resource_1xcap"]
+script = ExtResource("4_tuxw6")
+position = Vector2(-240, -128)
+point_in = Vector2(0, 0)
+point_out = Vector2(0, 0)
+properties = SubResource("Resource_la30i")
+
+[sub_resource type="Resource" id="Resource_pbect"]
+script = ExtResource("3_bbwa1")
+texture_idx = 16
+flip = false
+width = 1.0
+
+[sub_resource type="Resource" id="Resource_qpq5w"]
+script = ExtResource("4_tuxw6")
+position = Vector2(-240, 808)
+point_in = Vector2(0, 0)
+point_out = Vector2(0, 0)
+properties = SubResource("Resource_pbect")
+
+[sub_resource type="Resource" id="Resource_2eyuv"]
+script = ExtResource("3_bbwa1")
+texture_idx = 23
+flip = false
+width = 1.0
+
+[sub_resource type="Resource" id="Resource_7t73i"]
+script = ExtResource("4_tuxw6")
+position = Vector2(1424, 816)
+point_in = Vector2(0, 0)
+point_out = Vector2(0, 0)
+properties = SubResource("Resource_2eyuv")
+
+[sub_resource type="Resource" id="Resource_a73i3"]
+script = ExtResource("3_bbwa1")
+texture_idx = 0
+flip = false
+width = 1.0
+
+[sub_resource type="Resource" id="Resource_onwys"]
+script = ExtResource("4_tuxw6")
+position = Vector2(1424, -128)
+point_in = Vector2(0, 0)
+point_out = Vector2(0, 0)
+properties = SubResource("Resource_a73i3")
+
+[sub_resource type="Resource" id="Resource_wlth4"]
+script = ExtResource("3_bbwa1")
+texture_idx = 0
+flip = false
+width = 1.0
+
+[sub_resource type="Resource" id="Resource_wpfp6"]
+script = ExtResource("4_tuxw6")
+position = Vector2(-177.443, 807.264)
+point_in = Vector2(0, 0)
+point_out = Vector2(0, 0)
+properties = SubResource("Resource_wlth4")
+
+[sub_resource type="Resource" id="Resource_xpffa"]
+script = ExtResource("5_rjwav")
+_points = {
+0: SubResource("Resource_ac1qy"),
+14: SubResource("Resource_1xcap"),
+15: SubResource("Resource_qpq5w"),
+16: SubResource("Resource_7t73i"),
+17: SubResource("Resource_onwys"),
+18: SubResource("Resource_wpfp6")
+}
+_point_order = Array[int]([0, 17, 16, 18, 15, 14])
+_constraints = {
+Array[int]([14, 0]): 15
+}
+_next_key = 19
+_material_overrides = {}
+
+[sub_resource type="Resource" id="Resource_2swyf"]
+script = ExtResource("8_xmp5t")
+_edge_meta_materials = Array[ExtResource("6_0ca61")]([])
+fill_textures = Array[Texture2D]([ExtResource("7_3i24l")])
+fill_texture_z_index = -10
+fill_texture_show_behind_parent = false
+fill_texture_scale = 0.5
+fill_texture_absolute_position = false
+fill_texture_absolute_rotation = false
+fill_texture_offset = Vector2(0, 0)
+fill_texture_angle_offset = 0.0
+fill_mesh_offset = 0.0
+render_offset = 0.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k58yn"]
+size = Vector2(25, 954.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_55jni"]
+size = Vector2(1670.5, 20)
+
+[node name="LevelBase" instance=ExtResource("1_igkpq")]
+
+[node name="MainCam" parent="." index="0"]
+limit_left = -232
+limit_top = -120
+limit_right = 1416
+limit_bottom = 800
+
+[node name="Entrance" type="Node2D" parent="EntryPoints" index="0"]
+position = Vector2(608, 704)
+
+[node name="Floor" type="Node2D" parent="." index="6"]
+script = ExtResource("2_uusd1")
+_points = SubResource("Resource_xpffa")
+shape_material = SubResource("Resource_2swyf")
+
+[node name="PressurePlate" parent="." index="7" instance=ExtResource("9_4lf8a")]
+position = Vector2(568, 400)
+metadata/Activatables = [NodePath("../LockedDoor")]
+
+[node name="LockedDoor" parent="." index="8" instance=ExtResource("10_srchd")]
+position = Vector2(256, 352)
+
+[node name="Walls" type="Node" parent="." index="9"]
+
+[node name="Left_Wall" type="StaticBody2D" parent="Walls" index="0"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Left_Wall" index="0"]
+position = Vector2(-232, 346.75)
+shape = SubResource("RectangleShape2D_k58yn")
+
+[node name="Bottom_Wall" type="StaticBody2D" parent="Walls" index="1"]
+position = Vector2(128, 480)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Bottom_Wall" index="0"]
+position = Vector2(468.75, 328)
+shape = SubResource("RectangleShape2D_55jni")
+
+[node name="Right_Wall" type="StaticBody2D" parent="Walls" index="2"]
+position = Vector2(1648, -8)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Right_Wall" index="0"]
+position = Vector2(-232, 346.75)
+shape = SubResource("RectangleShape2D_k58yn")
+
+[node name="Top_Wall" type="StaticBody2D" parent="Walls" index="3"]
+position = Vector2(128, -448)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Top_Wall" index="0"]
+position = Vector2(468.75, 328)
+shape = SubResource("RectangleShape2D_55jni")
