@@ -1,4 +1,4 @@
-[gd_scene load_steps=149 format=3 uid="uid://bib0d8jcnmnew"]
+[gd_scene load_steps=150 format=3 uid="uid://bib0d8jcnmnew"]
 
 [ext_resource type="PackedScene" uid="uid://cnd06dpkgufe4" path="res://world/level_base.tscn" id="1_hpb4s"]
 [ext_resource type="Script" path="res://addons/rmsmartshape/shapes/shape.gd" id="2_qyyn3"]
@@ -18,6 +18,7 @@
 [ext_resource type="PackedScene" uid="uid://c7ck7ril2jix2" path="res://player/player.tscn" id="14_45206"]
 [ext_resource type="Texture2D" uid="uid://biq312enm4kjl" path="res://world/main_town/TL-8423HC-EW-FM-Toilet-Angle-scaled.jpg" id="14_qtlqq"]
 [ext_resource type="Texture2D" uid="uid://v54e4tmx6wf7" path="res://dialogic_example/level_example_textures/pond_edge.png" id="15_7xjy1"]
+[ext_resource type="PackedScene" uid="uid://dsm5cibmw7k8f" path="res://world/decoration/buildings/house_tudor_a.tscn" id="16_lnwbo"]
 [ext_resource type="Texture2D" uid="uid://ctc0st617mi3e" path="res://world/main_town/wooden-log-isolated-on-white-background-free-vector.jpg" id="17_8b7f0"]
 [ext_resource type="Texture2D" uid="uid://cpxjjfwwowfx3" path="res://world/main_town/Dummy_battle.webp" id="17_ivfme"]
 [ext_resource type="Texture2D" uid="uid://dqapc8purx8qy" path="res://world/main_town/chest.jpg" id="20_kh67s"]
@@ -1034,94 +1035,99 @@ position = Vector2(2637, -1094)
 scale = Vector2(1.41, 1.41)
 texture = ExtResource("13_vnype")
 
-[node name="Houses2" type="Node2D" parent="." index="4"]
+[node name="Houses2" type="Sprite2D" parent="Houses" index="9"]
+position = Vector2(9, 904)
+scale = Vector2(1.41, 1.41)
+texture = ExtResource("13_vnype")
+
+[node name="Houses3" type="Sprite2D" parent="Houses" index="10"]
+position = Vector2(23, 366)
+scale = Vector2(1.41, 1.41)
+texture = ExtResource("13_vnype")
+
+[node name="Houses4" type="Sprite2D" parent="Houses" index="11"]
+position = Vector2(18, -202)
+scale = Vector2(1.41, 1.41)
+texture = ExtResource("13_vnype")
+
+[node name="Houses5" type="Sprite2D" parent="Houses" index="12"]
+position = Vector2(-1029, -218)
+scale = Vector2(1.41, 1.41)
+texture = ExtResource("13_vnype")
+
+[node name="Houses6" type="Sprite2D" parent="Houses" index="13"]
+position = Vector2(-1440, -214)
+scale = Vector2(1.41, 1.41)
+texture = ExtResource("13_vnype")
+
+[node name="Houses7" type="Sprite2D" parent="Houses" index="14"]
+modulate = Color(0.845955, 0.285603, 0.249468, 1)
+position = Vector2(-785, 529)
+scale = Vector2(1.41, 1.41)
+texture = ExtResource("13_vnype")
+
+[node name="Houses8" type="Sprite2D" parent="Houses" index="15"]
+position = Vector2(-616, -210)
+scale = Vector2(1.41, 1.41)
+texture = ExtResource("13_vnype")
+
+[node name="Houses9" type="Sprite2D" parent="Houses" index="16"]
+position = Vector2(-780, -2284)
+scale = Vector2(1.41, 1.41)
+texture = ExtResource("13_vnype")
+
+[node name="Houses12" type="Sprite2D" parent="Houses" index="17"]
+position = Vector2(1907, -2227)
+scale = Vector2(1.41, 1.41)
+texture = ExtResource("13_vnype")
+
+[node name="Collision_houses" type="Node2D" parent="." index="4"]
 position = Vector2(-1572, 8)
 
-[node name="RengbO2" type="Sprite2D" parent="Houses2" index="0"]
-position = Vector2(1581, 896)
-scale = Vector2(1.41, 1.41)
-texture = ExtResource("13_vnype")
+[node name="HouseTudorA" parent="Collision_houses" index="0" instance=ExtResource("16_lnwbo")]
+position = Vector2(119, -257)
 
-[node name="RengbO4" type="Sprite2D" parent="Houses2" index="1"]
-position = Vector2(1595, 358)
-scale = Vector2(1.41, 1.41)
-texture = ExtResource("13_vnype")
+[node name="shops" type="Node" parent="." index="5"]
 
-[node name="RengbO6" type="Sprite2D" parent="Houses2" index="2"]
-position = Vector2(1590, -210)
-scale = Vector2(1.41, 1.41)
-texture = ExtResource("13_vnype")
-
-[node name="RengbO8" type="Sprite2D" parent="Houses2" index="3"]
-position = Vector2(543, -226)
-scale = Vector2(1.41, 1.41)
-texture = ExtResource("13_vnype")
-
-[node name="RengbO9" type="Sprite2D" parent="Houses2" index="4"]
-position = Vector2(132, -222)
-scale = Vector2(1.41, 1.41)
-texture = ExtResource("13_vnype")
-
-[node name="RengbO10" type="Sprite2D" parent="Houses2" index="5"]
-modulate = Color(0.845955, 0.285603, 0.249468, 1)
-position = Vector2(787, 521)
-scale = Vector2(1.41, 1.41)
-texture = ExtResource("13_vnype")
-
-[node name="RengbO7" type="Sprite2D" parent="Houses2" index="6"]
-position = Vector2(956, -218)
-scale = Vector2(1.41, 1.41)
-texture = ExtResource("13_vnype")
-
-[node name="RengbO11" type="Sprite2D" parent="Houses2" index="7"]
-position = Vector2(792, -2292)
-scale = Vector2(1.41, 1.41)
-texture = ExtResource("13_vnype")
-
-[node name="RengbO13" type="Sprite2D" parent="Houses2" index="8"]
-modulate = Color(0.810584, 0.78502, 0.080036, 1)
-position = Vector2(1173, -3211)
-scale = Vector2(3.62719, 1.41)
-texture = ExtResource("13_vnype")
-
-[node name="RengbO14" type="Sprite2D" parent="Houses2" index="9"]
+[node name="blacksmith" type="Sprite2D" parent="shops" index="0"]
 modulate = Color(0.254839, 0.211567, 0.571184, 1)
-position = Vector2(3073, -3228)
+position = Vector2(1501, -3220)
 scale = Vector2(3.62719, 1.41)
 texture = ExtResource("13_vnype")
 
-[node name="RengbO12" type="Sprite2D" parent="Houses2" index="10"]
-position = Vector2(3479, -2235)
-scale = Vector2(1.41, 1.41)
+[node name="general_store" type="Sprite2D" parent="shops" index="1"]
+modulate = Color(0.810584, 0.78502, 0.080036, 1)
+position = Vector2(-399, -3203)
+scale = Vector2(3.62719, 1.41)
 texture = ExtResource("13_vnype")
 
-[node name="Tl-8423hc-ew-fm-toilet-angle-scaled" type="Sprite2D" parent="." index="5"]
+[node name="fast_travel_pt" type="Sprite2D" parent="." index="6"]
 position = Vector2(583, -910)
 scale = Vector2(0.109082, 0.109082)
 texture = ExtResource("14_qtlqq")
 
-[node name="dummy" type="Sprite2D" parent="." index="6"]
+[node name="dummy" type="Sprite2D" parent="." index="7"]
 position = Vector2(2712, 1141)
 scale = Vector2(0.280556, 0.414113)
 texture = ExtResource("17_ivfme")
 
-[node name="Training ground" type="Node2D" parent="." index="7"]
+[node name="Training ground" type="Node2D" parent="." index="8"]
 position = Vector2(-1930.24, -5756)
 scale = Vector2(4.575, 4.575)
 script = ExtResource("2_qyyn3")
 _points = SubResource("Resource_y3trr")
 shape_material = SubResource("Resource_h6l2b")
 
-[node name="Player" parent="." index="8" instance=ExtResource("14_45206")]
+[node name="Player" parent="." index="9" instance=ExtResource("14_45206")]
 position = Vector2(529, 1476)
 
-[node name="HUD" parent="." index="10"]
+[node name="HUD" parent="." index="11"]
 visible = false
 
-[node name="PauseMenu" parent="." index="11"]
+[node name="PauseMenu" parent="." index="12"]
 visible = false
 
-[node name="fences" type="Node" parent="." index="13"]
+[node name="fences" type="Node" parent="." index="14"]
 
 [node name="Wooden-log-isolated-on-white-background-free-vector" type="Sprite2D" parent="fences" index="0"]
 position = Vector2(-354, 468)
@@ -1148,7 +1154,7 @@ rotation = 1.5708
 scale = Vector2(2.37387, 0.465)
 texture = ExtResource("17_8b7f0")
 
-[node name="chests" type="Node" parent="." index="14"]
+[node name="chests" type="Node" parent="." index="15"]
 
 [node name="Chest" type="Sprite2D" parent="chests" index="0"]
 position = Vector2(-565, 1339)
@@ -1165,7 +1171,7 @@ position = Vector2(-597, -3480)
 scale = Vector2(0.575354, 0.496827)
 texture = ExtResource("20_kh67s")
 
-[node name="lamps" type="Node" parent="." index="15"]
+[node name="lamps" type="Node" parent="." index="16"]
 
 [node name="Png-transparent-street-light-landscape-lighting-light-light-fixture-lantern-globe-thumbnail" type="Sprite2D" parent="lamps" index="0"]
 position = Vector2(328, -4174)
@@ -1247,7 +1253,7 @@ position = Vector2(298, 922.833)
 scale = Vector2(0.366667, 0.366667)
 texture = ExtResource("21_bn6oe")
 
-[node name="bark_blocks" type="Node" parent="." index="16"]
+[node name="bark_blocks" type="Node" parent="." index="17"]
 
 [node name="Istockphoto-483857665-612x612" type="Sprite2D" parent="bark_blocks" index="0"]
 position = Vector2(2475, 53)
@@ -1269,25 +1275,37 @@ position = Vector2(2657, 204)
 scale = Vector2(0.302395, 0.302395)
 texture = ExtResource("24_000ci")
 
-[node name="Trees" type="Node" parent="." index="17"]
+[node name="Trees" type="Node" parent="." index="18"]
 
-[node name="Evergreen" parent="." index="18" instance=ExtResource("24_3gga2")]
+[node name="Evergreen" parent="Trees" index="0" instance=ExtResource("24_3gga2")]
 position = Vector2(-1557, 1185)
 
-[node name="Evergreen2" parent="." index="19" instance=ExtResource("24_3gga2")]
+[node name="Evergreen2" parent="Trees" index="1" instance=ExtResource("24_3gga2")]
 position = Vector2(1931, 1301)
 
-[node name="Evergreen3" parent="." index="20" instance=ExtResource("24_3gga2")]
+[node name="Evergreen3" parent="Trees" index="2" instance=ExtResource("24_3gga2")]
 position = Vector2(2802, 470)
 
-[node name="Evergreen4" parent="." index="21" instance=ExtResource("24_3gga2")]
+[node name="Evergreen4" parent="Trees" index="3" instance=ExtResource("24_3gga2")]
 position = Vector2(-871, -1446)
 
-[node name="Evergreen5" parent="." index="22" instance=ExtResource("24_3gga2")]
+[node name="Evergreen5" parent="Trees" index="4" instance=ExtResource("24_3gga2")]
 position = Vector2(1316, -1919)
 
-[node name="Evergreen6" parent="." index="23" instance=ExtResource("24_3gga2")]
+[node name="Evergreen6" parent="Trees" index="5" instance=ExtResource("24_3gga2")]
 position = Vector2(2233, -3139)
 
-[node name="Evergreen7" parent="." index="24" instance=ExtResource("24_3gga2")]
+[node name="Evergreen7" parent="Trees" index="6" instance=ExtResource("24_3gga2")]
 position = Vector2(71, -4122)
+
+[node name="Evergreen" parent="." index="19" instance=ExtResource("24_3gga2")]
+position = Vector2(-383, -1390)
+
+[node name="Evergreen2" parent="." index="20" instance=ExtResource("24_3gga2")]
+position = Vector2(-65.0001, -2232)
+
+[node name="Evergreen3" parent="." index="21" instance=ExtResource("24_3gga2")]
+position = Vector2(1548, -1360)
+
+[node name="HouseTudorA" parent="." index="22" instance=ExtResource("16_lnwbo")]
+position = Vector2(-5, 1347)
