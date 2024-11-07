@@ -1,7 +1,15 @@
-[gd_scene load_steps=2 format=3 uid="uid://bhknx5qbikjsg"]
+[gd_scene load_steps=3 format=3 uid="uid://bhknx5qbikjsg"]
 
 [ext_resource type="Texture2D" uid="uid://dhb1q6wuhtddf" path="res://world/decoration/trees/spiky_tree.png" id="1_tqcqe"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pddaw"]
 
 [node name="Evergreen" type="Sprite2D"]
 texture = ExtResource("1_tqcqe")
 offset = Vector2(15, -405)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+scale = Vector2(10, 10)
+shape = SubResource("CircleShape2D_pddaw")
