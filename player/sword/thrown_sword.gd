@@ -79,13 +79,6 @@ func _physics_process(delta: float) -> void:
 	var collision: KinematicCollision2D = move_and_collide(velocity * delta)
 	if collision:
 		_on_collision(collision)
-		
-func _process(_delta: float) -> void:
-	if Input.is_action_just_released("attack"):
-		if (recall_timer.is_stopped()):
-			return_sword()
-		else:
-			recall_timer.timeout.connect(return_sword)
 
 ## Handles sword ricochet off surfaces
 func sword_bounce() -> void:
