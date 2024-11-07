@@ -1,45 +1,20 @@
-[gd_scene load_steps=5 format=3 uid="uid://bds0ikjjcxwqf"]
+[gd_scene load_steps=4 format=3 uid="uid://bds0ikjjcxwqf"]
 
 [ext_resource type="Script" path="res://test_scenes/herding/animal.gd" id="1_v0d5v"]
 [ext_resource type="Texture2D" uid="uid://dk0rd78js5eey" path="res://demo_art/sheep.png" id="2_b4hyk"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_0xhnq"]
-size = Vector2(100, 100)
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_5dvw0"]
-radius = 180.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_hvkes"]
+radius = 46.0435
 
 [node name="Animal" type="CharacterBody2D"]
 collision_layer = 512
 collision_mask = 783
 motion_mode = 1
 script = ExtResource("1_v0d5v")
-panic_interval = 0.5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_0xhnq")
+shape = SubResource("CircleShape2D_hvkes")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.775, 0.775)
 texture = ExtResource("2_b4hyk")
-
-[node name="Brain Timer" type="Timer" parent="."]
-wait_time = 2.5
-autostart = true
-
-[node name="Panic Timer" type="Timer" parent="."]
-
-[node name="Brain Restart Timer" type="Timer" parent="."]
-one_shot = true
-
-[node name="Area2D" type="Area2D" parent="."]
-collision_layer = 64
-collision_mask = 38
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource("CircleShape2D_5dvw0")
-
-[connection signal="timeout" from="Brain Timer" to="." method="_on_brain_timer_timeout"]
-[connection signal="timeout" from="Panic Timer" to="." method="_on_panic_timer_timeout"]
-[connection signal="timeout" from="Brain Restart Timer" to="." method="_on_brain_restart_timer_timeout"]
-[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

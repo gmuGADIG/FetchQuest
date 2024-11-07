@@ -8,90 +8,77 @@ var panic: bool = false
 var safe: bool = false
 @export var normal_speed: float = 200.0
 @export var safe_speed: float = 80.0
-@export var panic_speed: float = 600.0
-@export var panic_interval: float = 1.0
 
-# move into panicked state from an event at the supplied position
-func panic_from_position(pos: Vector2) -> void:
-	if (panic or safe):
-		return 
-	panic = true
-	$"Panic Timer".start(panic_interval * randi_range(2,5))
-	speed = panic_speed
+# version 2! turns out the 'shepherd and sheep problem' isn't that uncommon!
+# redesigning it to work off that instead of the way it works now
+
+var shepherd: Player
+var r_sheep_vector: Vector2
+var r_shepherd_vector: Vector2
+var wander_vector: Vector2
+var aware_of_shepherd: int = 0
+@export var repulsion_from_sheep: float = 1.0
+@export var repulsion_from_shepherd: float = 3.0
+@export var wandering_force: float = 0.5
+@export var nearest_neighbors_to_consider: int = 3
+
+var shepherd_circle_radius: float = 1.0
+var personal_circle_radius: float = 1.0
+
+
+@export var debug_draw: bool = false
+var do_draw_av: bool = false
+var avoidance_vector: Vector2 = Vector2.ZERO
+var do_draw_sv: bool = false
+var shepherd_position: Vector2 = Vector2.ZERO
+var do_draw_herd: bool = true
+var herd_LCM: Vector2 = Vector2.ZERO
+var herd_vector: Vector2 = Vector2.ZERO
+
+func draw_avoidance_vector(av: Vector2) -> void:
+	do_draw_av = true
+	avoidance_vector = av
+	queue_redraw()
+
+func draw_shepherd_vector(sv: Vector2) -> void:
+	do_draw_sv = true
+	shepherd_position = sv
+	queue_redraw()
+
+func draw_herding_info(hp: Vector2, hv: Vector2) -> void:
+	do_draw_herd = true
+	herd_LCM = hp
+	herd_vector = hv
+	queue_redraw()
+
+func _draw() -> void:
+	if (debug_draw == false):
+		pass
+		#return
 	
-	# calculate a direction directly away from the supplied position
-	direction = (self.global_position - pos).normalized() * 1.0
-
-# stop panicking
-func calm() -> void:
-	panic = false
-	$"Panic Timer".stop()
-	speed = normal_speed
-
-func _ready() -> void:
-	direction = Vector2.from_angle(randf_range(0.0, 360.0)).normalized()
-	pen.add_target_animal(self)
-
-func _physics_process(delta: float) -> void:
-	if (is_on_wall()):
-		direction = direction.bounce(get_wall_normal())
-	velocity = direction * speed
+	draw_circle(Vector2(0, 0), shepherd_circle_radius, Color.GREEN, false)
+	draw_circle(Vector2(0, 0), personal_circle_radius, Color.RED, false)
 	
-	move_and_slide()
-
-# brain processing when in the pen
-func think_when_safe() -> void:
-	direction = Vector2.from_angle(randf_range(0.0, 360.0)).normalized()
-	speed = randf_range(0.8, 1.1) * safe_speed
-
-# brain processing when panicking
-func think_when_panicking() -> void:
-	# don't recalculate, just go in the direction we already want to go in
-	pass
-
-# brain processing when outside the pen
-func think_when_normal() -> void:
-	direction = Vector2.from_angle(randf_range(0.0, 360.0)).normalized()
-	if (randi_range(0, 4) > 2):
-		speed = randf_range(130.0, 220.0)
-	else:
-		speed = 0.0
-
-# determine next objective
-func _on_brain_timer_timeout() -> void:
-	if (panic):
-		think_when_panicking()
-	elif (safe):
-		think_when_safe()
-	else:
-		think_when_normal()
-
-# calm down when the panic timer expires
-func _on_panic_timer_timeout() -> void:
-	calm()
-
-# panic if something enters the panic area
-func _on_area_2d_body_entered(body: Node2D) -> void:
-	panic_from_position(body.global_position)
+	if (do_draw_av):
+		do_draw_av = false
+		draw_line(Vector2(0, 0), (self.avoidance_vector), Color.BLUE_VIOLET, 10.0)
+		avoidance_vector = Vector2.ZERO
+	if (do_draw_sv):
+		do_draw_sv = false
+		draw_line(Vector2(0, 0), to_local(shepherd_position), Color.BLUE)
+		shepherd_position = Vector2.ZERO
+	if do_draw_herd:
+		do_draw_herd = false
+		draw_circle(herd_LCM, 15.0, Color.GREEN)
+		draw_line(Vector2(0, 0), herd_LCM, Color.GREEN_YELLOW)
 
 # called from the pen when an animal enters it for the first time
 func enter_safe_area() -> void:
 	if (safe):
 		return
 	safe = true
-	calm()
 	self.set_collision_mask_value(2, false)
 	self.set_collision_mask_value(3, false)
 	self.set_collision_mask_value(10, false)
 	direction = ((self.global_position - pen.global_position) * -1.0).normalized()
 	speed = safe_speed
-	$"Brain Timer".stop()
-	$"Brain Restart Timer".start(0.75)
-
-# if the brain was shut down, restart it
-func _on_brain_restart_timer_timeout() -> void:
-	$"Brain Timer".start(2.5)
-
-# if we leave the safe area, this gets called to make us go back inside
-func retarget_safe_area() -> void:
-	direction = ((self.global_position - pen.global_position) * -1.0).normalized()
