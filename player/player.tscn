@@ -1,7 +1,7 @@
-[gd_scene load_steps=16 format=3 uid="uid://c7ck7ril2jix2"]
+[gd_scene load_steps=15 format=3 uid="uid://c7ck7ril2jix2"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_x43mx"]
-[ext_resource type="Texture2D" uid="uid://b5x2oki2ophn1" path="res://demo_art/skin3.jpg" id="2_46qke"]
+[ext_resource type="Texture2D" uid="uid://bhw3gs4topknu" path="res://player/player_almost_final.png" id="2_dj0g1"]
 [ext_resource type="Texture2D" uid="uid://0ba17120df4x" path="res://dialogic_example/player/player_art_final.png" id="2_ts2mf"]
 [ext_resource type="Texture2D" uid="uid://kjnfp4n2kv4n" path="res://demo_art/skin1.jpg" id="3_4uqbb"]
 [ext_resource type="Script" path="res://player/x_ray.gd" id="3_f3hsb"]
@@ -9,7 +9,6 @@
 [ext_resource type="PackedScene" uid="uid://qgyqqokyd0ia" path="res://player/abilities/speak/speak_aura.tscn" id="4_8n4by"]
 [ext_resource type="Script" path="res://player/hole_detector.gd" id="5_dhnyf"]
 [ext_resource type="Script" path="res://player/skin_chooser.gd" id="9_de2wb"]
-[ext_resource type="Texture2D" uid="uid://c4npbv2iscbsk" path="res://demo_art/skin2.jpg" id="10_6yoee"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_krk6c"]
 size = Vector2(66, 50)
@@ -63,33 +62,25 @@ script = ExtResource("1_x43mx")
 
 [node name="SkinHolder" type="Node2D" parent="."]
 
-[node name="skin3" type="Sprite2D" parent="SkinHolder"]
-visible = false
-position = Vector2(14, 9)
-scale = Vector2(0.105882, 0.134111)
-texture = ExtResource("2_46qke")
-script = ExtResource("3_f3hsb")
-
 [node name="skin1" type="Sprite2D" parent="SkinHolder"]
-visible = false
 position = Vector2(19, 14)
-scale = Vector2(0.412805, 0.277763)
-texture = ExtResource("3_4uqbb")
-script = ExtResource("3_f3hsb")
-
-[node name="Icon" type="Sprite2D" parent="SkinHolder"]
-visible = false
-position = Vector2(0, 53)
-scale = Vector2(0.2, 0.2)
-texture = ExtResource("2_ts2mf")
-offset = Vector2(0, -300)
+scale = Vector2(0.191346, 0.191346)
+texture = ExtResource("2_dj0g1")
 script = ExtResource("3_f3hsb")
 
 [node name="skin2" type="Sprite2D" parent="SkinHolder"]
 visible = false
 position = Vector2(10, 3)
-scale = Vector2(0.125882, 0.119594)
-texture = ExtResource("10_6yoee")
+scale = Vector2(0.301772, 0.286698)
+texture = ExtResource("3_4uqbb")
+script = ExtResource("3_f3hsb")
+
+[node name="Skin3" type="Sprite2D" parent="SkinHolder"]
+visible = false
+position = Vector2(0, 53)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("2_ts2mf")
+offset = Vector2(0, -300)
 script = ExtResource("3_f3hsb")
 
 [node name="SkinChooser" type="Node" parent="SkinHolder"]
