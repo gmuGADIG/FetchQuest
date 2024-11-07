@@ -18,4 +18,3 @@ func point_unlocked(travel_point: String) -> bool:
 		if(travel_point == locations):
 			return true
 	return false
-
