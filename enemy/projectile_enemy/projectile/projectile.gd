@@ -20,7 +20,7 @@ func _on_despawn_timer_timeout() -> void:
 	queue_free()
 
 
-func on_bark(source: SpeakAura) -> void:
+func stun() -> void:
 	# Deflect projectiles on bark
-	rotation = source.global_position.angle_to_point(global_position)
+	rotation = Player.instance.global_position.angle_to_point(global_position)
 	

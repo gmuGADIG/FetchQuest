@@ -11,12 +11,13 @@ radius = 304.105
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3wk5l"]
 size = Vector2(112, 112)
 
-[node name="ProjectileEnemy" instance=ExtResource("1_27jju")]
+[node name="ProjectileEnemy" node_paths=PackedStringArray("enemy_sprite") instance=ExtResource("1_27jju")]
 script = ExtResource("2_rirh3")
 attack_speed = 1.0
 attack_range = 2.0
 attack_spread = 0.0
 animation_length = 1.0
+enemy_sprite = NodePath("Sprite2D")
 
 [node name="Sprite2D" type="Sprite2D" parent="." index="3"]
 position = Vector2(0.887735, -0.156915)
