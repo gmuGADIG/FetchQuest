@@ -31,6 +31,9 @@ func _physics_process(_delta: float) -> void:
 	
 	## Make sure we still want to detect the player and that it is close enough
 	if detecting and player_in_detection_zone:
+		# Make sure the raycast is always facing towards the player for line-of-sight check.
+		raycast.look_at(Player.instance.global_position)
+		
 		## Check the raycast for the player's presence
 		if (raycast.get_collider() as Player == Player.instance):
 				## Emit the signal upon detecting the player

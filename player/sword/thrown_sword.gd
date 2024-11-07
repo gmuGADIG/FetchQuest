@@ -37,6 +37,14 @@ func throw(throw_direction: Vector2) -> void:
 	local_acceleration = acceleration
 	velocity = direction.normalized() * initial_speed
 	
+	# apply player velocity on top
+	var player_velocity := thrower.velocity
+	if player_velocity.dot(velocity) > 0:
+		# note: velocity is only added in the direction of the sword. if the player is
+		# moving perpindicular, we don't want the sword to go sideways.
+		# the speed is also clamped, mainly because dog rolls get the player's speed way too high
+		velocity += (player_velocity.project(velocity) * .5).limit_length(500.0)
+	
 ## Initiates the sword's return to the player
 func return_sword() -> void:
 	set_collision_mask_value(1, false)  # Disable collision with terrain
@@ -85,7 +93,7 @@ func sword_bounce() -> void:
 	num_bounces += 1     # Increment bounce count
 	last_bounce = position
 	
-	local_acceleration = 0
+	local_acceleration = -400
 	# Calculate max velocity based on acceleration and max distance
 	var max_velocity: float = initial_speed if acceleration == 0 else sqrt(2 * abs(acceleration) * throw_distance)
 	
