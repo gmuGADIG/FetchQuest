@@ -22,9 +22,13 @@ ControllerManager="*res://autoloads/controller_manager.gd"
 DialogueManager="*res://dialogic_example/dialogue_manager.gd"
 Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
 PlayerInventory="*res://autoloads/player_inventory/player_inventory.tscn"
+QuestSystem="*res://quest/quest_system.tscn"
 SceneTransition="*res://autoloads/scene_transition/scene_transition.tscn"
 ChestBetweenScenes="*res://autoloads/chest_between_scenes/chest_between_scenes.tscn"
 FastTravelPoints="*res://autoloads/fast_travel_points/fast_travel_points.tscn"
+FullscreenManager="*res://autoloads/fullscreen_manager.gd"
+ChosenSkin="*res://autoloads/chosen_skin.gd"
+ActivatorManager="*res://autoloads/activator_manager.gd"
 
 [debug]
 
@@ -103,6 +107,8 @@ Hittable=""
 Reloads="Group exclusive to the Reloadable type"
 HoleOccluder="For platforms which can overlap holes, preventing the player from falling into them."
 World=""
+Activatable="Nodes that can be activated by switches/etc."
+Activator="Something that can be activated by the player."
 
 [input]
 
@@ -248,6 +254,11 @@ pause={
 , Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"button_index":6,"pressure":0.0,"pressed":true,"script":null)
 ]
 }
+fullscreen={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194342,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+]
+}
 
 [layer_names]
 
@@ -259,6 +270,7 @@ pause={
 2d_physics/layer_6="Enemy Projectiles"
 2d_physics/layer_7="Switch"
 2d_physics/layer_8="Bomb"
+2d_physics/layer_9="Barkable"
 
 [physics]
 
