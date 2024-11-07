@@ -13,6 +13,12 @@ func _ready() -> void:
 	hide()
 	
 func _process(delta: float) -> void:
+	
+	#Ensures that if another menu is open that causes the game to be paused but it is NOT this one,
+	#do nothing!
+	if(get_tree().paused and not visible):
+		return
+		
 	# NOTE: Right now, the pause menu is responsible for handling the pause hotkey,
 	# -- this makes sense, because then the pause hotkey will work if and only if
 	# the PauseMenu has been added to the scene.
