@@ -1,0 +1,210 @@
+[gd_scene load_steps=37 format=4 uid="uid://cksrvoqetgutn"]
+
+[ext_resource type="PackedScene" uid="uid://cnd06dpkgufe4" path="res://world/level_base.tscn" id="1_5j08f"]
+[ext_resource type="PackedScene" uid="uid://dt3m30r5dehup" path="res://world/interactable/pickups/pickup_key.tscn" id="3_v05u0"]
+[ext_resource type="PackedScene" uid="uid://b60qs6jc07tbj" path="res://world/interactable/activators/switch/switch.tscn" id="4_ibrfx"]
+[ext_resource type="PackedScene" uid="uid://bm05x1jwytuuc" path="res://world/tilemap/main_tile_layer.tscn" id="5_d1tdv"]
+[ext_resource type="Texture2D" uid="uid://c5mikyte6eiqh" path="res://ehayes_art/cAVE fLOOR rOCKS.png" id="5_wmi07"]
+[ext_resource type="PackedScene" uid="uid://c7ck7ril2jix2" path="res://player/player.tscn" id="6_rekcc"]
+[ext_resource type="PackedScene" uid="uid://b5bscusffqp5h" path="res://world/interactable/activators/pressure_plate/pressure_plate.tscn" id="7_tohk5"]
+[ext_resource type="PackedScene" uid="uid://dbewnfb1psf22" path="res://world/interactable/pushable_block/pushable_block.tscn" id="8_u1q1b"]
+[ext_resource type="PackedScene" uid="uid://bwo5q4wroaigc" path="res://world/interactable/transition_trigger/transition_trigger.tscn" id="9_6hyny"]
+[ext_resource type="Script" path="res://addons/rmsmartshape/shapes/shape.gd" id="10_gbp8c"]
+[ext_resource type="Script" path="res://addons/rmsmartshape/vertex_properties.gd" id="11_u0eud"]
+[ext_resource type="Script" path="res://addons/rmsmartshape/shapes/point.gd" id="12_g7f2v"]
+[ext_resource type="Script" path="res://addons/rmsmartshape/shapes/point_array.gd" id="13_utsks"]
+[ext_resource type="Script" path="res://addons/rmsmartshape/materials/edge_material_metadata.gd" id="14_3ojqj"]
+[ext_resource type="Script" path="res://addons/rmsmartshape/materials/edge_material.gd" id="15_qprrs"]
+[ext_resource type="Script" path="res://addons/rmsmartshape/normal_range.gd" id="17_13lj6"]
+[ext_resource type="Texture2D" uid="uid://bi1pa6f3qvwi0" path="res://ehayes_art/cavedge.png" id="17_i84j5"]
+[ext_resource type="Texture2D" uid="uid://cugl3dcedaary" path="res://ehayes_art/cavefill.png" id="19_glj5g"]
+[ext_resource type="Script" path="res://addons/rmsmartshape/materials/shape_material.gd" id="19_nblil"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_b1g2r"]
+texture = ExtResource("5_wmi07")
+texture_region_size = Vector2i(256, 256)
+0:0/0 = 0
+1:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_1a5ov"]
+tile_size = Vector2i(256, 256)
+sources/0 = SubResource("TileSetAtlasSource_b1g2r")
+
+[sub_resource type="Resource" id="Resource_i550r"]
+script = ExtResource("11_u0eud")
+texture_idx = 0
+flip = false
+width = 1.0
+
+[sub_resource type="Resource" id="Resource_ymgmx"]
+script = ExtResource("12_g7f2v")
+position = Vector2(-292.518, -246.595)
+point_in = Vector2(0, 0)
+point_out = Vector2(0, 0)
+properties = SubResource("Resource_i550r")
+
+[sub_resource type="Resource" id="Resource_ec3mn"]
+script = ExtResource("11_u0eud")
+texture_idx = 0
+flip = false
+width = 1.0
+
+[sub_resource type="Resource" id="Resource_uhckq"]
+script = ExtResource("12_g7f2v")
+position = Vector2(1561.1, -192.836)
+point_in = Vector2(0, 0)
+point_out = Vector2(0, 0)
+properties = SubResource("Resource_ec3mn")
+
+[sub_resource type="Resource" id="Resource_rlol5"]
+script = ExtResource("11_u0eud")
+texture_idx = 0
+flip = false
+width = 1.0
+
+[sub_resource type="Resource" id="Resource_cqdb3"]
+script = ExtResource("12_g7f2v")
+position = Vector2(1547.02, 892.95)
+point_in = Vector2(0, 0)
+point_out = Vector2(0, 0)
+properties = SubResource("Resource_rlol5")
+
+[sub_resource type="Resource" id="Resource_ramlf"]
+script = ExtResource("11_u0eud")
+texture_idx = 0
+flip = false
+width = 1.0
+
+[sub_resource type="Resource" id="Resource_b4u42"]
+script = ExtResource("12_g7f2v")
+position = Vector2(-270.878, 900.94)
+point_in = Vector2(0, 0)
+point_out = Vector2(0, 0)
+properties = SubResource("Resource_ramlf")
+
+[sub_resource type="Resource" id="Resource_1053s"]
+script = ExtResource("11_u0eud")
+texture_idx = 0
+flip = false
+width = 1.0
+
+[sub_resource type="Resource" id="Resource_hqfk8"]
+script = ExtResource("12_g7f2v")
+position = Vector2(-292.518, -246.595)
+point_in = Vector2(0, 0)
+point_out = Vector2(0, 0)
+properties = SubResource("Resource_1053s")
+
+[sub_resource type="Resource" id="Resource_7ndry"]
+script = ExtResource("13_utsks")
+_points = {
+0: SubResource("Resource_ymgmx"),
+5: SubResource("Resource_uhckq"),
+6: SubResource("Resource_cqdb3"),
+8: SubResource("Resource_b4u42"),
+12: SubResource("Resource_hqfk8")
+}
+_point_order = Array[int]([0, 5, 6, 8, 12])
+_constraints = {
+Array[int]([0, 12]): 15
+}
+_next_key = 14
+_material_overrides = {}
+
+[sub_resource type="Resource" id="Resource_wnv24"]
+script = ExtResource("15_qprrs")
+textures = Array[Texture2D]([ExtResource("17_i84j5")])
+textures_corner_outer = Array[Texture2D]([])
+textures_corner_inner = Array[Texture2D]([])
+textures_taper_left = Array[Texture2D]([])
+textures_taper_right = Array[Texture2D]([])
+randomize_texture = false
+use_corner_texture = false
+use_taper_texture = true
+fit_mode = 0
+
+[sub_resource type="Resource" id="Resource_skwa6"]
+script = ExtResource("17_13lj6")
+begin = 0.0
+distance = 360.0
+edgeRendering = Vector2(0, 0)
+
+[sub_resource type="Resource" id="Resource_mgeln"]
+script = ExtResource("14_3ojqj")
+edge_material = SubResource("Resource_wnv24")
+normal_range = SubResource("Resource_skwa6")
+weld = true
+render = true
+z_index = 0
+z_as_relative = true
+offset = 0.6
+
+[sub_resource type="Resource" id="Resource_aca2h"]
+script = ExtResource("19_nblil")
+_edge_meta_materials = Array[ExtResource("14_3ojqj")]([SubResource("Resource_mgeln")])
+fill_textures = Array[Texture2D]([ExtResource("19_glj5g")])
+fill_texture_z_index = -10
+fill_texture_show_behind_parent = false
+fill_texture_scale = 1.0
+fill_texture_absolute_position = false
+fill_texture_absolute_rotation = false
+fill_texture_offset = Vector2(0, 0)
+fill_texture_angle_offset = 0.0
+fill_mesh_offset = 0.0
+render_offset = 0.0
+
+[node name="LevelBase" instance=ExtResource("1_5j08f")]
+
+[node name="TileMapLayer" parent="." index="4" instance=ExtResource("5_d1tdv")]
+visible = false
+tile_map_data = PackedByteArray("AAAAAAEAAAAAAAEAAAABAAEAAAABAAEAAAD//wIAAAABAAAAAAD//wMAAAABAAEAAAAIAAQAAAAAAAAAAAD//wQAAAABAAAAAAD//wUAAAABAAEAAAAIAAUAAAAAAAEAAAAIAAYAAAAAAAAAAAAHAAYAAAABAAAAAAAGAAYAAAAAAAAAAAADAAYAAAABAAAAAAACAAYAAAAAAAAAAAD//wYAAAABAAAAAAD+/wYAAAAAAAAAAAD+/wUAAAAAAAEAAAD+/wQAAAAAAAAAAAAJAAYAAAABAAAAAAAKAAYAAAAAAAAAAAALAAYAAAABAAAAAAALAAUAAAABAAEAAAALAAQAAAABAAAAAAALAAEAAAABAAEAAAALAAAAAAABAAAAAAD+/wMAAAAAAAEAAAD+/wIAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAABAAAAAAAIAAAAAAAAAAAAAAAJAAAAAAABAAAAAAAJAAQAAAABAAAAAAAJAAUAAAABAAEAAAAKAAUAAAAAAAEAAAAKAAQAAAAAAAAAAAAKAAEAAAAAAAEAAAAKAAAAAAAAAAAAAAD/////AAABAAEAAAD+////AAAAAAEAAAD+//7/AAAAAAAAAAD///7/AAABAAAAAAAIAP7/AAAAAAAAAAAJAP7/AAABAAAAAAAKAP7/AAAAAAAAAAALAP7/AAABAAAAAAALAP//AAABAAEAAAAKAP//AAAAAAEAAAAJAP//AAABAAEAAAAIAP//AAAAAAEAAAA=")
+
+[node name="TileMapLayer2" type="TileMapLayer" parent="." index="5"]
+visible = false
+scale = Vector2(0.5, 0.5)
+tile_map_data = PackedByteArray("AAAAAAIAAAAAAAAAAAAKAAMAAAAAAAAAAAAJAAIAAAAAAAAAAAAKAAIAAAABAAAAAAAIAAMAAAAAAAEAAAAAAAQAAAAAAAEAAAABAAMAAAABAAAAAAD+/wIAAAABAAEAAAAJAAUAAAABAAEAAAAIAAYAAAAAAAAAAAALAAQAAAAAAAAAAAALAAUAAAAAAAEAAAA=")
+tile_set = SubResource("TileSet_1a5ov")
+
+[node name="pickup_key" parent="." index="6" instance=ExtResource("3_v05u0")]
+position = Vector2(-41, 136)
+
+[node name="Player" parent="." index="7" instance=ExtResource("6_rekcc")]
+position = Vector2(493, 442)
+
+[node name="Camera2D" type="Camera2D" parent="Player" index="6"]
+position = Vector2(11, 10)
+
+[node name="PressurePlate" parent="." index="8" instance=ExtResource("7_tohk5")]
+position = Vector2(1079, 110)
+
+[node name="PressurePlate3" parent="." index="9" instance=ExtResource("7_tohk5")]
+position = Vector2(1288, 555)
+
+[node name="PushableBlock" parent="." index="10" instance=ExtResource("8_u1q1b")]
+position = Vector2(1074, -1)
+
+[node name="PushableBlock2" parent="." index="11" instance=ExtResource("8_u1q1b")]
+position = Vector2(851, 668)
+
+[node name="PressurePlate2" parent="." index="12" instance=ExtResource("7_tohk5")]
+position = Vector2(850, 554)
+
+[node name="TransitionScene" parent="." index="13" instance=ExtResource("9_6hyny")]
+position = Vector2(-439, 427)
+scene_name = "latest_demo_2"
+
+[node name="SS2D_Shape" type="Node2D" parent="." index="14"]
+script = ExtResource("10_gbp8c")
+_points = SubResource("Resource_7ndry")
+shape_material = SubResource("Resource_aca2h")
+
+[node name="PushableBlock3" parent="." index="15" instance=ExtResource("8_u1q1b")]
+position = Vector2(1289, 668)
+
+[node name="Switch" parent="." index="16" instance=ExtResource("4_ibrfx")]
+y_sort_enabled = true
+position = Vector2(1465, 321)
+
+[editable path="TransitionScene"]
