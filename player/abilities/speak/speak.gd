@@ -24,21 +24,14 @@ var _on_cooldown: bool = false
 
 func _ready() -> void:
 	scale = Vector2(2*radius, 2*radius)
-	
-func _process(_delta: float) -> void:
-	scale = Vector2(2*radius, 2*radius)
-	pass
-	
 
 func speak() -> void:
 	_is_speaking = true
 	_on_cooldown = true
+	
 	#toggle the aura
 	var speak_instance: Area2D = speak_aura.instantiate()
-	#instance.top_level = true;
 	add_child(speak_instance)
-	#instance.top_level = true;	
-	
 	
 	#schedule tasks to end the speak & cooldown
 	var speak_timer := Timer.new()
