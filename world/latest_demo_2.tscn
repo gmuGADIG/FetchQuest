@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=4 uid="uid://c0b860627rcs5"]
+[gd_scene load_steps=33 format=4 uid="uid://c0b860627rcs5"]
 
 [ext_resource type="PackedScene" uid="uid://cnd06dpkgufe4" path="res://world/level_base.tscn" id="1_2iy6g"]
 [ext_resource type="Script" path="res://world/decoration/trees/tree_gen.gd" id="2_n44bl"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://1mnsgb10h43t" path="res://world/fast_travel/toilet_travel_station.tscn" id="8_qhp37"]
 [ext_resource type="PackedScene" uid="uid://bgujmor7r2ari" path="res://world/decoration/buildings/house_tudor_b.tscn" id="8_xsw5j"]
 [ext_resource type="PackedScene" uid="uid://cnveqoba0t7tx" path="res://world/decoration/trees/evergreen_tree_with_fireflies.tscn" id="10_3x3mv"]
+[ext_resource type="PackedScene" uid="uid://b8ogwotn6nsdk" path="res://world/interactable/sinking-wall/sinking_wall.tscn" id="11_ch02a"]
 [ext_resource type="PackedScene" uid="uid://dt3m30r5dehup" path="res://world/interactable/pickups/pickup_key.tscn" id="12_joquo"]
 [ext_resource type="PackedScene" uid="uid://bs6o5glcfe2as" path="res://enemy/projectile_enemy/projectile_enemy.tscn" id="12_t5ow0"]
 [ext_resource type="Script" path="res://world/interactable/activatable/moving_objects/platform_mover.gd" id="13_glw2f"]
@@ -317,6 +318,27 @@ position = Vector2(430, -180)
 [node name="SmallBush10" parent="FirstEnemyArea/BushesInside" index="9" instance=ExtResource("4_qjjla")]
 position = Vector2(-390, 434)
 
+[node name="sinkingWall" parent="FirstEnemyArea" index="5" instance=ExtResource("11_ch02a")]
+position = Vector2(2127, 1961)
+
+[node name="sinkingWall2" parent="FirstEnemyArea" index="6" instance=ExtResource("11_ch02a")]
+position = Vector2(2124, 2058)
+
+[node name="sinkingWall3" parent="FirstEnemyArea" index="7" instance=ExtResource("11_ch02a")]
+position = Vector2(2124, 2175)
+
+[node name="sinkingWall4" parent="FirstEnemyArea" index="8" instance=ExtResource("11_ch02a")]
+position = Vector2(2124, 2272)
+
+[node name="sinkingWall5" parent="FirstEnemyArea" index="9" instance=ExtResource("11_ch02a")]
+position = Vector2(2125, 2367)
+
+[node name="sinkingWall6" parent="FirstEnemyArea" index="10" instance=ExtResource("11_ch02a")]
+position = Vector2(2125, 2459)
+
+[node name="sinkingWall7" parent="FirstEnemyArea" index="11" instance=ExtResource("11_ch02a")]
+position = Vector2(2126, 2564)
+
 [node name="PuzzleArea" type="Node2D" parent="." index="3"]
 y_sort_enabled = true
 position = Vector2(-1814, 1967)
@@ -455,8 +477,6 @@ entry_point = "Dungeon"
 
 [node name="MainCam" parent="." index="4"]
 position = Vector2(1815, -250)
-limit_top = -600
-limit_right = 1890
 
 [node name="Reloader" type="Node" parent="." index="7"]
 script = ExtResource("8_gqbog")
