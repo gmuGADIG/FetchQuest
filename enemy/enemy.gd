@@ -155,6 +155,10 @@ func _process_agressive(delta: float) -> void:
 func _process_stunned(_delta: float) -> void:
 	pass
 	
+func barked() -> void:
+	print("enemy '%s' was barked at" % self.name)
+	# todo: stun
+
 func approach(target: Vector2) -> void:
 	if navigation_agent:
 		navigation_agent.set_target_position(target)
