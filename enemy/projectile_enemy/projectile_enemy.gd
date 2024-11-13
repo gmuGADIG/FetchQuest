@@ -6,6 +6,7 @@ extends Enemy
 @export var animation_length: float = 1
 
 func _ready() -> void:
+	super._ready()
 	$ShootProjectileBehavior.attack_speed = attack_speed
 	$ShootProjectileBehavior.attack_range = attack_range
 	$ShootProjectileBehavior.attack_spread = attack_spread

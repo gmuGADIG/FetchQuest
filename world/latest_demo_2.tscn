@@ -1,19 +1,17 @@
-[gd_scene load_steps=33 format=4 uid="uid://clf8ka7tt2814"]
+[gd_scene load_steps=31 format=4 uid="uid://c0b860627rcs5"]
 
 [ext_resource type="PackedScene" uid="uid://cnd06dpkgufe4" path="res://world/level_base.tscn" id="1_2iy6g"]
 [ext_resource type="Script" path="res://world/decoration/trees/tree_gen.gd" id="2_n44bl"]
-[ext_resource type="PackedScene" uid="uid://yllbcpq24cl0" path="res://enemy/creep_enemy/creep_enemy.tscn" id="2_usfpa"]
 [ext_resource type="PackedScene" uid="uid://gkyoiixhetyn" path="res://world/decoration/bushes/bush_big.tscn" id="3_a0yt1"]
 [ext_resource type="PackedScene" uid="uid://7rwwk775fptb" path="res://world/decoration/bushes/bush_small.tscn" id="4_qjjla"]
 [ext_resource type="PackedScene" uid="uid://dsm5cibmw7k8f" path="res://world/decoration/buildings/house_tudor_a.tscn" id="7_angr6"]
 [ext_resource type="Script" path="res://reloader/reloader.gd" id="8_gqbog"]
 [ext_resource type="PackedScene" uid="uid://bgujmor7r2ari" path="res://world/decoration/buildings/house_tudor_b.tscn" id="8_xsw5j"]
 [ext_resource type="PackedScene" uid="uid://cnveqoba0t7tx" path="res://world/decoration/trees/evergreen_tree_with_fireflies.tscn" id="10_3x3mv"]
-[ext_resource type="PackedScene" uid="uid://dutetduietx8r" path="res://enemy/shield_enemy/shield_enemy.tscn" id="10_8dpie"]
 [ext_resource type="PackedScene" uid="uid://dt3m30r5dehup" path="res://world/interactable/pickups/pickup_key.tscn" id="12_joquo"]
+[ext_resource type="PackedScene" uid="uid://bs6o5glcfe2as" path="res://enemy/projectile_enemy/projectile_enemy.tscn" id="12_t5ow0"]
 [ext_resource type="Script" path="res://world/interactable/activatable/moving_objects/platform_mover.gd" id="13_glw2f"]
 [ext_resource type="PackedScene" uid="uid://deo11h81nnpyw" path="res://world/interactable/pickups/pickup_bomb.tscn" id="13_meh4f"]
-[ext_resource type="PackedScene" uid="uid://uj2rytnj1h4" path="res://enemy/test_enemy/test_enemy.tscn" id="14_h6tl8"]
 [ext_resource type="PackedScene" uid="uid://bxaar1hpspnom" path="res://world/interactable/activatable/moving_objects/movable_platform.tscn" id="14_hyg0y"]
 [ext_resource type="PackedScene" uid="uid://bm05x1jwytuuc" path="res://world/tilemap/main_tile_layer.tscn" id="15_nkduh"]
 [ext_resource type="PackedScene" uid="uid://blh1fs712dql8" path="res://world/interactable/activatable/locked_door/locked_door.tscn" id="16_be0xc"]
@@ -1135,17 +1133,8 @@ position = Vector2(292.263, 1477.72)
 
 [node name="Enemies" type="Node2D" parent="FirstEnemyArea" index="2"]
 
-[node name="TestEnemy" parent="FirstEnemyArea/Enemies" index="0" instance=ExtResource("14_h6tl8")]
-position = Vector2(123, 1811)
-
-[node name="ShieldEnemy" parent="FirstEnemyArea/Enemies" index="1" instance=ExtResource("10_8dpie")]
-position = Vector2(1273, 1808)
-
-[node name="TestEnemy4" parent="FirstEnemyArea/Enemies" index="2" instance=ExtResource("14_h6tl8")]
-position = Vector2(558, 2259)
-
-[node name="CreepEnemy" parent="FirstEnemyArea/Enemies" index="3" instance=ExtResource("2_usfpa")]
-position = Vector2(845, 2130)
+[node name="ProjectileEnemy" parent="FirstEnemyArea/Enemies" index="0" instance=ExtResource("12_t5ow0")]
+position = Vector2(620, 1882)
 
 [node name="BushedOutside" type="Node2D" parent="FirstEnemyArea" index="3"]
 y_sort_enabled = true
@@ -1839,6 +1828,6 @@ position = Vector2(617, 702)
 position = Vector2(-2330, 2364)
 
 [node name="Player" parent="." index="16"]
-position = Vector2(-2535, 1515)
+position = Vector2(534, 628)
 
 [connection signal="body_entered" from="PuzzleArea/DungeonEntrance/TransitionScene" to="PuzzleArea/DungeonEntrance/TransitionScene" method="_on_body_entered"]
