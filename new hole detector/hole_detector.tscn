@@ -3,27 +3,28 @@
 [ext_resource type="Script" path="res://new hole detector/hole_detector.gd" id="1_l0wth"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_l1246"]
+radius = 13.5093
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_axtq5"]
 
-[node name="holeDetector" type="Node2D"]
+[node name="HoleDetector" type="Node2D"]
 script = ExtResource("1_l0wth")
 
-[node name="closeToHole" type="Area2D" parent="."]
+[node name="CloseToHole" type="Area2D" parent="."]
 collision_layer = 8
 collision_mask = 8
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="closeToHole"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CloseToHole"]
 scale = Vector2(2, 2)
 shape = SubResource("CircleShape2D_l1246")
 
-[node name="inHole" type="Area2D" parent="."]
+[node name="InHole" type="Area2D" parent="."]
 collision_layer = 8
 collision_mask = 8
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="inHole"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InHole"]
 shape = SubResource("CircleShape2D_axtq5")
 
-[connection signal="body_entered" from="closeToHole" to="." method="_on_close_to_hole_body_entered"]
-[connection signal="body_entered" from="inHole" to="." method="_on_in_hole_body_entered"]
-[connection signal="body_exited" from="inHole" to="." method="_on_in_hole_body_exited"]
+[connection signal="body_entered" from="CloseToHole" to="." method="_on_close_to_hole_body_entered"]
+[connection signal="body_entered" from="InHole" to="." method="_on_in_hole_body_entered"]
+[connection signal="body_exited" from="InHole" to="." method="_on_in_hole_body_exited"]

@@ -1,5 +1,4 @@
-[gd_scene load_steps=30 format=4 uid="uid://c0b860627rcs5"]
-
+[gd_scene load_steps=35 format=4 uid="uid://c0b860627rcs5"]
 
 [ext_resource type="PackedScene" uid="uid://cnd06dpkgufe4" path="res://world/level_base.tscn" id="1_2iy6g"]
 [ext_resource type="Script" path="res://world/decoration/trees/tree_gen.gd" id="2_n44bl"]
@@ -23,10 +22,9 @@
 [ext_resource type="Texture2D" uid="uid://dc4pcxr2lfkka" path="res://demo_art/dungeon_entrance.png" id="17_o8ma7"]
 [ext_resource type="PackedScene" uid="uid://bom8mopkckp5y" path="res://world/interactable/chest/chest.tscn" id="18_ricm7"]
 [ext_resource type="Script" path="res://world/interactable/transition_trigger/transition_trigger.gd" id="18_u8qny"]
-[ext_resource type="PackedScene" uid="uid://cg2jt0166hik8" path="res://world/interactable/red_coin/red_coin_manager.tscn" id="20_cbi4s"]
-[ext_resource type="PackedScene" uid="uid://gp1o7iklljk2" path="res://world/interactable/red_coin/red_coin.tscn" id="21_7gu4x"]
+[ext_resource type="PackedScene" uid="uid://cg2jt0166hik8" path="res://world/interactable/activators/red_coin/red_coin_manager.tscn" id="20_cbi4s"]
+[ext_resource type="PackedScene" uid="uid://gp1o7iklljk2" path="res://world/interactable/activators/red_coin/red_coin.tscn" id="21_7gu4x"]
 [ext_resource type="PackedScene" uid="uid://c8pg7meq81nup" path="res://world/interactable/holes/hole.tscn" id="24_ul2vj"]
-
 [ext_resource type="PackedScene" uid="uid://5x8wo3lcwigq" path="res://world/objects/breakable_object/breakable_object.tscn" id="24_xolg5"]
 [ext_resource type="PackedScene" uid="uid://mpm2bfwj3tbw" path="res://world/interactable/activatable/activatable_spawner/activatable_spawner.tscn" id="26_cl53y"]
 [ext_resource type="PackedScene" uid="uid://dovs54pxe1oba" path="res://generic/particle_fixer/particle_fixer.tscn" id="27_h03p2"]
@@ -1777,18 +1775,13 @@ position = Vector2(-842, 241)
 [node name="RedCoin5" parent="PuzzleArea/RedCoinManager" index="3" instance=ExtResource("21_7gu4x")]
 position = Vector2(751, 531)
 
-
 [node name="pickup_bomb" parent="PuzzleArea/RedCoinManager" index="4" instance=ExtResource("13_meh4f")]
 position = Vector2(323, 124)
 
 [node name="Hole2" parent="PuzzleArea" index="10" instance=ExtResource("24_ul2vj")]
 position = Vector2(2594, -1171)
 
-[node name="Player" parent="." index="4" instance=ExtResource("16_sqpfi")]
-position = Vector2(556, 639)
-
-[node name="MainCam" parent="." index="5"]
-
+[node name="MainCam" parent="." index="4"]
 position = Vector2(1815, -250)
 limit_top = -600
 limit_right = 1890
@@ -1841,8 +1834,5 @@ position = Vector2(617, 702)
 
 [node name="Dungeon" type="Node2D" parent="EntryPoints" index="1"]
 position = Vector2(-2330, 2364)
-
-[node name="Player" parent="." index="16"]
-position = Vector2(534, 628)
 
 [connection signal="body_entered" from="PuzzleArea/DungeonEntrance/TransitionScene" to="PuzzleArea/DungeonEntrance/TransitionScene" method="_on_body_entered"]

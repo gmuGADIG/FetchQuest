@@ -1,5 +1,4 @@
-
-[gd_scene load_steps=15 format=3 uid="uid://c7ck7ril2jix2"]
+[gd_scene load_steps=14 format=3 uid="uid://c7ck7ril2jix2"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_x43mx"]
 [ext_resource type="Texture2D" uid="uid://bhw3gs4topknu" path="res://player/player_almost_final.png" id="2_dj0g1"]
@@ -9,14 +8,10 @@
 [ext_resource type="Script" path="res://player/abilities/speak/speak.gd" id="3_ne4cx"]
 [ext_resource type="PackedScene" uid="uid://qgyqqokyd0ia" path="res://player/abilities/speak/speak_aura.tscn" id="4_8n4by"]
 [ext_resource type="PackedScene" uid="uid://deerfyvrmooo6" path="res://new hole detector/hole_detector.tscn" id="6_eb6gp"]
-[ext_resource type="Script" path="res://player/hole_detector.gd" id="5_dhnyf"]
 [ext_resource type="Script" path="res://player/skin_chooser.gd" id="9_de2wb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_krk6c"]
 size = Vector2(66, 50)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_pjh8c"]
-size = Vector2(1, 1)
 
 [sub_resource type="Animation" id="Animation_tyilq"]
 length = 0.001
@@ -102,7 +97,7 @@ speak_time = 0.5
 wait_time = 0.75
 one_shot = true
 
-[node name="holeDetector" parent="." instance=ExtResource("6_eb6gp")]
+[node name="HoleDetector" parent="." instance=ExtResource("6_eb6gp")]
 position = Vector2(13, 38)
 scale = Vector2(3.3, 3.3)
 
@@ -113,7 +108,4 @@ libraries = {
 }
 
 [connection signal="timeout" from="RollTimer" to="." method="stop_roll"]
-[connection signal="closeToHole" from="holeDetector" to="." method="close_to_hole"]
-[connection signal="inHole" from="holeDetector" to="." method="inHole"]
-[connection signal="offPlatform" from="holeDetector" to="." method="_on_hole_detector_off_platform"]
-[connection signal="onPlatform" from="holeDetector" to="." method="_on_hole_detector_on_platform"]
+[connection signal="fall_in_hole" from="HoleDetector" to="." method="fall_in_hole"]

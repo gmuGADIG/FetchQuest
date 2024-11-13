@@ -9,8 +9,6 @@ static var instance: Player
 @export var stamina_recovery_rate: float = 1.0 ## How much stamina
 @export var knockback_friction: float = 5.0 ## How fast the player slows down from knockback
 @export var roll_speed: float = 1000.0
-var immune_falling :bool= false
-var last_safe_position :Vector2= Vector2.ZERO
 
 @onready var health: int = max_health: ## Current health
 	set(value):
@@ -27,6 +25,8 @@ var last_safe_position :Vector2= Vector2.ZERO
 
 @onready var animation_player: AnimationPlayer = %AnimationPlayer
 
+@onready var hole_detector: Node2D = $HoleDetector
+
 var active_sword: ThrownSword ## The active thrown sword. Null if the player is currently holding the sword
 
 ## On controller, if the aim stick isn't held in any direction, the last non-zero aim will be used
@@ -38,11 +38,8 @@ var rolling: bool = false
 var roll_vector: Vector2 = Vector2(0, 0)
 var roll_timer: float = 0.25
 
-
 signal health_changed
 signal stamina_changed
-
-var onPlatform : bool = false
 
 # returns true if a stamina pip was used, false otherwise
 func expend_stamina() -> bool:
@@ -85,7 +82,7 @@ func start_roll() -> void:
 	roll_vector = Input.get_vector("move_left", "move_right", "move_up", "move_down").normalized()
 	# switch off collision with enemy bullets and the holes
 	self.set_collision_mask_value(6, false)
-	immune_falling = true
+	hole_detector.enabled = false
 
 	# make the timer go
 	$RollTimer.start(roll_timer)
@@ -93,7 +90,7 @@ func start_roll() -> void:
 # callback from roll timer. reverts changes made by start_roll
 func stop_roll() -> void:
 	rolling = false
-	immune_falling = false
+	hole_detector.enabled = true
 
 	self.set_collision_mask_value(6, true)
 
@@ -183,36 +180,11 @@ func add_force(force: Vector2) -> void:
 ## Called by item.gd. Consumes the item
 func pickup_item(item: Item) -> void:
 	item.consume(self)
-	
 
-func inHole() -> void:
-	#damage player
-	if(onPlatform == false):
-		hurt(DamageEvent.new(1))
-		#play animation?
-
-		#set postion to last safe position
-		#var dir : Vector2 = position.direction_to(last_safe_position)
-		position = last_safe_position
-	pass
-
-
-func close_to_hole() -> void:
-	last_safe_position = position;
-	print("safe pos")
-	pass # Replace with function body.
-
-
-func _on_hole_detector_on_platform() -> void:
-	print("on platform")
-	onPlatform = true
-	pass # Replace with function body.
-
-
-func _on_hole_detector_off_platform() -> void:
-	print("on platform")
-	onPlatform = false
-	pass # Replace with function body.
+func fall_in_hole() -> void:
+	hurt(DamageEvent.new(1))
+	# todo: play animation
+	position = hole_detector.last_safe_position
 
 func activate_iframes() -> void:
 	invincible = true

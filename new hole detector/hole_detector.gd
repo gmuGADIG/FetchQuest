@@ -1,39 +1,26 @@
 extends Node2D
-signal closeToHole
-signal onPlatform
-signal offPlatform
-signal inHole
+signal fall_in_hole
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
+@onready var close_to_hole_area: Area2D = $CloseToHole
+@onready var hole_area: Area2D = $InHole
+@onready var last_safe_position := global_position
 
+var enabled := true
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	if not enabled: return
 	
-	pass
+	if close_to_hole_area.get_overlapping_bodies().is_empty():
+		last_safe_position = global_position
 
+	if _has_unoccluded_hole(hole_area.get_overlapping_bodies()):
+		fall_in_hole.emit()
 
-func _on_close_to_hole_body_entered(body: Node2D) -> void:
-	print("body entered")
-	if body.is_in_group("HoleOccluder"): 
-		onPlatform.emit()
-	elif body.is_in_group("Hole"):
-		closeToHole.emit()
-		print("body is hole")		
-	pass # Replace with function body.
-
-
-func _on_in_hole_body_entered(body: Node2D) -> void:
-	if body.is_in_group("Hole"):
-		inHole.emit()
-		print("fell in hole")
-	pass # Replace with function body.
-
-
-func _on_in_hole_body_exited(body: Node2D) -> void:
-	if body.is_in_group("HoleOccluder"): 
-		offPlatform.emit()
-		
-	pass # Replace with function body.
+static func _has_unoccluded_hole(collisions: Array[Node2D]) -> bool:
+	if collisions.is_empty():
+		return false # not colliding with a hole
+	else:
+		for body in collisions:
+			if body.is_in_group("HoleOccluder"):
+				return false # colliding with an occluded hole
+		return not collisions.is_empty() # unoccluded hole
