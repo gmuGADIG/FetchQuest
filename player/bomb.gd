@@ -36,14 +36,14 @@ func explode() -> void:
 #This change was made in response to the bomb immediately exploding if it was hit by the sword, which caused the player
 #to have a chance if damaging themselves as soon as they threw the bomb.
 func hurt(_damage_event: DamageEvent) -> void:
-	if(velocity == Vector2(0,0)):
+	const STILL_SPEED := 50.0 # bomb is considered stationary of below this speed
+	if velocity.length() < STILL_SPEED:
 		explode()
 
 #Updates the velocity of the bomb, and ensures that after the bomb has reached a small enough velocity it stops
 func _physics_process(_delta: float) -> void:
 	velocity *= 0.9
 	
-	if(abs(velocity.x) < 10 and abs(velocity.y) < 10):
-		velocity = Vector2(0,0)
+	print("speed = ", velocity.length())
 		
 	move_and_slide()
