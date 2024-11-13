@@ -30,14 +30,21 @@ focus_neighbor_bottom = NodePath("../Quit")
 theme_override_font_sizes/font_size = 48
 text = "Resume"
 
-[node name="ToiletTravelIcon" parent="." instance=ExtResource("2_hcnld")]
-position = Vector2(511, 445)
-scale = Vector2(3.24, 3.44)
-scene_name = "chest_between_scenes_test_1"
+[node name="OverworldMain" parent="." instance=ExtResource("2_hcnld")]
+position = Vector2(905, 331)
+scale = Vector2(2.24037, 2.37866)
+scene_name = "latest_demo_2"
+entry_point = "Main"
 
-[node name="ToiletTravelIcon2" parent="." instance=ExtResource("2_hcnld")]
-position = Vector2(645, 238)
-scene_name = "fast_travel_testing"
+[node name="OverworldDungeon" parent="." instance=ExtResource("2_hcnld")]
+position = Vector2(959, 299)
+scene_name = "latest_demo_2"
+entry_point = "Dungeon"
+
+[node name="Dungeon" parent="." instance=ExtResource("2_hcnld")]
+position = Vector2(927, 539)
+scene_name = "demo_dungeon"
+entry_point = "Main"
 
 [connection signal="tree_exited" from="." to="." method="_on_tree_exited"]
 [connection signal="pressed" from="Resume" to="." method="_on_resume_pressed"]
