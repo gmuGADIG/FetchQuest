@@ -4,7 +4,6 @@ class_name ThrownSword
 # Variables that are initialized at runtime
 @onready var thrower: Player = Player.instance  ## Reference to the player who throws the sword
 @onready var lifespan_timer: Timer = $LifespanTimer   ## The max lifespan of the sword
-@onready var recall_timer: Timer = $RecallTimer ## The minimum time before the sword can be recalled
 
 # Exported variables for external control and tuning in the editor
 @export var throw_distance: float      ## Ideal throw distance. used to calculate the initial and max velocity
