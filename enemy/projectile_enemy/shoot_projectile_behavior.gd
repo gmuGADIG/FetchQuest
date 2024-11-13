@@ -16,8 +16,13 @@ static var projectile :PackedScene = preload("res://enemy/projectile_enemy/proje
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	assert(projectile != null)
-	$"CooldownTimer".wait_time = attack_speed
+	$CooldownTimer.wait_time = attack_speed
 	$AttackRange/CollisionShape2D.scale *= attack_range
+
+func _enter_tree() -> void:
+	# apparently, taking a timer out of and back into a tree breaks it, since autostart is disabled after entering the tree
+	# since enemies are unloaded and reloaded by taking them out of the tree, we need to work around this
+	$CooldownTimer.start.call_deferred()
 
 func timeout() -> void:
 	for body: Node2D in $"AttackRange".get_overlapping_bodies():
