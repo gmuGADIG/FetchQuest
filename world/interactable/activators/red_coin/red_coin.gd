@@ -1,4 +1,4 @@
-extends Area2D
+extends Item
 
 @onready var red_coin_manager: RedCoinManager = get_parent()
 @onready var my_label := $Label
@@ -9,8 +9,8 @@ func _ready() -> void:
 	assert(red_coin_manager != null, "Red coin at %s was not a child of a RedCoinManager!" % get_path())
 	red_coin_manager.increment_coin_count() #tells Manager it exist
 
-func _on_body_entered(body: Node2D) -> void:
-	if(body.is_in_group("Player")):
+func consume(_consumer: Node2D) -> void:
+	if(_consumer.is_in_group("Player")):
 		# sound plays update UI?
 		print("RedCoin: picked up")
 		var coin_num: int = red_coin_manager.red_coin_collected() 
