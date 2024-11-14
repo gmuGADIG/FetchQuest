@@ -1,0 +1,37 @@
+[gd_scene load_steps=3 format=3 uid="uid://dhd42afjbreim"]
+
+[ext_resource type="PackedScene" uid="uid://c7ck7ril2jix2" path="res://player/player.tscn" id="1_l6xie"]
+
+[sub_resource type="Gradient" id="Gradient_56dd8"]
+offsets = PackedFloat32Array(0, 0.550143, 0.676218, 0.86533, 1)
+colors = PackedColorArray(0.953216, 0.883657, 0, 1, 0.884273, 0.574664, 5.0056e-06, 1, 0.691709, 0, 0.0413962, 1, 0, 0, 0, 1, 0, 0, 0, 0)
+
+[node name="Node2D" type="Node2D"]
+
+[node name="SoundWaveTest" type="CPUParticles2D" parent="."]
+position = Vector2(447, 313)
+amount = 50
+lifetime = 1.5
+speed_scale = 2.0
+explosiveness = 1.0
+randomness = 1.0
+lifetime_randomness = 1.0
+emission_shape = 1
+emission_sphere_radius = 10.0
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 100.0
+initial_velocity_max = 150.0
+angular_velocity_min = 50.0
+angular_velocity_max = 150.0
+linear_accel_min = -100.0
+linear_accel_max = -93.94
+angle_min = 123.5
+angle_max = 720.0
+scale_amount_max = 10.0
+color_ramp = SubResource("Gradient_56dd8")
+hue_variation_min = -1.0
+hue_variation_max = 1.0
+
+[node name="Player" parent="." instance=ExtResource("1_l6xie")]
+position = Vector2(292, 287)
