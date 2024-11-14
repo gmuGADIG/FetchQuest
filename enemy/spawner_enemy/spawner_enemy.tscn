@@ -137,6 +137,7 @@ _data = {
 }
 
 [node name="SpawnerEnemy" node_paths=PackedStringArray("enemy_sprite") instance=ExtResource("1_6f1ak")]
+collision_mask = 1
 script = ExtResource("2_0bja5")
 spawned_enemy = ExtResource("3_v7nka")
 spawn_amount = 2
@@ -147,7 +148,8 @@ spawn_animation_length = 0.5
 enemy_sprite = NodePath("SpawnerEnemy")
 
 [node name="SpawnerEnemy" type="Sprite2D" parent="." index="0"]
-scale = Vector2(0.75, 0.75)
+position = Vector2(0, -7)
+scale = Vector2(0.526667, 0.526667)
 texture = ExtResource("4_ratxk")
 hframes = 7
 frame = 6
@@ -165,4 +167,5 @@ one_shot = true
 libraries = {
 "": SubResource("AnimationLibrary_xqdkr")
 }
+autoplay = "idle"
 next/spawner_enemy_detect_player = &"idle"
