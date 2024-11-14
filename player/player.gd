@@ -86,6 +86,12 @@ func start_roll() -> void:
 
 	# make the timer go
 	$RollTimer.start(roll_timer)
+	
+	# play random sound
+	if (randi_range(1,2) == 1):
+		$"rolling-1".play()
+	else:
+		$"rolling-2".play()
 
 # callback from roll timer. reverts changes made by start_roll
 func stop_roll() -> void:
