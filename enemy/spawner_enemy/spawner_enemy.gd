@@ -53,6 +53,8 @@ func start_enemy_spawn() -> void:
 	print("Starting enemy spawn!")
 	
 	TimeToSpawnTimer.start()
+	# Play the animation, with length based on the exported property.
+	$AnimationPlayer.play("spawner_enemy_detect_player", -1, 1.0 / spawn_animation_length)
 
 
 ## Function to handle enemy spawns
