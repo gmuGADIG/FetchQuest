@@ -7,12 +7,11 @@ extends Area2D
 ## (but it can be several folders deep within one of those).
 ## Avoid giving two scenes the same name or this will behave unpredictably.
 @export var scene_name: String
+@export var entry_point: String
 var node_name: String
 
 func _ready() -> void:
-	node_name = scene_name_to_node_name(scene_name)
-	print("My node name is " + node_name)
-	self.visible = FastTravelPoints.point_unlocked(node_name) #see if its a point that has been visited before
+	self.visible = FastTravelPoints.point_unlocked(TravelPoint.new(scene_name, entry_point)) #see if its a point that has been visited before
 	# do a ton of asserts, to give a pretty little error message in case:
 	# file is a uid, path, has an extension, is empty, or couldn't be found
 	assert(not scene_name.begins_with("uid"), "Transition trigger at %s uses a UID, instead of a scene name." % self.get_path())
@@ -26,10 +25,5 @@ func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 	if event.is_action_pressed("attack"):
 		print("clicked! loading " + scene_name)
 		get_tree().paused = false;
+		EntryPoints.current_entry_point = entry_point
 		SceneTransition.change_scene(SceneManager.get_packed_scene(scene_name))
-	
-#toilets save root name, scenes are loaded by scene name. This changes a scene name to its root name
-func scene_name_to_node_name(sn: String) -> String:
-	sn = sn.capitalize()
-	sn = sn.replace(' ', '')
-	return sn
