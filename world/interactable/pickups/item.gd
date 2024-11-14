@@ -1,8 +1,6 @@
 extends CharacterBody2D
 class_name Item
 
-@onready var pickup_area: Area2D = $PickupArea
-
 enum ItemPhysicsState {
 	FOLLOWING,
 	IDLE
