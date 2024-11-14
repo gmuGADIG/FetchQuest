@@ -39,6 +39,8 @@ signal health_changed
 
 @onready var navigation_agent: NavigationAgent2D = get_node("NavigationAgent2D")
 
+@export var deaggro_time: float = 3.0 ##The amount of time it takes for the enemy to switch back to roaming when it cannot see the player
+
 var time_since_last_seen_player : float = 0.0
 
 #The desired range the enemy wants to navigate to
@@ -72,6 +74,8 @@ func actor_setup() -> void:
 func _process(delta: float) -> void:
 	if !$PlayerDetectionComponent/DetectionRaycast.can_see_player:
 		time_since_last_seen_player += delta
+		if(time_since_last_seen_player >= deaggro_time):
+			enemy_state = EnemyState.ROAMING
 	else:
 		time_since_last_seen_player = 0.0
 	
