@@ -1,0 +1,104 @@
+[gd_scene load_steps=11 format=3 uid="uid://towcryt3kuir"]
+
+[ext_resource type="Script" path="res://arena_entry.gd" id="1_h16no"]
+[ext_resource type="Texture2D" uid="uid://d4n3j4lvatwxb" path="res://addons/dialogic/Editor/Images/Pieces/warning.svg" id="1_lvi74"]
+[ext_resource type="PackedScene" uid="uid://c7ck7ril2jix2" path="res://player/player.tscn" id="3_jmn1u"]
+[ext_resource type="PackedScene" uid="uid://bimerg4hcbya2" path="res://enemy/charging_enemy/charging_enemy.tscn" id="3_sa1xu"]
+[ext_resource type="PackedScene" uid="uid://ch344rluh4xbs" path="res://world/camera/main_cam.tscn" id="5_y2lsm"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3rfpy"]
+size = Vector2(25.1042, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_iaoxs"]
+size = Vector2(22.6042, 133)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n1xco"]
+size = Vector2(20, 21.8257)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wy1if"]
+size = Vector2(20, 21.9295)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uo3bx"]
+size = Vector2(25.4142, 20)
+
+[node name="arena_room" type="Node2D"]
+scale = Vector2(4.82941, 4.82941)
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="entrance" type="StaticBody2D" parent="Node2D"]
+position = Vector2(5.79781, 267.113)
+scale = Vector2(50, 5.014)
+disable_mode = 1
+collision_mask = 2
+script = ExtResource("1_h16no")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/entrance"]
+position = Vector2(1.09375, 0)
+shape = SubResource("RectangleShape2D_3rfpy")
+disabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Node2D/entrance"]
+visible = false
+texture = ExtResource("1_lvi74")
+
+[node name="entry_trigger" type="Area2D" parent="Node2D/entrance"]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/entrance/entry_trigger"]
+position = Vector2(1.19683, -106.506)
+scale = Vector2(1, 1.23292)
+shape = SubResource("RectangleShape2D_iaoxs")
+
+[node name="wall1" type="StaticBody2D" parent="Node2D"]
+position = Vector2(637.966, -219.281)
+scale = Vector2(5.187, 50)
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/wall1"]
+position = Vector2(0, 0.912864)
+shape = SubResource("RectangleShape2D_n1xco")
+
+[node name="Sprite2D" type="Sprite2D" parent="Node2D/wall1"]
+texture = ExtResource("1_lvi74")
+
+[node name="wall2" type="StaticBody2D" parent="Node2D"]
+position = Vector2(-548.307, -272.29)
+scale = Vector2(5.187, 50)
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/wall2"]
+position = Vector2(0, 0.964732)
+shape = SubResource("RectangleShape2D_wy1if")
+
+[node name="Sprite2D" type="Sprite2D" parent="Node2D/wall2"]
+texture = ExtResource("1_lvi74")
+
+[node name="exit" type="StaticBody2D" parent="Node2D"]
+position = Vector2(78.0634, -705.262)
+rotation = -3.1311
+scale = Vector2(50, 5.208)
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/exit"]
+position = Vector2(0.625512, -7.62939e-06)
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_uo3bx")
+
+[node name="Sprite2D" type="Sprite2D" parent="Node2D/exit"]
+texture = ExtResource("1_lvi74")
+
+[node name="ChargingEnemy" parent="." instance=ExtResource("3_sa1xu")]
+position = Vector2(-40.7917, -347.454)
+
+[node name="ChargingEnemy2" parent="." instance=ExtResource("3_sa1xu")]
+position = Vector2(276.638, -273.118)
+
+[node name="Player" parent="." instance=ExtResource("3_jmn1u")]
+position = Vector2(29.6102, 486.602)
+
+[node name="MainCam" parent="." instance=ExtResource("5_y2lsm")]
+position = Vector2(512.937, 785.74)
+zoom = Vector2(0.1, 0.1)
+
+[connection signal="body_shape_entered" from="Node2D/entrance/entry_trigger" to="Node2D/entrance" method="_on_entry_trigger_body_shape_entered"]
