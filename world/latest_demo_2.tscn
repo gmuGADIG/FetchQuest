@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=4 uid="uid://c0b860627rcs5"]
+[gd_scene load_steps=38 format=4 uid="uid://c0b860627rcs5"]
 
 [ext_resource type="PackedScene" uid="uid://cnd06dpkgufe4" path="res://world/level_base.tscn" id="1_2iy6g"]
 [ext_resource type="Script" path="res://world/decoration/trees/tree_gen.gd" id="2_n44bl"]
@@ -9,7 +9,10 @@
 [ext_resource type="PackedScene" uid="uid://1mnsgb10h43t" path="res://world/fast_travel/toilet_travel_station.tscn" id="8_qhp37"]
 [ext_resource type="PackedScene" uid="uid://bgujmor7r2ari" path="res://world/decoration/buildings/house_tudor_b.tscn" id="8_xsw5j"]
 [ext_resource type="PackedScene" uid="uid://cnveqoba0t7tx" path="res://world/decoration/trees/evergreen_tree_with_fireflies.tscn" id="10_3x3mv"]
+[ext_resource type="PackedScene" uid="uid://uj2rytnj1h4" path="res://enemy/test_enemy/test_enemy.tscn" id="10_sv285"]
 [ext_resource type="PackedScene" uid="uid://b8ogwotn6nsdk" path="res://world/interactable/sinking-wall/sinking_wall.tscn" id="11_ch02a"]
+[ext_resource type="PackedScene" uid="uid://dutetduietx8r" path="res://enemy/shield_enemy/shield_enemy.tscn" id="11_gwnhp"]
+[ext_resource type="PackedScene" uid="uid://duhvhegf6byvr" path="res://enemy/spawner_enemy/spawner_enemy.tscn" id="12_57xbn"]
 [ext_resource type="PackedScene" uid="uid://dt3m30r5dehup" path="res://world/interactable/pickups/pickup_key.tscn" id="12_joquo"]
 [ext_resource type="PackedScene" uid="uid://bs6o5glcfe2as" path="res://enemy/projectile_enemy/projectile_enemy.tscn" id="12_t5ow0"]
 [ext_resource type="Script" path="res://world/interactable/activatable/moving_objects/platform_mover.gd" id="13_glw2f"]
@@ -25,7 +28,9 @@
 [ext_resource type="PackedScene" uid="uid://gp1o7iklljk2" path="res://world/interactable/activators/red_coin/red_coin.tscn" id="21_7gu4x"]
 [ext_resource type="PackedScene" uid="uid://5x8wo3lcwigq" path="res://world/objects/breakable_object/breakable_object.tscn" id="24_xolg5"]
 [ext_resource type="PackedScene" uid="uid://mpm2bfwj3tbw" path="res://world/interactable/activatable/activatable_spawner/activatable_spawner.tscn" id="26_cl53y"]
+[ext_resource type="PackedScene" uid="uid://yllbcpq24cl0" path="res://enemy/creep_enemy/creep_enemy.tscn" id="26_hg8qn"]
 [ext_resource type="PackedScene" uid="uid://dovs54pxe1oba" path="res://generic/particle_fixer/particle_fixer.tscn" id="27_h03p2"]
+[ext_resource type="PackedScene" uid="uid://bimerg4hcbya2" path="res://enemy/charging_enemy/charging_enemy.tscn" id="27_kqj6m"]
 
 [sub_resource type="Curve2D" id="Curve2D_j10fm"]
 _data = {
@@ -236,8 +241,14 @@ polygon = PackedVector2Array(483, 1342, 395, 1450, 245, 1511, 9, 1533, -197, 159
 
 [node name="Enemies" type="Node2D" parent="FirstEnemyArea" index="2"]
 
-[node name="ProjectileEnemy" parent="FirstEnemyArea/Enemies" index="0" instance=ExtResource("12_t5ow0")]
-position = Vector2(620, 1882)
+[node name="TestEnemy" parent="FirstEnemyArea/Enemies" index="0" instance=ExtResource("10_sv285")]
+position = Vector2(441, 1871)
+
+[node name="ShieldEnemy" parent="FirstEnemyArea/Enemies" index="1" instance=ExtResource("11_gwnhp")]
+position = Vector2(1170, 1870)
+
+[node name="SpawnerEnemy" parent="FirstEnemyArea/Enemies" index="2" instance=ExtResource("12_57xbn")]
+position = Vector2(865, 2309)
 
 [node name="BushedOutside" type="Node2D" parent="FirstEnemyArea" index="3"]
 y_sort_enabled = true
@@ -475,29 +486,75 @@ position = Vector2(751, 531)
 position = Vector2(465, -19)
 entry_point = "Dungeon"
 
-[node name="MainCam" parent="." index="4"]
+[node name="BossArea" type="Node2D" parent="." index="4"]
+
+[node name="TreeGen" type="StaticBody2D" parent="BossArea" index="0"]
+y_sort_enabled = true
+script = ExtResource("2_n44bl")
+tree_scene = ExtResource("17_0qa0k")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="BossArea/TreeGen" index="0"]
+polygon = PackedVector2Array(2352, 1037, 2428, 1865, 2808, 1793, 3332, 1433, 4196, 1445, 4500, 1785, 4604, 2589, 4412, 2973, 3652, 3025, 3108, 2809, 2592, 2617, 2684, 3665, 5399, 3533, 5063, 824)
+
+[node name="DungeonEntrance" type="Sprite2D" parent="BossArea" index="1"]
+position = Vector2(3774, 1965)
+scale = Vector2(2.33037, 2.33037)
+texture = ExtResource("17_o8ma7")
+
+[node name="TransitionScene" type="Area2D" parent="BossArea/DungeonEntrance" index="0"]
+position = Vector2(-6.00761, 27.8925)
+scale = Vector2(0.429116, 0.429116)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("18_u8qny")
+scene_name = "amalgamation_test_room"
+entry_point = "Main"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BossArea/DungeonEntrance/TransitionScene" index="0"]
+position = Vector2(6, -13)
+shape = SubResource("RectangleShape2D_c0qo5")
+
+[node name="Enemies" type="Node2D" parent="BossArea" index="2"]
+
+[node name="ProjectileEnemy" parent="BossArea/Enemies" index="0" instance=ExtResource("12_t5ow0")]
+position = Vector2(4078, 2323)
+
+[node name="ProjectileEnemy2" parent="BossArea/Enemies" index="1" instance=ExtResource("12_t5ow0")]
+position = Vector2(3345, 1700)
+
+[node name="CreepEnemy" parent="BossArea/Enemies" index="2" instance=ExtResource("26_hg8qn")]
+position = Vector2(3426, 2351)
+
+[node name="ChargingEnemy" parent="BossArea/Enemies" index="3" instance=ExtResource("27_kqj6m")]
+position = Vector2(3036, 2232)
+
+[node name="ToiletTravelStation2" parent="BossArea" index="3" instance=ExtResource("8_qhp37")]
+position = Vector2(3476, 2189)
+entry_point = "Boss"
+
+[node name="MainCam" parent="." index="5"]
 position = Vector2(1815, -250)
 
-[node name="Reloader" type="Node" parent="." index="7"]
+[node name="Reloader" type="Node" parent="." index="8"]
 script = ExtResource("8_gqbog")
 despawn_margin = 650.0
 
-[node name="BreakableObject" parent="." index="9" instance=ExtResource("24_xolg5")]
+[node name="BreakableObject" parent="." index="10" instance=ExtResource("24_xolg5")]
 position = Vector2(885, 1214)
 
-[node name="BreakableObject2" parent="." index="10" instance=ExtResource("24_xolg5")]
+[node name="BreakableObject2" parent="." index="11" instance=ExtResource("24_xolg5")]
 position = Vector2(760, 1214)
 
-[node name="BreakableObject3" parent="." index="11" instance=ExtResource("24_xolg5")]
+[node name="BreakableObject3" parent="." index="12" instance=ExtResource("24_xolg5")]
 position = Vector2(633, 1216)
 
-[node name="BreakableObject4" parent="." index="12" instance=ExtResource("24_xolg5")]
+[node name="BreakableObject4" parent="." index="13" instance=ExtResource("24_xolg5")]
 position = Vector2(560, 1052)
 
-[node name="BreakableObject5" parent="." index="13" instance=ExtResource("24_xolg5")]
+[node name="BreakableObject5" parent="." index="14" instance=ExtResource("24_xolg5")]
 position = Vector2(915, 1043)
 
-[node name="EntitySpawner" parent="." index="14" instance=ExtResource("26_cl53y")]
+[node name="EntitySpawner" parent="." index="15" instance=ExtResource("26_cl53y")]
 position = Vector2(-1286, 2227)
 
 [node name="Chest" parent="EntitySpawner" index="0" instance=ExtResource("18_ricm7")]
@@ -527,7 +584,11 @@ position = Vector2(617, 702)
 [node name="Dungeon" type="Node2D" parent="EntryPoints" index="1"]
 position = Vector2(-2330, 2364)
 
-[node name="Player" parent="." index="16"]
+[node name="Boss" type="Node2D" parent="EntryPoints" index="2"]
+position = Vector2(3719, 2207)
+
+[node name="Player" parent="." index="17"]
 position = Vector2(534, 628)
 
 [connection signal="body_entered" from="PuzzleArea/DungeonEntrance/TransitionScene" to="PuzzleArea/DungeonEntrance/TransitionScene" method="_on_body_entered"]
+[connection signal="body_entered" from="BossArea/DungeonEntrance/TransitionScene" to="BossArea/DungeonEntrance/TransitionScene" method="_on_body_entered"]
