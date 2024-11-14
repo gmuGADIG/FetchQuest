@@ -1,6 +1,8 @@
 extends Enemy
 
 @export var attack_radius: float = 30
+
+## Should not be set in the inspector. Used by animations to perform the attack.
 @export var attack_enabled: bool = false
 
 func _process(delta: float) -> void:
@@ -21,9 +23,9 @@ func _process_agressive(delta: float) -> void:
 	if global_position.distance_to(Player.instance.global_position) < attack_radius:
 		$AnimationPlayer.play("attack")
 		
-# Does this work? It seems like it will probably do a contact damage of 0
-# which still gives the player invicibility frames. Annoying...
-func _get_contact_damage() -> int:
-	if attack_enabled:
-		return damage
-	return 0
+# Override the contact damage function, and only allow it through during the
+# attack. This doesn't work due to signals being the worst.
+#func _on_hitting_area_body_entered(body: Node2D) -> void:
+	#if attack_enabled:
+		#super(body)
+		
