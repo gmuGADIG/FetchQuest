@@ -1,6 +1,7 @@
 extends Enemy
 
 @export var attack_radius: float = 30
+@export var attack_enabled: bool = false
 
 func _process(delta: float) -> void:
 	super._process(delta)
@@ -12,8 +13,6 @@ func _process(delta: float) -> void:
 	else:
 		if enemy_state == EnemyState.AGRESSIVE:
 			enemy_state = EnemyState.ROAMING
-			
-	print("state = ", enemy_state)
 
 func _process_agressive(delta: float) -> void:
 	# Approach the player, then do the attack animation.
@@ -21,3 +20,10 @@ func _process_agressive(delta: float) -> void:
 	
 	if global_position.distance_to(Player.instance.global_position) < attack_radius:
 		$AnimationPlayer.play("attack")
+		
+# Does this work? It seems like it will probably do a contact damage of 0
+# which still gives the player invicibility frames. Annoying...
+func _get_contact_damage() -> int:
+	if attack_enabled:
+		return damage
+	return 0

@@ -162,9 +162,11 @@ _data = {
 "walk": SubResource("Animation_nfy41")
 }
 
-[node name="SpawnerEnemyBaby" instance=ExtResource("1_yslaj")]
+[node name="SpawnerEnemyBaby" node_paths=PackedStringArray("enemy_sprite") instance=ExtResource("1_yslaj")]
 script = ExtResource("2_tqyxd")
 attack_radius = 30.0
+attack_enabled = false
+enemy_sprite = NodePath("Sprite2D")
 
 [node name="CollisionShape2D" parent="HittingArea" index="0"]
 position = Vector2(0, 0.5)
