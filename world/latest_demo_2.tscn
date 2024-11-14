@@ -1,6 +1,4 @@
-
-[gd_scene load_steps=33 format=4 uid="uid://c0b860627rcs5"]
-
+[gd_scene load_steps=35 format=4 uid="uid://c0b860627rcs5"]
 
 [ext_resource type="PackedScene" uid="uid://cnd06dpkgufe4" path="res://world/level_base.tscn" id="1_2iy6g"]
 [ext_resource type="Script" path="res://world/decoration/trees/tree_gen.gd" id="2_n44bl"]
@@ -16,7 +14,6 @@
 [ext_resource type="PackedScene" uid="uid://dutetduietx8r" path="res://enemy/shield_enemy/shield_enemy.tscn" id="11_gwnhp"]
 [ext_resource type="PackedScene" uid="uid://duhvhegf6byvr" path="res://enemy/spawner_enemy/spawner_enemy.tscn" id="12_57xbn"]
 [ext_resource type="PackedScene" uid="uid://dt3m30r5dehup" path="res://world/interactable/pickups/pickup_key.tscn" id="12_joquo"]
-[ext_resource type="PackedScene" uid="uid://bs6o5glcfe2as" path="res://enemy/projectile_enemy/projectile_enemy.tscn" id="12_t5ow0"]
 [ext_resource type="Script" path="res://world/interactable/activatable/moving_objects/platform_mover.gd" id="13_glw2f"]
 [ext_resource type="PackedScene" uid="uid://deo11h81nnpyw" path="res://world/interactable/pickups/pickup_bomb.tscn" id="13_meh4f"]
 [ext_resource type="PackedScene" uid="uid://bxaar1hpspnom" path="res://world/interactable/activatable/moving_objects/movable_platform.tscn" id="14_hyg0y"]
@@ -30,9 +27,7 @@
 [ext_resource type="PackedScene" uid="uid://gp1o7iklljk2" path="res://world/interactable/activators/red_coin/red_coin.tscn" id="21_7gu4x"]
 [ext_resource type="PackedScene" uid="uid://5x8wo3lcwigq" path="res://world/objects/breakable_object/breakable_object.tscn" id="24_xolg5"]
 [ext_resource type="PackedScene" uid="uid://mpm2bfwj3tbw" path="res://world/interactable/activatable/activatable_spawner/activatable_spawner.tscn" id="26_cl53y"]
-[ext_resource type="PackedScene" uid="uid://yllbcpq24cl0" path="res://enemy/creep_enemy/creep_enemy.tscn" id="26_hg8qn"]
 [ext_resource type="PackedScene" uid="uid://dovs54pxe1oba" path="res://generic/particle_fixer/particle_fixer.tscn" id="27_h03p2"]
-[ext_resource type="PackedScene" uid="uid://bimerg4hcbya2" path="res://enemy/charging_enemy/charging_enemy.tscn" id="27_kqj6m"]
 
 [sub_resource type="Curve2D" id="Curve2D_j10fm"]
 _data = {
@@ -484,10 +479,7 @@ position = Vector2(-842, 241)
 [node name="RedCoin5" parent="PuzzleArea/RedCoinManager" index="3" instance=ExtResource("21_7gu4x")]
 position = Vector2(751, 531)
 
-
-
 [node name="MainCam" parent="." index="4"]
-
 position = Vector2(1815, -250)
 
 [node name="Reloader" type="Node" parent="." index="7"]
@@ -539,10 +531,7 @@ position = Vector2(617, 702)
 [node name="Dungeon" type="Node2D" parent="EntryPoints" index="1"]
 position = Vector2(-2330, 2364)
 
-
 [node name="Player" parent="." index="16"]
-
 position = Vector2(534, 628)
 
 [connection signal="body_entered" from="PuzzleArea/DungeonEntrance/TransitionScene" to="PuzzleArea/DungeonEntrance/TransitionScene" method="_on_body_entered"]
-[connection signal="body_entered" from="BossArea/DungeonEntrance/TransitionScene" to="BossArea/DungeonEntrance/TransitionScene" method="_on_body_entered"]
