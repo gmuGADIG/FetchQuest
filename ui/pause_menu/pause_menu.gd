@@ -1,5 +1,9 @@
 extends CanvasLayer
 
+@onready var button_major_sound: AudioStream = preload("res://ui/sounds/SFX UI Bonk 1.wav")
+@onready var button_minor_sound: AudioStream = preload("res://ui/sounds/SFX UI Click 1.wav")
+@onready var audio_player: AudioStreamPlayer2D = $PauseMenuAudioPlayer
+
 func _ready() -> void:
 	# The pause menu must always process. We can set this either in the inspector
 	# or manually. TODO: Does setting it manually cause a problem if the pause
@@ -51,3 +55,15 @@ func _on_quit_pressed() -> void:
 # When the option menu is hidden, we grab focus of the options button.
 func _on_option_menu_hidden() -> void:
 	$Panel/OptionsMenuButton.grab_focus()
+
+
+func _on_menu_major_button_pressed() -> void:
+	print("YOABQ")
+	audio_player.stream = button_major_sound
+	audio_player.play()
+	
+	print(audio_player.is_playing())
+	
+func _on_menu_minor_button_pressed() -> void:
+	audio_player.stream = button_minor_sound
+	audio_player.play()
