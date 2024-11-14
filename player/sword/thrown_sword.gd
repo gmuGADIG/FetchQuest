@@ -4,7 +4,6 @@ class_name ThrownSword
 # Variables that are initialized at runtime
 @onready var thrower: Player = Player.instance  ## Reference to the player who throws the sword
 @onready var lifespan_timer: Timer = $LifespanTimer   ## The max lifespan of the sword
-@onready var recall_timer: Timer = $RecallTimer ## The minimum time before the sword can be recalled
 
 # Exported variables for external control and tuning in the editor
 @export var throw_distance: float      ## Ideal throw distance. used to calculate the initial and max velocity
@@ -79,13 +78,6 @@ func _physics_process(delta: float) -> void:
 	var collision: KinematicCollision2D = move_and_collide(velocity * delta)
 	if collision:
 		_on_collision(collision)
-		
-func _process(_delta: float) -> void:
-	if Input.is_action_just_released("attack"):
-		if (recall_timer.is_stopped()):
-			return_sword()
-		else:
-			recall_timer.timeout.connect(return_sword)
 
 ## Handles sword ricochet off surfaces
 func sword_bounce() -> void:
