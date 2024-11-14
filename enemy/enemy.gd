@@ -39,6 +39,7 @@ signal health_changed
 
 @onready var navigation_agent: NavigationAgent2D = get_node("NavigationAgent2D")
 
+var time_since_last_seen_player : float = 0.0
 
 #The desired range the enemy wants to navigate to
 @export var agressive_target_distance_min: int = 1
@@ -69,6 +70,11 @@ func actor_setup() -> void:
 	approach(Player.instance.global_position)
 
 func _process(delta: float) -> void:
+	if !$PlayerDetectionComponent/DetectionRaycast.can_see_player:
+		time_since_last_seen_player += delta
+	else:
+		time_since_last_seen_player = 0.0
+	
 	match enemy_state:
 		EnemyState.ROAMING:
 			_process_roaming(delta)
