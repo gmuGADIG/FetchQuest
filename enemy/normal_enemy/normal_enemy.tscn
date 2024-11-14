@@ -1,16 +1,24 @@
-[gd_scene load_steps=6 format=3 uid="uid://bn8cng00r4ilx"]
+[gd_scene load_steps=8 format=3 uid="uid://bn8cng00r4ilx"]
 
 [ext_resource type="PackedScene" uid="uid://blpi4x6if673v" path="res://enemy/base_enemy.tscn" id="1_k4adr"]
+[ext_resource type="Script" path="res://enemy/normal_enemy/normal_enemy.gd" id="2_cksdu"]
 [ext_resource type="Texture2D" uid="uid://cvovcahgt8hnr" path="res://demo_art/tennis_ball.png" id="2_qjd8j"]
 [ext_resource type="Texture2D" uid="uid://cblid5rvv5mpe" path="res://demo_art/tennis_ball_angry.png" id="3_nobm8"]
 [ext_resource type="Texture2D" uid="uid://cvcebj33od28o" path="res://demo_art/tennis_ball_stunned.png" id="4_mpxdk"]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_j06c1"]
+radius = 64.2929
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_s0g61"]
 radius = 60.0
 
-[node name="NormalEnemy" node_paths=PackedStringArray("enemy_sprite") instance=ExtResource("1_k4adr")]
+[node name="NormalEnemy" instance=ExtResource("1_k4adr")]
 scale = Vector2(0.997377, 1)
-enemy_sprite = NodePath("TennisBall")
+script = ExtResource("2_cksdu")
+agressive_target_distance_max = 100
+
+[node name="CollisionShape2D" parent="HittingArea" index="0"]
+shape = SubResource("CircleShape2D_j06c1")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="4"]
 shape = SubResource("CircleShape2D_s0g61")

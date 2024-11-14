@@ -58,7 +58,8 @@ enum EnemyState {
 }
 
 func _ready() -> void:
-	enemy_state = EnemyState.AGRESSIVE
+	randomize()
+	enemy_state = EnemyState.ROAMING
 	assert(navigation_agent != null, "Enemy must have a navigation agent")
 	navigation_agent.velocity_computed.connect(self._on_velocity_computed)
 	actor_setup.call_deferred()
