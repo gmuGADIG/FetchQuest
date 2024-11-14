@@ -1,0 +1,63 @@
+[gd_scene load_steps=5 format=3 uid="uid://cwygeuo0a4upk"]
+
+[ext_resource type="PackedScene" uid="uid://cnd06dpkgufe4" path="res://world/level_base.tscn" id="1_8n3f1"]
+[ext_resource type="Texture2D" uid="uid://dymucenpxmluo" path="res://icon.svg" id="2_12cc7"]
+[ext_resource type="PackedScene" uid="uid://xgwwcejvha1d" path="res://enemy/amalgamation/thee_amalgamation.tscn" id="3_ekyvy"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ytvfm"]
+size = Vector2(20, 200)
+
+[node name="LevelBase" instance=ExtResource("1_8n3f1")]
+
+[node name="Main" type="Node2D" parent="EntryPoints" index="0"]
+position = Vector2(-1, 171)
+
+[node name="Walls" type="Node2D" parent="." index="6"]
+scale = Vector2(7.5, 7.5)
+
+[node name="Wall" type="StaticBody2D" parent="Walls" index="0"]
+position = Vector2(100, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Wall" index="0"]
+shape = SubResource("RectangleShape2D_ytvfm")
+
+[node name="Sprite2D" type="Sprite2D" parent="Walls/Wall" index="1"]
+scale = Vector2(0.15625, 1.73438)
+texture = ExtResource("2_12cc7")
+
+[node name="Wall2" type="StaticBody2D" parent="Walls" index="1"]
+position = Vector2(-100, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Wall2" index="0"]
+shape = SubResource("RectangleShape2D_ytvfm")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Walls/Wall2" index="1"]
+scale = Vector2(0.15625, 1.73438)
+texture = ExtResource("2_12cc7")
+
+[node name="Wall3" type="StaticBody2D" parent="Walls" index="2"]
+position = Vector2(0, 100)
+rotation = 1.5708
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Wall3" index="0"]
+shape = SubResource("RectangleShape2D_ytvfm")
+
+[node name="Sprite2D3" type="Sprite2D" parent="Walls/Wall3" index="1"]
+scale = Vector2(0.15625, 1.73438)
+texture = ExtResource("2_12cc7")
+
+[node name="Wall4" type="StaticBody2D" parent="Walls" index="3"]
+position = Vector2(0, -100)
+rotation = 1.5708
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Wall4" index="0"]
+shape = SubResource("RectangleShape2D_ytvfm")
+
+[node name="Sprite2D4" type="Sprite2D" parent="Walls/Wall4" index="1"]
+scale = Vector2(0.15625, 1.73438)
+texture = ExtResource("2_12cc7")
+
+[node name="Amalgamation" parent="." index="7" instance=ExtResource("3_ekyvy")]
+position = Vector2(-9, -397)
+scale = Vector2(18.4817, 18.4817)
+room_size = Vector2(1360, 800)
