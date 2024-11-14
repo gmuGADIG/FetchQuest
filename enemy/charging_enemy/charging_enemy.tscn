@@ -1,0 +1,211 @@
+[gd_scene load_steps=12 format=3 uid="uid://bimerg4hcbya2"]
+
+[ext_resource type="PackedScene" uid="uid://blpi4x6if673v" path="res://enemy/base_enemy.tscn" id="1_nwicp"]
+[ext_resource type="Texture2D" uid="uid://w6qvo8ohtfg8" path="res://enemy/charging_enemy/PROGRAMMER_ART_enemy.svg" id="2_jfd2o"]
+[ext_resource type="Script" path="res://enemy/charging_enemy/charging_enemy.gd" id="2_xj1sy"]
+[ext_resource type="Texture2D" uid="uid://h5sjwvbpni45" path="res://enemy/charging_enemy/PROGRAMMER_ART_enemy_active.svg" id="3_11tu6"]
+[ext_resource type="Texture2D" uid="uid://q5ug1lq6wqfb" path="res://enemy/charging_enemy/exclamation.svg" id="3_sjuam"]
+[ext_resource type="Texture2D" uid="uid://d327ma64qb8lu" path="res://enemy/charging_enemy/PROGRAMMER_ART_enemy_stunned.svg" id="5_65d30"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_d6nje"]
+radius = 62.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_30lte"]
+radius = 60.0
+
+[sub_resource type="Animation" id="Animation_p8r01"]
+resource_name = "Charge"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Exclamation:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Exclamation:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, -65), Vector2(0, -91)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Exclamation:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(1, 0, 0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("MainSprite/Sprite_Activated:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"_anim_charge_now"
+}]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath(".:is_winding_up")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_544fv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Exclamation:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Exclamation:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -65)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Exclamation:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("MainSprite/Sprite_Activated:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".:is_winding_up")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fmgbk"]
+_data = {
+"Charge": SubResource("Animation_p8r01"),
+"RESET": SubResource("Animation_544fv")
+}
+
+[node name="ChargingEnemy" node_paths=PackedStringArray("enemy_sprite") instance=ExtResource("1_nwicp")]
+script = ExtResource("2_xj1sy")
+charging_damage = 2
+charging_speed = 500.0
+charge_windup = 0.7
+charge_length = 1.5
+stun_length = 2.0
+is_winding_up = false
+enemy_sprite = NodePath("MainSprite")
+
+[node name="PlayerDetectionComponent" parent="." index="0"]
+detectable_distance = 500.0
+
+[node name="CollisionShape2D" parent="HittingArea" index="0"]
+shape = SubResource("CircleShape2D_d6nje")
+
+[node name="MainSprite" type="Node2D" parent="." index="4"]
+
+[node name="Sprite_Normal" type="Sprite2D" parent="MainSprite" index="0"]
+position = Vector2(0, -16)
+scale = Vector2(0.96732, 0.955975)
+texture = ExtResource("2_jfd2o")
+
+[node name="Sprite_Activated" type="Sprite2D" parent="MainSprite" index="1"]
+visible = false
+position = Vector2(0, -16)
+scale = Vector2(0.96732, 0.955975)
+texture = ExtResource("3_11tu6")
+
+[node name="Sprite_Stunned" type="Sprite2D" parent="MainSprite" index="2"]
+visible = false
+position = Vector2(0, -16)
+scale = Vector2(0.96732, 0.955975)
+texture = ExtResource("5_65d30")
+
+[node name="Exclamation" type="Sprite2D" parent="." index="5"]
+visible = false
+modulate = Color(0, 0, 0, 1)
+position = Vector2(0, -65)
+texture = ExtResource("3_sjuam")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="6"]
+shape = SubResource("CircleShape2D_30lte")
+metadata/_edit_lock_ = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="7"]
+libraries = {
+"": SubResource("AnimationLibrary_fmgbk")
+}
+autoplay = "RESET"

@@ -5,7 +5,11 @@ extends Sprite2D
 
 func _ready() -> void:
 	var x_ray_sprite: Sprite2D = self.duplicate()
+
+	x_ray_sprite.visible = true
 	x_ray_sprite.set_script(null)
 	x_ray_sprite.modulate.a *= x_ray_opacity
 	x_ray_sprite.z_index = 10
-	add_sibling.call_deferred(x_ray_sprite)
+	x_ray_sprite.transform = Transform2D()
+
+	add_child.call_deferred(x_ray_sprite)
