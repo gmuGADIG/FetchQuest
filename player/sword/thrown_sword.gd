@@ -21,6 +21,11 @@ var player_dist: Vector2             ## Distance vector from the sword to the pl
 var local_acceleration: float        ## Local acceleration applied to the sword (adjustable)
 var last_bounce: Vector2             ## The last position the sword bounced from.
 
+#sounds
+@onready var swordSFX_Throw :AudioStreamPlayer2D = $SwordSFX_Throw
+@onready var swordSFX_Is_Thrown :AudioStreamPlayer2D = $SwordSFX_Is_Thrown
+@onready var swordSFX_Catch :AudioStreamPlayer2D = $SwordSFX_Catch
+
 ## Signal emitted when the sword bounces, providing bounce intensity
 signal sword_bounced(intensity: float)
 
@@ -35,6 +40,8 @@ func throw(throw_direction: Vector2) -> void:
 	direction = throw_direction.normalized() * initial_speed
 	local_acceleration = acceleration
 	velocity = direction.normalized() * initial_speed
+	swordSFX_Throw.play()
+	
 	
 	# apply player velocity on top
 	var player_velocity := thrower.velocity
@@ -49,6 +56,7 @@ func return_sword() -> void:
 	set_collision_mask_value(1, false)  # Disable collision with terrain
 	returning = true                    # Mark the sword as returning
 	local_acceleration = abs(acceleration)  # Adjust acceleration for return phase
+	#swordSFX_Is_Thrown.stop()
 
 ## Handles the physics update process (called every frame)
 func _physics_process(delta: float) -> void:
@@ -60,6 +68,10 @@ func _physics_process(delta: float) -> void:
 	var cos_theta: float = player_dist.dot(old_player_dist) / (player_dist.length() * old_player_dist.length())
 	if player_dist.length() <= 100 and cos_theta < 0 and returning:
 		queue_free()
+		SFXManager.catch_sound.play()
+	#else :
+		#while(!swordSFX_Throw.playing && !swordSFX_Is_Thrown.playing):
+			#swordSFX_Is_Thrown.play()
 		
 	if num_bounces > 0 and (position - last_bounce).length() >= max_bounce_distance:
 		return_sword()
