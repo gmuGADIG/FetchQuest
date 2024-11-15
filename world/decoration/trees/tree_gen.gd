@@ -15,19 +15,35 @@ var rng: RandomNumberGenerator
 		generate_trees()
 
 ## This scene is repeatedly instantiated across the polygon.
-@export var tree_scene: PackedScene
+@export var tree_scene: PackedScene:
+	set(value):
+		tree_scene = value
+		generate_trees()
+
 ## If [member secondary_tree_odds] is not zero, this scene will sometimes be instantiated instead.
 ## Otherwise, this property has no effect and can be null.
-@export var secondary_tree_scene: PackedScene
+@export var secondary_tree_scene: PackedScene:
+	set(value):
+		secondary_tree_scene = value
+		generate_trees()
 
 ## Odds of generating a secondary tree. e.g. if this value is 0.5, half of the trees will be the secondary tree.
-@export_range(0, 1) var secondary_tree_odds := 0.0
+@export_range(0, 1) var secondary_tree_odds := 0.0:
+	set(value):
+		secondary_tree_odds = value
+		generate_trees()
 
 ## Determines how much space is between each tree. Higher values means sparser trees.
-@export_range(50, 500) var tree_interval := 150.0
+@export_range(50, 500) var tree_interval := 150.0:
+	set(value):
+		tree_interval = value
+		generate_trees()
 
 ## How much to randomize each tree's position. A value of 0 means the trees generate in a perfect grid.
-@export_range(0, 1) var randomness := 0.3
+@export_range(0, 1) var randomness := 0.3:
+	set(value):
+		randomness = value
+		generate_trees()
 
 func _ready() -> void:
 	generate_trees()
@@ -38,12 +54,13 @@ func clear_trees() -> void:
 		old_trees.free()
 
 func generate_trees() -> void:
+	y_sort_enabled = true
+	
 	rng = RandomNumberGenerator.new()
 	rng.seed = seed
 	
 	var collision_poly: CollisionPolygon2D = $CollisionPolygon2D
 	
-	assert(y_sort_enabled, "TreeGen at '%s' must have y-sort enabled." % get_parent().name)
 	assert(tree_scene != null, "TreeGen at '%s' has no tree scene configured." % get_parent().name)
 	assert(collision_poly != null, "TreeGen at '%s' must have a child named 'CollisionPolygon2D'." % get_parent().name)
 	assert(secondary_tree_scene != null or secondary_tree_odds == 0, "TreeGen at '%s' has no secondary tree, but the secondary tree odds are not zero." % get_path())
