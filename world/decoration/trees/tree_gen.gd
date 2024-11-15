@@ -54,6 +54,8 @@ func clear_trees() -> void:
 		old_trees.free()
 
 func generate_trees() -> void:
+	if not is_inside_tree(): return
+	
 	y_sort_enabled = true
 	
 	rng = RandomNumberGenerator.new()
