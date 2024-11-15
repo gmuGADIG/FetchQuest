@@ -64,20 +64,20 @@ class ActionDataVert:
 	#Type of Action from the ACTION_VERT enum
 	var type: ACTION_VERT = ACTION_VERT.NONE
 	# The affected Verticies and their initial positions
-	var keys: Array[int] = []
-	var starting_width: Array[float] = []
+	var keys: PackedInt32Array
+	var starting_width: PackedFloat32Array
 	var starting_positions: PackedVector2Array = []
 	var starting_positions_control_in: PackedVector2Array = []
 	var starting_positions_control_out: PackedVector2Array = []
 
 	func _init(
-		_keys: Array[int],
+		_keys: PackedInt32Array,
 		positions: PackedVector2Array,
 		positions_in: PackedVector2Array,
 		positions_out: PackedVector2Array,
-		width: Array[float],
+		width: PackedFloat32Array,
 		t: ACTION_VERT
-	):
+	) -> void:
 		type = t
 		keys = _keys
 		starting_positions = positions
@@ -89,13 +89,10 @@ class ActionDataVert:
 		return keys.size() > 0
 
 	func _to_string() -> String:
-		var s := "%s: %s = %s"
-		return s % [type, keys, starting_positions]
+		return "%s: %s = %s" % [type, keys, starting_positions]
 
 	func is_single_vert_selected() -> bool:
-		if keys.size() == 1:
-			return true
-		return false
+		return keys.size() == 1
 
 	func current_point_key() -> int:
 		if not is_single_vert_selected():
@@ -109,12 +106,12 @@ class ActionDataVert:
 
 
 # PRELOADS
-var GUI_SNAP_POPUP = preload("scenes/SnapPopup.tscn")
-var GUI_POINT_INFO_PANEL = preload("scenes/GUI_InfoPanel.tscn")
-var GUI_EDGE_INFO_PANEL = preload("scenes/GUI_Edge_InfoPanel.tscn")
-var gui_point_info_panel = GUI_POINT_INFO_PANEL.instantiate()
-var gui_edge_info_panel = GUI_EDGE_INFO_PANEL.instantiate()
-var gui_snap_settings = GUI_SNAP_POPUP.instantiate()
+var GUI_SNAP_POPUP := preload("scenes/SnapPopup.tscn")
+var GUI_POINT_INFO_PANEL := preload("scenes/GUI_InfoPanel.tscn")
+var GUI_EDGE_INFO_PANEL := preload("scenes/GUI_Edge_InfoPanel.tscn")
+var gui_point_info_panel: SS2D_PointInfoPanel = GUI_POINT_INFO_PANEL.instantiate()
+var gui_edge_info_panel: SS2D_EdgeInfoPanel = GUI_EDGE_INFO_PANEL.instantiate()
+var gui_snap_settings: SS2D_SnapPopup = GUI_SNAP_POPUP.instantiate()
 
 const GUI_POINT_INFO_PANEL_OFFSET := Vector2(256, 130)
 
@@ -151,7 +148,7 @@ var edge_data: SS2D_Edge = null
 var on_width_handle: bool = false
 const WIDTH_HANDLE_OFFSET: float = 60.0
 var closest_key: int
-var closest_edge_keys: Array[int] = [-1, -1]
+var closest_edge_keys := Vector2i(-1, -1)
 var width_scaling: float
 
 # Vertex paint mode stuff
@@ -281,7 +278,7 @@ func create_tool_button(icon: Texture2D, tooltip: String, toggle: bool = true) -
 func _gui_update_vert_info_panel() -> void:
 	var idx: int = current_action.current_point_index(shape)
 	var key: int = current_action.current_point_key()
-	if not is_key_valid(shape, key):
+	if not is_key_valid(key):
 		gui_point_info_panel.visible = false
 		return
 	gui_point_info_panel.visible = true
@@ -338,17 +335,17 @@ func get_current_viewport() -> void:
 		target_viewport = editor_viewport.get_parent()
 
 
-func _gui_update_edge_info_panel():
+func _gui_update_edge_info_panel() -> void:
 	# Don't update if already visible
 	if gui_edge_info_panel.visible:
 		return
-	var indicies: Array[int] = [-1, -1]
+	var indicies := Vector2i(-1, -1)
 	var override: SS2D_Material_Edge_Metadata = null
 	if on_edge:
 		var t: Transform2D = get_et() * shape.get_global_transform()
 		var offset: float = shape.get_closest_offset_straight_edge(t.affine_inverse() * edge_point)
-		var keys: Array[int] = _get_edge_point_keys_from_offset(offset, true)
-		indicies = [shape.get_point_index(keys[0]), shape.get_point_index(keys[1])]
+		var keys: Vector2i = _get_edge_point_keys_from_offset(offset, true)
+		indicies = Vector2i(shape.get_point_index(keys.x), shape.get_point_index(keys.y))
 		if shape.get_point_array().has_material_override(keys):
 			override = shape.get_point_array().get_material_override(keys)
 	gui_edge_info_panel.set_indicies(indicies)
@@ -427,10 +424,12 @@ func _ready() -> void:
 
 
 func _enter_tree() -> void:
+	@warning_ignore("unsafe_method_access")
 	plugin = load("res://addons/rmsmartshape/editors/normal_range_inspector_plugin.gd").new()
 	if plugin != null:
 		add_inspector_plugin(plugin)
 
+	@warning_ignore("unsafe_method_access")
 	var action_plugin: EditorInspectorPlugin = load("res://addons/rmsmartshape/editors/action_property_inspector_plugin.gd").new()
 	if action_plugin != null:
 		add_inspector_plugin(action_plugin)
@@ -449,7 +448,7 @@ func _exit_tree() -> void:
 
 
 func _forward_canvas_gui_input(event: InputEvent) -> bool:
-	if not is_shape_valid(shape):
+	if not is_shape_valid():
 		return false
 
 	# Force update if global transforma has been changed
@@ -504,19 +503,22 @@ func _handles(object: Object) -> bool:
 func _edit(object: Object) -> void:
 	on_edge = false
 	deselect_verts()
-	if is_shape_valid(shape):
+	if is_shape_valid():
 		disconnect_shape(shape)
-
-	shape = null
 
 	shape = object
 
-	if not is_shape_valid(shape):
+	if not is_shape_valid():
 		gui_point_info_panel.visible = false
 		gui_edge_info_panel.visible = false
 		shape = null
 	else:
 		connect_shape(shape)
+
+		if shape.get_point_array().get_point_count() == 0:
+			_enter_mode(MODE.CREATE_VERT)
+		elif current_mode == MODE.CREATE_VERT:
+			_enter_mode(MODE.EDIT_VERT)
 
 	update_overlays()
 
@@ -562,102 +564,62 @@ func snap(v: Vector2, force: bool = false) -> Vector2:
 	var t := Transform2D.IDENTITY
 	if use_global_snap():
 		t = shape.get_global_transform()
-	return snap_position(v, offset, step, t)
-
-
-static func snap_position(
-	pos_global: Vector2, snap_offset: Vector2, snap_step: Vector2, local_t: Transform2D
-) -> Vector2:
-	# Move global position to local position to snap in local space
-	var pos_local: Vector2 = local_t * pos_global
-
-	# Snap in local space
-	var x: float = pos_local.x
-	if snap_step.x != 0:
-		var delta: float = fmod(pos_local.x, snap_step.x)
-		# Round up
-		if delta >= (snap_step.x / 2.0):
-			x = pos_local.x + (snap_step.x - delta)
-		# Round down
-		else:
-			x = pos_local.x - delta
-	var y: float = pos_local.y
-	if snap_step.y != 0:
-		var delta: float = fmod(pos_local.y, snap_step.y)
-		# Round up
-		if delta >= (snap_step.y / 2.0):
-			y = pos_local.y + (snap_step.y - delta)
-		# Round down
-		else:
-			y = pos_local.y - delta
-
-	# Transform3D local position to global position
-	var pos_global_snapped := (local_t.affine_inverse() * Vector2(x, y)) + snap_offset
-	#print ("%s | %s | %s | %s" % [pos_global, pos_local, Vector2(x,y), pos_global_snapped])
-	return pos_global_snapped
+	return SS2D_PluginFunctionality.snap_position(v, offset, step, t)
 
 
 ##########
 # PLUGIN #
 ##########
 
-func disconnect_shape(s) -> void:
+func disconnect_shape(s: SS2D_Shape) -> void:
 	if s.is_connected("make_unique_pressed", self._on_shape_make_unique):
 		s.disconnect("make_unique_pressed", self._on_shape_make_unique)
 
 
-func connect_shape(s) -> void:
+func connect_shape(s: SS2D_Shape) -> void:
 	if not s.is_connected("make_unique_pressed", self._on_shape_make_unique):
 		s.connect("make_unique_pressed", self._on_shape_make_unique)
 
 
-static func get_material_override_from_indicies(
-	s: SS2D_Shape, indicies: Array
-) -> SS2D_Material_Edge_Metadata:
-	var keys: Array[int] = []
-	for i in indicies:
-		keys.push_back(s.get_point_key_at_index(i))
-	if not s.get_point_array().has_material_override(keys):
-		return null
-	return s.get_point_array().get_material_override(keys)
+func get_material_override_from_indicies() -> SS2D_Material_Edge_Metadata:
+	var keys := shape.get_point_array().get_edge_keys_for_indices(gui_edge_info_panel.indicies)
+	return shape.get_point_array().get_material_override(keys)
 
 
 func _on_edge_material_override_render_toggled(enabled: bool) -> void:
-	var override := get_material_override_from_indicies(shape, gui_edge_info_panel.indicies)
+	var override := get_material_override_from_indicies()
 	if override != null:
 		override.render = enabled
 
 
 func _on_edge_material_override_weld_toggled(enabled: bool) -> void:
-	var override := get_material_override_from_indicies(shape, gui_edge_info_panel.indicies)
+	var override := get_material_override_from_indicies()
 	if override != null:
 		override.weld = enabled
 
 
 func _on_edge_material_override_z_index_changed(z: int) -> void:
-	var override := get_material_override_from_indicies(shape, gui_edge_info_panel.indicies)
+	var override := get_material_override_from_indicies()
 	if override != null:
 		override.z_index = z
 
 
 func _on_edge_material_changed(m: SS2D_Material_Edge) -> void:
-	var override := get_material_override_from_indicies(shape, gui_edge_info_panel.indicies)
+	var override := get_material_override_from_indicies()
 	if override != null:
 		override.edge_material = m
 
 
 func _on_edge_material_override_toggled(enabled: bool) -> void:
-	var indicies: Array[int] = gui_edge_info_panel.indicies
-	if indicies.has(-1) or indicies.size() != 2:
+	var indices := gui_edge_info_panel.indicies
+
+	if SS2D_IndexTuple.has(indices, -1):
 		return
-	var keys: Array[int] = []
-	for i in indicies:
-		keys.push_back(shape.get_point_key_at_index(i))
+
+	var keys := shape.get_point_array().get_edge_keys_for_indices(indices)
 
 	# Get the relevant Override data if any exists
-	var override = null
-	if shape.get_point_array().has_material_override(keys):
-		override = shape.get_point_array().get_material_override(keys)
+	var override: SS2D_Material_Edge_Metadata = shape.get_point_array().get_material_override(keys)
 
 	if enabled:
 		if override == null:
@@ -672,12 +634,12 @@ func _on_edge_material_override_toggled(enabled: bool) -> void:
 			shape.get_point_array().remove_material_override(keys)
 
 
-static func is_shape_valid(s) -> bool:
-	if s == null:
+func is_shape_valid() -> bool:
+	if shape == null:
 		return false
-	if not is_instance_valid(s):
+	if not is_instance_valid(shape):
 		return false
-	if not s.is_inside_tree():
+	if not shape.is_inside_tree():
 		return false
 	return true
 
@@ -694,17 +656,17 @@ func get_et() -> Transform2D:
 	return EditorInterface.get_edited_scene_root().get_viewport().global_canvas_transform
 
 
-static func is_key_valid(s: SS2D_Shape, key: int) -> bool:
-	if not is_shape_valid(s):
+func is_key_valid(key: int) -> bool:
+	if not is_shape_valid():
 		return false
-	return s.has_point(key)
+	return shape.has_point(key)
 
 
 func _enter_mode(mode: int) -> void:
 	if current_mode == mode:
 		return
 
-	for tb in [tb_vert_edit, tb_edge_edit, tb_pivot, tb_center_pivot, tb_vert_create, tb_freehand]:
+	for tb: Button in [tb_vert_edit, tb_edge_edit, tb_pivot, tb_center_pivot, tb_vert_create, tb_freehand]:
 		tb.button_pressed = false
 
 	previous_mode = current_mode
@@ -765,10 +727,10 @@ func _center_pivot() -> void:
 # RENDERING #
 #############
 
-func _forward_canvas_draw_over_viewport(overlay: Control):
+func _forward_canvas_draw_over_viewport(overlay: Control) -> void:
 	# Something might force a draw which we had no control over,
 	# in this case do some updating to be sure
-	if not is_shape_valid(shape) or not is_inside_tree():
+	if not is_shape_valid() or not is_inside_tree():
 		return
 
 	match current_mode:
@@ -819,16 +781,16 @@ func draw_mode_edit_edge(overlay: Control, color_normal: Color, color_highlight:
 	draw_vert_handles(overlay, t, verts, false)
 
 	if current_action.type == ACTION_VERT.MOVE_VERT:
-		var edge_point_keys: Array[int] = current_action.keys
+		var edge_point_keys := current_action.keys
 		var p1: Vector2 = shape.get_point_position(edge_point_keys[0])
 		var p2: Vector2 = shape.get_point_position(edge_point_keys[1])
 		overlay.draw_line(t * p1, t * p2, Color.BLACK, 8.0, true)
 		overlay.draw_line(t * p1, t * p2, color_highlight, 4.0, true)
 	elif on_edge:
 		var offset: float = shape.get_closest_offset_straight_edge(t.affine_inverse() * edge_point)
-		var edge_point_keys: Array[int] = _get_edge_point_keys_from_offset(offset, true)
-		var p1: Vector2 = shape.get_point_position(edge_point_keys[0])
-		var p2: Vector2 = shape.get_point_position(edge_point_keys[1])
+		var edge_point_keys := _get_edge_point_keys_from_offset(offset, true)
+		var p1: Vector2 = shape.get_point_position(edge_point_keys.x)
+		var p2: Vector2 = shape.get_point_position(edge_point_keys.y)
 		overlay.draw_line(t * p1, t * p2, Color.BLACK, 8.0, true)
 		overlay.draw_line(t * p1, t * p2, color_highlight, 4.0, true)
 
@@ -840,15 +802,16 @@ func draw_mode_cut_edge(overlay: Control) -> void:
 		# Draw "X" marks along the edge that is selected
 		var t: Transform2D = get_et() * shape.get_global_transform()
 		var offset: float = shape.get_closest_offset_straight_edge(t.affine_inverse() * edge_point)
-		var edge_point_keys: Array[int] = _get_edge_point_keys_from_offset(offset, true)
-		var from: Vector2 = t * shape.get_point_position(edge_point_keys[0])
-		var to: Vector2 = t * shape.get_point_position(edge_point_keys[1])
+		var edge_point_keys := _get_edge_point_keys_from_offset(offset, true)
+		var from: Vector2 = t * shape.get_point_position(edge_point_keys.x)
+		var to: Vector2 = t * shape.get_point_position(edge_point_keys.y)
 		var dir: Vector2 = (to - from).normalized()
 		var angle: float = dir.angle()
 		var length: float = (to - from).length()
-		var num_crosses = remap(length, 0.0, 2000.0, 0.0, 10.0)
+		var num_crosses := remap(length, 0.0, 2000.0, 0.0, 10.0)
+		@warning_ignore("narrowing_conversion")
 		num_crosses = snappedi(num_crosses, 2.0) + 1
-		var fraction = 1.0 / (num_crosses + 1)
+		var fraction := 1.0 / (num_crosses + 1)
 		for i in num_crosses:
 			var pos: Vector2 = from + dir * length * fraction * (i + 1)
 			overlay.draw_line(Vector2(8.0, 8.0).rotated(angle) + pos,
@@ -861,7 +824,7 @@ func draw_mode_edit_vert(overlay: Control, show_vert_handles: bool = true) -> vo
 	var t: Transform2D = get_et() * shape.get_global_transform()
 	var verts: PackedVector2Array = shape.get_vertices()
 	var points: PackedVector2Array = shape.get_tessellated_points()
-	draw_shape_outline(overlay, t, points)
+	draw_shape_outline(overlay, t, points, shape.modulate)
 	if show_vert_handles:
 		draw_vert_handles(overlay, t, verts, true)
 	if on_edge:
@@ -876,10 +839,8 @@ func draw_mode_edit_vert(overlay: Control, show_vert_handles: bool = true) -> vo
 
 
 func draw_shape_outline(
-	overlay: Control, t: Transform2D, points: PackedVector2Array, color = null, width = 2.0
+	overlay: Control, t: Transform2D, points: PackedVector2Array, color: Color, width: float = 2.0
 ) -> void:
-	if color == null:
-		color = shape.modulate
 	if points.size() >= 2:
 		overlay.draw_polyline(t * points, Color.BLACK, width * 1.5, true)
 		overlay.draw_polyline(t * points, color, width, true)
@@ -996,11 +957,11 @@ func deselect_verts() -> void:
 	current_action = ActionDataVert.new([], [], [], [], [], ACTION_VERT.NONE)
 
 
-func select_verticies(keys: Array[int], action: ACTION_VERT) -> ActionDataVert:
+func select_verticies(keys: PackedInt32Array, action: ACTION_VERT) -> ActionDataVert:
 	var from_positions := PackedVector2Array()
 	var from_positions_c_in := PackedVector2Array()
 	var from_positions_c_out := PackedVector2Array()
-	var from_widths: Array[float] = []
+	var from_widths := PackedFloat32Array()
 	for key in keys:
 		from_positions.push_back(shape.get_point_position(key))
 		from_positions_c_in.push_back(shape.get_point_in(key))
@@ -1011,19 +972,19 @@ func select_verticies(keys: Array[int], action: ACTION_VERT) -> ActionDataVert:
 	)
 
 
-func select_vertices_to_move(keys: Array[int], _mouse_starting_pos_viewport: Vector2) -> void:
+func select_vertices_to_move(keys: PackedInt32Array, _mouse_starting_pos_viewport: Vector2) -> void:
 	_mouse_motion_delta_starting_pos = _mouse_starting_pos_viewport
 	current_action = select_verticies(keys, ACTION_VERT.MOVE_VERT)
 
 
 func select_control_points_to_move(
-	keys: Array[int], _mouse_starting_pos_viewport: Vector2, action = ACTION_VERT.MOVE_CONTROL
+	keys: PackedInt32Array, _mouse_starting_pos_viewport: Vector2, action: ACTION_VERT = ACTION_VERT.MOVE_CONTROL
 ) -> void:
 	current_action = select_verticies(keys, action)
 	_mouse_motion_delta_starting_pos = _mouse_starting_pos_viewport
 
 
-func select_width_handle_to_move(keys: Array[int], _mouse_starting_pos_viewport: Vector2) -> void:
+func select_width_handle_to_move(keys: PackedInt32Array, _mouse_starting_pos_viewport: Vector2) -> void:
 	_mouse_motion_delta_starting_pos = _mouse_starting_pos_viewport
 	current_action = select_verticies(keys, ACTION_VERT.MOVE_WIDTH_HANDLE)
 
@@ -1147,7 +1108,7 @@ func _input_handle_left_click(
 			elif Input.is_key_pressed(KEY_ALT):
 				# Add point between start and end points of the closest edge
 				idx = shape.get_point_index(closest_edge_keys[1])
-			var add_point := ActionAddPoint.new(shape, local_position, -1, not _defer_mesh_updates)
+			var add_point := ActionAddPoint.new(shape, local_position, idx, not _defer_mesh_updates)
 			perform_action(add_point)
 			if Input.is_key_pressed(KEY_SHIFT) and not Input.is_key_pressed(KEY_ALT):
 				select_control_points_to_move([add_point.get_key()], vp_m_pos)
@@ -1163,8 +1124,8 @@ func _input_handle_left_click(
 			var offset: float = shape.get_closest_offset_straight_edge(
 				t.affine_inverse() * edge_point
 			)
-			var edge_point_keys: Array[int] = _get_edge_point_keys_from_offset(offset, true)
-			select_vertices_to_move([edge_point_keys[0], edge_point_keys[1]], vp_m_pos)
+			var edge_point_keys := _get_edge_point_keys_from_offset(offset, true)
+			select_vertices_to_move([edge_point_keys.x, edge_point_keys.y], vp_m_pos)
 			if _defer_mesh_updates:
 				shape.begin_update()
 		return true
@@ -1172,8 +1133,8 @@ func _input_handle_left_click(
 		if not on_edge:
 			return true
 		var offset: float = shape.get_closest_offset_straight_edge(t.affine_inverse() * edge_point)
-		var edge_keys: Array[int] = _get_edge_point_keys_from_offset(offset, true)
-		perform_action(ActionCutEdge.new(shape, edge_keys[0], edge_keys[1]))
+		var edge_keys := _get_edge_point_keys_from_offset(offset, true)
+		perform_action(ActionCutEdge.new(shape, edge_keys.x, edge_keys.y))
 		on_edge = false
 		return true
 	elif current_mode == MODE.FREEHAND:
@@ -1360,10 +1321,10 @@ func _input_split_edge(mb: InputEventMouseButton, vp_m_pos: Vector2, t: Transfor
 
 
 func _input_move_control_points(mb: InputEventMouseButton, vp_m_pos: Vector2, grab_threshold: float) -> bool:
-	var points_in: Array[int] = FUNC.get_intersecting_control_point_in(
+	var points_in := SS2D_PluginFunctionality.get_intersecting_control_point_in(
 		shape, get_et(), mb.position, grab_threshold
 	)
-	var points_out: Array[int] = FUNC.get_intersecting_control_point_out(
+	var points_out := SS2D_PluginFunctionality.get_intersecting_control_point_out(
 		shape, get_et(), mb.position, grab_threshold
 	)
 	if not points_in.is_empty():
@@ -1377,7 +1338,7 @@ func _input_move_control_points(mb: InputEventMouseButton, vp_m_pos: Vector2, gr
 
 func _get_edge_point_keys_from_offset(
 	offset: float, straight: bool = false, _position := Vector2(0, 0)
-) -> Array[int]:
+) -> Vector2i:
 	for i in range(0, shape.get_point_count() - 1, 1):
 		var key: int = shape.get_point_key_at_index(i)
 		var key_next: int = shape.get_point_key_at_index(i + 1)
@@ -1391,11 +1352,11 @@ func _get_edge_point_keys_from_offset(
 			next_offset = shape.get_closest_offset(shape.get_point_position(key_next))
 
 		if offset >= this_offset and offset <= next_offset:
-			return [key, key_next]
+			return Vector2i(key, key_next)
 		# for when the shape is closed and the final point has an offset of 0
 		if next_offset == 0 and offset >= this_offset:
-			return [key, key_next]
-	return [-1, -1]
+			return Vector2i(key, key_next)
+	return Vector2i(-1, -1)
 
 
 func _input_motion_is_on_edge(mm: InputEventMouseMotion, grab_threshold: float) -> bool:
@@ -1620,7 +1581,7 @@ func _input_handle_mouse_motion_event(
 	return false
 
 
-func _get_vert_normal(t: Transform2D, verts, i: int) -> Vector2:
+func _get_vert_normal(t: Transform2D, verts: PackedVector2Array, i: int) -> Vector2:
 	var point: Vector2 = t * verts[i]
 	var prev_point: Vector2 = t * (verts[(i - 1) % verts.size()])
 	var next_point: Vector2 = t * (verts[(i + 1) % verts.size()])
@@ -1663,7 +1624,7 @@ func copy_shape(s: SS2D_Shape) -> SS2D_Shape:
 #########
 # DEBUG #
 #########
-func _debug_mouse_positions(mm, t):
+func _debug_mouse_positions(mm: InputEventMouseMotion, t: Transform2D) -> void:
 	print("========================================")
 	print("MouseDelta:%s" % str(_mouse_motion_delta_starting_pos))
 	print("= MousePositions =")
