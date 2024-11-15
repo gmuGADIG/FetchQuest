@@ -54,7 +54,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Sprite_Activated:visible")
+tracks/3/path = NodePath("MainSprite/Sprite_Activated:visible")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -131,7 +131,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Sprite_Activated:visible")
+tracks/3/path = NodePath("MainSprite/Sprite_Activated:visible")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -159,7 +159,7 @@ _data = {
 "RESET": SubResource("Animation_544fv")
 }
 
-[node name="ChargingEnemy" instance=ExtResource("1_nwicp")]
+[node name="ChargingEnemy" node_paths=PackedStringArray("enemy_sprite") instance=ExtResource("1_nwicp")]
 script = ExtResource("2_xj1sy")
 charging_damage = 2
 charging_speed = 500.0
@@ -167,6 +167,7 @@ charge_windup = 0.7
 charge_length = 1.5
 stun_length = 2.0
 is_winding_up = false
+enemy_sprite = NodePath("MainSprite")
 
 [node name="PlayerDetectionComponent" parent="." index="0"]
 detectable_distance = 500.0
@@ -174,34 +175,36 @@ detectable_distance = 500.0
 [node name="CollisionShape2D" parent="HittingArea" index="0"]
 shape = SubResource("CircleShape2D_d6nje")
 
-[node name="Sprite_Normal" type="Sprite2D" parent="." index="4"]
+[node name="MainSprite" type="Node2D" parent="." index="4"]
+
+[node name="Sprite_Normal" type="Sprite2D" parent="MainSprite" index="0"]
 position = Vector2(0, -16)
 scale = Vector2(0.96732, 0.955975)
 texture = ExtResource("2_jfd2o")
 
-[node name="Sprite_Activated" type="Sprite2D" parent="." index="5"]
+[node name="Sprite_Activated" type="Sprite2D" parent="MainSprite" index="1"]
 visible = false
 position = Vector2(0, -16)
 scale = Vector2(0.96732, 0.955975)
 texture = ExtResource("3_11tu6")
 
-[node name="Sprite_Stunned" type="Sprite2D" parent="." index="6"]
+[node name="Sprite_Stunned" type="Sprite2D" parent="MainSprite" index="2"]
 visible = false
 position = Vector2(0, -16)
 scale = Vector2(0.96732, 0.955975)
 texture = ExtResource("5_65d30")
 
-[node name="Exclamation" type="Sprite2D" parent="." index="7"]
+[node name="Exclamation" type="Sprite2D" parent="." index="5"]
 visible = false
 modulate = Color(0, 0, 0, 1)
 position = Vector2(0, -65)
 texture = ExtResource("3_sjuam")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="8"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="6"]
 shape = SubResource("CircleShape2D_30lte")
 metadata/_edit_lock_ = true
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="9"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="7"]
 libraries = {
 "": SubResource("AnimationLibrary_fmgbk")
 }

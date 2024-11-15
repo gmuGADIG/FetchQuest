@@ -3,7 +3,6 @@
 extends Node2D
 class_name SS2D_Shape
 
-
 ## Represents the base functionality for all smart shapes.
 
 # Functions consist of the following categories:[br]
@@ -15,8 +14,6 @@ class_name SS2D_Shape
 #
 # To use search to jump between categories, use the regex: # .+ #
 
-const TUP = preload("../lib/tuple.gd")
-
 ################
 #-DECLARATIONS-#
 ################
@@ -24,9 +21,6 @@ const TUP = preload("../lib/tuple.gd")
 var _dirty: bool = false
 var _edges: Array[SS2D_Edge] = []
 var _meshes: Array[SS2D_Mesh] = []
-var _curve: Curve2D
-# Used for calculating straight edges
-var _curve_no_control_points: Curve2D = Curve2D.new()
 var _collision_polygon_node: CollisionPolygon2D
 # Whether or not the plugin should allow editing this shape
 var can_edit: bool = true
@@ -36,6 +30,31 @@ signal on_dirty_update
 signal make_unique_pressed(shape: SS2D_Shape)
 
 enum ORIENTATION { COLINEAR, CLOCKWISE, C_CLOCKWISE }
+
+enum CollisionGenerationMethod {
+	## Uses the shape curve to generate a collision polygon. Usually this method is accurate enough.
+	## For open shapes, a precise method will be used instead, as the fast method is not suitable.
+	Fast,
+	## Uses the edge generation algorithm to create an accurate collision representation that
+	## exactly matches the shape's visuals.
+	## Depending on the shape's complexity, this method is very expensive.
+	Precise,
+}
+
+enum CollisionUpdateMode {
+	## Only update collisions in editor. If the corresponding CollisionPolygon2D is part of the same
+	## scene, it will be saved automatically by Godot, hence no additional regeneration at runtime
+	## is necessary, which reduces the loading times.
+	## Does not work if the CollisionPolygon2D is part of an instanced scene, as only the scene root
+	## node will be saved by Godot.
+	Editor,
+	## Only update collisions during runtime. Improves the shape-editing performance in editor but
+	## increases loading times as collision generation is deferred to runtime.
+	Runtime,
+	## Update collisions both in editor and during runtime. This is the default behavior in older
+	## SS2D versions.
+	EditorAndRuntime,
+}
 
 ###########
 #-EXPORTS-#
@@ -50,7 +69,10 @@ enum ORIENTATION { COLINEAR, CLOCKWISE, C_CLOCKWISE }
 ## Visualize generated quads and edges.
 @export var editor_debug: bool = false : set = _set_editor_debug
 
-@export_range (1, 512) var curve_bake_interval: float = 20.0 : set = set_curve_bake_interval
+## @deprecated
+@export_range(1, 512) var curve_bake_interval: float = 20.0 :
+	set(value): _points.curve_bake_interval = value
+	get: return _points.curve_bake_interval
 
 ## How to treat color data. See [enum SS2D_Edge.COLOR_ENCODING].
 @export var color_encoding: SS2D_Edge.COLOR_ENCODING = SS2D_Edge.COLOR_ENCODING.COLOR : set = set_color_encoding
@@ -78,23 +100,36 @@ enum ORIENTATION { COLINEAR, CLOCKWISE, C_CLOCKWISE }
 ## Contains textures and data on how to visualize the shape.
 @export var shape_material := SS2D_Material_Shape.new() : set = _set_material
 
-# Dictionary of (Array of 2 keys) to (SS2D_Material_Edge_Metadata)
-# Deprecated, exists for Support of older versions
+## Dictionary of (Array of 2 keys) to (SS2D_Material_Edge_Metadata)
+## Deprecated, exists for Support of older versions
+## @deprecated
 @export var material_overrides: Dictionary = {} : set = set_material_overrides
 
 @export_group("Tesselation")
 
 ## Controls how many subdivisions a curve segment may face before it is considered
 ## approximate enough.
+## @deprecated
 @export_range(0, 8, 1)
-var tessellation_stages: int = 5 : set = set_tessellation_stages
+var tessellation_stages: int = 3 :
+	set(value): _points.tessellation_stages = value
+	get: return _points.tessellation_stages
 
 ## Controls how many degrees the midpoint of a segment may deviate from the real
 ## curve, before the segment has to be subdivided.
-@export_range(0.1, 8.0, 0.1, "or_greater", "or_lesser")
-var tessellation_tolerence: float = 4.0 : set = set_tessellation_tolerence
+## @deprecated
+@export_range(0.1, 16.0, 0.1, "or_greater", "or_lesser")
+var tessellation_tolerence: float = 6.0 :
+	set(value): _points.tessellation_tolerance = value
+	get: return _points.tessellation_tolerance
 
 @export_group("Collision")
+
+## Controls which method should be used to generate the collision shape.
+@export var collision_generation_method := CollisionGenerationMethod.Fast : set = set_collision_generation_method
+
+## Controls when to update collisions.
+@export var collision_update_mode := CollisionUpdateMode.Editor : set = set_collision_update_mode
 
 ## Controls size of generated polygon for CollisionPolygon2D.
 @export_range(0.0, 64.0, 1.0, "or_greater")
@@ -138,17 +173,16 @@ func get_point_array() -> SS2D_Point_Array:
 
 func set_point_array(a: SS2D_Point_Array) -> void:
 	if _points != null:
-		if _points.is_connected("changed", self._points_modified):
-			_points.disconnect("changed", self._points_modified)
-		if _points.is_connected("material_override_changed", self._handle_material_override_change):
-			_points.disconnect("material_override_changed", self._handle_material_override_change)
+		if _points.is_connected("update_finished", self._points_modified):
+			_points.disconnect("update_finished", self._points_modified)
+		if _points.material_override_changed.is_connected(_handle_material_override_change):
+			_points.material_override_changed.disconnect(_handle_material_override_change)
 	if a == null:
 		a = SS2D_Point_Array.new()
 	_points = a
-	_points.connect("changed", self._points_modified)
-	_points.connect("material_override_changed", self._handle_material_override_change)
+	_points.connect("update_finished", self._points_modified)
+	_points.material_override_changed.connect(_handle_material_override_change)
 	clear_cached_data()
-	_update_curve(_points)
 	set_as_dirty()
 	notify_property_list_changed()
 
@@ -175,6 +209,16 @@ func set_render_edges(b: bool) -> void:
 	notify_property_list_changed()
 
 
+func set_collision_generation_method(value: CollisionGenerationMethod) -> void:
+	collision_generation_method = value
+	set_as_dirty()
+
+
+func set_collision_update_mode(value: CollisionUpdateMode) -> void:
+	collision_update_mode = value
+	set_as_dirty()
+
+
 func set_collision_size(s: float) -> void:
 	collision_size = s
 	set_as_dirty()
@@ -187,24 +231,21 @@ func set_collision_offset(s: float) -> void:
 	notify_property_list_changed()
 
 
-func _update_curve_no_control() -> void:
-	_curve_no_control_points.clear_points()
-	for i in range(0, _curve.get_point_count(), 1):
-		_curve_no_control_points.add_point(_curve.get_point_position(i))
-
-
 # FIXME: Only used by unit test.
-func set_curve(value: Curve2D) -> void:
-	_curve = value
+func set_curve(curve: Curve2D) -> void:
+	_points.begin_update()
 	_points.clear()
-	for i in range(0, _curve.get_point_count(), 1):
-		_points.add_point(_curve.get_point_position(i))
-	_points_modified()
-	notify_property_list_changed()
+
+	for i in curve.get_point_count():
+		_points.add_point(curve.get_point_position(i))
+
+	_points.end_update()
 
 
+## Deprecated. Use get_point_array().get_curve() instead.
+## @deprecated
 func get_curve() -> Curve2D:
-	return _curve.duplicate()
+	return _points.get_curve()
 
 
 func _set_editor_debug(value: bool) -> void:
@@ -216,7 +257,7 @@ func _set_editor_debug(value: bool) -> void:
 func set_render_node_light_masks(value: int) -> void:
 	# TODO: This method should be called when user changes mask in the inspector.
 	var render_parent: SS2D_Shape_Render = _get_rendering_nodes_parent()
-	for c in render_parent.get_children():
+	for c: CanvasItem in render_parent.get_children():
 		c.light_mask = value
 	render_parent.light_mask = value
 
@@ -252,22 +293,22 @@ func update_render_nodes() -> void:
 	set_render_node_light_masks(light_mask)
 
 
+## Deprecated. Use get_point_array().tessellation_stages instead.
+## @deprecated
 func set_tessellation_stages(value: int) -> void:
-	tessellation_stages = value
-	set_as_dirty()
-	notify_property_list_changed()
+	_points.tessellation_stages = value
 
 
+## Deprecated. Use get_point_array().tessellation_tolerance instead.
+## @deprecated
 func set_tessellation_tolerence(value: float) -> void:
-	tessellation_tolerence = value
-	set_as_dirty()
-	notify_property_list_changed()
+	_points.tessellation_tolerance = value
 
 
+## Deprecated. Use get_point_array().curve_bake_interval instead.
+## @deprecated
 func set_curve_bake_interval(f: float) -> void:
-	curve_bake_interval = f
-	_curve.bake_interval = f
-	notify_property_list_changed()
+	_points.curve_bake_interval = f
 
 
 func set_color_encoding(i: SS2D_Edge.COLOR_ENCODING) -> void:
@@ -301,46 +342,26 @@ func set_material_overrides(dict: Dictionary) -> void:
 #-CURVE-#
 #########
 
-
-func _update_curve(p_array: SS2D_Point_Array) -> void:
-	_curve.clear_points()
-	for p_key in p_array.get_all_point_keys():
-		var pos: Vector2 = p_array.get_point_position(p_key)
-		var _in: Vector2 = p_array.get_point_in(p_key)
-		var out: Vector2 = p_array.get_point_out(p_key)
-		_curve.add_point(pos, _in, out)
-	_update_curve_no_control()
-
-
+## Deprecated. Use get_point_array().get_vertices() instead.
+## @deprecated
 func get_vertices() -> PackedVector2Array:
-	var positions: PackedVector2Array = []
-	for p_key in _points.get_all_point_keys():
-		positions.push_back(_points.get_point_position(p_key))
-	return positions
+	return _points.get_vertices()
 
 
+## Deprecated. Use get_point_array().get_tessellated_points() instead.
+## @deprecated
 func get_tessellated_points() -> PackedVector2Array:
-	# Force update curve if point array is dirty.
-	if _points.is_updating():
-		_update_curve(_points)
-	if _curve.get_point_count() < 2:
-		return PackedVector2Array()
-	# Point 0 will be the same on both the curve points and the vertecies
-	# Point size - 1 will be the same on both the curve points and the vertecies
-	# TODO cache this result
-	var points: PackedVector2Array = _curve.tessellate(tessellation_stages, tessellation_tolerence)
-	points[0] = _curve.get_point_position(0)
-	points[points.size() - 1] = _curve.get_point_position(_curve.get_point_count() - 1)
-	return points
+	return _points.get_tessellated_points()
 
 
-## Reverse order of points in point array.[br]
-## I.e. [1, 2, 3, 4] will become [4, 3, 2, 1].[br]
+## Deprecated. Use get_point_array().invert_point_order() instead.
+## @deprecated
 func invert_point_order() -> void:
 	_points.invert_point_order()
 
 
-## Remove all points from point array.
+## Deprecated. Use get_point_array().clear() instead.
+## @deprecated
 func clear_points() -> void:
 	_points.clear()
 
@@ -356,9 +377,9 @@ func adjust_add_point_index(index: int) -> int:
 
 
 # FIXME: Only unit tests use this.
-func add_points(verts: PackedVector2Array, starting_index: int = -1, key: int = -1) -> Array[int]:
+func add_points(verts: PackedVector2Array, starting_index: int = -1, key: int = -1) -> PackedInt32Array:
 	starting_index = adjust_add_point_index(starting_index)
-	var keys: Array[int] = []
+	var keys := PackedInt32Array()
 	_points.begin_update()
 	for i in range(0, verts.size(), 1):
 		var v: Vector2 = verts[i]
@@ -367,12 +388,11 @@ func add_points(verts: PackedVector2Array, starting_index: int = -1, key: int = 
 		else:
 			keys.push_back(_points.add_point(v, starting_index, key))
 	_points.end_update()
-	_points_modified()
 	return keys
 
 
-## Add a point.[br]
-## Returns key of the added point.[br]
+## Deprecated. Use get_point_array().add_point() instead.
+## @deprecated
 func add_point(pos: Vector2, index: int = -1, key: int = -1) -> int:
 	return _points.add_point(pos, adjust_add_point_index(index), key)
 
@@ -435,63 +455,70 @@ func _has_closing_point() -> bool:
 		return false
 	var key1: int = _points.get_point_key_at_index(0)
 	var key2: int = _points.get_point_key_at_index(_points.get_point_count() - 1)
-	return get_point_constraint(key1, key2) == SS2D_Point_Array.CONSTRAINT.ALL
+	return _points.get_point_constraint(key1, key2) == SS2D_Point_Array.CONSTRAINT.ALL
 
 
-## Begin updating the shape.[br]
-## Shape mesh and curve will only be updated after [method end_update] is called.
+## Deprecated. Use get_point_array().begin_update() instead.
+## @deprecated
 func begin_update() -> void:
 	_points.begin_update()
 
 
-## End updating the shape.[br]
-## Mesh and curve will be updated, if changes were made to points array after
-## [method begin_update] was called.
+## Deprecated. Use get_point_array().end_update() instead.
+## @deprecated
 func end_update() -> void:
 	_points.end_update()
 
 
-## Is shape in the middle of being updated.
-## Returns [code]true[/code] after [method begin_update] and before [method end_update].
+## Deprecated. Use get_point_array().is_updating() instead.
+## @deprecated
 func is_updating() -> bool:
 	return _points.is_updating()
 
 
-## Gets next key that would be generated.[br]
-## E.g. when [method add_point] is called.[br]
+## Deprecated. Use get_point_array().get_next_key() instead.
+## @deprecated
 func get_next_key() -> int:
 	return _points.get_next_key()
 
 
-## Reserve a key. It will not be generated again.
+## Deprecated. Use get_point_array().reserve_key() instead.
+## @deprecated
 func reserve_key() -> int:
 	return _points.reserve_key()
 
 
 func _points_modified() -> void:
-	_update_curve(_points)
 	set_as_dirty()
-	emit_signal("points_modified")
+	points_modified.emit()
 
 
-func _is_array_index_in_range(a, i: int) -> bool:
+func _is_array_index_in_range(a: Array, i: int) -> bool:
 	return a.size() > i and i >= 0;
 
 
+## Deprecated. Use respective function in get_point_array() instead.
+## @deprecated
 func is_index_in_range(idx: int) -> bool:
 	return _points.is_index_in_range(idx)
 
 
+## Deprecated. Use respective function in get_point_array() instead.
+## @deprecated
 func set_point_position(key: int, pos: Vector2) -> void:
 	_points.set_point_position(key, pos)
 
 
+## Deprecated. Use respective function in get_point_array() instead.
+## @deprecated
 func remove_point(key: int) -> void:
 	_points.remove_point(key)
 
 
+## Deprecated. Use respective function in get_point_array() instead.
+## @deprecated
 func remove_point_at_index(idx: int) -> void:
-	remove_point(get_point_key_at_index(idx))
+	_points.remove_point_at_index(idx)
 
 
 func clone(clone_point_array: bool = true) -> SS2D_Shape:
@@ -504,9 +531,6 @@ func clone(clone_point_array: bool = true) -> SS2D_Shape:
 	copy.editor_debug = editor_debug
 	copy.collision_size = collision_size
 	copy.collision_offset = collision_offset
-	copy.tessellation_stages = tessellation_stages
-	copy.tessellation_tolerence = tessellation_tolerence
-	copy.curve_bake_interval = curve_bake_interval
 	#copy.material_overrides = s.material_overrides
 	copy.name = get_name().rstrip("0123456789")
 	if clone_point_array:
@@ -518,73 +542,90 @@ func clone(clone_point_array: bool = true) -> SS2D_Shape:
 #-POINT ARRAY WRAPPER-#
 #######################
 
-
+## Deprecated. Use respective function in get_point_array() instead.
+## @deprecated
 func has_point(key: int) -> bool:
 	return _points.has_point(key)
 
 
-func get_all_point_keys() -> Array[int]:
+## Deprecated. Use respective function in get_point_array() instead.
+## @deprecated
+func get_all_point_keys() -> PackedInt32Array:
 	return _points.get_all_point_keys()
 
 
+## Deprecated. Use respective function in get_point_array() instead.
+## @deprecated
 func get_point_key_at_index(idx: int) -> int:
 	return _points.get_point_key_at_index(idx)
 
 
+## Deprecated. Use respective function in get_point_array() instead.
+## @deprecated
 func get_point_at_index(idx: int) -> SS2D_Point:
 	return _points.get_point_at_index(idx)
 
 
+## Deprecated. Use respective function in get_point_array() instead.
+## @deprecated
 func get_point_index(key: int) -> int:
 	return _points.get_point_index(key)
 
 
-## point_in controls the edge leading from the previous vertex to this one
+## Deprecated. Use respective function in get_point_array() instead.
+## @deprecated
 func set_point_in(key: int, v: Vector2) -> void:
 	_points.set_point_in(key, v)
 
 
-## point_out controls the edge leading from this vertex to the next
+## Deprecated. Use respective function in get_point_array() instead.
+## @deprecated
 func set_point_out(key: int, v: Vector2) -> void:
 	_points.set_point_out(key, v)
 
 
+## Deprecated. Use respective function in get_point_array() instead.
+## @deprecated
 func get_point_in(key: int) -> Vector2:
 	return _points.get_point_in(key)
 
 
+## Deprecated. Use respective function in get_point_array() instead.
+## @deprecated
 func get_point_out(key: int) -> Vector2:
 	return _points.get_point_out(key)
 
 
 func get_closest_point(to_point: Vector2) -> Vector2:
-	assert(_curve != null)
-	return _curve.get_closest_point(to_point)
+	return _points.get_curve().get_closest_point(to_point)
 
 
 func get_closest_point_straight_edge(to_point: Vector2) -> Vector2:
-	assert(_curve != null)
-	return _curve_no_control_points.get_closest_point(to_point)
+	return _points.get_curve_no_control_points().get_closest_point(to_point)
 
 
 func get_closest_offset_straight_edge(to_point: Vector2) -> float:
-	assert(_curve != null)
-	return _curve_no_control_points.get_closest_offset(to_point)
+	return _points.get_curve_no_control_points().get_closest_offset(to_point)
 
 
 func get_closest_offset(to_point: Vector2) -> float:
-	assert(_curve != null)
-	return _curve.get_closest_offset(to_point)
+	return _points.get_curve().get_closest_offset(to_point)
 
 
+## Deprecated. Use respective function in get_point_array() instead.
+## @deprecated
 func disable_constraints() -> void:
 	_points.disable_constraints()
 
 
+## Deprecated. Use respective function in get_point_array() instead.
+## @deprecated
 func enable_constraints() -> void:
 	_points.enable_constraints()
 
 
+## Deprecated. Use respective function in get_point_array() instead.
+## @deprecated
 func get_point_count() -> int:
 	return _points.get_point_count()
 
@@ -593,65 +634,86 @@ func get_edges() -> Array[SS2D_Edge]:
 	return _edges
 
 
+## Deprecated. Use respective function in get_point_array() instead.
+## @deprecated
 func get_point_position(key: int) -> Vector2:
 	return _points.get_point_position(key)
 
 
+## Deprecated. Use respective function in get_point_array() instead.
+## @deprecated
 func get_point(key: int) -> SS2D_Point:
 	return _points.get_point(key)
 
 
+## Deprecated. Use respective function in get_point_array() instead.
+## @deprecated
 func get_point_constraints(key: int) -> Dictionary:
 	return _points.get_point_constraints(key)
 
 
+## Deprecated. Use respective function in get_point_array() instead.
+## @deprecated
 func get_point_constraint(key1: int, key2: int) -> SS2D_Point_Array.CONSTRAINT:
 	return _points.get_point_constraint(key1, key2)
 
 
+## Deprecated. Use respective function in get_point_array() instead.
+## @deprecated
 func set_constraint(key1: int, key2: int, c: SS2D_Point_Array.CONSTRAINT) -> void:
 	_points.set_constraint(key1, key2, c)
 
 
+## Deprecated. Use respective function in get_point_array() instead.
+## @deprecated
 func set_point(key: int, value: SS2D_Point) -> void:
 	_points.set_point(key, value)
 
 
+## Deprecated. Use respective property in get_point_array().get_point_properties() instead.
+## @deprecated
 func set_point_width(key: int, w: float) -> void:
-	var props: SS2D_VertexProperties = _points.get_point_properties(key)
-	props.width = w
-	_points.set_point_properties(key, props)
+	_points.get_point_properties(key).width = w
 
 
+## Deprecated. Use respective property in get_point_array().get_point_properties() instead.
+## @deprecated
 func get_point_width(key: int) -> float:
 	return _points.get_point_properties(key).width
 
 
+## Deprecated. Use respective property in get_point_array().get_point_properties() instead.
+## @deprecated
 func set_point_texture_index(key: int, tex_idx: int) -> void:
-	var props: SS2D_VertexProperties = _points.get_point_properties(key)
-	props.texture_idx = tex_idx
-	_points.set_point_properties(key, props)
+	_points.get_point_properties(key).texture_idx = tex_idx
 
 
+## Deprecated. Use respective property in get_point_array().get_point_properties() instead.
+## @deprecated
 func get_point_texture_index(key: int) -> int:
 	return _points.get_point_properties(key).texture_idx
 
 
+## Deprecated. Use respective property in get_point_array().get_point_properties() instead.
+## @deprecated
 func set_point_texture_flip(key: int, flip: bool) -> void:
-	var props: SS2D_VertexProperties = _points.get_point_properties(key)
-	if props.flip != flip:
-		props.flip = flip
-		_points.set_point_properties(key, props)
+	_points.get_point_properties(key).flip = flip
 
 
+## Deprecated. Use respective property in get_point_array().get_point_properties() instead.
+## @deprecated
 func get_point_texture_flip(key: int) -> bool:
 	return _points.get_point_properties(key).flip
 
 
+## Deprecated. Use respective function in get_point_array() instead.
+## @deprecated
 func get_point_properties(key: int) -> SS2D_VertexProperties:
 	return _points.get_point_properties(key)
 
 
+## Deprecated. Use respective function in get_point_array() instead.
+## @deprecated
 func set_point_properties(key: int, properties: SS2D_VertexProperties) -> void:
 	_points.set_point_properties(key, properties)
 
@@ -661,7 +723,6 @@ func set_point_properties(key: int, properties: SS2D_VertexProperties) -> void:
 #########
 
 func _init() -> void:
-	_curve = Curve2D.new()
 	set_point_array(SS2D_Point_Array.new())
 
 
@@ -747,7 +808,7 @@ func _draw() -> void:
 		render_node.set_mesh(m)
 
 	if editor_debug and Engine.is_editor_hint():
-		_draw_debug(sort_by_z_index(_edges))
+		_draw_debug(SS2D_Shape.sort_by_z_index(_edges))
 
 
 func _draw_debug(edges: Array[SS2D_Edge]) -> void:
@@ -756,19 +817,19 @@ func _draw_debug(edges: Array[SS2D_Edge]) -> void:
 			q.render_lines(self)
 
 		var _range := range(0, e.quads.size(), 1)
-		for i in _range:
+		for i: int in _range:
 			var q := e.quads[i]
 			if not (i % 3 == 0):
 				continue
 			q.render_points(3, 0.5, self)
 
-		for i in _range:
-			var q = e.quads[i]
+		for i: int in _range:
+			var q := e.quads[i]
 			if not ((i + 1) % 3 == 0):
 				continue
 			q.render_points(2, 0.75, self)
 
-		for i in _range:
+		for i: int in _range:
 			var q := e.quads[i]
 			if not ((i + 2) % 3 == 0):
 				continue
@@ -793,23 +854,22 @@ func should_flip_edges() -> bool:
 		return flip_edges
 
 
-func generate_collision_points() -> PackedVector2Array:
+func _generate_collision_points_precise() -> PackedVector2Array:
 	var points := PackedVector2Array()
 	var num_points: int = _points.get_point_count()
 	if num_points < 2:
 		return points
 
 	var csize: float = 1.0 if is_shape_closed() else collision_size
-	var indicies: Array[int] = []
-	indicies.assign(range(num_points))  # assign() also type casts the array
-	var edge_data := SS2D_IndexMap.new(indicies, null)
+	var indices := PackedInt32Array(range(num_points))
+	var edge_data := SS2D_IndexMap.new(indices, null)
 	var edge: SS2D_Edge = _build_edge_with_material(edge_data, collision_offset - 1.0, csize)
 	_weld_quad_array(edge.quads, false)
 
 	if is_shape_closed():
 		var first_quad: SS2D_Quad = edge.quads[0]
 		var last_quad: SS2D_Quad = edge.quads.back()
-		weld_quads(last_quad, first_quad)
+		SS2D_Shape.weld_quads(last_quad, first_quad)
 
 	if not edge.quads.is_empty():
 		# Top edge (typically point A unless corner quad)
@@ -840,23 +900,39 @@ func generate_collision_points() -> PackedVector2Array:
 	return points
 
 
+func _generate_collision_points_fast() -> PackedVector2Array:
+	return _points.get_tessellated_points()
+
+
 func bake_collision() -> void:
 	if not _collision_polygon_node:
 		return
-	var xform := _collision_polygon_node.get_global_transform().inverse() * get_global_transform()
-	_collision_polygon_node.polygon = xform * generate_collision_points()
+
+	if collision_update_mode == CollisionUpdateMode.Editor and not Engine.is_editor_hint() \
+			or collision_update_mode == CollisionUpdateMode.Runtime and Engine.is_editor_hint():
+		return
+
+	var generated_points: PackedVector2Array
+
+	if collision_generation_method == CollisionGenerationMethod.Fast and is_shape_closed():
+		generated_points = _generate_collision_points_fast()
+	else:
+		generated_points = _generate_collision_points_precise()
+
+	var xform := _collision_polygon_node.get_global_transform().affine_inverse() * get_global_transform()
+	_collision_polygon_node.polygon = xform * generated_points
 
 
 func cache_edges() -> void:
 	if shape_material != null and render_edges:
-		_edges = _build_edges(shape_material, get_vertices())
+		_edges = _build_edges(shape_material, _points.get_vertices())
 	else:
 		_edges = []
 
 
 func cache_meshes() -> void:
 	if shape_material != null:
-		_meshes = _build_meshes(sort_by_z_index(_edges))
+		_meshes = _build_meshes(SS2D_Shape.sort_by_z_index(_edges))
 
 
 func _build_meshes(edges: Array[SS2D_Edge]) -> Array[SS2D_Mesh]:
@@ -869,7 +945,7 @@ func _build_meshes(edges: Array[SS2D_Edge]) -> Array[SS2D_Mesh]:
 		if not produced_fill_mesh and is_shape_closed():
 			if e.z_index > shape_material.fill_texture_z_index:
 				# Produce Fill Meshes
-				for m in _build_fill_mesh(get_tessellated_points(), shape_material):
+				for m in _build_fill_mesh(_points.get_tessellated_points(), shape_material):
 					meshes.push_back(m)
 				produced_fill_mesh = true
 
@@ -877,7 +953,7 @@ func _build_meshes(edges: Array[SS2D_Edge]) -> Array[SS2D_Mesh]:
 		for m in e.get_meshes(color_encoding):
 			meshes.push_back(m)
 	if not produced_fill_mesh and is_shape_closed():
-		for m in _build_fill_mesh(get_tessellated_points(), shape_material):
+		for m in _build_fill_mesh(_points.get_tessellated_points(), shape_material):
 			meshes.push_back(m)
 		produced_fill_mesh = true
 	return meshes
@@ -947,8 +1023,8 @@ func _build_fill_mesh(points: PackedVector2Array, s_mat: SS2D_Material_Shape) ->
 
 
 func _get_uv_points(
-	points: PackedVector2Array, 
-	s_material: SS2D_Material_Shape, 
+	points: PackedVector2Array,
+	s_material: SS2D_Material_Shape,
 	tex_size: Vector2
 ) -> PackedVector2Array:
 	var transformation: Transform2D = global_transform
@@ -962,7 +1038,7 @@ func _get_uv_points(
 	transformation = transformation.scaled(Vector2(tex_scale, tex_scale))
 
 	# If relative rotation ... undo rotation from global_transform
-	if not s_material.fill_texture_absolute_rotation: 
+	if not s_material.fill_texture_absolute_rotation:
 		transformation = transformation.rotated(-global_rotation)
 
 	# Rotate the desired extra amount
@@ -970,10 +1046,10 @@ func _get_uv_points(
 
 	# Shift the desired amount (adjusted so it's scale independent)
 	transformation = transformation.translated(-s_material.fill_texture_offset / s_material.fill_texture_scale)
-	
+
 	# Convert local space to UV
 	transformation = transformation.scaled(Vector2(1 / tex_size.x, 1 / tex_size.y))
-	
+
 	return transformation * points
 
 
@@ -1010,8 +1086,8 @@ static func get_points_orientation(points: PackedVector2Array) -> ORIENTATION:
 
 
 func are_points_clockwise() -> bool:
-	var points: PackedVector2Array = get_tessellated_points()
-	var orient: ORIENTATION = get_points_orientation(points)
+	var points: PackedVector2Array = _points.get_tessellated_points()
+	var orient: ORIENTATION = SS2D_Shape.get_points_orientation(points)
 	return orient == ORIENTATION.CLOCKWISE
 
 
@@ -1077,11 +1153,11 @@ static func build_quad_from_two_points(
 	return quad
 
 
-# Will build a corner quad
-# pt is the center of this corner quad
-# width will scale the quad in line with the next point (one dimension)
-# prev_width will scale the quad in line with the prev point (hte other dimension)
-# custom_scale will scale the quad in both dimensions
+## Builds a corner quad. [br]
+## - [param pt] is the center of this corner quad. [br]
+## - [param width] will scale the quad in line with the next point (one dimension). [br]
+## - [param prev_width] will scale the quad in line with the prev point (hte other dimension). [br]
+## - [param custom_scale] will scale the quad in both dimensions. [br]
 static func build_quad_corner(
 	pt_next: Vector2,
 	pt: Vector2,
@@ -1097,28 +1173,39 @@ static func build_quad_corner(
 ) -> SS2D_Quad:
 	var new_quad := SS2D_Quad.new()
 
-	var quad_size: Vector2 = size / 2.0
-	var delta_12: Vector2 = pt - pt_prev
-	var delta_23: Vector2 = pt_next - pt
-	var normal_23 := Vector2(delta_23.y, -delta_23.x).normalized()
-	var normal_12 := Vector2(delta_12.y, -delta_12.x).normalized()
+	#             :BUILD PLAN:
+	#   OUTER CORNER        INNER CORNER
+	#
+	#   0------A-----D             0-----0
+	#   |  1   :  2  |             |  3  :
+	#   0......B.....C             |     :
+	#          :     |     0-------D-----A
+	#          :  3  |     |  1    |  2  :
+	#          0-----0     0.......C.....B
+	#
+	#  1-previous, 2-current, 3-next (points)
 
-	var offset_12: Vector2 = normal_12 * custom_scale * pt_prev_width * quad_size
-	var offset_23: Vector2 = normal_23 * custom_scale * pt_width * quad_size
-	var custom_offset_13: Vector2 = (normal_12 + normal_23) * custom_offset * quad_size
+	var quad_size: Vector2 = size * 0.5
+	var dir_12: Vector2 = (pt - pt_prev).normalized()
+	var dir_23: Vector2 = (pt_next - pt).normalized()
+	var offset_12: Vector2 = dir_12 * custom_scale * pt_width * quad_size
+	var offset_23: Vector2 = dir_23 * custom_scale * pt_prev_width * quad_size
+	var custom_offset_13: Vector2 = (dir_12 - dir_23) * custom_offset * quad_size
+
 	if flip_edges_:
 		offset_12 *= -1
 		offset_23 *= -1
 		custom_offset_13 *= -1
 
-	var pt_d := pt + (offset_23) + (offset_12) + custom_offset_13
-	var pt_a := pt - (offset_23) + (offset_12) + custom_offset_13
-	var pt_c := pt + (offset_23) - (offset_12) + custom_offset_13
-	var pt_b := pt - (offset_23) - (offset_12) + custom_offset_13
-	new_quad.pt_a = pt_a
-	new_quad.pt_b = pt_b
-	new_quad.pt_c = pt_c
-	new_quad.pt_d = pt_d
+	# Should we mirror internal ABCD vertices relative to quad center.
+	# - Historically, quad internal vertices are flipped for inner corner quads (see illustration).
+	# - Value: 1.0 for outer, -1.0 for inner (mirrored).
+	var mirror: float = -1.0 if corner_status == SS2D_Quad.CORNER.INNER else 1.0
+
+	new_quad.pt_a = pt + (-offset_12 - offset_23 + custom_offset_13) * mirror
+	new_quad.pt_b = pt + (-offset_12 + offset_23 + custom_offset_13) * mirror
+	new_quad.pt_c = pt + (offset_12 + offset_23 + custom_offset_13) * mirror
+	new_quad.pt_d = pt + (offset_12 - offset_23 + custom_offset_13) * mirror
 
 	new_quad.corner = corner_status
 	new_quad.texture = texture
@@ -1126,12 +1213,15 @@ static func build_quad_corner(
 	return new_quad
 
 
-func _get_width_for_tessellated_point(points: PackedVector2Array, t_points: PackedVector2Array, t_idx) -> float:
-	var v_idx: int = get_vertex_idx_from_tessellated_point(points, t_points, t_idx)
-	var v_idx_next: int = _get_next_point_index(v_idx, points)
+func _get_width_for_tessellated_point(
+	points: PackedVector2Array,
+	t_idx: int
+) -> float:
+	var v_idx := _points.get_tesselation_vertex_mapping().tess_to_vertex_index(t_idx)
+	var v_idx_next := SS2D_PluginFunctionality.get_next_point_index(v_idx, points)
 	var w1: float = _points.get_point_properties(_points.get_point_key_at_index(v_idx)).width
 	var w2: float = _points.get_point_properties(_points.get_point_key_at_index(v_idx_next)).width
-	var ratio: float = get_ratio_from_tessellated_point_to_vertex(points, t_points, t_idx)
+	var ratio: float = get_ratio_from_tessellated_point_to_vertex(t_idx)
 	return lerp(w1, w2, ratio)
 
 
@@ -1192,7 +1282,8 @@ func _weld_quad_array(
 	for index in range(start_idx, quads.size() - 1, 1):
 		var this_quad: SS2D_Quad = quads[index]
 		var next_quad: SS2D_Quad = quads[index + 1]
-		SS2D_Shape.weld_quads(this_quad, next_quad)
+		if not this_quad.ignore_weld_next:
+			SS2D_Shape.weld_quads(this_quad, next_quad)
 		# If this quad self_intersects after welding, it's likely very small and can be removed
 		# Usually happens when welding a very large and very small quad together
 		# Generally looks better when simply being removed
@@ -1209,7 +1300,8 @@ func _weld_quad_array(
 				return
 
 	if weld_first_and_last:
-		weld_quads(quads[-1], quads[0])
+		if not quads[-1].ignore_weld_next:
+			SS2D_Shape.weld_quads(quads[-1], quads[0])
 
 
 func _merge_index_maps(imaps: Array[SS2D_IndexMap], verts: PackedVector2Array) -> Array[SS2D_IndexMap]:
@@ -1221,10 +1313,10 @@ func _merge_index_maps(imaps: Array[SS2D_IndexMap], verts: PackedVector2Array) -
 	var edges_by_material: Dictionary = SS2D_IndexMap.index_map_array_sort_by_object(final_edges)
 	# Erase any with null material
 	edges_by_material.erase(null)
-	for mat in edges_by_material:
+	for mat: Variant in edges_by_material:
 		var edge_first_idx: SS2D_IndexMap = null
 		var edge_last_idx: SS2D_IndexMap = null
-		for e in edges_by_material[mat]:
+		for e: SS2D_IndexMap in edges_by_material[mat]:
 			if e.indicies.has(0):
 				edge_first_idx = e
 			if e.indicies.has(verts.size()-1):
@@ -1237,9 +1329,7 @@ func _merge_index_maps(imaps: Array[SS2D_IndexMap], verts: PackedVector2Array) -
 			else:
 				final_edges.erase(edge_last_idx)
 				final_edges.erase(edge_first_idx)
-				var indicies: Array[int] = []
-				indicies.append_array(edge_last_idx.indicies)
-				indicies.append_array(edge_first_idx.indicies)
+				var indicies := edge_last_idx.indicies + edge_first_idx.indicies
 				var merged_edge := SS2D_IndexMap.new(indicies, mat)
 				final_edges.push_back(merged_edge)
 	return final_edges
@@ -1251,7 +1341,7 @@ func _build_edges(s_mat: SS2D_Material_Shape, verts: PackedVector2Array) -> Arra
 		return edges
 
 	var index_maps: Array[SS2D_IndexMap] = _get_meta_material_index_mapping(s_mat, verts)
-	var overrides: Array[SS2D_IndexMap] = get_meta_material_index_mapping_for_overrides(s_mat, _points)
+	var overrides: Array[SS2D_IndexMap] = SS2D_Shape.get_meta_material_index_mapping_for_overrides(s_mat, _points)
 
 	# Remove the override indicies from the default index_maps
 	for override in overrides:
@@ -1259,9 +1349,9 @@ func _build_edges(s_mat: SS2D_Material_Shape, verts: PackedVector2Array) -> Arra
 		for index_map in index_maps:
 			var new_imaps: Array[SS2D_IndexMap] = index_map.remove_edges(override.indicies)
 			old_to_new_imaps[index_map] = new_imaps
-		for k in old_to_new_imaps:
+		for k: SS2D_IndexMap in old_to_new_imaps:
 			index_maps.erase(k)
-			for new_imap in old_to_new_imaps[k]:
+			for new_imap: SS2D_IndexMap in old_to_new_imaps[k]:
 				index_maps.push_back(new_imap)
 
 	# Merge index maps
@@ -1293,12 +1383,10 @@ static func get_meta_material_index_mapping_for_overrides(
 	_s_material: SS2D_Material_Shape, pa: SS2D_Point_Array
 ) -> Array[SS2D_IndexMap]:
 	var mappings: Array[SS2D_IndexMap] = []
-	var overrides: Dictionary = pa.get_material_overrides()
-	for key_tuple in overrides:
-		var indicies: Array[int] = [pa.get_point_index(key_tuple[0]), pa.get_point_index(key_tuple[1])]
-		indicies = sort_by_int_ascending(indicies)
+	for key_tuple in pa.get_material_overrides():
+		var indices := SS2D_IndexTuple.sort_ascending(Vector2i(pa.get_point_index(key_tuple.x), pa.get_point_index(key_tuple.y)))
 		var m: SS2D_Material_Edge_Metadata = pa.get_material_override(key_tuple)
-		var new_mapping := SS2D_IndexMap.new(indicies, m)
+		var new_mapping := SS2D_IndexMap.new(PackedInt32Array([ indices.x, indices.y ]), m)
 		mappings.push_back(new_mapping)
 
 	return mappings
@@ -1310,16 +1398,16 @@ static func get_meta_material_index_mapping_for_overrides(
 func _get_meta_material_index_mapping(
 	s_material: SS2D_Material_Shape, verts: PackedVector2Array
 ) -> Array[SS2D_IndexMap]:
-	return get_meta_material_index_mapping(s_material, verts, is_shape_closed())
+	return SS2D_Shape.get_meta_material_index_mapping(s_material, verts, is_shape_closed())
 
 
 static func get_meta_material_index_mapping(
 	s_material: SS2D_Material_Shape, verts: PackedVector2Array, wrap_around: bool
 ) -> Array[SS2D_IndexMap]:
 	var final_edges: Array[SS2D_IndexMap] = []
-	var edge_building: Dictionary = {}
+	var edge_building: Dictionary = {}  # Dict[SS2D_Material_Edge_Metadata, SS2D_IndexMap]
 	for idx in range(0, verts.size() - 1, 1):
-		var idx_next: int = _get_next_point_index(idx, verts, wrap_around)
+		var idx_next: int = SS2D_PluginFunctionality.get_next_point_index(idx, verts, wrap_around)
 		var pt: Vector2 = verts[idx]
 		var pt_next: Vector2 = verts[idx_next]
 		var delta: Vector2 = pt_next - pt
@@ -1330,22 +1418,24 @@ static func get_meta_material_index_mapping(
 
 		# Append to existing edges being built. Add new ones if needed
 		for e in edge_meta_materials:
+			var imap: SS2D_IndexMap = edge_building.get(e)
+
 			# Is exsiting, append
-			if edge_building.has(e):
-				if not idx_next in edge_building[e].indicies:
-					edge_building[e].indicies.push_back(idx_next)
+			if imap:
+				if not idx_next in imap.indicies:
+					imap.indicies.push_back(idx_next)
 			# Isn't existing, make a new mapping
 			else:
 				edge_building[e] = SS2D_IndexMap.new([idx, idx_next], e)
 
 		# Closeout and stop building edges that are no longer viable
-		for e in edge_building.keys():
+		for e: SS2D_Material_Edge_Metadata in edge_building.keys():
 			if not edge_meta_materials.has(e):
 				final_edges.push_back(edge_building[e])
 				edge_building.erase(e)
 
 	# Closeout all edge building
-	for e in edge_building.keys():
+	for e: SS2D_Material_Edge_Metadata in edge_building.keys():
 		final_edges.push_back(edge_building[e])
 
 	return final_edges
@@ -1357,7 +1447,7 @@ func _handle_material_change() -> void:
 	set_as_dirty()
 
 
-func _handle_material_override_change(_tuple) -> void:
+func _handle_material_override_change(_tuple: Vector2i) -> void:
 	set_as_dirty()
 
 
@@ -1384,61 +1474,19 @@ func clear_cached_data() -> void:
 
 func _on_dirty_update() -> void:
 	if _dirty:
-		update_render_nodes()
-		clear_cached_data()
-		bake_collision()
-		if get_point_count() >= 2:
-			cache_edges()
-			cache_meshes()
-		queue_redraw()
-		_dirty = false
+		force_update()
 
 
-# TODO, Migrate these 'point index' functions to a helper library and make static?
+func force_update() -> void:
+	update_render_nodes()
+	clear_cached_data()
 
-# FIXME: unused function
-#static func get_first_point_index(_points_: Variant) -> int:
-#	return 0
-
-
-# FIXME: unused function
-#static func get_last_point_index(points: Variant) -> int:
-#	return points.size() - 1
-
-
-static func _get_next_point_index(
-		idx: int, points: PackedVector2Array, wrap_around: bool = false
-) -> int:
-	if wrap_around:
-		return _get_next_point_index_wrap_around(idx, points)
-	return _get_next_point_index_no_wrap_around(idx, points)
-
-
-static func _get_previous_point_index(
-		idx: int, points: PackedVector2Array, wrap_around: bool = false
-) -> int:
-	if wrap_around:
-		return _get_previous_point_index_wrap_around(idx, points)
-	return _get_previous_point_index_no_wrap_around(idx, points)
-
-
-static func _get_next_point_index_no_wrap_around(idx: int, points: PackedVector2Array) -> int:
-	return mini(idx + 1, points.size() - 1)
-
-
-static func _get_previous_point_index_no_wrap_around(idx: int, _points_: PackedVector2Array) -> int:
-	return maxi(idx - 1, 0)
-
-
-static func _get_next_point_index_wrap_around(idx: int, points: PackedVector2Array) -> int:
-	return (idx + 1) % points.size()
-
-
-static func _get_previous_point_index_wrap_around(idx: int, points: PackedVector2Array) -> int:
-	var temp := idx - 1
-	while temp < 0:
-		temp += points.size()
-	return temp
+	bake_collision()
+	if get_point_count() >= 2:
+		cache_edges()
+		cache_meshes()
+	queue_redraw()
+	_dirty = false
 
 
 ## Returns a float between 0.0 and 1.0.[br]
@@ -1446,80 +1494,19 @@ static func _get_previous_point_index_wrap_around(idx: int, points: PackedVector
 ## 0.5 means that this tessellated point is half-way between this vertex and the next.[br]
 ## 0.999 means that this tessellated point is basically at the next vertex.[br]
 ## 1.0 isn't going to happen; If a tess point is at the same position as a vert, it gets a ratio of 0.0.[br]
-func get_ratio_from_tessellated_point_to_vertex(
-		points: PackedVector2Array, t_points: PackedVector2Array, t_point_idx: int
-) -> float:
-	if t_point_idx == 0:
-		return 0.0
-
-	var vertex_idx := 0
-	# The total tessellated points betwen two verts
-	var tess_point_count := 0
+func get_ratio_from_tessellated_point_to_vertex(t_point_idx: int) -> float:
+	# Index of the starting vertex
+	var point_idx := _points.get_tesselation_vertex_mapping().tess_to_vertex_index(t_point_idx)
+	# Index of the first tesselated point with the same vertex
+	var tess_point_first_idx: int = _points.get_tesselation_vertex_mapping().vertex_to_tess_indices(point_idx)[0]
+	# The total tessellated points with the same vertex
+	var tess_point_count := _points.get_tesselation_vertex_mapping().vertex_to_tess_indices(point_idx).size()
 	# The index of the passed t_point_idx relative to the starting vert
-	var tess_index_count := 0
-	for i in range(0, t_points.size(), 1):
-		var tp: Vector2 = t_points[i]
-		var p: Vector2 = points[vertex_idx]
-		tess_point_count += 1
-
-		if i <= t_point_idx:
-			tess_index_count += 1
-
-		if tp == p:
-			if i < t_point_idx:
-				vertex_idx += 1
-				tess_point_count = 0
-				tess_index_count = 0
-			else:
-				break
-
-	var result: float = fmod(float(tess_index_count) / float(tess_point_count), 1.0)
-	return result
+	var tess_index_count := t_point_idx - tess_point_first_idx
+	return tess_index_count / float(tess_point_count)
 
 
-static func get_vertex_idx_from_tessellated_point(
-		points: PackedVector2Array, t_points: PackedVector2Array, t_point_idx: int
-) -> int:
-	# if idx is 0 or negative
-	if t_point_idx < 1:
-		return 0
-	if t_point_idx >= t_points.size():
-		push_error("get_vertex_idx_from_tessellated_point:: Out of Bounds point_idx; size is %s; idx is %s" % [t_points.size(), t_point_idx])
-		return points.size() - 1
-
-	var vertex_idx := -1
-	for i in range(0, t_point_idx + 1, 1):
-		var tp: Vector2 = t_points[i]
-		var p: Vector2 = points[vertex_idx + 1]
-		if tp == p:
-			vertex_idx += 1
-	return vertex_idx
-
-
-static func get_tessellated_idx_from_point(
-		points: PackedVector2Array, t_points: PackedVector2Array, point_idx: int
-) -> int:
-	# if idx is 0 or negative
-	if point_idx < 1:
-		return 0
-	if point_idx >= points.size():
-		push_error("get_tessellated_idx_from_point:: Out of Bounds point_idx; size is %s; idx is %s" % [points.size(), point_idx])
-		return t_points.size() - 1
-
-	var vertex_idx := -1
-	var tess_idx := 0
-	for i in range(0, t_points.size(), 1):
-		tess_idx = i
-		var tp: Vector2 = t_points[i]
-		var p: Vector2 = points[vertex_idx + 1]
-		if tp == p:
-			vertex_idx += 1
-		if vertex_idx == point_idx:
-			break
-	return tess_idx
-
-
-func debug_print_points():
+func debug_print_points() -> void:
 	_points.debug_print()
 
 
@@ -1531,16 +1518,14 @@ func debug_print_points():
 func _edge_data_get_tess_point_count(index_map: SS2D_IndexMap) -> int:
 	## TODO Test this function
 	var count: int = 0
-	var points: PackedVector2Array = get_vertices()
-	var t_points: PackedVector2Array = get_tessellated_points()
 	for i in range(index_map.indicies.size() - 1):
 		var this_idx := index_map.indicies[i]
 		var next_idx := index_map.indicies[i + 1]
 		if this_idx > next_idx:
 			count += 1
 			continue
-		var this_t_idx: int = get_tessellated_idx_from_point(points, t_points, this_idx)
-		var next_t_idx: int = get_tessellated_idx_from_point(points, t_points, next_idx)
+		var this_t_idx: int = _points.get_tesselation_vertex_mapping().vertex_to_tess_indices(this_idx)[0]
+		var next_t_idx: int = _points.get_tesselation_vertex_mapping().vertex_to_tess_indices(next_idx)[0]
 		var delta: int = next_t_idx - this_t_idx
 		count += delta
 	return count
@@ -1587,7 +1572,7 @@ func _edge_generate_corner(
 	c_scale: float,
 	c_offset: float
 ) -> SS2D_Quad:
-	var generate_corner := edge_should_generate_corner(pt_prev, pt, pt_next, flip_edges)
+	var generate_corner := SS2D_Shape.edge_should_generate_corner(pt_prev, pt, pt_next, flip_edges)
 	if generate_corner == SS2D_Quad.CORNER.NONE:
 		return null
 	var corner_texture: Texture2D = null
@@ -1596,7 +1581,7 @@ func _edge_generate_corner(
 			corner_texture = edge_material.get_texture_corner_outer(texture_idx)
 		elif generate_corner == SS2D_Quad.CORNER.INNER:
 			corner_texture = edge_material.get_texture_corner_inner(texture_idx)
-	var corner_quad: SS2D_Quad = build_quad_corner(
+	var corner_quad: SS2D_Quad = SS2D_Shape.build_quad_corner(
 		pt_next,
 		pt,
 		pt_prev,
@@ -1612,32 +1597,8 @@ func _edge_generate_corner(
 	return corner_quad
 
 
-## Get the next point that doesn't share the same position with the current point.[br]
-## In other words, get the next point in the array with a unique position.[br]
-func _get_next_unique_point_idx(idx: int, pts: PackedVector2Array, wrap_around: bool) -> int:
-	var next_idx: int = _get_next_point_index(idx, pts, wrap_around)
-	if next_idx == idx:
-		return idx
-	var pt1: Vector2 = pts[idx]
-	var pt2: Vector2 = pts[next_idx]
-	if pt1 == pt2:
-		return _get_next_unique_point_idx(next_idx, pts, wrap_around)
-	return next_idx
-
-
-func _get_previous_unique_point_idx(idx: int, pts: PackedVector2Array, wrap_around: bool) -> int:
-	var previous_idx: int = _get_previous_point_index(idx, pts, wrap_around)
-	if previous_idx == idx:
-		return idx
-	var pt1: Vector2 = pts[idx]
-	var pt2: Vector2 = pts[previous_idx]
-	if pt1 == pt2:
-		return _get_previous_unique_point_idx(previous_idx, pts, wrap_around)
-	return previous_idx
-
-
 func _imap_contains_all_points(imap: SS2D_IndexMap, verts: PackedVector2Array) -> bool:
-	return imap.indicies[0] == 0 and imap.indicies.back() == verts.size()-1
+	return imap.indicies[0] == 0 and imap.indicies[-1] == verts.size()-1
 
 
 func _is_edge_contiguous(imap: SS2D_IndexMap, verts: PackedVector2Array) -> bool:
@@ -1657,8 +1618,8 @@ func _is_edge_contiguous(imap: SS2D_IndexMap, verts: PackedVector2Array) -> bool
 func _build_edge_with_material(
 	index_map: SS2D_IndexMap,  c_offset: float, default_quad_width: float
 ) -> SS2D_Edge:
-	var verts_t: PackedVector2Array = get_tessellated_points()
-	var verts: PackedVector2Array = get_vertices()
+	var verts_t: PackedVector2Array = _points.get_tessellated_points()
+	var verts: PackedVector2Array = _points.get_vertices()
 	var edge := SS2D_Edge.new()
 	var is_edge_contiguous: bool = _is_edge_contiguous(index_map, verts)
 	edge.wrap_around = is_edge_contiguous
@@ -1686,20 +1647,25 @@ func _build_edge_with_material(
 
 	var first_idx: int = index_map.indicies[0]
 	var last_idx: int = index_map.indicies[-1]
-	var first_idx_t: int = get_tessellated_idx_from_point(verts, verts_t, first_idx)
-	var last_idx_t: int = get_tessellated_idx_from_point(verts, verts_t, last_idx)
+	var first_idx_t: int = _points.get_tesselation_vertex_mapping().vertex_to_tess_indices(first_idx)[0]
+	var last_idx_t: int = _points.get_tesselation_vertex_mapping().vertex_to_tess_indices(last_idx)[-1]
 	edge.first_point_key = _points.get_point_key_at_index(first_idx)
 	edge.last_point_key = _points.get_point_key_at_index(last_idx)
 
-	# How many tessellated points are contained within this index map?
-	var tess_point_count: int = _edge_data_get_tess_point_count(index_map)
 	var should_flip := should_flip_edges()
 
+	# How many tessellated points are contained within this index map?
+	var tess_point_count: int = _edge_data_get_tess_point_count(index_map)
+
 	var i := 0
+	var texture_idx := 0
+	var sharp_taper_next: SS2D_Quad = null
+	var is_not_corner: bool = true
+	var taper_sharp: bool = edge_material_meta != null and edge_material_meta.taper_sharp_corners
 	while i < tess_point_count:
 		var tess_idx: int = (first_idx_t + i) % verts_t.size()
-		var tess_idx_next: int = _get_next_unique_point_idx(tess_idx, verts_t, true)
-		var tess_idx_prev: int = _get_previous_unique_point_idx(tess_idx, verts_t, true)
+		var tess_idx_next: int = SS2D_PluginFunctionality.get_next_unique_point_idx(tess_idx, verts_t, true)
+		var tess_idx_prev: int = SS2D_PluginFunctionality.get_previous_unique_point_idx(tess_idx, verts_t, true)
 
 		# set next_point_delta
 		# next_point_delta is the number of tess_pts from
@@ -1711,17 +1677,14 @@ func _build_edge_with_material(
 				next_point_delta = j
 				break
 
-		var vert_idx: int = get_vertex_idx_from_tessellated_point(
-				verts, verts_t, tess_idx)
+		var vert_idx: int = _points.get_tesselation_vertex_mapping().tess_to_vertex_index(tess_idx)
 		var vert_key: int = get_point_key_at_index(vert_idx)
 		var pt: Vector2 = verts_t[tess_idx]
 		var pt_next: Vector2 = verts_t[tess_idx_next]
 		var pt_prev: Vector2 = verts_t[tess_idx_prev]
-
-		var texture_idx := 0
 		var flip_x: bool = get_point_texture_flip(vert_key)
 
-		var width_scale: float = _get_width_for_tessellated_point(verts, verts_t, tess_idx)
+		var width_scale: float = _get_width_for_tessellated_point(verts, tess_idx)
 		var is_first_point: bool = (vert_idx == first_idx) and not is_edge_contiguous
 		var is_last_point: bool = (vert_idx == last_idx - 1) and not is_edge_contiguous
 		var is_first_tess_point: bool = (tess_idx == first_idx_t) and not is_edge_contiguous
@@ -1743,7 +1706,7 @@ func _build_edge_with_material(
 				i += next_point_delta
 				continue
 
-		var new_quad: SS2D_Quad = build_quad_from_two_points(
+		var new_quad: SS2D_Quad = SS2D_Shape.build_quad_from_two_points(
 			pt,
 			pt_next,
 			tex,
@@ -1762,7 +1725,7 @@ func _build_edge_with_material(
 		# Corner Quad
 		if edge_material != null and edge_material.use_corner_texture:
 			if tess_idx != first_idx_t or is_edge_contiguous:
-				var prev_width: float = _get_width_for_tessellated_point(verts, verts_t, tess_idx_prev)
+				var prev_width: float = _get_width_for_tessellated_point(verts, tess_idx_prev)
 				var q: SS2D_Quad = _edge_generate_corner(
 					pt_prev,
 					pt,
@@ -1777,62 +1740,68 @@ func _build_edge_with_material(
 				)
 				if q != null:
 					new_quads.push_front(q)
+					is_not_corner = false
+				else:
+					is_not_corner = true
 
 		# Taper Quad
 		# Bear in mind, a point can be both first AND last
 		# Consider an edge that consists of two points (one edge)
 		# This first point is used to generate the quad; it is both first and last
+		var did_taper_left: bool = false
+		var did_taper_right: bool = false
 		if is_first_tess_point and edge_material != null and edge_material.use_taper_texture:
-			var taper_texture: Texture2D = edge_material.get_texture_taper_left(texture_idx)
-			if taper_texture != null:
-				var taper_size: Vector2 = taper_texture.get_size()
-				var fit: bool = absf(taper_size.x) <= new_quad.get_length_average()
-				if fit:
-					var taper_quad := new_quad.duplicate()
-					taper_quad.corner = 0
-					taper_quad.texture = taper_texture
-					var delta_normal: Vector2 = (taper_quad.pt_d - taper_quad.pt_a).normalized()
-					var offset: Vector2 = delta_normal * taper_size
-
-					taper_quad.pt_d = taper_quad.pt_a + offset
-					taper_quad.pt_c = taper_quad.pt_b + offset
-					new_quad.pt_a = taper_quad.pt_d
-					new_quad.pt_b = taper_quad.pt_c
-					new_quads.push_front(taper_quad)
-				# If a new taper quad doesn't fit, re-texture the new_quad
-				else:
-					new_quad.texture = taper_texture
+			did_taper_left = true
+			var taper_quad := _taper_quad(new_quad, edge_material, texture_idx, false, false)
+			if taper_quad != null:
+				new_quads.push_front(taper_quad)
 		if is_last_tess_point and edge_material != null and edge_material.use_taper_texture:
-			var taper_texture: Texture2D = edge_material.get_texture_taper_right(texture_idx)
-			if taper_texture != null:
-				var taper_size: Vector2 = taper_texture.get_size()
-				var fit: bool = absf(taper_size.x) <= new_quad.get_length_average()
-				if fit:
-					var taper_quad := new_quad.duplicate()
-					taper_quad.corner = 0
-					taper_quad.texture = taper_texture
-					var delta_normal: Vector2 = (taper_quad.pt_d - taper_quad.pt_a).normalized()
-					var offset: Vector2 = delta_normal * taper_size
-					taper_quad.pt_a = taper_quad.pt_d - offset
-					taper_quad.pt_b = taper_quad.pt_c - offset
-					new_quad.pt_d = taper_quad.pt_a
-					new_quad.pt_c = taper_quad.pt_b
-					new_quads.push_back(taper_quad)
-				# If a new taper quad doesn't fit, re-texture the new_quad
+			did_taper_right = true
+			var taper_quad := _taper_quad(new_quad, edge_material, texture_idx, true, false)
+			if taper_quad != null:
+				new_quads.push_back(taper_quad)
+
+		# Taper sharp corners
+		if taper_sharp:
+			var ang_threshold := PI * 0.5
+			if sharp_taper_next != null and is_not_corner:
+				var taper := _taper_quad(sharp_taper_next, edge_material, texture_idx, true, true)
+				if taper != null:
+					taper.ignore_weld_next = true
+					edge.quads.push_back(taper)
 				else:
-					new_quad.texture = taper_texture
+					sharp_taper_next.ignore_weld_next = true
+			sharp_taper_next = null
+			var vert := verts[vert_idx]
+			var prev_vert := verts[wrapi(vert_idx - 1, 0, verts.size() - 1)]
+			var next_vert := verts[wrapi(vert_idx + 1, 0, verts.size() - 1)]
+			if not did_taper_left and is_not_corner:
+				var ang_from := prev_vert.angle_to_point(vert)
+				var ang_to := vert.angle_to_point(next_vert)
+				var ang_dif := angle_difference(ang_from, ang_to)
+				if absf(ang_dif) > ang_threshold:
+					var taper := _taper_quad(new_quad, edge_material, texture_idx, false, true)
+					if taper != null:
+						new_quads.push_front(taper)
+			if not did_taper_right:
+				var next_next_vert := verts[wrapi(vert_idx + 2, 0, verts.size() - 1)]
+				var ang_from := vert.angle_to_point(next_vert)
+				var ang_to := next_vert.angle_to_point(next_next_vert)
+				var ang_dif := angle_difference(ang_from, ang_to)
+				if absf(ang_dif) > ang_threshold:
+					sharp_taper_next = new_quad
 
 		# Final point for closed shapes fix
 		# Corner quads aren't always correctly when the corner is between final and first pt
 		if is_last_point and is_edge_contiguous:
 			var idx_mid: int = verts_t.size() - 1
-			var idx_next: int = _get_next_unique_point_idx(idx_mid, verts_t, true)
-			var idx_prev: int = _get_previous_unique_point_idx(idx_mid, verts_t, true)
+			var idx_next: int = SS2D_PluginFunctionality.get_next_unique_point_idx(idx_mid, verts_t, true)
+			var idx_prev: int = SS2D_PluginFunctionality.get_previous_unique_point_idx(idx_mid, verts_t, true)
 			var p_p: Vector2 = verts_t[idx_prev]
 			var p_m: Vector2 = verts_t[idx_mid]
 			var p_n: Vector2 = verts_t[idx_next]
-			var w_p: float = _get_width_for_tessellated_point(verts, verts_t, idx_prev)
-			var w_m: float = _get_width_for_tessellated_point(verts, verts_t, idx_mid)
+			var w_p: float = _get_width_for_tessellated_point(verts, idx_prev)
+			var w_m: float = _get_width_for_tessellated_point(verts, idx_mid)
 			var q: SS2D_Quad = _edge_generate_corner(
 				p_p, p_m, p_n, w_p, w_m, tex_size.y, edge_material, texture_idx, c_scale, c_offset
 			)
@@ -1843,11 +1812,75 @@ func _build_edge_with_material(
 		for q in new_quads:
 			edge.quads.push_back(q)
 		i += next_point_delta
+
+	# leftover final taper for the last sharp corner if required
+	if taper_sharp:
+		if sharp_taper_next != null and edge.quads[0].corner == SS2D_Quad.CORNER.NONE:
+			var taper := _taper_quad(sharp_taper_next, edge_material, texture_idx, true, true)
+			if taper != null:
+				taper.ignore_weld_next = true
+				edge.quads.push_back(taper)
+			else:
+				sharp_taper_next.ignore_weld_next = true
+		sharp_taper_next = null
+
 	if edge_material_meta != null:
 		if edge_material_meta.weld:
 			_weld_quad_array(edge.quads, edge.wrap_around)
 
 	return edge
+
+
+# get the appropriate tapering texture based on direction and whether the current taper is a sharp
+# corner taper or normal material edge taper
+func get_taper_tex(edge_mat: SS2D_Material_Edge, tex_idx: int, facing_right: bool, corner_taper: bool) -> Texture2D:
+	if facing_right:
+		if corner_taper:
+			return edge_mat.get_texture_taper_corner_right(tex_idx)
+		else:
+			return edge_mat.get_texture_taper_right(tex_idx)
+	else:
+		if corner_taper:
+			return edge_mat.get_texture_taper_corner_left(tex_idx)
+		else:
+			return edge_mat.get_texture_taper_left(tex_idx)
+
+
+func _taper_quad(
+	quad: SS2D_Quad,
+	edge_mat: SS2D_Material_Edge,
+	tex_idx: int,
+	facing_right: bool,
+	corner_taper: bool
+) -> SS2D_Quad:
+	var taper_texture: Texture2D = get_taper_tex(edge_mat, tex_idx, facing_right, corner_taper)
+	if taper_texture != null:
+		var taper_size: Vector2 = taper_texture.get_size()
+		var fit: bool = absf(taper_size.x) <= quad.get_length_average()
+		if fit:
+			var taper_quad := quad.duplicate()
+			taper_quad.corner = SS2D_Quad.CORNER.NONE
+			taper_quad.texture = taper_texture
+			var delta_normal: Vector2 = (taper_quad.pt_d - taper_quad.pt_a).normalized()
+			var offset: Vector2 = delta_normal * taper_size
+			if facing_right:
+				taper_quad.pt_a = taper_quad.pt_d - offset
+				taper_quad.pt_b = taper_quad.pt_c - offset
+				quad.pt_d = taper_quad.pt_a
+				quad.pt_c = taper_quad.pt_b
+			else:
+				taper_quad.pt_d = taper_quad.pt_a + offset
+				taper_quad.pt_c = taper_quad.pt_b + offset
+				quad.pt_a = taper_quad.pt_d
+				quad.pt_b = taper_quad.pt_c
+
+			taper_quad.is_tapered = true
+			return taper_quad
+		# If a new taper quad doesn't fit, re-texture the new_quad
+		else:
+			quad.is_tapered = true
+			quad.texture = taper_texture
+	return null
 
 
 func _build_edge_with_material_thread_wrapper(args: Array) -> SS2D_Edge:

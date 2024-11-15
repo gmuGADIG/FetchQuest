@@ -1,8 +1,8 @@
 extends Enemy
 
-@onready var sprite_normal: Sprite2D = $Sprite_Normal
-@onready var sprite_activated: Sprite2D = $Sprite_Activated
-@onready var sprite_stunned: Sprite2D = $Sprite_Stunned
+@onready var sprite_normal: Sprite2D = $MainSprite/Sprite_Normal
+@onready var sprite_activated: Sprite2D = $MainSprite/Sprite_Activated
+@onready var sprite_stunned: Sprite2D = $MainSprite/Sprite_Stunned
 
 ## The contact damage that the charging enemy does when it is charging.
 @export var charging_damage: int = 2

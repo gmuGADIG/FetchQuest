@@ -1,9 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://cnd06dpkgufe4"]
+[gd_scene load_steps=8 format=3 uid="uid://cnd06dpkgufe4"]
 
 [ext_resource type="PackedScene" uid="uid://ch344rluh4xbs" path="res://world/camera/main_cam.tscn" id="1_uyq87"]
 [ext_resource type="PackedScene" uid="uid://70lp7kfk3yw6" path="res://ui/hud/hud.tscn" id="2_04l5w"]
 [ext_resource type="PackedScene" uid="uid://be0wx1bwh443q" path="res://ui/pause_menu/pause_menu.tscn" id="3_qm2bx"]
 [ext_resource type="Script" path="res://enemy/navigation_updater.gd" id="4_ypbld"]
+[ext_resource type="Script" path="res://world/entry_points/entry_points.gd" id="5_jisvu"]
+[ext_resource type="PackedScene" uid="uid://c7ck7ril2jix2" path="res://player/player.tscn" id="6_d8w43"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_kgy2o"]
 vertices = PackedVector2Array(66373.2, -38312.1, 67780.8, 28996.5, -57254.9, 35395.5, -56487.1, -39463.9)
@@ -27,3 +29,8 @@ visible = false
 navigation_polygon = SubResource("NavigationPolygon_kgy2o")
 script = ExtResource("4_ypbld")
 metadata/_edit_lock_ = true
+
+[node name="EntryPoints" type="Node2D" parent="."]
+script = ExtResource("5_jisvu")
+
+[node name="Player" parent="." instance=ExtResource("6_d8w43")]

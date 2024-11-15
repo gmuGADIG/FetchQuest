@@ -8,7 +8,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6fsdk"]
 size = Vector2(117, 107)
 
-[node name="SpawnerEnemy" instance=ExtResource("1_6f1ak")]
+[node name="SpawnerEnemy" node_paths=PackedStringArray("enemy_sprite") instance=ExtResource("1_6f1ak")]
 script = ExtResource("2_0bja5")
 spawned_enemy = ExtResource("3_v7nka")
 spawn_amount = 2
@@ -16,6 +16,7 @@ spawn_on_death = false
 spawn_rate = 5.0
 spawn_cap = 5
 spawn_animation_length = 0.5
+enemy_sprite = NodePath("SpawnerEnemy")
 
 [node name="SpawnerEnemy" type="Sprite2D" parent="." index="0"]
 scale = Vector2(0.75, 0.75)
