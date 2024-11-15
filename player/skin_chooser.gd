@@ -1,11 +1,7 @@
-extends Node
+extends Node2D
 
+@onready var skins: Array[Node2D] = [%Skin1, %Skin2, %Skin3]
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	if ChosenSkin.chosen_skin == 1:
-		$"../skin1".visible = true
-	if ChosenSkin.chosen_skin == 2:
-		$"../skin2".visible = true
-	if ChosenSkin.chosen_skin == 3:
-		$"../skin3".visible = true
+	for idx in skins.size():
+		skins[idx].visible = ChosenSkin.chosen_skin - 1 == idx
