@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="SS2D_Material_Shape" load_steps=5 format=3 uid="uid://5l6yr7pkapvo"]
+
+[ext_resource type="Script" path="res://addons/rmsmartshape/materials/edge_material_metadata.gd" id="1_kt1l1"]
+[ext_resource type="Script" path="res://addons/rmsmartshape/materials/shape_material.gd" id="2_pyv2g"]
+
+[sub_resource type="Gradient" id="Gradient_vixf3"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 0.72549, 0.847059, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_kyp7f"]
+gradient = SubResource("Gradient_vixf3")
+
+[resource]
+script = ExtResource("2_pyv2g")
+_edge_meta_materials = Array[ExtResource("1_kt1l1")]([])
+fill_textures = Array[Texture2D]([SubResource("GradientTexture1D_kyp7f")])
+fill_texture_z_index = -10
+fill_texture_show_behind_parent = false
+fill_texture_scale = 1.0
+fill_texture_absolute_position = false
+fill_texture_absolute_rotation = false
+fill_texture_offset = Vector2(0, 0)
+fill_texture_angle_offset = 0.0
+fill_mesh_offset = 0.0
+render_offset = 0.0
