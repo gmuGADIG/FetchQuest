@@ -1,0 +1,53 @@
+[gd_resource type="Resource" script_class="SS2D_Material_Shape" load_steps=10 format=3 uid="uid://ddqyt2fjwf66q"]
+
+[ext_resource type="Script" path="res://addons/rmsmartshape/materials/edge_material_metadata.gd" id="1_fthpg"]
+[ext_resource type="Script" path="res://addons/rmsmartshape/materials/edge_material.gd" id="2_78cgc"]
+[ext_resource type="Texture2D" uid="uid://b74od2cxgfxrl" path="res://world/smart_shapes/grass/grass_corrupt_edge.png" id="3_ldd4k"]
+[ext_resource type="Script" path="res://addons/rmsmartshape/normal_range.gd" id="4_5buq4"]
+[ext_resource type="Texture2D" uid="uid://bwqy63l74gay6" path="res://world/smart_shapes/grass/grass_corrupt.png" id="5_b04ce"]
+[ext_resource type="Script" path="res://addons/rmsmartshape/materials/shape_material.gd" id="6_i2qt6"]
+
+[sub_resource type="Resource" id="Resource_cxwon"]
+script = ExtResource("2_78cgc")
+textures = Array[Texture2D]([ExtResource("3_ldd4k")])
+textures_corner_outer = Array[Texture2D]([])
+textures_corner_inner = Array[Texture2D]([])
+textures_taper_left = Array[Texture2D]([])
+textures_taper_right = Array[Texture2D]([])
+textures_taper_corner_left = Array[Texture2D]([])
+textures_taper_corner_right = Array[Texture2D]([])
+randomize_texture = false
+use_corner_texture = true
+use_taper_texture = true
+fit_mode = 0
+
+[sub_resource type="Resource" id="Resource_tx3d3"]
+script = ExtResource("4_5buq4")
+begin = 0.0
+distance = 360.0
+edgeRendering = Vector2(0, 0)
+
+[sub_resource type="Resource" id="Resource_rqts2"]
+script = ExtResource("1_fthpg")
+edge_material = SubResource("Resource_cxwon")
+normal_range = SubResource("Resource_tx3d3")
+weld = true
+taper_sharp_corners = false
+render = true
+z_index = 0
+z_as_relative = true
+offset = 1.0
+
+[resource]
+script = ExtResource("6_i2qt6")
+_edge_meta_materials = Array[ExtResource("1_fthpg")]([SubResource("Resource_rqts2")])
+fill_textures = Array[Texture2D]([ExtResource("5_b04ce")])
+fill_texture_z_index = 0
+fill_texture_show_behind_parent = false
+fill_texture_scale = 0.5
+fill_texture_absolute_position = false
+fill_texture_absolute_rotation = false
+fill_texture_offset = Vector2(0, 0)
+fill_texture_angle_offset = 0.0
+fill_mesh_offset = 0.0
+render_offset = 0.0
