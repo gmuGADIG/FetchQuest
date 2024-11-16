@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://b571e1ss8nt83"]
+
+[ext_resource type="PackedScene" uid="uid://b3uk1bfjnr2h1" path="res://world/decoration/trees/dead_tree/dead_tree.tscn" id="1_l2h6y"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dvn5k"]
+radius = 8.92749
+
+[node name="DeadTreeCollidable" type="StaticBody2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(10, 10)
+shape = SubResource("CircleShape2D_dvn5k")
+
+[node name="DeadTree" parent="." instance=ExtResource("1_l2h6y")]
