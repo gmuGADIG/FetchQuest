@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://sequd0p5a1o1"]
+[gd_scene load_steps=29 format=3 uid="uid://sequd0p5a1o1"]
 
 [ext_resource type="PackedScene" uid="uid://cnd06dpkgufe4" path="res://world/level_base.tscn" id="1_fah3u"]
 [ext_resource type="Script" path="res://addons/rmsmartshape/shapes/shape_closed.gd" id="2_ye76r"]
@@ -11,8 +11,10 @@
 [ext_resource type="Script" path="res://addons/rmsmartshape/normal_range.gd" id="9_6miyl"]
 [ext_resource type="Texture2D" uid="uid://vm33ci7bxmfx" path="res://dialogic_example/level_example_textures/grass_fill.png" id="10_j7wb5"]
 [ext_resource type="Script" path="res://addons/rmsmartshape/materials/shape_material.gd" id="11_aqi58"]
+[ext_resource type="Texture2D" uid="uid://dc4pcxr2lfkka" path="res://demo_art/dungeon_entrance.png" id="12_ibq6i"]
+[ext_resource type="PackedScene" uid="uid://blh1fs712dql8" path="res://world/interactable/activatable/locked_door/locked_door.tscn" id="13_28qb5"]
 
-[sub_resource type="Resource" id="Resource_3qpa6"]
+[sub_resource type="Resource" id="Resource_f37he"]
 script = ExtResource("3_lktlt")
 texture_idx = 0
 flip = false
@@ -20,12 +22,12 @@ width = 1.0
 
 [sub_resource type="Resource" id="Resource_fg5d2"]
 script = ExtResource("4_u0btn")
-position = Vector2(-320, -192)
+position = Vector2(-672, -128)
 point_in = Vector2(0, 0)
 point_out = Vector2(0, 0)
-properties = SubResource("Resource_3qpa6")
+properties = SubResource("Resource_f37he")
 
-[sub_resource type="Resource" id="Resource_56tvo"]
+[sub_resource type="Resource" id="Resource_ief3a"]
 script = ExtResource("3_lktlt")
 texture_idx = 0
 flip = false
@@ -33,12 +35,12 @@ width = 1.0
 
 [sub_resource type="Resource" id="Resource_57yie"]
 script = ExtResource("4_u0btn")
-position = Vector2(-320, 960)
+position = Vector2(-680, 1232)
 point_in = Vector2(0, 0)
 point_out = Vector2(0, 0)
-properties = SubResource("Resource_56tvo")
+properties = SubResource("Resource_ief3a")
 
-[sub_resource type="Resource" id="Resource_tuwm0"]
+[sub_resource type="Resource" id="Resource_rbr2v"]
 script = ExtResource("3_lktlt")
 texture_idx = 0
 flip = false
@@ -46,12 +48,12 @@ width = 1.0
 
 [sub_resource type="Resource" id="Resource_6wfej"]
 script = ExtResource("4_u0btn")
-position = Vector2(1664, 960)
+position = Vector2(2008, 1208)
 point_in = Vector2(0, 0)
 point_out = Vector2(0, 0)
-properties = SubResource("Resource_tuwm0")
+properties = SubResource("Resource_rbr2v")
 
-[sub_resource type="Resource" id="Resource_afatu"]
+[sub_resource type="Resource" id="Resource_n271q"]
 script = ExtResource("3_lktlt")
 texture_idx = 0
 flip = false
@@ -59,12 +61,12 @@ width = 1.0
 
 [sub_resource type="Resource" id="Resource_tnm2q"]
 script = ExtResource("4_u0btn")
-position = Vector2(1664, -192)
+position = Vector2(1968, -104)
 point_in = Vector2(0, 0)
 point_out = Vector2(0, 0)
-properties = SubResource("Resource_afatu")
+properties = SubResource("Resource_n271q")
 
-[sub_resource type="Resource" id="Resource_ufcrc"]
+[sub_resource type="Resource" id="Resource_3u5eh"]
 script = ExtResource("3_lktlt")
 texture_idx = 0
 flip = false
@@ -72,10 +74,10 @@ width = 1.0
 
 [sub_resource type="Resource" id="Resource_opdkq"]
 script = ExtResource("4_u0btn")
-position = Vector2(-320, -192)
+position = Vector2(-672, -128)
 point_in = Vector2(0, 0)
 point_out = Vector2(0, 0)
-properties = SubResource("Resource_ufcrc")
+properties = SubResource("Resource_3u5eh")
 
 [sub_resource type="Resource" id="Resource_q8b8v"]
 script = ExtResource("5_un5oq")
@@ -90,7 +92,7 @@ _point_order = Array[int]([4, 3, 2, 1, 0])
 _constraints = {
 Array[int]([0, 4]): 15
 }
-_next_key = 5
+_next_key = 15
 _material_overrides = {}
 
 [sub_resource type="Resource" id="Resource_vtnh8"]
@@ -140,9 +142,38 @@ render_offset = 0.0
 [node name="Player" parent="." index="5"]
 position = Vector2(648, 780)
 
-[node name="floor" type="StaticBody2D" parent="." index="6"]
+[node name="Walls" type="Node" parent="." index="6"]
+
+[node name="floor" type="StaticBody2D" parent="." index="7"]
 
 [node name="SS2D_Shape_Closed" type="Node2D" parent="floor" index="0"]
 script = ExtResource("2_ye76r")
 _points = SubResource("Resource_q8b8v")
 shape_material = SubResource("Resource_e73dw")
+
+[node name="Doors" type="Node" parent="." index="8"]
+
+[node name="DungeonEntrance" type="Sprite2D" parent="Doors" index="0"]
+position = Vector2(621, 1218)
+texture = ExtResource("12_ibq6i")
+
+[node name="DungeonEntrance7" type="Sprite2D" parent="Doors" index="1"]
+position = Vector2(-678, -78)
+texture = ExtResource("12_ibq6i")
+
+[node name="DungeonEntrance9" type="Sprite2D" parent="Doors" index="2"]
+position = Vector2(-717, 942)
+texture = ExtResource("12_ibq6i")
+
+[node name="DungeonEntrance4" type="Sprite2D" parent="Doors" index="3"]
+position = Vector2(1955, -183)
+scale = Vector2(1.65052, 2.17241)
+texture = ExtResource("12_ibq6i")
+
+[node name="DungeonEntrance5" type="Sprite2D" parent="Doors" index="4"]
+position = Vector2(2016, 819)
+scale = Vector2(1.47906, 1.7069)
+texture = ExtResource("12_ibq6i")
+
+[node name="LockedDoor" parent="." index="9" instance=ExtResource("13_28qb5")]
+position = Vector2(644, -237)
