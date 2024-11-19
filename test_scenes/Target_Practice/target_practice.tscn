@@ -9,21 +9,21 @@ radius = 103.233
 
 [node name="Target_Practice" type="Node2D"]
 
-[node name="Target" parent="." node_paths=PackedStringArray("pressurePlate") instance=ExtResource("2_d742b")]
+[node name="Target" parent="." node_paths=PackedStringArray("collision_zone") instance=ExtResource("2_d742b")]
 speed = 250
 targetGroup = "B"
-pressurePlate = NodePath("../PressurePlate")
+collision_zone = NodePath("../TargetAreaStart")
 
 [node name="Target2" parent="." node_paths=PackedStringArray("pressurePlate") instance=ExtResource("2_d742b")]
 position = Vector2(498, 231)
-targetGroup = "B"
+targetGroup = "A"
 pressurePlate = NodePath("../PressurePlate")
 
-[node name="Target3" parent="." node_paths=PackedStringArray("collision_zone") instance=ExtResource("2_d742b")]
+[node name="Target3" parent="." node_paths=PackedStringArray("pressurePlate") instance=ExtResource("2_d742b")]
 position = Vector2(385, 126)
 speed = 250
 targetGroup = "A"
-collision_zone = NodePath("../TargetAreaStart")
+pressurePlate = NodePath("../PressurePlate")
 
 [node name="TargetAreaStart" type="Area2D" parent="."]
 collision_layer = 17

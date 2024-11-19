@@ -29,7 +29,7 @@ extends Node2D
 @export var sprite: Sprite2D 
 @export var collision_zone: Area2D
 @export var pressurePlate: CharacterBody2D
-
+@export var hitAll: bool
 #dir: A bool for the direction of which way the target should be moving (left or right)
 #go: Condition to start moving the targers
 #pressureActive: Bool for if the pressure plate is being pressed
@@ -62,16 +62,20 @@ func _ready() -> 	void:
 #Checks if there is a pressure plate in the the prior directory and calls the appropriate function
 func _process(delta: float) -> void:
 	
-	if(pressurePlate == null || inArea == true):
-		if(inArea == true && target_practice_signals.hitAll == 0):
-			_target_move(delta)
-		if(target_practice_signals.hitAll == 1 && timer.is_stopped()):
-			_shutdown()
-	else:
-		
+	
+	if(pressurePlate != null && target_practice_signals.hitAll == 0 && inArea == false):
+		#if(pressurePlate.get_pressed() == true && pressureActive == false):
 		_pressure_target_move(delta)
-		if(target_practice_signals.hitAll == 1 && timer.is_stopped()):
-			_shutdown()
+		if(pressurePlate.get_pressed() == false):
+			_shutdown(targetGroup)
+	elif (collision_zone != null && target_practice_signals.hitAll == 0):
+		
+		if(inArea == true):
+			_target_move(delta)
+	else:
+		_shutdown(targetGroup)
+		if(pressurePlate != null && pressurePlate.get_pressed() == false && inArea == false):
+			target_practice_signals.hitAll = 0
 	_check_time()
 
 #This function is what makes the targets move
@@ -79,6 +83,7 @@ func _process(delta: float) -> void:
 #The skipping is possible to occur if the speed is high
 #This function also has the targets flash, and plays that animation
 func _target_move(delta:float) -> void:
+	
 	target_collision.global_position = sprite.global_position
 	$Path2D/PathFollow2D/Entered/HitArea.global_position = sprite.global_position
 	if (go == true && timeStart != 0 && inArea == true ):
@@ -96,11 +101,16 @@ func _target_move(delta:float) -> void:
 func _pressure_target_move(delta:float) -> void:
 	target_collision.global_position = sprite.global_position
 	$Path2D/PathFollow2D/Entered/HitArea.global_position = sprite.global_position
-	if(pressurePlate.get_pressed() == true && !pressureActive):
-		_on_pressure_press()
+	
+	if(pressurePlate.get_pressed() && pressureActive == false && timer.time_left == 0):
 		pressureActive = true
+		_on_pressure_press()
+	elif (!pressurePlate.get_pressed() && target_practice_signals.moving == false):
+		pressureActive = false
+		_shutdown(targetGroup)
+		target_practice_signals.hitAll = 0
 		
-	if (pressurePlate.get_pressed() && timeStart != 0):
+	if (pressurePlate.get_pressed() && timer.time_left != 0):
 		if dir == false:
 			path_follow.progress += speed * delta
 			if path_follow.progress_ratio > .95:
@@ -110,19 +120,7 @@ func _pressure_target_move(delta:float) -> void:
 			if path_follow.progress_ratio < .1:
 				dir = false
 	
-	elif((pressurePlate.get_pressed() == false) && pressureActive):
-		pressureActive = false
-		if(target_practice_signals.hitAll == 1):
-			_shutdown()
-			print("JitterBUG")
-			target_practice_signals.hitAll = 0
-		
 	
-	elif timer.time_left == 0 && pressureActive:
-		if(target_practice_signals.hitAll == 1):
-			_shutdown()
-			target_practice_signals.hitAll = 0
-
 			
 #Checks the timer and sees if its appropriate to start the flash animation or stop the animation
 func _check_time() -> void:
@@ -133,7 +131,7 @@ func _check_time() -> void:
 
 #This function calls the shutdown method when the timer runs out
 func _on_timer_timeout() -> void:
-	_shutdown()
+	_shutdown(targetGroup)
 
 #The hard coded int is how fast the flash animation can run, max is around 60-64, I have it limited to 34
 #This function increases the rates of the flash animation by the timeScale variable
@@ -152,7 +150,9 @@ static func _checkGroup(targetGroup : String, ST:int)	->  void:
 		if instance.targetGroup == targetGroup:
 			if(SRT >= groupCount):
 				target_practice_signals.hitAll = 1
-			
+				print("A condition for when all the targets have been hit...")
+				print("Perhaps to be implemented later on if needed or removed")
+		
 
 #Function goes through the array and starts the animation for all of the instances	
 static func play_animation_on_all(targetGroup: String,anim_name: String) -> void:
@@ -179,7 +179,6 @@ static func stop_animation_on_all(targetGroup: String) -> void:
 
 #This function starts the timer for the targets, ultimatly starting the target movements
 func _start_moving() ->void:
-	
 	$"AnimationPlayer".speed_scale = 1
 	timer.start(timeStart)
 	go = true
@@ -199,52 +198,46 @@ func _on_body_shape_entered(_body_rid: RID, _body: Node, _body_shape_index: int,
 #This function calls the shutdown method to shutdown everything when the player exits the area
 func _on_body_shape_exited(_body_rid: RID, _body: Node, _body_shape_index: int, _local_shape_index: int) -> void:
 	inArea = false
-	_shutdown()
+	_shutdown(targetGroup)
+	target_practice_signals.hitAll = 0
 	
 
 #This function does as it says, it shuts down everything when the timer is done
 #or if the player exits the area and resets any neccesary values
-func _shutdown() -> void:
-	target_practice_signals.hitAll == 0
-	#print("You Called Me", " and ", target_practice_signals.hitAll)
+func _shutdown(groupName: String) -> void:
+	
 	target_practice_signals.moving = false
 	
-	if(target_practice_signals.hitAll == 1):
-		inArea = false
-		await get_tree().create_timer(timer.time_left).timeout
-	
-	#timer.stop()
-	
 	for instance in instances:
-		instance.go = false
-		instance.sameTargets = 0
-		instance.animation.speed_scale = 1
-		instance.animation.play("RESET")
-		instance.path_follow.progress = 0.0
-		instance.dir = false
-		instance.marker.visible = false
-		instance.path_follow.progress = 0.0
-	
-		target_collision.global_position = sprite.global_position
-		hitter.global_position = target_collision.global_position
-		instance.flashingGroup = ""
-		#instance.timer.wait_time = 0.0
-		instance.timer.stop()
+		if(instance.targetGroup == groupName):
+			instance.timer.stop()
+			instance.go = false
+			instance.sameTargets = 0
+			instance.animation.speed_scale = 1
+			instance.animation.play("RESET")
+			instance.path_follow.progress = 0.0
+			instance.dir = false
+			instance.marker.visible = false
+			instance.path_follow.progress = 0.0
+			if(pressurePlate!= null && pressurePlate.get_pressed() == true):
+				instance.pressureActive = true
+			else:
+				instance.pressureActive = false
+			target_collision.global_position = sprite.global_position
+			hitter.global_position = target_collision.global_position
+			instance.flashingGroup = ""
+		
 #Detects if the sword hit the target. One way to do it anyways
 #Then plays a flash animation on the target
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if (body.name == "ThrownSword" && go == true):
-		if(sameTargets != 1 && target_practice_signals.moving == true): sameTargets = 1
-		_checkGroup(targetGroup,sameTargets)
+		if(sameTargets != 1): sameTargets = 1
+		
 		marker.visible = true
 		$HitFlash.speed_scale = 5
 		$HitFlash.play("HitFlash")
+		await get_tree().create_timer(.5).timeout
 		
-		
-		
-		#await get_tree().create_timer(.5).timeout
-		
-		$HitFlash.speed_scale = 1
 		$HitFlash.stop()
 		$HitFlash.play("RESET")
-		
+		_checkGroup(targetGroup,sameTargets)
