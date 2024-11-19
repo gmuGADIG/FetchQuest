@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://uj2rytnj1h4"]
+[gd_scene load_steps=6 format=3 uid="uid://uj2rytnj1h4"]
 
 [ext_resource type="PackedScene" uid="uid://blpi4x6if673v" path="res://enemy/base_enemy.tscn" id="1_oqpld"]
 [ext_resource type="Script" path="res://enemy/test_enemy/test_enemy.gd" id="2_yeqgq"]
@@ -7,15 +7,22 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6fsdk"]
 size = Vector2(117, 107)
 
-[node name="TestEnemy" instance=ExtResource("1_oqpld")]
-collision_mask = 1
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0i45s"]
+size = Vector2(97, 98)
+
+[node name="TestEnemy" node_paths=PackedStringArray("enemy_sprite") instance=ExtResource("1_oqpld")]
 script = ExtResource("2_yeqgq")
 pickup_drop_chance = 1.0
+enemy_sprite = NodePath("TestEnemy")
 
 [node name="TestEnemy" type="Sprite2D" parent="." index="0"]
 scale = Vector2(0.75, 0.75)
 texture = ExtResource("3_72tns")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="2"]
 position = Vector2(2.5, 2.5)
 shape = SubResource("RectangleShape2D_6fsdk")
+
+[node name="CollisionShape2D" parent="HittingArea" index="0"]
+position = Vector2(-0.5, 0)
+shape = SubResource("RectangleShape2D_0i45s")

@@ -4,7 +4,6 @@ class_name ThrownSword
 # Variables that are initialized at runtime
 @onready var thrower: Player = Player.instance  ## Reference to the player who throws the sword
 @onready var lifespan_timer: Timer = $LifespanTimer   ## The max lifespan of the sword
-@onready var recall_timer: Timer = $RecallTimer ## The minimum time before the sword can be recalled
 
 # Exported variables for external control and tuning in the editor
 @export var throw_distance: float      ## Ideal throw distance. used to calculate the initial and max velocity
@@ -36,6 +35,14 @@ func throw(throw_direction: Vector2) -> void:
 	direction = throw_direction.normalized() * initial_speed
 	local_acceleration = acceleration
 	velocity = direction.normalized() * initial_speed
+	
+	# apply player velocity on top
+	var player_velocity := thrower.velocity
+	if player_velocity.dot(velocity) > 0:
+		# note: velocity is only added in the direction of the sword. if the player is
+		# moving perpindicular, we don't want the sword to go sideways.
+		# the speed is also clamped, mainly because dog rolls get the player's speed way too high
+		velocity += (player_velocity.project(velocity) * .5).limit_length(500.0)
 	
 ## Initiates the sword's return to the player
 func return_sword() -> void:
@@ -71,13 +78,6 @@ func _physics_process(delta: float) -> void:
 	var collision: KinematicCollision2D = move_and_collide(velocity * delta)
 	if collision:
 		_on_collision(collision)
-		
-func _process(_delta: float) -> void:
-	if Input.is_action_just_released("attack"):
-		if (recall_timer.is_stopped()):
-			return_sword()
-		else:
-			recall_timer.timeout.connect(return_sword)
 
 ## Handles sword ricochet off surfaces
 func sword_bounce() -> void:
@@ -85,7 +85,7 @@ func sword_bounce() -> void:
 	num_bounces += 1     # Increment bounce count
 	last_bounce = position
 	
-	local_acceleration = 0
+	local_acceleration = -400
 	# Calculate max velocity based on acceleration and max distance
 	var max_velocity: float = initial_speed if acceleration == 0 else sqrt(2 * abs(acceleration) * throw_distance)
 	
@@ -98,6 +98,8 @@ func sword_bounce() -> void:
 
 ## Handles collision detection and response
 func _on_collision(collision: KinematicCollision2D) -> void:
+	if collision.get_collider().has_method("hurt"):
+		collision.get_collider().hurt(DamageEvent.new(0, velocity.normalized()))
 	var collision_normal: Vector2 = collision.get_normal()  # Get the normal of the surface hit
 	velocity = velocity.bounce(collision_normal)
 	direction = velocity  # Update direction after bounce

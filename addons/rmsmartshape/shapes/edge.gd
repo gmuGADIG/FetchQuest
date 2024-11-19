@@ -31,11 +31,12 @@ static func different_render(q1: SS2D_Quad, q2: SS2D_Quad) -> bool:
 	return true
 
 
-static func get_consecutive_quads_for_mesh(_quads: Array[SS2D_Quad]) -> Array:
-	if _quads.is_empty():
-		return []
+static func get_consecutive_quads_for_mesh(_quads: Array[SS2D_Quad]) -> Array[Array]:
+	var quad_ranges: Array[Array] = []
 
-	var quad_ranges: Array = []
+	if _quads.is_empty():
+		return quad_ranges
+
 	var quad_range: Array[SS2D_Quad] = []
 	quad_range.push_back(_quads[0])
 	for i in range(1, _quads.size(), 1):
@@ -310,7 +311,7 @@ func get_meshes(color_encoding: SS2D_Edge.COLOR_ENCODING) -> Array[SS2D_Mesh]:
 	# Get Arrays of consecutive quads with the same mesh data.
 	# For each array, generate Mesh Data from the quad.
 
-	var consecutive_quad_arrays: Array = SS2D_Edge.get_consecutive_quads_for_mesh(quads)
+	var consecutive_quad_arrays := SS2D_Edge.get_consecutive_quads_for_mesh(quads)
 	#print("Arrays: %s" % consecutive_quad_arrays.size())
 	var meshes: Array[SS2D_Mesh] = []
 	for consecutive_quads in consecutive_quad_arrays:
@@ -319,9 +320,11 @@ func get_meshes(color_encoding: SS2D_Edge.COLOR_ENCODING) -> Array[SS2D_Mesh]:
 		var array_mesh: ArrayMesh = SS2D_Edge.generate_array_mesh_from_quad_sequence(
 			consecutive_quads, wrap_around, color_encoding
 		)
-		var tex: Texture2D = consecutive_quads[0].texture
-		var flip: bool = consecutive_quads[0].flip_texture
+		var quad: SS2D_Quad = consecutive_quads[0]
+		var tex: Texture2D = quad.texture
+		var flip: bool = quad.flip_texture
 		var mesh_data := SS2D_Mesh.new(tex, flip, Transform2D(), [array_mesh], material)
+		mesh_data.force_no_tiling = quad.is_tapered or quad.corner != SS2D_Quad.CORNER.NONE
 		mesh_data.z_index = z_index
 		mesh_data.z_as_relative = z_as_relative
 		meshes.push_back(mesh_data)

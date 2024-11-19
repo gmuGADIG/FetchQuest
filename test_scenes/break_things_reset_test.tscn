@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://b0qkxa3x38ha1"]
+
+[ext_resource type="PackedScene" uid="uid://c7ck7ril2jix2" path="res://player/player.tscn" id="1_vatwj"]
+[ext_resource type="PackedScene" uid="uid://bwo5q4wroaigc" path="res://world/interactable/transition_trigger/transition_trigger.tscn" id="2_66wt0"]
+[ext_resource type="Texture2D" uid="uid://dc4pcxr2lfkka" path="res://demo_art/dungeon_entrance.png" id="3_veou0"]
+
+[node name="BreakThingsResetTest" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource("1_vatwj")]
+position = Vector2(620, 303)
+
+[node name="TransitionScene" parent="." instance=ExtResource("2_66wt0")]
+position = Vector2(150, 226)
+scene_name = "break_things_test"
+
+[node name="DungeonEntrance" type="Sprite2D" parent="."]
+position = Vector2(157, 201)
+texture = ExtResource("3_veou0")
