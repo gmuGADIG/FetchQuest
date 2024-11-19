@@ -104,7 +104,7 @@ func _pressure_target_move(delta:float) -> void:
 	
 	if(pressurePlate.get_pressed() && pressureActive == false && timer.time_left == 0):
 		pressureActive = true
-		_on_pressure_press()
+		_start_moving()
 	elif (!pressurePlate.get_pressed() && target_practice_signals.moving == false):
 		pressureActive = false
 		_shutdown(targetGroup)
@@ -184,9 +184,6 @@ func _start_moving() ->void:
 	go = true
 	target_practice_signals.moving = true
 
-#Called when a pressure plate is pressed
-func _on_pressure_press()->void:
-	_start_moving()
 		
 #This function is called when the player enters the area2d and flags that they are in the area
 func _on_body_shape_entered(_body_rid: RID, _body: Node, _body_shape_index: int, _local_shape_index: int) -> void:
