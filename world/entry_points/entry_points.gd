@@ -12,10 +12,16 @@ static func set_entry_point(entry_point_name: String) -> void:
 func _ready() -> void:
 	assert(get_child_count() != 0, "Scene has no entry points! Add a child to the EntryPoints node, with a name that will be referred to by anything entering this scene.")
 	
-	var entry_node: Node2D = get_node_or_null(current_entry_point)
 	
-	if current_entry_point == "": printerr("No entry point set! Make sure to set `EntryPoints.current_entry_point` whenever a world scene is loaded.")
-	elif entry_node == null: printerr("No entry point of name '%s' was found!" % current_entry_point)
+	var entry_node: Node2D = get_node_or_null(current_entry_point)
+	if current_entry_point == "":
+		if get_child_count() == 0: 
+			printerr("No entry point in scene")
+			return
+		print("Entered scene without transition, using first entry point")
+		entry_node = get_child(0)
+	if entry_node == null: 
+		printerr("No entry point of name '%s' was found!" % current_entry_point)
 	else:
 		Player.instance.position = entry_node.position
 		MainCam.instance.reset_smoothing.call_deferred() # this makes the camera snap to the new position
