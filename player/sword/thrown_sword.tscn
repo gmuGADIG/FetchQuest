@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://b53bkta583hrj"]
+[gd_scene load_steps=13 format=3 uid="uid://b53bkta583hrj"]
 
 [ext_resource type="Script" path="res://player/sword/thrown_sword.gd" id="1_4xd43"]
 [ext_resource type="Script" path="res://player/sword/sword_rotate.gd" id="3_6bcqb"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://player/x_ray.gd" id="5_6tvqw"]
 [ext_resource type="Script" path="res://player/sword/sparks_on_collide.gd" id="5_bsfwj"]
 [ext_resource type="Script" path="res://player/sword/sword_screen_shake.tres.gd" id="6_1yein"]
+[ext_resource type="AudioStream" uid="uid://d1nrnvk6nfwjj" path="res://player/sword/sword_sounds/SFX_SwordThrow_Tison.ogg" id="8_lwams"]
 
 [sub_resource type="Curve" id="Curve_g4qvv"]
 max_value = 20.0
@@ -18,6 +19,12 @@ colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.180392)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6my70"]
 size = Vector2(26, 25)
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_lymud"]
+playback_mode = 2
+random_pitch = 2.5
+streams_count = 1
+stream_0/stream = ExtResource("8_lwams")
 
 [node name="ThrownSword" type="CharacterBody2D"]
 collision_layer = 2
@@ -89,5 +96,8 @@ collision_mask = 133
 visible = false
 position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_6my70")
+
+[node name="SwordSFX_Throw" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_lymud")
 
 [connection signal="body_entered" from="DamageArea" to="." method="_on_damage_area_body_entered"]
