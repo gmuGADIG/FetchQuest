@@ -57,34 +57,39 @@ func set_own_state(state: EnemyState) -> void:
 			state_timer = stun_length
 
 func _set_charge_animation() -> void:
-	if charge_direction.y > 0:
-		sprite.play("charging down")
-	elif charge_direction.x < 0:
-		sprite.play("charging left")
-	elif charge_direction.x > 0:
-		sprite.play("charging right")
+	var dirs := [
+		Vector2.DOWN,
+		Vector2.LEFT,
+		Vector2.RIGHT
+	]
+
+	dirs.sort_custom(func(a: Vector2, b: Vector2) -> bool: return a.dot(velocity) > b.dot(velocity))
+	match dirs[0]:
+		Vector2.DOWN:
+			sprite.play("charging down")
+		Vector2.LEFT:
+			sprite.play("charging left")
+		Vector2.RIGHT:
+			sprite.play("charging right")
 
 func _set_idle_animation() -> void:
-	if velocity.x < 0 and velocity.y < 0:
-		if velocity.x < velocity.y:
-			sprite.play("left idle")
-		else:
-			sprite.play("down idle")
-	elif velocity.x > 0 and velocity.y < 0:
-		if velocity.x > (velocity.y * -1):
-			sprite.play("right idle")
-		else:
-			sprite.play("down idle")
-	elif velocity.x < 0 and velocity.y > 0:
-		if (velocity.x * -1) > velocity.y:
-			sprite.play("left idle")
-		else:
+	var dirs := [
+		Vector2.DOWN,
+		Vector2.UP,
+		Vector2.LEFT,
+		Vector2.RIGHT
+	]
+
+	dirs.sort_custom(func(a: Vector2, b: Vector2) -> bool: return a.dot(velocity) > b.dot(velocity))
+	match dirs[0]:
+		Vector2.UP:
 			sprite.play("up idle")
-	elif velocity.x > 0 and velocity.y > 0:
-		if velocity.x > velocity.y:
+		Vector2.DOWN:
+			sprite.play("down idle")
+		Vector2.LEFT:
+			sprite.play("left idle")
+		Vector2.RIGHT:
 			sprite.play("right idle")
-		else:
-			sprite.play("up idle")
 
 func _player_detected() -> void:
 	# When we detect the player, immediately charge.
