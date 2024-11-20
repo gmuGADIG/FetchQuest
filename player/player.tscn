@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://c7ck7ril2jix2"]
+[gd_scene load_steps=17 format=3 uid="uid://c7ck7ril2jix2"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_x43mx"]
 [ext_resource type="Texture2D" uid="uid://bhw3gs4topknu" path="res://player/player_almost_final.png" id="2_dj0g1"]
@@ -51,6 +51,13 @@ _data = {
 "RESET": SubResource("Animation_tyilq"),
 "hurt_flash": SubResource("Animation_62xkx")
 }
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_bu7lb"]
+playback_mode = 1
+random_pitch = 1.1
+streams_count = 2
+stream_0/stream = ExtResource("10_jtbrp")
+stream_1/stream = ExtResource("11_wuebg")
 
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 y_sort_enabled = true
@@ -109,11 +116,10 @@ libraries = {
 "": SubResource("AnimationLibrary_jsxs5")
 }
 
-[node name="rolling-1" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("10_jtbrp")
-
-[node name="rolling-2" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("11_wuebg")
+[node name="RollingSound" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = SubResource("AudioStreamRandomizer_bu7lb")
+bus = &"SFX"
 
 [connection signal="timeout" from="RollTimer" to="." method="stop_roll"]
 [connection signal="fall_in_hole" from="HoleDetector" to="." method="fall_in_hole"]
