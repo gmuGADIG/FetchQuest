@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://unofapjhyh4i"]
+
+[ext_resource type="PackedScene" uid="uid://lwuwqeygvnpx" path="res://world/decoration/trees/weeping_tree/crystal_willow.tscn" id="1_ipn7x"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pddaw"]
+radius = 16.1152
+
+[node name="CrystalWillowCollidable" type="StaticBody2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(10, 10)
+shape = SubResource("CircleShape2D_pddaw")
+
+[node name="WeepingTree" parent="." instance=ExtResource("1_ipn7x")]
