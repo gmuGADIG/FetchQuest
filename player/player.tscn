@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://c7ck7ril2jix2"]
+[gd_scene load_steps=17 format=3 uid="uid://c7ck7ril2jix2"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_x43mx"]
 [ext_resource type="Texture2D" uid="uid://bhw3gs4topknu" path="res://player/player_almost_final.png" id="2_dj0g1"]
@@ -9,6 +9,8 @@
 [ext_resource type="PackedScene" uid="uid://qgyqqokyd0ia" path="res://player/abilities/speak/speak_aura.tscn" id="4_8n4by"]
 [ext_resource type="PackedScene" uid="uid://deerfyvrmooo6" path="res://new hole detector/hole_detector.tscn" id="6_eb6gp"]
 [ext_resource type="Script" path="res://player/skin_chooser.gd" id="9_de2wb"]
+[ext_resource type="AudioStream" uid="uid://djv2b57i4uoli" path="res://player/abilities/rolling/sound-effects/SFX_DodgeRoll_Jan.ogg" id="10_jtbrp"]
+[ext_resource type="AudioStream" uid="uid://8wbpod2ld75h" path="res://player/abilities/rolling/sound-effects/SFX_DodgeWithCollarJingle_Jan.ogg" id="11_wuebg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_krk6c"]
 size = Vector2(66, 50)
@@ -25,6 +27,13 @@ _data = {
 "RESET": SubResource("Animation_tyilq"),
 "hurt_flash": SubResource("Animation_62xkx")
 }
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_bu7lb"]
+playback_mode = 1
+random_pitch = 1.1
+streams_count = 2
+stream_0/stream = ExtResource("10_jtbrp")
+stream_1/stream = ExtResource("11_wuebg")
 
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 y_sort_enabled = true
@@ -83,6 +92,11 @@ unique_name_in_owner = true
 libraries = {
 "": SubResource("AnimationLibrary_jsxs5")
 }
+
+[node name="RollingSound" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = SubResource("AudioStreamRandomizer_bu7lb")
+bus = &"SFX"
 
 [connection signal="timeout" from="RollTimer" to="." method="stop_roll"]
 [connection signal="fall_in_hole" from="HoleDetector" to="." method="fall_in_hole"]
