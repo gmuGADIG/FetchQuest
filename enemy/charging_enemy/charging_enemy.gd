@@ -1,8 +1,5 @@
 extends Enemy
 
-@onready var sprite_normal: Sprite2D = $MainSprite/Sprite_Normal
-@onready var sprite_activated: Sprite2D = $MainSprite/Sprite_Activated
-@onready var sprite_stunned: Sprite2D = $MainSprite/Sprite_Stunned
 @onready var sprite: AnimatedSprite2D = $ChargingAnimation
 
 ## The contact damage that the charging enemy does when it is charging.
@@ -40,14 +37,12 @@ func set_own_state(state: EnemyState) -> void:
 	# We could do this with one sprite that changes texture, but that's not
 	# as straightforward to fix up if we have fewer textures later. Still,
 	# could be refactored.
-	sprite.hide()
 	
 	self.enemy_state = state
 	
 	match state:
 		EnemyState.ROAMING:
 			_set_idle_animation()
-			sprite.show()
 			# Re-enable detection
 			# NOTE: If the player detection component changes behavior this
 			# could be problematic.
@@ -60,36 +55,36 @@ func set_own_state(state: EnemyState) -> void:
 		EnemyState.STUNNED:
 			_set_idle_animation()
 			state_timer = stun_length
-			
+
 func _set_charge_animation() -> void:
-	if charge_direction.x < 0:
-		sprite.set_animation("charging left")
+	if charge_direction.y > 0:
+		sprite.play("charging down")
+	elif charge_direction.x < 0:
+		sprite.play("charging left")
 	elif charge_direction.x > 0:
-		sprite.set_animation("charging right")
-	if charge_direction.y < 0:
-		sprite.set_animation("charging down")
+		sprite.play("charging right")
 
 func _set_idle_animation() -> void:
 	if velocity.x < 0 and velocity.y < 0:
 		if velocity.x < velocity.y:
-			sprite.set_animation("left idle")
+			sprite.play("left idle")
 		else:
-			sprite.set_animation("down idle")
+			sprite.play("down idle")
 	elif velocity.x > 0 and velocity.y < 0:
 		if velocity.x > (velocity.y * -1):
-			sprite.set_animation("right idle")
+			sprite.play("right idle")
 		else:
-			sprite.set_animation("down idle")
+			sprite.play("down idle")
 	elif velocity.x < 0 and velocity.y > 0:
 		if (velocity.x * -1) > velocity.y:
-			sprite.set_animation("left idle")
+			sprite.play("left idle")
 		else:
-			sprite.set_animation("up idle")
+			sprite.play("up idle")
 	elif velocity.x > 0 and velocity.y > 0:
 		if velocity.x > velocity.y:
-			sprite.set_animation("right idle")
+			sprite.play("right idle")
 		else:
-			sprite.set_animation("up idle")
+			sprite.play("up idle")
 
 func _player_detected() -> void:
 	# When we detect the player, immediately charge.
@@ -150,7 +145,16 @@ func _physics_process(delta: float) -> void:
 			set_own_state(EnemyState.STUNNED)
 	else:
 		super(delta)
-		
+
+func _process(delta: float) -> void:
+	super(delta)
+	
+	match enemy_state:
+		EnemyState.AGRESSIVE:
+			_set_charge_animation()
+		_:
+			_set_idle_animation()
+
 func _get_contact_damage() -> int:
 	match enemy_state:
 		EnemyState.ROAMING:

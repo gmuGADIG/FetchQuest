@@ -116,7 +116,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"charging down",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -139,7 +139,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"charging left",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -162,7 +162,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"charging right",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -261,13 +261,13 @@ charge_windup = 0.7
 charge_length = 1.5
 stun_length = 2.0
 is_winding_up = false
-enemy_sprite = NodePath("MainSprite")
 
 [node name="ChargingAnimation" type="AnimatedSprite2D" parent="." index="0"]
 position = Vector2(0, -5)
 scale = Vector2(0.232619, 0.232619)
 sprite_frames = SubResource("SpriteFrames_kmssq")
-animation = &"up idle"
+animation = &"charging right"
+frame_progress = 0.679423
 
 [node name="PlayerDetectionComponent" parent="." index="1"]
 detectable_distance = 500.0
