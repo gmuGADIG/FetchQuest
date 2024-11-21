@@ -1,6 +1,11 @@
 extends Enemy
 class_name SpawnerEnemyBaby
 
+# The genious idea:
+# - Animate the sprite instead of the thing.
+# - Make the animation very fast.
+# - Pog.
+
 @export var attack_radius: float = 30
 
 var spawn_target_position: Vector2 = Vector2.ZERO
