@@ -90,9 +90,13 @@ func spawn_single_child() -> void:
 	var spawned := spawned_enemy.instantiate()
 	spawned.position = position
 	add_sibling(spawned)
+	
+	# Compute a convenient distance for the raycast
+	var dist := (safe_spawn_distance_from_self + safe_spawn_distance_from_wall * 2.0)
+	
 	# Try to reposition the child to not overlap with us.
 	for i in range(0, 100):
-		child_spawn_finder.target_position = Vector2.from_angle(randf_range(0, TAU)) * 500
+		child_spawn_finder.target_position = Vector2.from_angle(randf_range(0, TAU)) * dist
 		child_spawn_finder.force_raycast_update()
 		
 		#var target_pos := global_position + child_spawn_finder.target_position
