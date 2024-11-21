@@ -13,14 +13,9 @@ collision_mask = 2
 script = ExtResource("1_t1wk2")
 sustain_time = 3.0
 
-[node name="DamageTimer" type="Timer" parent="."]
-autostart = true
-
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.319955, 0.319955)
 texture = ExtResource("2_xc1fu")
 
 [node name="DamageCollider" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_dmixx")
-
-[connection signal="timeout" from="DamageTimer" to="." method="_on_damage_timer_timeout"]
