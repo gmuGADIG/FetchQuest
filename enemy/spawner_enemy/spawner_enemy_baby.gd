@@ -18,6 +18,6 @@ func _process_agressive(delta: float) -> void:
 	approach(Player.instance.global_position)
 	
 	if global_position.distance_to(Player.instance.global_position) < attack_radius:
-		# Note: This re-enables and disables the HittingArea CollisionShape.
+		# Note: This re-enables and disables the HittingArea CollisionShape.godo
 		$AnimationPlayer.play("attack")
 		
