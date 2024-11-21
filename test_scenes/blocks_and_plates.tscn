@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://cmukvpq0v8rn0"]
+[gd_scene load_steps=7 format=3 uid="uid://cmukvpq0v8rn0"]
 
 [ext_resource type="PackedScene" uid="uid://dbewnfb1psf22" path="res://world/interactable/pushable_block/pushable_block.tscn" id="1_65m3q"]
 [ext_resource type="PackedScene" uid="uid://c7ck7ril2jix2" path="res://player/player.tscn" id="2_6kdv3"]
 [ext_resource type="PackedScene" uid="uid://b5bscusffqp5h" path="res://world/interactable/activators/pressure_plate/pressure_plate.tscn" id="3_xmbpc"]
 [ext_resource type="Texture2D" uid="uid://dymucenpxmluo" path="res://icon.svg" id="4_abajc"]
+[ext_resource type="PackedScene" uid="uid://c2fqa82gjm52r" path="res://world/interactable/bark_block/bark_block.tscn" id="5_e376a"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nqkau"]
 size = Vector2(240, 226)
@@ -23,7 +24,7 @@ scale = Vector2(1.84375, 1.76563)
 texture = ExtResource("4_abajc")
 
 [node name="PressurePlate" parent="." instance=ExtResource("3_xmbpc")]
-position = Vector2(795, 270)
+position = Vector2(383, 522)
 scale = Vector2(3.08, 3.08)
 
 [node name="Player" parent="." instance=ExtResource("2_6kdv3")]
@@ -36,3 +37,7 @@ scale = Vector2(2.0412, 2.0412)
 [node name="pushable_block2" parent="." instance=ExtResource("1_65m3q")]
 position = Vector2(294, 251)
 scale = Vector2(2.0412, 2.0412)
+
+[node name="BarkBlock" parent="." instance=ExtResource("5_e376a")]
+position = Vector2(896, 474)
+push_speed = 150.0
