@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://ui/pause_menu/pause_menu.gd" id="1_6mimi"]
 [ext_resource type="Texture2D" uid="uid://by02hyx0mbhyv" path="res://ui/kenney_input_prompts/xbox_stick_l.svg" id="2_76ohk"]
 [ext_resource type="Theme" uid="uid://hft8rbf0e22b" path="res://ui/main_ui_theme.tres" id="2_evlcd"]
-[ext_resource type="AudioStream" uid="uid://boi8ijkmpdvak" path="res://ui/sounds/SFX UI Bonk 1.wav" id="2_y1kif"]
+[ext_resource type="AudioStream" uid="uid://bo7hpkhva02yb" path="res://ui/sounds/SFX UI Click 1.wav" id="2_svg3h"]
 [ext_resource type="Texture2D" uid="uid://cuxosj0xqko5o" path="res://ui/kenney_input_prompts/xbox_stick_r.svg" id="3_6tfxa"]
 [ext_resource type="Texture2D" uid="uid://b3mgh5kqkg4ts" path="res://ui/kenney_input_prompts/switch_buttons_down.svg" id="5_c4k42"]
 [ext_resource type="Texture2D" uid="uid://jw4s23y5ijys" path="res://ui/kenney_input_prompts/switch_buttons_right.svg" id="6_uhnds"]
@@ -38,9 +38,10 @@
 [node name="PauseMenu" type="CanvasLayer"]
 script = ExtResource("1_6mimi")
 
-[node name="PauseMenuAudioPlayer" type="AudioStreamPlayer2D" parent="."]
+[node name="PauseMenuAudioPlayer" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
-stream = ExtResource("2_y1kif")
+stream = ExtResource("2_svg3h")
+bus = &"SFX"
 
 [node name="Panel" type="Panel" parent="."]
 anchors_preset = 15
@@ -333,6 +334,8 @@ vertical_alignment = 2
 [node name="OptionsMenu" parent="." instance=ExtResource("32_pok70")]
 visible = false
 
+[connection signal="pressed" from="Panel/Resume" to="." method="_on_menu_major_button_pressed"]
 [connection signal="pressed" from="Panel/Resume" to="." method="_on_resume_pressed"]
 [connection signal="pressed" from="Panel/Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="Panel/Quit" to="." method="_on_menu_major_button_pressed"]
 [connection signal="pressed" from="Panel/OptionsMenuButton" to="." method="_on_menu_major_button_pressed"]

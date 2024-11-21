@@ -8,6 +8,9 @@
 [node name="TempTitleScreen" type="CanvasLayer"]
 script = ExtResource("6_ogkp4")
 
+[node name="TitleScreenAudioPlayer" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+
 [node name="Label" type="Label" parent="."]
 offset_left = 21.0
 offset_top = 11.0
@@ -55,5 +58,9 @@ text = "Continue"
 color = Color(0.252853, 0.327126, 0.292831, 1)
 
 [connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="Quit" to="." method="_on_menu_major_button_pressed"]
+[connection signal="pressed" from="Options" to="." method="_on_menu_major_button_pressed"]
+[connection signal="pressed" from="NewGame" to="." method="_on_menu_major_button_pressed"]
 [connection signal="pressed" from="NewGame" to="." method="_on_new_game_pressed"]
+[connection signal="pressed" from="ContinueGame" to="." method="_on_menu_major_button_pressed"]
 [connection signal="pressed" from="ContinueGame" to="." method="_on_continue_game_pressed"]

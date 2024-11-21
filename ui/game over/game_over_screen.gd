@@ -1,39 +1,27 @@
 extends Node2D
 
-@onready var button_sound: AudioStream = preload("res://ui/sounds/SFX UI Bonk 1.wav")
-@onready var should_quit: bool = false
-@onready var should_restart: bool = false
+
+@onready var button_major_sound: AudioStream = preload("res://ui/sounds/SFX UI Bonk 1.wav")
+@onready var audio_player: AudioStreamPlayer = $GameOverAudioPlayer
 
 func _ready() -> void:
 	$"Restart checkpoint".grab_focus()
-	$GameOverAudioPlayer.stop()
-
-#Checks whether a sound is playing, and if it isn't and either the restart or quit button have been clicked, restarts or
-#quits depending on which one was pressed
-func _process(seconds: float) -> void:
-	
-	if(!$GameOverAudioPlayer.is_playing()):
-		return
 		
-	if(should_quit):
-		get_tree().quit()
-	if(should_restart):
-		get_tree().change_scene_to_file("res://world/latest_demo_2.tscn")
-		
+#After the sound the "quit" button should play stops playing (the await .finished part), restarts
 func _on_restart_checkpoint_pressed() -> void:
-	_play_button_sound()
-	should_restart = true
+	await audio_player.finished
+	get_tree().change_scene_to_file("res://world/latest_demo_2.tscn")
 		
-# Button pressed to go restart and contiune to play the game
 # TODO: 
 #make a current save to load back rather than restart the whole game
 
+#After the sound the "quit" button should play stops playing (the await .finished part), quits
 func _on_quit_pressed() -> void:
-	_play_button_sound()
-	should_quit = true
+	await audio_player.finished
+	get_tree().quit()
 	
-# Button pressed to quit the game
-
-func _play_button_sound() -> void:
-	$GameOverAudioPlayer.stream = button_sound
-	$GameOverAudioPlayer.play()
+#When a major button is pressed, play the respective sound
+#Called when a signal is recieved from the respective buttons
+func _on_menu_major_button_pressed() -> void:
+	audio_player.stream = button_major_sound
+	audio_player.play(0.0)

@@ -1,8 +1,8 @@
 extends CanvasLayer
 
+#Variables used by the audio player to play sounds!
 @onready var button_major_sound: AudioStream = preload("res://ui/sounds/SFX UI Bonk 1.wav")
-@onready var button_minor_sound: AudioStream = preload("res://ui/sounds/SFX UI Click 1.wav")
-@onready var audio_player: AudioStreamPlayer2D = $PauseMenuAudioPlayer
+@onready var audio_player: AudioStreamPlayer = $PauseMenuAudioPlayer
 
 func _ready() -> void:
 	# The pause menu must always process. We can set this either in the inspector
@@ -41,12 +41,15 @@ func _process(delta: float) -> void:
 	if visible and not was_visible:
 		$OptionsMenu.hide()
 		$Panel/Resume.grab_focus()
+		
 	
 func _on_resume_pressed() -> void:
+	await audio_player.finised
 	# When resume is pressed, we simply unpause.
 	get_tree().paused = false
 	
 func _on_quit_pressed() -> void:
+	await audio_player.finised
 	# Unpause so that everything will work
 	get_tree().paused = false
 	# Go to main menu.
@@ -56,14 +59,8 @@ func _on_quit_pressed() -> void:
 func _on_option_menu_hidden() -> void:
 	$Panel/OptionsMenuButton.grab_focus()
 
-
+#When a "major" button is pressed (the options, resume, and quit buttons in the pause menu), play their respective sounds!
+#Called when a signal is recieved from the respective buttons
 func _on_menu_major_button_pressed() -> void:
-	print("YOABQ")
 	audio_player.stream = button_major_sound
-	audio_player.play()
-	
-	print(audio_player.is_playing())
-	
-func _on_menu_minor_button_pressed() -> void:
-	audio_player.stream = button_minor_sound
-	audio_player.play()
+	audio_player.play(0.0)

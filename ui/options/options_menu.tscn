@@ -15,6 +15,10 @@ theme = ExtResource("1_eq1l6")
 color = Color(0.140146, 0.354812, 0.257587, 1)
 script = ExtResource("1_1bpan")
 
+[node name="OptionsMenuSoundPlayer" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+bus = &"SFX"
+
 [node name="Title" type="RichTextLabel" parent="."]
 layout_mode = 1
 anchors_preset = 5
@@ -148,9 +152,16 @@ focus_neighbor_bottom = NodePath("../Back_To_Menu")
 script = ExtResource("1_wtrl1")
 audio_bus_name = "SFX"
 
+[connection signal="pressed" from="Back_To_Menu" to="." method="_on_menu_major_button_pressed"]
+[connection signal="drag_ended" from="Volume_Slider_Master2" to="." method="_on_menu_minor_button_pressed"]
+[connection signal="drag_started" from="Volume_Slider_Master2" to="." method="_on_menu_minor_button_pressed"]
 [connection signal="mouse_exited" from="Volume_Slider_Master2" to="Volume_Slider_Master2" method="release_focus"]
 [connection signal="value_changed" from="Volume_Slider_Master2" to="Volume_Slider_Master2" method="_on_value_changed"]
+[connection signal="drag_ended" from="Volume_Slider2_Music" to="." method="_on_menu_minor_button_pressed"]
+[connection signal="drag_started" from="Volume_Slider2_Music" to="." method="_on_menu_minor_button_pressed"]
 [connection signal="mouse_exited" from="Volume_Slider2_Music" to="Volume_Slider2_Music" method="release_focus"]
 [connection signal="value_changed" from="Volume_Slider2_Music" to="Volume_Slider2_Music" method="_on_value_changed"]
+[connection signal="drag_ended" from="Volume_Slider_SFX" to="." method="_on_menu_minor_button_pressed"]
+[connection signal="drag_started" from="Volume_Slider_SFX" to="." method="_on_menu_minor_button_pressed"]
 [connection signal="mouse_exited" from="Volume_Slider_SFX" to="Volume_Slider_SFX" method="release_focus"]
 [connection signal="value_changed" from="Volume_Slider_SFX" to="Volume_Slider_SFX" method="_on_value_changed"]

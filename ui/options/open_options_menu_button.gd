@@ -14,3 +14,4 @@ func _ready() -> void:
 # have an animation for this.
 func _on_self_pressed() -> void:
 	options_menu.show()
+	
