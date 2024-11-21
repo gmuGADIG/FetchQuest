@@ -1,0 +1,26 @@
+[gd_scene load_steps=6 format=3 uid="uid://ds6ix22a4e2va"]
+
+[ext_resource type="Script" path="res://enemy/frog_boss/shockwave_draw.gd" id="1_v7r8y"]
+[ext_resource type="Shader" path="res://enemy/frog_boss/shockwave.gdshader" id="2_4nfr1"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mu5qm"]
+shader = ExtResource("2_4nfr1")
+
+[sub_resource type="Gradient" id="Gradient_pgrtw"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_0ihsh"]
+gradient = SubResource("Gradient_pgrtw")
+
+[node name="Shockwave" type="Area2D"]
+collision_layer = 32
+collision_mask = 2
+script = ExtResource("1_v7r8y")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+build_mode = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_mu5qm")
+texture = SubResource("GradientTexture2D_0ihsh")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

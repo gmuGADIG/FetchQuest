@@ -1,0 +1,33 @@
+[gd_scene load_steps=8 format=3 uid="uid://d1neftn7js5i3"]
+
+[ext_resource type="Script" path="res://enemy/frog_boss/frog_boss.gd" id="1_6sums"]
+[ext_resource type="PackedScene" uid="uid://c7ck7ril2jix2" path="res://player/player.tscn" id="1_xv5jv"]
+[ext_resource type="Texture2D" uid="uid://dymucenpxmluo" path="res://icon.svg" id="2_yly5r"]
+[ext_resource type="PackedScene" uid="uid://ds6ix22a4e2va" path="res://enemy/frog_boss/shockwave.tscn" id="3_lax2m"]
+[ext_resource type="Script" path="res://world/camera/main_cam.gd" id="5_fm1uk"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kf54t"]
+size = Vector2(126, 126)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_wmh88"]
+
+[node name="FrogBossTest" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource("1_xv5jv")]
+
+[node name="Frog Boss" type="CharacterBody2D" parent="."]
+script = ExtResource("1_6sums")
+shockwave = ExtResource("3_lax2m")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Frog Boss"]
+shape = SubResource("RectangleShape2D_kf54t")
+
+[node name="Sprite2D" type="Sprite2D" parent="Frog Boss"]
+texture = ExtResource("2_yly5r")
+
+[node name="ActionCooldown" type="Timer" parent="Frog Boss"]
+wait_time = 0.75
+
+[node name="MainCam" type="Camera2D" parent="."]
+script = ExtResource("5_fm1uk")
+shake_noise = SubResource("FastNoiseLite_wmh88")
