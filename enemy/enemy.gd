@@ -10,6 +10,8 @@
 # For a base level enemy, the only thing that needs to be done is state switching. 
 # If custom movement is desired, override the respective state's _process function
 # (_process_roaming, _process_stunned, etc.)
+# In order to change the behavior to switch between states, override the decide_state
+# function, which is called every _process
 #
 # Each enemy should have a collision shape that has a radius associated with
 # one of the navigation layers. That way the enemy navigation will work correctly.
@@ -69,8 +71,7 @@ func _ready() -> void:
 
 func actor_setup() -> void:
 	#await get_tree().physics_frame
-	
-	approach(Player.instance.global_position)
+	approach(self.global_position)
 
 func _process(delta: float) -> void:
 	
