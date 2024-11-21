@@ -68,16 +68,14 @@ func _ready() -> void:
 	actor_setup.call_deferred()
 
 func actor_setup() -> void:
-	await get_tree().physics_frame
+	#await get_tree().physics_frame
+	
 	approach(Player.instance.global_position)
 
 func _process(delta: float) -> void:
-	if !$PlayerDetectionComponent/DetectionRaycast.can_see_player:
-		time_since_last_seen_player += delta
-		if(time_since_last_seen_player >= deaggro_time):
-			enemy_state = EnemyState.ROAMING
-	else:
-		time_since_last_seen_player = 0.0
+	
+	
+	decide_state(delta)
 	
 	match enemy_state:
 		EnemyState.ROAMING:
@@ -127,7 +125,17 @@ func on_death() -> void:
 	dropped_item.position = position
 	add_sibling.call_deferred(dropped_item)
 	print("Item '", dropped_item.name, "' was dropped by ", get_path())
-	
+
+func decide_state(delta: float) -> void:
+	if $PlayerDetectionComponent.can_see_player:
+		enemy_state = EnemyState.AGRESSIVE
+		time_since_last_seen_player = 0.0
+	else:
+		if enemy_state == EnemyState.AGRESSIVE:
+			time_since_last_seen_player += delta
+			if(time_since_last_seen_player >= deaggro_time):
+				enemy_state = EnemyState.ROAMING
+
 func _process_roaming(delta: float) -> void:
 	if roaming_time > 0: # waiting; subtract from timer and do nothing
 		roaming_time -= delta

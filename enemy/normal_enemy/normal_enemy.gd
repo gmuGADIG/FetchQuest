@@ -9,10 +9,8 @@ func _ready() -> void:
 	$PlayerDetectionComponent.player_detected.connect(_on_player_detected)
 	enemy_state = EnemyState.ROAMING
 	enemy_sprite = sprite_normal
-	$PlayerDetectionComponent.detecting = true
 	
 func _on_player_detected() -> void:
 	enemy_state = EnemyState.AGRESSIVE
 	enemy_sprite = sprite_activated
 	print("AAAAAAAAAAAAAAAAAAAAAAA")
-	$PlayerDetectionComponent.detecting = false
