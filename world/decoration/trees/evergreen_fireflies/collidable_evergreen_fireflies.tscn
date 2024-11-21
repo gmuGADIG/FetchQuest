@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://cnveqoba0t7tx"]
+
+[ext_resource type="PackedScene" uid="uid://cnveqoba0t7tx" path="res://world/decoration/trees/evergreen_fireflies/evergreen_fireflies.tscn" id="1_c56v1"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7b7ui"]
+
+[node name="EvergreenFirefliesCollidable" type="StaticBody2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(10, 10)
+shape = SubResource("CircleShape2D_7b7ui")
+
+[node name="EvergreenFireflies" parent="." instance=ExtResource("1_c56v1")]
