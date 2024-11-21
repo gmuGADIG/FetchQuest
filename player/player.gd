@@ -10,6 +10,7 @@ static var instance: Player
 @export var knockback_friction: float = 5.0 ## How fast the player slows down from knockback
 @export var roll_speed: float = 1000.0
 
+
 @onready var health: int = max_health: ## Current health
 	set(value):
 		health = value
@@ -26,6 +27,8 @@ static var instance: Player
 @onready var animation_player: AnimationPlayer = %AnimationPlayer
 
 @onready var hole_detector: Node2D = $HoleDetector
+
+@onready var _animated_sprite := $AnimatedSprite2D
 
 var active_sword: ThrownSword ## The active thrown sword. Null if the player is currently holding the sword
 
@@ -80,6 +83,10 @@ func start_roll() -> void:
 	rolling = true
 	# get direction for the roll
 	roll_vector = Input.get_vector("move_left", "move_right", "move_up", "move_down").normalized()
+	if(roll_vector.x <= 0):
+		_animated_sprite.play("Artie_Roll_Left")
+	else:
+		_animated_sprite.play("Artie_Roll_Right")
 	# switch off collision with enemy bullets and the holes
 	self.set_collision_mask_value(6, false)
 	hole_detector.enabled = false
@@ -90,6 +97,7 @@ func start_roll() -> void:
 # callback from roll timer. reverts changes made by start_roll
 func stop_roll() -> void:
 	rolling = false
+	
 	hole_detector.enabled = true
 
 	self.set_collision_mask_value(6, true)
@@ -101,6 +109,10 @@ func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("speak"):
 		if !$Speak.on_cooldown():
 			$Speak.speak()
+			if(Input.get_axis("move_left", "move_right") <= 0):
+				_animated_sprite.play("Artie_Bark_Left")
+			else:
+				_animated_sprite.play("Artie_Bark_Right")
 
 	if Input.is_action_just_pressed("attack"):
 		if active_sword == null:
@@ -123,6 +135,7 @@ func throw_sword() -> void:
 
 func _physics_process(delta: float) -> void:
 	velocity = Input.get_vector("move_left", "move_right", "move_up", "move_down") * move_speed
+	
 	if($Speak.is_speaking()):
 		velocity *= $Speak.movement_multiplier
 	# normal movement input is not processed while rolling
@@ -135,7 +148,14 @@ func _physics_process(delta: float) -> void:
 
 	if (Input.is_action_just_pressed("dog_roll")):
 		start_roll()
-
+		
+	if(not rolling && not $Speak.is_speaking()):
+		if(velocity == Vector2.ZERO):
+			_animated_sprite.play("Artie_Base_Right")
+		elif(velocity.x < 0 ):
+			_animated_sprite.play("Artie_Walk_Left")
+		else:
+			_animated_sprite.play("Artie_Walk_Right")
 	velocity += force_applied
 	force_applied = force_applied.lerp(Vector2.ZERO, delta * knockback_friction)
 	move_and_slide()
