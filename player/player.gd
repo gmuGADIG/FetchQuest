@@ -37,6 +37,7 @@ var last_aim_direction := Vector2.RIGHT
 
 var invincible: bool = false
 
+var facing_right: bool = true;
 var rolling: bool = false
 var roll_vector: Vector2 = Vector2(0, 0)
 var roll_timer: float = 0.25
@@ -83,7 +84,7 @@ func start_roll() -> void:
 	rolling = true
 	# get direction for the roll
 	roll_vector = Input.get_vector("move_left", "move_right", "move_up", "move_down").normalized()
-	if(roll_vector.x <= 0):
+	if(not facing_right):
 		_animated_sprite.play("Artie_Roll_Left")
 	else:
 		_animated_sprite.play("Artie_Roll_Right")
@@ -110,7 +111,7 @@ func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("speak"):
 		if !$Speak.on_cooldown():
 			$Speak.speak()
-			if(Input.get_axis("move_left", "move_right") <= 0):
+			if(not facing_right):
 				_animated_sprite.play("Artie_Bark_Left")
 			else:
 				_animated_sprite.play("Artie_Bark_Right")
@@ -136,7 +137,11 @@ func throw_sword() -> void:
 
 func _physics_process(delta: float) -> void:
 	velocity = Input.get_vector("move_left", "move_right", "move_up", "move_down") * move_speed
-	
+	if(velocity != Vector2.ZERO):
+		if(velocity.x < 0):
+			facing_right = false
+		else:
+			facing_right = true
 	if($Speak.is_speaking()):
 		velocity *= $Speak.movement_multiplier
 	# normal movement input is not processed while rolling
@@ -153,8 +158,11 @@ func _physics_process(delta: float) -> void:
 		
 	if(not rolling && not $Speak.is_speaking()):
 		if(velocity == Vector2.ZERO):
-			_animated_sprite.play("Artie_Base_Right")
-		elif(velocity.x < 0 ):
+			if(facing_right):
+				_animated_sprite.play("Artie_Base_Right")
+			else:
+				_animated_sprite.play("Artie_Base_Left")
+		elif(not facing_right):
 			_animated_sprite.play("Artie_Walk_Left")
 		else:
 			_animated_sprite.play("Artie_Walk_Right")
