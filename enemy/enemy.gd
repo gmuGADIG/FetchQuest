@@ -71,8 +71,7 @@ func _ready() -> void:
 
 func actor_setup() -> void:
 	#await get_tree().physics_frame
-	
-	approach(Player.instance.global_position)
+	approach(self.global_position)
 
 func _process(delta: float) -> void:
 	
