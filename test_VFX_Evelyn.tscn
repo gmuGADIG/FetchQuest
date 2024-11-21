@@ -1,0 +1,153 @@
+[gd_scene load_steps=6 format=3 uid="uid://c3pee4c7t8xyq"]
+
+[ext_resource type="Texture2D" uid="uid://dxxvef1dufyhy" path="res://ui/Untitled design (3).png" id="1_ph4hb"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_50brd"]
+
+[sub_resource type="Curve" id="Curve_1dv4p"]
+_data = [Vector2(0, 0.322767), 0.0, 0.0, 0, 0, Vector2(0.00304878, 0.193771), 1.38899, 1.38899, 0, 0, Vector2(0.0426829, 0.415932), 0.0, 0.0, 0, 0, Vector2(0.0914634, 0.530595), 0.0, 0.0, 0, 0, Vector2(0.129573, 0.519846), 0.0, 0.0, 0, 0, Vector2(0.158537, 0.659592), 0.0, 0.0, 0, 0, Vector2(0.176829, 0.476847), 0.0, 0.0, 0, 0, Vector2(0.222561, 0.562845), 0.0, 0.0, 0, 0]
+point_count = 8
+
+[sub_resource type="Gradient" id="Gradient_hwyw3"]
+offsets = PackedFloat32Array(0, 0.307325, 0.611465, 1)
+colors = PackedColorArray(0.621524, 0.621524, 0.621524, 1, 0.513481, 0.931523, 0.823918, 1, 0.105075, 0.487051, 0.450255, 1, 1, 1, 1, 1)
+
+[sub_resource type="Gradient" id="Gradient_8m7k3"]
+offsets = PackedFloat32Array(0.00477707, 1)
+colors = PackedColorArray(0.415686, 1, 1, 1, 1, 1, 1, 0.219608)
+
+[node name="Node2D" type="Node2D"]
+position = Vector2(357, 94)
+
+[node name="smoll" type="CPUParticles2D" parent="."]
+material = SubResource("CanvasItemMaterial_50brd")
+position = Vector2(148, 110)
+rotation = 2.34223
+skew = 1.56905
+amount = 20
+lifetime = 0.01
+speed_scale = 21.91
+explosiveness = 0.24
+spread = 0.0
+gravity = Vector2(12, 12)
+initial_velocity_min = 277.09
+initial_velocity_max = 294.84
+angular_velocity_min = 6.25
+angular_velocity_max = 7.15
+orbit_velocity_min = -538.46
+orbit_velocity_max = -278.11
+linear_accel_min = 72.07
+linear_accel_max = 100.0
+radial_accel_min = -115.81
+radial_accel_max = -115.81
+tangential_accel_min = 44.38
+tangential_accel_max = 68.64
+angle_min = 720.0
+angle_max = 720.0
+scale_amount_min = 0.0
+scale_amount_max = 40.67
+scale_amount_curve = SubResource("Curve_1dv4p")
+color = Color(0.502482, 0.997181, 1, 1)
+color_ramp = SubResource("Gradient_hwyw3")
+anim_speed_min = 125.73
+anim_speed_max = 125.73
+
+[node name="mid" type="CPUParticles2D" parent="."]
+material = SubResource("CanvasItemMaterial_50brd")
+position = Vector2(156.996, 87.9999)
+rotation = 2.34223
+skew = 1.5691
+amount = 20
+lifetime = 0.01
+speed_scale = 21.91
+explosiveness = 0.24
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 298.82
+initial_velocity_max = 588.76
+angular_velocity_min = -45.5
+angular_velocity_max = 576.51
+orbit_velocity_min = -1000.0
+orbit_velocity_max = -18.5
+linear_accel_min = 72.07
+linear_accel_max = 100.0
+radial_accel_min = -115.81
+radial_accel_max = -115.81
+tangential_accel_min = 44.38
+tangential_accel_max = 68.64
+angle_min = -720.0
+angle_max = 720.0
+scale_amount_min = 0.0
+scale_amount_max = 40.67
+scale_amount_curve = SubResource("Curve_1dv4p")
+color = Color(0.502482, 0.997181, 1, 1)
+color_ramp = SubResource("Gradient_hwyw3")
+anim_speed_min = 125.73
+anim_speed_max = 125.73
+
+[node name="big" type="CPUParticles2D" parent="mid"]
+material = SubResource("CanvasItemMaterial_50brd")
+position = Vector2(-6053.65, -5985.2)
+skew = 3.05176e-05
+amount = 20
+lifetime = 0.01
+speed_scale = 21.91
+explosiveness = 0.22
+emission_shape = 1
+emission_sphere_radius = 0.01
+spread = 0.0
+gravity = Vector2(12, 12)
+initial_velocity_min = 886.56
+initial_velocity_max = 886.56
+orbit_velocity_min = -538.46
+orbit_velocity_max = 502.96
+linear_accel_min = 72.07
+linear_accel_max = 100.0
+radial_accel_min = -115.81
+radial_accel_max = -115.81
+tangential_accel_min = 44.38
+tangential_accel_max = 68.64
+scale_amount_min = 16.25
+scale_amount_max = 50.29
+scale_amount_curve = SubResource("Curve_1dv4p")
+color = Color(0.502482, 0.997181, 1, 1)
+color_ramp = SubResource("Gradient_hwyw3")
+anim_speed_min = 3.85
+anim_speed_max = 3.85
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+position = Vector2(862, 67)
+direction = Vector2(100, 0)
+spread = 23.81
+initial_velocity_min = 594.67
+initial_velocity_max = 713.02
+damping_min = 100.0
+damping_max = 100.0
+angle_min = 281.2
+angle_max = 281.2
+scale_amount_min = 11.83
+scale_amount_max = 11.83
+
+[node name="soundWave" type="CPUParticles2D" parent="."]
+position = Vector2(231, 498)
+amount = 2
+lifetime = 0.01
+speed_scale = 21.39
+texture = ExtResource("1_ph4hb")
+emission_shape = 1
+emission_sphere_radius = 1.0
+direction = Vector2(100, 0)
+spread = 0.0
+gravity = Vector2(2, 980)
+initial_velocity_min = 147.47
+initial_velocity_max = 268.77
+linear_accel_min = -100.0
+linear_accel_max = -100.0
+damping_min = 100.0
+damping_max = 100.0
+scale_amount_min = 0.0
+scale_amount_max = 97.64
+color = Color(0.414998, 0.998391, 1, 1)
+color_ramp = SubResource("Gradient_8m7k3")
+anim_speed_min = -10.59
+anim_speed_max = -10.59
