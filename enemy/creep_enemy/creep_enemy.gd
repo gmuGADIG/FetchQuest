@@ -9,9 +9,6 @@ func _ready() -> void:
 	# Set up the spawning timer
 	$CreepSpawnTimer.wait_time = creep_spawn_time
 	$CreepSpawnTimer.start()
-	
-func _process_agressive(delta: float) -> void:
-	enemy_state = EnemyState.ROAMING
 
 func _on_creep_spawn_timer_timeout() -> void:
 	if creep_prefab == null:
