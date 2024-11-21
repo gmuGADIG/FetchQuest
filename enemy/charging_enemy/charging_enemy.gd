@@ -37,14 +37,12 @@ func set_own_state(state: EnemyState) -> void:
 	# We could do this with one sprite that changes texture, but that's not
 	# as straightforward to fix up if we have fewer textures later. Still,
 	# could be refactored.
-	sprite.hide()
 	
 	self.enemy_state = state
 	
 	match state:
 		EnemyState.ROAMING:
 			_set_idle_animation()
-			sprite.show()
 			# Re-enable detection
 			# NOTE: If the player detection component changes behavior this
 			# could be problematic.
@@ -87,6 +85,41 @@ func _set_idle_animation() -> void:
 			sprite.set_animation("right idle")
 		else:
 			sprite.set_animation("up idle")
+
+func _set_charge_animation() -> void:
+	var dirs := [
+		Vector2.DOWN,
+		Vector2.LEFT,
+		Vector2.RIGHT
+	]
+
+	dirs.sort_custom(func(a: Vector2, b: Vector2) -> bool: return a.dot(velocity) > b.dot(velocity))
+	match dirs[0]:
+		Vector2.DOWN:
+			sprite.play("charging down")
+		Vector2.LEFT:
+			sprite.play("charging left")
+		Vector2.RIGHT:
+			sprite.play("charging right")
+
+func _set_idle_animation() -> void:
+	var dirs := [
+		Vector2.DOWN,
+		Vector2.UP,
+		Vector2.LEFT,
+		Vector2.RIGHT
+	]
+
+	dirs.sort_custom(func(a: Vector2, b: Vector2) -> bool: return a.dot(velocity) > b.dot(velocity))
+	match dirs[0]:
+		Vector2.UP:
+			sprite.play("up idle")
+		Vector2.DOWN:
+			sprite.play("down idle")
+		Vector2.LEFT:
+			sprite.play("left idle")
+		Vector2.RIGHT:
+			sprite.play("right idle")
 
 func _player_detected() -> void:
 	# When we detect the player, immediately charge.
@@ -147,7 +180,16 @@ func _physics_process(delta: float) -> void:
 			set_own_state(EnemyState.STUNNED)
 	else:
 		super(delta)
-		
+
+func _process(delta: float) -> void:
+	super(delta)
+	
+	match enemy_state:
+		EnemyState.AGRESSIVE:
+			_set_charge_animation()
+		_:
+			_set_idle_animation()
+
 func _get_contact_damage() -> int:
 	match enemy_state:
 		EnemyState.ROAMING:

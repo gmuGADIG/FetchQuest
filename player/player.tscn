@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://c7ck7ril2jix2"]
+[gd_scene load_steps=17 format=3 uid="uid://c7ck7ril2jix2"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_x43mx"]
 [ext_resource type="Texture2D" uid="uid://bhw3gs4topknu" path="res://player/player_almost_final.png" id="2_dj0g1"]
@@ -9,46 +9,31 @@
 [ext_resource type="PackedScene" uid="uid://qgyqqokyd0ia" path="res://player/abilities/speak/speak_aura.tscn" id="4_8n4by"]
 [ext_resource type="PackedScene" uid="uid://deerfyvrmooo6" path="res://new hole detector/hole_detector.tscn" id="6_eb6gp"]
 [ext_resource type="Script" path="res://player/skin_chooser.gd" id="9_de2wb"]
+[ext_resource type="AudioStream" uid="uid://djv2b57i4uoli" path="res://player/abilities/rolling/sound-effects/SFX_DodgeRoll_Jan.ogg" id="10_jtbrp"]
+[ext_resource type="AudioStream" uid="uid://8wbpod2ld75h" path="res://player/abilities/rolling/sound-effects/SFX_DodgeWithCollarJingle_Jan.ogg" id="11_wuebg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_krk6c"]
 size = Vector2(66, 50)
 
 [sub_resource type="Animation" id="Animation_tyilq"]
 length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("SkinHolder:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
 
 [sub_resource type="Animation" id="Animation_62xkx"]
 resource_name = "hurt_flash"
 length = 2.0
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("SkinHolder:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0.384314), Color(1, 1, 1, 1), Color(1, 1, 1, 0.384314), Color(1, 1, 1, 1), Color(1, 1, 1, 0.384314), Color(1, 1, 1, 1), Color(1, 1, 1, 0.384314), Color(1, 1, 1, 1)]
-}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_jsxs5"]
 _data = {
 "RESET": SubResource("Animation_tyilq"),
 "hurt_flash": SubResource("Animation_62xkx")
 }
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_bu7lb"]
+playback_mode = 1
+random_pitch = 1.1
+streams_count = 2
+stream_0/stream = ExtResource("10_jtbrp")
+stream_1/stream = ExtResource("11_wuebg")
 
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 y_sort_enabled = true
@@ -57,22 +42,27 @@ collision_mask = 33
 motion_mode = 1
 script = ExtResource("1_x43mx")
 
-[node name="SkinHolder" type="Node2D" parent="."]
+[node name="SkinChooser" type="Node2D" parent="."]
+position = Vector2(-13, -38)
+script = ExtResource("9_de2wb")
 
-[node name="skin1" type="Sprite2D" parent="SkinHolder"]
+[node name="Skin1" type="Sprite2D" parent="SkinChooser"]
+unique_name_in_owner = true
 position = Vector2(19, 14)
 scale = Vector2(0.191346, 0.191346)
 texture = ExtResource("2_dj0g1")
 script = ExtResource("3_f3hsb")
 
-[node name="skin2" type="Sprite2D" parent="SkinHolder"]
+[node name="Skin2" type="Sprite2D" parent="SkinChooser"]
+unique_name_in_owner = true
 visible = false
 position = Vector2(10, 3)
 scale = Vector2(0.301772, 0.286698)
 texture = ExtResource("3_4uqbb")
 script = ExtResource("3_f3hsb")
 
-[node name="Skin3" type="Sprite2D" parent="SkinHolder"]
+[node name="Skin3" type="Sprite2D" parent="SkinChooser"]
+unique_name_in_owner = true
 visible = false
 position = Vector2(0, 53)
 scale = Vector2(0.2, 0.2)
@@ -80,14 +70,11 @@ texture = ExtResource("2_ts2mf")
 offset = Vector2(0, -300)
 script = ExtResource("3_f3hsb")
 
-[node name="SkinChooser" type="Node" parent="SkinHolder"]
-script = ExtResource("9_de2wb")
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(13, 38)
 shape = SubResource("RectangleShape2D_krk6c")
 
 [node name="Speak" type="Node2D" parent="."]
+position = Vector2(-13, -38)
 script = ExtResource("3_ne4cx")
 speak_aura = ExtResource("4_8n4by")
 radius = 20.0
@@ -98,7 +85,6 @@ wait_time = 0.75
 one_shot = true
 
 [node name="HoleDetector" parent="." instance=ExtResource("6_eb6gp")]
-position = Vector2(13, 38)
 scale = Vector2(3.3, 3.3)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -106,6 +92,11 @@ unique_name_in_owner = true
 libraries = {
 "": SubResource("AnimationLibrary_jsxs5")
 }
+
+[node name="RollingSound" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = SubResource("AudioStreamRandomizer_bu7lb")
+bus = &"SFX"
 
 [connection signal="timeout" from="RollTimer" to="." method="stop_roll"]
 [connection signal="fall_in_hole" from="HoleDetector" to="." method="fall_in_hole"]
