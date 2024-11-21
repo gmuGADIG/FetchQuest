@@ -1,9 +1,8 @@
-[gd_scene load_steps=56 format=3 uid="uid://bobkbrrhotrgp"]
+[gd_scene load_steps=68 format=3 uid="uid://bobkbrrhotrgp"]
 
 [ext_resource type="PackedScene" uid="uid://cnd06dpkgufe4" path="res://world/levels/level_base.tscn" id="1_7jbap"]
 [ext_resource type="PackedScene" uid="uid://duhvhegf6byvr" path="res://enemy/spawner_enemy/spawner_enemy.tscn" id="2_5b1jc"]
 [ext_resource type="PackedScene" uid="uid://bs6o5glcfe2as" path="res://enemy/projectile_enemy/projectile_enemy.tscn" id="3_y1ki7"]
-[ext_resource type="PackedScene" uid="uid://yllbcpq24cl0" path="res://enemy/creep_enemy/creep_enemy.tscn" id="4_klp4q"]
 [ext_resource type="PackedScene" uid="uid://bimerg4hcbya2" path="res://enemy/charging_enemy/charging_enemy.tscn" id="5_sdgak"]
 [ext_resource type="Script" path="res://addons/rmsmartshape/shapes/shape_closed.gd" id="6_dff0r"]
 [ext_resource type="Script" path="res://addons/rmsmartshape/vertex_properties.gd" id="7_cvq3m"]
@@ -13,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://cn8mqjfpvgvii" path="res://world/smart_shapes/grass/grass_thicket.png" id="11_1347g"]
 [ext_resource type="Script" path="res://addons/rmsmartshape/materials/shape_material.gd" id="12_0fhqt"]
 [ext_resource type="PackedScene" uid="uid://blh1fs712dql8" path="res://world/interactable/activatable/locked_door/locked_door.tscn" id="13_hc8s3"]
+[ext_resource type="Texture2D" uid="uid://bwqy63l74gay6" path="res://world/smart_shapes/grass/grass_corrupt.png" id="14_2h8qe"]
 
 [sub_resource type="Resource" id="Resource_vy8w6"]
 script = ExtResource("7_cvq3m")
@@ -336,33 +336,158 @@ fill_texture_angle_offset = 0.0
 fill_mesh_offset = 0.0
 render_offset = 0.0
 
+[sub_resource type="Resource" id="Resource_2n2eg"]
+script = ExtResource("7_cvq3m")
+texture_idx = 0
+flip = false
+width = 1.0
+
+[sub_resource type="Resource" id="Resource_ib1yg"]
+script = ExtResource("8_f84c5")
+position = Vector2(1408, -376)
+point_in = Vector2(0, 0)
+point_out = Vector2(0, 0)
+properties = SubResource("Resource_2n2eg")
+
+[sub_resource type="Resource" id="Resource_h3df1"]
+script = ExtResource("7_cvq3m")
+texture_idx = 0
+flip = false
+width = 1.0
+
+[sub_resource type="Resource" id="Resource_hli5g"]
+script = ExtResource("8_f84c5")
+position = Vector2(1544, -376)
+point_in = Vector2(0, 0)
+point_out = Vector2(0, 0)
+properties = SubResource("Resource_h3df1")
+
+[sub_resource type="Resource" id="Resource_3v5ky"]
+script = ExtResource("7_cvq3m")
+texture_idx = 0
+flip = false
+width = 1.0
+
+[sub_resource type="Resource" id="Resource_qshjd"]
+script = ExtResource("8_f84c5")
+position = Vector2(1544, 1016)
+point_in = Vector2(0, 0)
+point_out = Vector2(0, 0)
+properties = SubResource("Resource_3v5ky")
+
+[sub_resource type="Resource" id="Resource_gdnaw"]
+script = ExtResource("7_cvq3m")
+texture_idx = 0
+flip = false
+width = 1.0
+
+[sub_resource type="Resource" id="Resource_nq587"]
+script = ExtResource("8_f84c5")
+position = Vector2(1408, 1016)
+point_in = Vector2(0, 0)
+point_out = Vector2(0, 0)
+properties = SubResource("Resource_gdnaw")
+
+[sub_resource type="Resource" id="Resource_gfspm"]
+script = ExtResource("7_cvq3m")
+texture_idx = 0
+flip = false
+width = 1.0
+
+[sub_resource type="Resource" id="Resource_4ouya"]
+script = ExtResource("8_f84c5")
+position = Vector2(1408, -376)
+point_in = Vector2(0, 0)
+point_out = Vector2(0, 0)
+properties = SubResource("Resource_gfspm")
+
+[sub_resource type="Resource" id="Resource_vwsgp"]
+script = ExtResource("9_gpp46")
+_points = {
+0: SubResource("Resource_4ouya"),
+1: SubResource("Resource_ib1yg"),
+2: SubResource("Resource_hli5g"),
+3: SubResource("Resource_qshjd"),
+4: SubResource("Resource_nq587")
+}
+_point_order = PackedInt32Array(1, 2, 3, 4, 0)
+_constraints = {
+Vector2i(1, 0): 15
+}
+_next_key = 5
+_material_overrides = {}
+tessellation_stages = 3
+tessellation_tolerance = 6.0
+curve_bake_interval = 20.0
+
+[sub_resource type="Resource" id="Resource_ettpg"]
+script = ExtResource("12_0fhqt")
+_edge_meta_materials = Array[ExtResource("10_u0q3s")]([])
+fill_textures = Array[Texture2D]([ExtResource("14_2h8qe")])
+fill_texture_z_index = -10
+fill_texture_show_behind_parent = false
+fill_texture_scale = 1.0
+fill_texture_absolute_position = false
+fill_texture_absolute_rotation = false
+fill_texture_offset = Vector2(0, 0)
+fill_texture_angle_offset = 0.0
+fill_mesh_offset = 0.0
+render_offset = 0.0
+
 [node name="LevelBase2" instance=ExtResource("1_7jbap")]
 
+[node name="Spawn" type="Node2D" parent="EntryPoints" index="0"]
+position = Vector2(-168, 760)
+
+[node name="Player" parent="." index="5"]
+position = Vector2(-264, 736)
+
 [node name="SpawnerEnemy" parent="." index="6" instance=ExtResource("2_5b1jc")]
-position = Vector2(1696, 728)
+position = Vector2(1688, 600)
 spawned_enemy = ExtResource("3_y1ki7")
+spawn_rate = 1.0
 
-[node name="SpawnerEnemy3" parent="." index="7" instance=ExtResource("2_5b1jc")]
-position = Vector2(1680, 256)
-spawned_enemy = ExtResource("4_klp4q")
-
-[node name="SpawnerEnemy2" parent="." index="8" instance=ExtResource("2_5b1jc")]
-position = Vector2(1672, -208)
+[node name="SpawnerEnemy2" parent="." index="7" instance=ExtResource("2_5b1jc")]
+position = Vector2(1680, 24)
 spawned_enemy = ExtResource("5_sdgak")
+spawn_rate = 2.0
 
-[node name="StaticBody2D" type="StaticBody2D" parent="." index="9"]
+[node name="StaticBody2D" type="StaticBody2D" parent="." index="8"]
 
 [node name="SS2D_Shape_Closed" type="Node2D" parent="StaticBody2D" index="0"]
 script = ExtResource("6_dff0r")
 _points = SubResource("Resource_kfevg")
 shape_material = SubResource("Resource_i830k")
 
-[node name="LockedDoor" parent="." index="10" instance=ExtResource("13_hc8s3")]
+[node name="LockedDoor" parent="." index="9" instance=ExtResource("13_hc8s3")]
 position = Vector2(-368, 808)
 
-[node name="Node" type="Node" parent="." index="11"]
+[node name="Wall" type="Node" parent="." index="10"]
 
-[node name="SS2D_Shape_Closed" type="Node2D" parent="Node" index="0"]
+[node name="StaticBody2D" type="StaticBody2D" parent="Wall" index="0"]
+
+[node name="SS2D_Shape_Closed" type="Node2D" parent="Wall/StaticBody2D" index="0"]
 script = ExtResource("6_dff0r")
 _points = SubResource("Resource_q3hht")
 shape_material = SubResource("Resource_4k87x")
+collision_polygon_node_path = NodePath("../CollisionPolygon2D")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Wall/StaticBody2D" index="1"]
+visible = false
+modulate = Color(1, 1, 1, 0.3)
+polygon = PackedVector2Array(-376, -376, -384, 672, -520, 672, -536, -464, 2008, -488, 2072, 1096, -504, 1136, -480, 936, -384, 936, -392, 1016, 1920, 1024, 1920, -376, -376, -376)
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="." index="11"]
+
+[node name="SS2D_Shape_Closed2" type="Node2D" parent="StaticBody2D2" index="0"]
+script = ExtResource("6_dff0r")
+_points = SubResource("Resource_vwsgp")
+shape_material = SubResource("Resource_ettpg")
+
+[node name="TextEdit" type="TextEdit" parent="." index="12"]
+offset_left = 1376.0
+offset_top = -232.0
+offset_right = 1522.0
+offset_bottom = -195.0
+scale = Vector2(1.5934, 3.48978)
+text = "One Way Terrain"
