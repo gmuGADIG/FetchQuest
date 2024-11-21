@@ -1,14 +1,18 @@
-[gd_scene load_steps=6 format=3 uid="uid://c35taofq3ypdt"]
+[gd_scene load_steps=8 format=3 uid="uid://dsnv85ygt7bt6"]
 
 [ext_resource type="PackedScene" uid="uid://c7ck7ril2jix2" path="res://player/player.tscn" id="1_42xng"]
 [ext_resource type="PackedScene" uid="uid://duhvhegf6byvr" path="res://enemy/spawner_enemy/spawner_enemy.tscn" id="2_cby2t"]
-[ext_resource type="PackedScene" uid="uid://dcexosxhay8mr" path="res://enemy/spawner_enemy/spawner_enemy_baby.tscn" id="3_ekrwl"]
+[ext_resource type="PackedScene" uid="uid://cnn1msk2i5pn5" path="res://enemy/spawner_enemy/spawner_enemy_baby.tscn" id="3_ekrwl"]
 [ext_resource type="Script" path="res://enemy/navigation_updater.gd" id="4_wvutm"]
+[ext_resource type="Texture2D" uid="uid://dob25g5tki0tr" path="res://demo_art/test_wall.svg" id="5_vdhqp"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_ldc7k"]
 vertices = PackedVector2Array(2570.82, 1374.19, -1259, 1441.82, -1259, -675.57, 2316.12, -885.461)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(-1269, -685, -1269, 1452, 2582, 1384, 2325, -896)])
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lytri"]
+size = Vector2(256, 256)
 
 [node name="EnemySpawnerDemo" type="Node2D"]
 
@@ -26,3 +30,16 @@ position = Vector2(186, -107)
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
 navigation_polygon = SubResource("NavigationPolygon_ldc7k")
 script = ExtResource("4_wvutm")
+metadata/_edit_lock_ = true
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(492, -27)
+scale = Vector2(0.357064, 2.69773)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("RectangleShape2D_lytri")
+metadata/_edit_lock_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
+texture = ExtResource("5_vdhqp")
+metadata/_edit_lock_ = true
