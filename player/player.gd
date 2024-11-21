@@ -96,6 +96,7 @@ func start_roll() -> void:
 
 # callback from roll timer. reverts changes made by start_roll
 func stop_roll() -> void:
+	_animated_sprite.stop()
 	rolling = false
 	
 	hole_detector.enabled = true
@@ -147,6 +148,7 @@ func _physics_process(delta: float) -> void:
 	recover_stamina(delta)
 
 	if (Input.is_action_just_pressed("dog_roll")):
+		_animated_sprite.stop()
 		start_roll()
 		
 	if(not rolling && not $Speak.is_speaking()):
