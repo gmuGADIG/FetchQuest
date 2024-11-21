@@ -16,6 +16,7 @@ extends Node2D
 @onready var hit_flash: AnimationPlayer = $Path2D/HitFlash
 @onready var hitter: CollisionShape2D = $Path2D/PathFollow2D/Entered/HitArea
 @onready var marker: Sprite2D = $Path2D/PathFollow2D/Sprite2D/Sprite2D
+
 #Speed: The speed the targets move - Speed is war
 #timeStart: The Start of the coutdown timer
 #flashStart: The time at which the flash will start
@@ -234,7 +235,10 @@ func _shutdown(groupName: String) -> void:
 			instance.animation.play("RESET")
 			instance.path_follow.progress = 0.0
 			instance.dir = false
-			instance.marker.visible = false
+			if(hitAll == false):
+				instance.marker.visible = false
+			else:
+				instance.marker.visible = true
 			instance.path_follow.progress = 0.0
 			if(pressurePlate!= null && pressurePlate.get_pressed() == true):
 				instance.pressureActive = true
