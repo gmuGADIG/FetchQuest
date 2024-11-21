@@ -13,9 +13,6 @@ point_count = 3
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mfnl4"]
 size = Vector2(41, 72)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_2270v"]
-size = Vector2(33, 64)
-
 [sub_resource type="Animation" id="Animation_wcps4"]
 length = 0.001
 tracks/0/type = "value"
@@ -104,6 +101,9 @@ _data = {
 "RESET": SubResource("Animation_mauto")
 }
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2270v"]
+size = Vector2(33, 64)
+
 [node name="Target" type="CharacterBody2D" node_paths=PackedStringArray("sprite")]
 light_mask = 3
 visibility_layer = 3
@@ -147,19 +147,21 @@ position = Vector2(-0.228653, -19.648)
 scale = Vector2(0.188674, 0.0368264)
 texture = ExtResource("3_g2yco")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
-position = Vector2(-3.5, -2)
-shape = SubResource("RectangleShape2D_2270v")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Path2D"]
+root_node = NodePath("../..")
 libraries = {
 "": SubResource("AnimationLibrary_dc4in")
 }
 
-[node name="HitFlash" type="AnimationPlayer" parent="."]
+[node name="HitFlash" type="AnimationPlayer" parent="Path2D"]
+root_node = NodePath("../..")
 libraries = {
 "": SubResource("AnimationLibrary_s0ehl")
 }
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(-3.5, -2)
+shape = SubResource("RectangleShape2D_2270v")
 
 [connection signal="body_entered" from="Path2D/PathFollow2D/Entered" to="." method="_on_area_2d_body_entered"]
