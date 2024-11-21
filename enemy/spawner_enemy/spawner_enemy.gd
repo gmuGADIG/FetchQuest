@@ -115,20 +115,17 @@ func spawn_single_child() -> void:
 				continue
 			var vector_far_from_wall := vector_to.normalized() * correct_len
 			
-			var target_pos := global_position + vector_far_from_wall
+			spawned.global_position = global_position + vector_far_from_wall
 			if spawned is SpawnerEnemyBaby:
-				spawned.spawn_target_position = target_pos
-			else:
-				spawned.global_position = target_pos
+				spawned.spawn_start_position = global_position
+				
 			break
 		else:
 			# The raycast is longer than the min distance, so we can just
 			# move in that direction.
-			var target_pos := global_position + child_spawn_finder.target_position.normalized() * safe_spawn_distance_from_self
+			spawned.global_position = global_position + child_spawn_finder.target_position.normalized() * safe_spawn_distance_from_self
 			if spawned is SpawnerEnemyBaby:
-				spawned.spawn_target_position = target_pos
-			else:
-				spawned.global_position = target_pos
+				spawned.spawn_start_position = global_position
 			# We're done.
 			break
 			
