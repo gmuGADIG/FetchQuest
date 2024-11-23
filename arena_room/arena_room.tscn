@@ -1,0 +1,70 @@
+[gd_scene load_steps=5 format=3 uid="uid://dxchr34htjrt3"]
+
+[ext_resource type="Script" path="res://arena_room/arena_room.gd" id="1_ny1lk"]
+[ext_resource type="Texture2D" uid="uid://dymucenpxmluo" path="res://icon.svg" id="2_08rd1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6jweu"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xq8ij"]
+
+[node name="ArenaRoom" type="Node2D" node_paths=PackedStringArray("door", "door_trigger")]
+script = ExtResource("1_ny1lk")
+door = NodePath("Wall4")
+door_trigger = NodePath("DoorTrigger")
+
+[node name="Wall" type="StaticBody2D" parent="."]
+position = Vector2(400, 0)
+rotation = 1.5708
+scale = Vector2(40, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="Wall"]
+scale = Vector2(0.15625, 0.171875)
+texture = ExtResource("2_08rd1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall"]
+shape = SubResource("RectangleShape2D_6jweu")
+
+[node name="Wall2" type="StaticBody2D" parent="."]
+position = Vector2(-400, 0)
+rotation = -1.5708
+scale = Vector2(40, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="Wall2"]
+scale = Vector2(0.15625, 0.171875)
+texture = ExtResource("2_08rd1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall2"]
+shape = SubResource("RectangleShape2D_6jweu")
+
+[node name="Wall3" type="StaticBody2D" parent="."]
+position = Vector2(0, -400)
+scale = Vector2(40, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="Wall3"]
+scale = Vector2(0.15625, 0.171875)
+texture = ExtResource("2_08rd1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall3"]
+shape = SubResource("RectangleShape2D_6jweu")
+
+[node name="Wall4" type="StaticBody2D" parent="."]
+position = Vector2(0, 400)
+scale = Vector2(40, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="Wall4"]
+scale = Vector2(0.15625, 0.171875)
+texture = ExtResource("2_08rd1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall4"]
+shape = SubResource("RectangleShape2D_6jweu")
+
+[node name="DoorTrigger" type="Area2D" parent="."]
+position = Vector2(0, 326)
+scale = Vector2(40, 1)
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DoorTrigger"]
+shape = SubResource("RectangleShape2D_xq8ij")
+debug_color = Color(0.951762, 3.27289e-06, 0.562032, 0.42)
+
+[connection signal="body_entered" from="DoorTrigger" to="." method="door_triggered"]
