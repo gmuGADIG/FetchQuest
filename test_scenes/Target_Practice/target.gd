@@ -188,7 +188,7 @@ func play_animation_on_all(targetedGroup: String,anim_name: String) -> void:
 	
 
 #Function goes through the array and stops the animation for all of the instances in the called group
-static func stop_animation_on_all(targetedGroup: String) -> void:
+func stop_animation_on_all(targetedGroup: String) -> void:
 	
 	if flashingGroup == targetedGroup:
 		flashingGroup = ""
@@ -233,12 +233,8 @@ func _shutdown(groupName: String) -> void:
 			instance.sameTargets = 0
 			instance.animation.speed_scale = 1
 			instance.animation.play("RESET")
-			instance.path_follow.progress = 0.0
 			instance.dir = false
-			if(hitAll == false):
-				instance.marker.visible = false
-			else:
-				instance.marker.visible = true
+			instance.marker.visible = hitAll
 			instance.path_follow.progress = 0.0
 			if(pressurePlate!= null && pressurePlate.get_pressed() == true):
 				instance.pressureActive = true
@@ -257,6 +253,8 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		marker.visible = true
 		hit_flash.speed_scale = 5
 		hit_flash.play("HitFlash")
+		
+		#Needed to show the hit animation
 		await get_tree().create_timer(.5).timeout
 		
 		hit_flash.stop()
