@@ -1,0 +1,32 @@
+[gd_scene load_steps=6 format=3 uid="uid://rny05dy7hyhe"]
+
+[ext_resource type="PackedScene" uid="uid://cnd06dpkgufe4" path="res://world/levels/level_base.tscn" id="1_uj0lo"]
+[ext_resource type="Texture2D" uid="uid://doygfmt6t3ktn" path="res://world/smart_shapes/hole/hole_center.png" id="2_yb5s1"]
+[ext_resource type="PackedScene" uid="uid://bwo5q4wroaigc" path="res://world/interactable/transition_trigger/transition_trigger.tscn" id="3_nsw3u"]
+[ext_resource type="PackedScene" uid="uid://dv2sjq4bbxtxq" path="res://world/interactable/water_toggler/water_toggle_switch.tscn" id="4_shlk3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3j8kv"]
+size = Vector2(243, 237)
+
+[node name="WaterTest_Switch" instance=ExtResource("1_uj0lo")]
+
+[node name="Main" type="Node2D" parent="EntryPoints" index="0"]
+position = Vector2(405, 108)
+
+[node name="Sprite2D" type="Sprite2D" parent="." index="6"]
+position = Vector2(685, 100)
+texture = ExtResource("2_yb5s1")
+
+[node name="TransitionScene" parent="Sprite2D" index="0" instance=ExtResource("3_nsw3u")]
+position = Vector2(-65, -96)
+scene_name = "water_test_level"
+entry_point = "Main"
+
+[node name="CollisionShape2D" parent="Sprite2D/TransitionScene" index="0"]
+position = Vector2(66, 93)
+shape = SubResource("RectangleShape2D_3j8kv")
+
+[node name="WaterToggler" parent="." index="7" instance=ExtResource("4_shlk3")]
+position = Vector2(355, 469)
+
+[editable path="Sprite2D/TransitionScene"]
