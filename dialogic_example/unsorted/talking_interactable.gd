@@ -12,16 +12,12 @@ class_name TalkingInteractable
 ## Otherwise, the dialogue will repeat on continual interactions.
 @export var one_time: bool = false
 
-@onready var curr_timeline_index: int = 0
-@onready var times_played: int = 0
-@onready var player_in_range: bool = false
-var player: CharacterBody2D
+var curr_timeline_index: int = 0
+var times_played: int = 0
 
 func _ready() -> void:
 	Dialogic.timeline_started.connect(_on_timeline_started)
 	Dialogic.timeline_ended.connect(_on_timeline_ended)
-	body_entered.connect(_on_body_entered)
-	body_exited.connect(_on_body_exited)
 	for t in timeline:
 		Dialogic.preload_timeline(t)
 	if character == null:
@@ -34,11 +30,13 @@ func _input(event: InputEvent) -> void:
 	if not is_active():
 		return
 	
-	if player_in_range && event.is_action_pressed("interact"):
-		player.in_dialogue = true #Prevent player movement
+	if _player_in_range() && event.is_action_pressed("interact"):
 		DialogueManager.set_interactable(self) #Give the Dialogue Manager access to the interactable
 		DialogueManager.layout = Dialogic.start(timeline[curr_timeline_index])
 		get_viewport().set_input_as_handled()
+
+func _player_in_range() -> bool:
+	return not self.get_overlapping_bodies().is_empty()
 
 func _on_timeline_started() -> void:
 	#This assigns the Dialogic character to the Node in the Scene
@@ -50,24 +48,9 @@ func _on_timeline_started() -> void:
 
 func _on_timeline_ended() -> void:
 	if DialogueManager.curr_interactable == self:
-		player.in_dialogue = false
 		curr_timeline_index += 1
 		curr_timeline_index %= timeline.size()
 		times_played += 1
-		if not is_active():
-			player.can_interact = false
-
-func _on_body_entered(body: PhysicsBody2D) -> void:
-	if body.name == "Player":
-		player_in_range = true
-		player = body
-		if is_active():
-			body.can_interact = true
-
-func _on_body_exited(body: PhysicsBody2D) -> void:
-	if body.name == "Player":
-		body.can_interact = false
-		player_in_range = false
 
 #Returns true if the interactable still has more dialogue
 func is_active() -> bool:
