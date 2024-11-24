@@ -1,19 +1,17 @@
 extends Node2D
 
-#path_follow: The path the target follows
-#target_node: The character body that is the target
-#target_collision: The collison bodu for the target
+#pathFollow: The path the target follows
+#targetCollision: The collison bodu for the target
 #timer: Countdown timer for the targets
 #animation: the flashing animation when the time time is almost out
-#hit_flash: The hit animation when the sword hit the target
+#hitFlash: The hit animation when the sword hit the target
 #hitter: A collision detection when the sword hits the target
 #marker: The sprite hit marker for when the sword hits the target
-@onready var path_follow : PathFollow2D = $Path2D/PathFollow2D
-@onready var target_node: Node2D = $"."
-@onready var target_collision: CollisionShape2D = $CollisionShape2D
+@onready var pathFollow : PathFollow2D = $Path2D/PathFollow2D
+@onready var targetCollision: CollisionShape2D = $CollisionShape2D
 @onready var timer: Timer = Timer.new()
 @onready var animation: AnimationPlayer = $Path2D/AnimationPlayer
-@onready var hit_flash: AnimationPlayer = $Path2D/HitFlash
+@onready var hitFlash: AnimationPlayer = $Path2D/HitFlash
 @onready var hitter: CollisionShape2D = $Path2D/PathFollow2D/Entered/HitArea
 @onready var marker: Sprite2D = $Path2D/PathFollow2D/Sprite2D/Sprite2D
 
@@ -23,7 +21,7 @@ extends Node2D
 #timeScale: The "flash" value for the target
 #targetGroup, Assigns the target group for the target instance
 #sprite The spride that the target has taken shape of
-#collision_zone: The area in which the player must be in for the targets to move
+#collisionZone: The area in which the player must be in for the targets to move
 #pressurePlate: The pressure plate object that the targets can be used with
 #hitAll: Bool to shut down the targets after all of them have been hit
 
@@ -37,9 +35,9 @@ extends Node2D
 @export var timeScale: float
 @export var targetGroup: String = ""
 @export var sprite: Sprite2D 
-@export var collision_zone: Area2D
+@export var collisionZone: Area2D
 @export var pressurePlate: CharacterBody2D
-@export var hitAll: bool
+
 
 #dir: A bool for the direction of which way the target should be moving (left or right)
 #go: Condition to start moving the targers
@@ -49,6 +47,7 @@ var dir: bool = false
 var go: bool = false
 var pressureActive: bool = false
 var inArea: bool = false
+var hitAll: bool = false
 
 #instances: an array of target instances to help sync the flash target animation
 #Determines which group should be flashing
@@ -68,9 +67,9 @@ func _ready() -> 	void:
 	timer.one_shot = true
 	timer.timeout.connect(_on_timer_timeout)
 	
-	if(collision_zone != null):
-		collision_zone.body_shape_entered.connect(_on_body_shape_entered)
-		collision_zone.body_shape_exited.connect(_on_body_shape_exited)
+	if(collisionZone != null):
+		collisionZone.body_shape_entered.connect(_on_body_shape_entered)
+		collisionZone.body_shape_exited.connect(_on_body_shape_exited)
 	
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -84,7 +83,7 @@ func _process(delta: float) -> void:
 			_pressure_target_move(delta)
 			if(pressurePlate.get_pressed() == false):
 				_shutdown(targetGroup)
-		elif (collision_zone != null && target_practice_signals.hitAll == 0):
+		elif (collisionZone != null && target_practice_signals.hitAll == 0):
 			
 			if(inArea == true):
 				_target_move(delta)
@@ -102,22 +101,22 @@ func _process(delta: float) -> void:
 #This function also has the targets flash, and plays that animation
 func _target_move(delta:float) -> void:
 	
-	target_collision.global_position = sprite.global_position
+	targetCollision.global_position = sprite.global_position
 	$Path2D/PathFollow2D/Entered/HitArea.global_position = sprite.global_position
 	if (go == true && timeStart != 0 && inArea == true ):
 		target_practice_signals.moving = true
-		if dir == false:
-			path_follow.progress += speed * delta
-			if path_follow.progress_ratio > .95:
+		if (dir == false):
+			pathFollow.progress += speed * delta
+			if (pathFollow.progress_ratio > .95):
 				dir = true
 		else:	
-			path_follow.progress -= speed * delta
-			if path_follow.progress_ratio < .1:
+			pathFollow.progress -= speed * delta
+			if (pathFollow.progress_ratio < .1):
 				dir = false
 	
 #Same Function as above, but pressure plate compatible
 func _pressure_target_move(delta:float) -> void:
-	target_collision.global_position = sprite.global_position
+	targetCollision.global_position = sprite.global_position
 	$Path2D/PathFollow2D/Entered/HitArea.global_position = sprite.global_position
 	
 	if(pressurePlate.get_pressed() && pressureActive == false && timer.time_left == 0):
@@ -129,13 +128,13 @@ func _pressure_target_move(delta:float) -> void:
 		target_practice_signals.hitAll = 0
 		
 	if (pressurePlate.get_pressed() && timer.time_left != 0):
-		if dir == false:
-			path_follow.progress += speed * delta
-			if path_follow.progress_ratio > .95:
+		if (dir == false):
+			pathFollow.progress += speed * delta
+			if (pathFollow.progress_ratio > .95):
 				dir = true
 		else:	
-			path_follow.progress -= speed * delta
-			if path_follow.progress_ratio < .1:
+			pathFollow.progress -= speed * delta
+			if (pathFollow.progress_ratio < .1):
 				dir = false
 	
 	
@@ -157,16 +156,16 @@ func _timescale() -> void:
 	if(animation.speed_scale + timeScale <=34):animation.speed_scale += timeScale
 	
 #This fucntion checks all the targets in the called group have been hit and if they all have been hit then they shutdown
-func _checkGroup(targetedGroup : String)	->  void:
+func _check_group(targetedGroup : String) -> void:
 	var groupCount: int = 0
 	var SRT: int = 0
 	for instance in instances:
-		if instance.targetGroup == targetedGroup:
+		if (instance.targetGroup == targetedGroup):
 			groupCount+=1
 			SRT += instance.sameTargets
 	
 	for instance in instances:
-		if instance.targetGroup == targetedGroup:
+		if (instance.targetGroup == targetedGroup):
 			if(SRT >= groupCount):
 				target_practice_signals.hitAll = 1
 				#Uncomment this line of code if you want the targets to shutdown after the puzzle has been completed
@@ -178,10 +177,10 @@ func _checkGroup(targetedGroup : String)	->  void:
 #Function goes through the array and starts the animation for all of the instances for that group	
 func play_animation_on_all(targetedGroup: String,anim_name: String) -> void:
 	
-	if flashingGroup == "":
+	if (flashingGroup == ""):
 		flashingGroup = targetedGroup
 	for instance in instances:
-		if instance.targetGroup == targetedGroup && instance.timer.time_left > 0 && instance.go == true:
+		if (instance.targetGroup == targetedGroup && instance.timer.time_left > 0 && instance.go == true):
 			instance.animation.play(anim_name)
 		if( instance.go == false && instance.targetGroup == flashingGroup):
 			instance.animation.play(anim_name)
@@ -190,10 +189,10 @@ func play_animation_on_all(targetedGroup: String,anim_name: String) -> void:
 #Function goes through the array and stops the animation for all of the instances in the called group
 func stop_animation_on_all(targetedGroup: String) -> void:
 	
-	if flashingGroup == targetedGroup:
+	if (flashingGroup == targetedGroup):
 		flashingGroup = ""
 		for instance in instances:
-			if instance.targetGroup == targetedGroup:
+			if (instance.targetGroup == targetedGroup):
 				instance.animation.stop()
 				
 		
@@ -235,13 +234,13 @@ func _shutdown(groupName: String) -> void:
 			instance.animation.play("RESET")
 			instance.dir = false
 			instance.marker.visible = hitAll
-			instance.path_follow.progress = 0.0
+			instance.pathFollow.progress = 0.0
 			if(pressurePlate!= null && pressurePlate.get_pressed() == true):
 				instance.pressureActive = true
 			else:
 				instance.pressureActive = false
-			target_collision.global_position = sprite.global_position
-			hitter.global_position = target_collision.global_position
+			targetCollision.global_position = sprite.global_position
+			hitter.global_position = targetCollision.global_position
 			instance.flashingGroup = ""
 		
 #Detects if the sword hit the target. One way to do it anyways
@@ -251,12 +250,12 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		if(sameTargets != 1): sameTargets = 1
 		
 		marker.visible = true
-		hit_flash.speed_scale = 5
-		hit_flash.play("HitFlash")
+		hitFlash.speed_scale = 5
+		hitFlash.play("HitFlash")
 		
 		#Needed to show the hit animation
 		await get_tree().create_timer(.5).timeout
 		
-		hit_flash.stop()
-		hit_flash.play("RESET")
-		_checkGroup(targetGroup)
+		hitFlash.stop()
+		hitFlash.play("RESET")
+		_check_group(targetGroup)
