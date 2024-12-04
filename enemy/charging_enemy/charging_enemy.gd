@@ -46,7 +46,7 @@ func set_own_state(state: EnemyState) -> void:
 			# Re-enable detection
 			# NOTE: If the player detection component changes behavior this
 			# could be problematic.
-			$PlayerDetectionComponent.detecting = true
+			#$PlayerDetectionComponent.detecting = true
 			
 		EnemyState.AGRESSIVE:
 			_set_charge_animation()
