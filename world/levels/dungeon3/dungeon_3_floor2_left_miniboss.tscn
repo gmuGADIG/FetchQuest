@@ -1,0 +1,140 @@
+[gd_scene load_steps=19 format=3 uid="uid://cskbtjh5nng7u"]
+
+[ext_resource type="PackedScene" uid="uid://cnd06dpkgufe4" path="res://world/levels/level_base.tscn" id="1_7hexn"]
+[ext_resource type="Script" path="res://addons/rmsmartshape/shapes/shape.gd" id="2_bfl6t"]
+[ext_resource type="Script" path="res://addons/rmsmartshape/vertex_properties.gd" id="3_gjlcw"]
+[ext_resource type="Script" path="res://addons/rmsmartshape/shapes/point.gd" id="4_idg7p"]
+[ext_resource type="Script" path="res://addons/rmsmartshape/shapes/point_array.gd" id="5_gun47"]
+[ext_resource type="Resource" uid="uid://vgy02p4w5scg" path="res://world/smart_shapes/stone/stone.tres" id="6_h1qv5"]
+
+[sub_resource type="Resource" id="Resource_lst0q"]
+script = ExtResource("3_gjlcw")
+texture_idx = 3
+flip = false
+width = 1.0
+
+[sub_resource type="Resource" id="Resource_ac1qy"]
+script = ExtResource("4_idg7p")
+position = Vector2(-240, -104)
+point_in = Vector2(0, 0)
+point_out = Vector2(0, 0)
+properties = SubResource("Resource_lst0q")
+
+[sub_resource type="Resource" id="Resource_1xcap"]
+script = ExtResource("4_idg7p")
+position = Vector2(-240, -104)
+point_in = Vector2(0, 0)
+point_out = Vector2(0, 0)
+properties = SubResource("Resource_lst0q")
+
+[sub_resource type="Resource" id="Resource_1wmet"]
+script = ExtResource("3_gjlcw")
+texture_idx = 25
+flip = false
+width = 1.0
+
+[sub_resource type="Resource" id="Resource_qpq5w"]
+script = ExtResource("4_idg7p")
+position = Vector2(-240, 784)
+point_in = Vector2(0, 0)
+point_out = Vector2(0, 0)
+properties = SubResource("Resource_1wmet")
+
+[sub_resource type="Resource" id="Resource_n2nlf"]
+script = ExtResource("3_gjlcw")
+texture_idx = 18
+flip = false
+width = 1.0
+
+[sub_resource type="Resource" id="Resource_7t73i"]
+script = ExtResource("4_idg7p")
+position = Vector2(1368, 784)
+point_in = Vector2(0, 0)
+point_out = Vector2(0, 0)
+properties = SubResource("Resource_n2nlf")
+
+[sub_resource type="Resource" id="Resource_6nk8t"]
+script = ExtResource("3_gjlcw")
+texture_idx = 5
+flip = false
+width = 1.0
+
+[sub_resource type="Resource" id="Resource_onwys"]
+script = ExtResource("4_idg7p")
+position = Vector2(1368, -104)
+point_in = Vector2(0, 0)
+point_out = Vector2(0, 0)
+properties = SubResource("Resource_6nk8t")
+
+[sub_resource type="Resource" id="Resource_uwdjv"]
+script = ExtResource("5_gun47")
+_points = {
+0: SubResource("Resource_ac1qy"),
+14: SubResource("Resource_1xcap"),
+15: SubResource("Resource_qpq5w"),
+16: SubResource("Resource_7t73i"),
+17: SubResource("Resource_onwys")
+}
+_point_order = PackedInt32Array(0, 17, 16, 15, 14)
+_constraints = {
+Vector2i(14, 0): 15
+}
+_next_key = 19
+_material_overrides = {}
+tessellation_stages = 3
+tessellation_tolerance = 6.0
+curve_bake_interval = 20.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f83tx"]
+size = Vector2(25, 954.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m8301"]
+size = Vector2(1672, 50)
+
+[node name="LevelBase2" instance=ExtResource("1_7hexn")]
+
+[node name="MainCam" parent="." index="0"]
+limit_left = -264
+limit_top = -128
+limit_right = 1392
+limit_bottom = 808
+
+[node name="Entrance" type="Node2D" parent="EntryPoints" index="0"]
+position = Vector2(608, 648)
+
+[node name="Player" parent="." index="5"]
+z_index = 2
+
+[node name="Walls" type="Node" parent="." index="6"]
+
+[node name="Floor" type="Node2D" parent="Walls" index="0"]
+script = ExtResource("2_bfl6t")
+_points = SubResource("Resource_uwdjv")
+shape_material = ExtResource("6_h1qv5")
+
+[node name="Left_Wall" type="StaticBody2D" parent="Walls" index="1"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Left_Wall" index="0"]
+position = Vector2(-248, 336)
+shape = SubResource("RectangleShape2D_f83tx")
+
+[node name="Bottom_Wall" type="StaticBody2D" parent="Walls" index="2"]
+position = Vector2(128, 480)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Bottom_Wall" index="0"]
+position = Vector2(464, 320)
+shape = SubResource("RectangleShape2D_m8301")
+
+[node name="Right_Wall" type="StaticBody2D" parent="Walls" index="3"]
+position = Vector2(1648, -8)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Right_Wall" index="0"]
+position = Vector2(-272, 344)
+shape = SubResource("RectangleShape2D_f83tx")
+
+[node name="Top_Wall" type="StaticBody2D" parent="Walls" index="4"]
+position = Vector2(128, -448)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Top_Wall" index="0"]
+position = Vector2(456, 328)
+shape = SubResource("RectangleShape2D_m8301")
