@@ -21,11 +21,12 @@ static var instance: Player
 		stamina_changed.emit()
 
 @onready var force_applied: Vector2 = Vector2.ZERO ## All external forces applied
-@onready var bomb_scene := preload("bomb.tscn")
 
 @onready var animation_player: AnimationPlayer = %AnimationPlayer
-
 @onready var hole_detector: Node2D = $HoleDetector
+@onready var roll_sound: AudioStreamPlayer = %RollingSound
+
+var bomb_scene := preload("bomb.tscn")
 
 var active_sword: ThrownSword ## The active thrown sword. Null if the player is currently holding the sword
 
@@ -86,6 +87,9 @@ func start_roll() -> void:
 
 	# make the timer go
 	$RollTimer.start(roll_timer)
+	
+	# play sound
+	roll_sound.play()
 
 # callback from roll timer. reverts changes made by start_roll
 func stop_roll() -> void:
@@ -139,6 +143,8 @@ func _physics_process(delta: float) -> void:
 	velocity += force_applied
 	force_applied = force_applied.lerp(Vector2.ZERO, delta * knockback_friction)
 	move_and_slide()
+	
+	handle_one_ways()
 
 func _input(event: InputEvent) -> void:
 	#TODO: REMOVE THIS
@@ -151,6 +157,32 @@ func _input(event: InputEvent) -> void:
 			bomb_instance.velocity = get_aim() * bomb_throw_speed
 			add_sibling(bomb_instance)
 			PlayerInventory.bombs-=1
+
+## Called every frame after move_and_slide
+## Checks for collision with one-way tiles and moves accordingly
+func handle_one_ways() -> void:
+	if rolling: return
+	
+	for i in range(get_slide_collision_count()):
+		var collision := get_slide_collision(i)
+		var one_way := collision.get_collider() as OneWay
+		if one_way != null:
+			var player_direction := -collision.get_normal()
+			if player_direction == one_way.direction:
+				jump_over_one_way(one_way.direction)
+				break # prevent jumping twice in a frame
+
+func jump_over_one_way(direction: Vector2) -> void:
+	var jump_to := position + OneWay.JUMP_SIZE * direction
+	
+	process_mode = PROCESS_MODE_DISABLED
+	
+	var tween := get_tree().create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
+	tween.tween_property(self, "position", jump_to, .5)
+	
+	await tween.finished
+	process_mode = PROCESS_MODE_INHERIT
+	
 
 ## Damages the player, lowering its health.
 func hurt(damage_event: DamageEvent) -> void:
