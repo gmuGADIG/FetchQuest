@@ -107,19 +107,6 @@ func stop_roll() -> void:
 func _init() -> void:
 	instance = self
 
-func _process(_delta: float) -> void:
-	if Input.is_action_just_pressed("speak"):
-		if !$Speak.on_cooldown():
-			$Speak.speak()
-			if(not facing_right):
-				_animated_sprite.play("Artie_Bark_Left")
-			else:
-				_animated_sprite.play("Artie_Bark_Right")
-
-	if Input.is_action_just_pressed("attack"):
-		if active_sword == null:
-			throw_sword()
-
 ## Returns a normalized vector in the direction the player is aiming.
 func get_aim() -> Vector2:
 	if ControllerManager.is_controller:
@@ -135,7 +122,19 @@ func throw_sword() -> void:
 	add_sibling(sword)
 	sword.throw(get_aim())
 
-func _physics_process(delta: float) -> void:
+func _process(delta: float) -> void:
+	if Input.is_action_just_pressed("speak"):
+		if !$Speak.on_cooldown():
+			$Speak.speak()
+			if(not facing_right):
+				_animated_sprite.play("Artie_Bark_Left")
+			else:
+				_animated_sprite.play("Artie_Bark_Right")
+
+	if Input.is_action_just_pressed("attack"):
+		if active_sword == null:
+			throw_sword()
+
 	velocity = Input.get_vector("move_left", "move_right", "move_up", "move_down") * move_speed
 	if(velocity != Vector2.ZERO):
 		if(velocity.x < 0):
@@ -167,7 +166,10 @@ func _physics_process(delta: float) -> void:
 		else:
 			_animated_sprite.play("Artie_Walk_Right")
 	velocity += force_applied
-	force_applied = force_applied.lerp(Vector2.ZERO, delta * knockback_friction)
+
+	force_applied = force_applied * exp(-knockback_friction * delta)
+	if force_applied.length() < 10: force_applied = Vector2.ZERO
+
 	move_and_slide()
 
 func _input(event: InputEvent) -> void:
