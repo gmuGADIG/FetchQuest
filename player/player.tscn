@@ -1,7 +1,6 @@
-[gd_scene load_steps=47 format=3 uid="uid://c7ck7ril2jix2"]
+[gd_scene load_steps=49 format=3 uid="uid://c7ck7ril2jix2"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_x43mx"]
-[ext_resource type="Texture2D" uid="uid://bhw3gs4topknu" path="res://player/player_almost_final.png" id="2_dj0g1"]
 [ext_resource type="Texture2D" uid="uid://0ba17120df4x" path="res://dialogic_example/player/player_art_final.png" id="2_ts2mf"]
 [ext_resource type="Texture2D" uid="uid://kjnfp4n2kv4n" path="res://demo_art/skin1.jpg" id="3_4uqbb"]
 [ext_resource type="Script" path="res://player/x_ray.gd" id="3_f3hsb"]
@@ -12,16 +11,13 @@
 [ext_resource type="Texture2D" uid="uid://vmglry6qd3nd" path="res://player/Artie (Dog)/Artie_Cata_Bark(Left).png" id="10_7q0er"]
 [ext_resource type="Texture2D" uid="uid://dqthnh4mpyhs3" path="res://player/Artie (Dog)/Artie_Cata_Walk(Left).png" id="10_8ober"]
 [ext_resource type="Texture2D" uid="uid://c2mbwl3wqovex" path="res://player/Artie (Dog)/Artie_Cata_Base(Left).png" id="10_e33qi"]
+[ext_resource type="AudioStream" uid="uid://djv2b57i4uoli" path="res://player/abilities/rolling/sound-effects/SFX_DodgeRoll_Jan.ogg" id="10_jtbrp"]
 [ext_resource type="Texture2D" uid="uid://cmvg8b2adks5p" path="res://player/Artie (Dog)/Artie_Cata_Roll(Left).png" id="10_x1vit"]
 [ext_resource type="Texture2D" uid="uid://kcpp3lmly0hu" path="res://player/Artie (Dog)/Artie_Cata_Bark(Right).png" id="11_d4q4m"]
 [ext_resource type="Texture2D" uid="uid://bvjraeks5gbob" path="res://player/Artie (Dog)/Artie_Cata_Base(Right).png" id="11_en3sh"]
 [ext_resource type="Texture2D" uid="uid://40x043p55wbt" path="res://player/Artie (Dog)/Artie_Cata_Walk(Right).png" id="11_fmfsl"]
-[ext_resource type="Texture2D" uid="uid://td67thxppsx6" path="res://player/Artie (Dog)/Artie_Cata_Roll(Right).png" id="12_onen2"]
-[ext_resource type="AudioStream" uid="uid://djv2b57i4uoli" path="res://player/abilities/rolling/sound-effects/SFX_DodgeRoll_Jan.ogg" id="10_jtbrp"]
 [ext_resource type="AudioStream" uid="uid://8wbpod2ld75h" path="res://player/abilities/rolling/sound-effects/SFX_DodgeWithCollarJingle_Jan.ogg" id="11_wuebg"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_krk6c"]
-size = Vector2(66, 50)
+[ext_resource type="Texture2D" uid="uid://td67thxppsx6" path="res://player/Artie (Dog)/Artie_Cata_Roll(Right).png" id="12_onen2"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yvtba"]
 atlas = ExtResource("10_7q0er")
@@ -234,6 +230,9 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_krk6c"]
+size = Vector2(66, 50)
+
 [sub_resource type="Animation" id="Animation_tyilq"]
 length = 0.001
 
@@ -262,16 +261,15 @@ motion_mode = 1
 script = ExtResource("1_x43mx")
 
 [node name="SkinChooser" type="Node2D" parent="."]
-visible = false
 position = Vector2(-13, -38)
 script = ExtResource("9_de2wb")
 
-[node name="Skin1" type="Sprite2D" parent="SkinChooser"]
+[node name="Skin1" type="AnimatedSprite2D" parent="SkinChooser"]
 unique_name_in_owner = true
-position = Vector2(19, 14)
-scale = Vector2(0.191346, 0.191346)
-texture = ExtResource("2_dj0g1")
-script = ExtResource("3_f3hsb")
+position = Vector2(13, 15)
+scale = Vector2(0.21, 0.21)
+sprite_frames = SubResource("SpriteFrames_r4o7u")
+animation = &"Artie_Roll_Right"
 
 [node name="Skin2" type="Sprite2D" parent="SkinChooser"]
 unique_name_in_owner = true
@@ -306,12 +304,6 @@ one_shot = true
 
 [node name="HoleDetector" parent="." instance=ExtResource("6_eb6gp")]
 scale = Vector2(3.3, 3.3)
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(6.485, 17.205)
-scale = Vector2(0.21, 0.21)
-sprite_frames = SubResource("SpriteFrames_r4o7u")
-animation = &"Artie_Roll_Right"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 unique_name_in_owner = true

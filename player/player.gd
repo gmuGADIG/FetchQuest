@@ -29,7 +29,8 @@ static var instance: Player
 
 var bomb_scene := preload("bomb.tscn")
 
-@onready var _animated_sprite := $AnimatedSprite2D
+# TODO: handle different dog sprites
+@onready var _animated_sprite := %Skin1
 
 var active_sword: ThrownSword ## The active thrown sword. Null if the player is currently holding the sword
 
