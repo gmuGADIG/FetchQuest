@@ -55,9 +55,6 @@ func _ready() -> void:
 	#look_at(Player.instance.global_position)
 	#move_and_slide()
 
-func _process_agressive(delta : float) -> void :
-	pass
-
 func start_enemy_spawn() -> void:
 	if is_spawning: return
 	else: is_spawning = true
