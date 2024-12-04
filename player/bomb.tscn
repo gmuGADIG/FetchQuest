@@ -2,11 +2,10 @@
 
 [ext_resource type="Texture2D" uid="uid://bsf457tif6vyc" path="res://demo_art/bomb.png" id="1_1ul4s"]
 [ext_resource type="Script" path="res://player/bomb.gd" id="1_vvkgt"]
+[ext_resource type="PackedScene" uid="uid://4u7uelhywx8" path="res://player/explosion.tscn" id="3_iil77"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_343g1"]
 radius = 30.0
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_vqrqm"]
 
 [node name="Bomb" type="CharacterBody2D" groups=["Hittable"]]
 collision_layer = 128
@@ -22,10 +21,5 @@ position = Vector2(1, 0)
 scale = Vector2(0.0603314, 0.0603314)
 texture = ExtResource("1_1ul4s")
 
-[node name="ExplosionArea" type="Area2D" parent="."]
-collision_layer = 0
-collision_mask = 6
-
-[node name="ExplosionAreaShape" type="CollisionShape2D" parent="ExplosionArea"]
-scale = Vector2(8, 8)
-shape = SubResource("CircleShape2D_vqrqm")
+[node name="Explosion" parent="." instance=ExtResource("3_iil77")]
+visible = false

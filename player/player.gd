@@ -22,11 +22,12 @@ static var instance: Player
 		stamina_changed.emit()
 
 @onready var force_applied: Vector2 = Vector2.ZERO ## All external forces applied
-@onready var bomb_scene := preload("bomb.tscn")
 
 @onready var animation_player: AnimationPlayer = %AnimationPlayer
-
 @onready var hole_detector: Node2D = $HoleDetector
+@onready var roll_sound: AudioStreamPlayer = %RollingSound
+
+var bomb_scene := preload("bomb.tscn")
 
 @onready var _animated_sprite := $AnimatedSprite2D
 
@@ -94,6 +95,9 @@ func start_roll() -> void:
 
 	# make the timer go
 	$RollTimer.start(roll_timer)
+	
+	# play sound
+	roll_sound.play()
 
 # callback from roll timer. reverts changes made by start_roll
 func stop_roll() -> void:

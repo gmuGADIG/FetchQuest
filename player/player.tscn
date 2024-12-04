@@ -17,6 +17,8 @@
 [ext_resource type="Texture2D" uid="uid://bvjraeks5gbob" path="res://player/Artie (Dog)/Artie_Cata_Base(Right).png" id="11_en3sh"]
 [ext_resource type="Texture2D" uid="uid://40x043p55wbt" path="res://player/Artie (Dog)/Artie_Cata_Walk(Right).png" id="11_fmfsl"]
 [ext_resource type="Texture2D" uid="uid://td67thxppsx6" path="res://player/Artie (Dog)/Artie_Cata_Roll(Right).png" id="12_onen2"]
+[ext_resource type="AudioStream" uid="uid://djv2b57i4uoli" path="res://player/abilities/rolling/sound-effects/SFX_DodgeRoll_Jan.ogg" id="10_jtbrp"]
+[ext_resource type="AudioStream" uid="uid://8wbpod2ld75h" path="res://player/abilities/rolling/sound-effects/SFX_DodgeWithCollarJingle_Jan.ogg" id="11_wuebg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_krk6c"]
 size = Vector2(66, 50)
@@ -245,6 +247,13 @@ _data = {
 "hurt_flash": SubResource("Animation_62xkx")
 }
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_bu7lb"]
+playback_mode = 1
+random_pitch = 1.1
+streams_count = 2
+stream_0/stream = ExtResource("10_jtbrp")
+stream_1/stream = ExtResource("11_wuebg")
+
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 y_sort_enabled = true
 collision_layer = 2
@@ -254,6 +263,7 @@ script = ExtResource("1_x43mx")
 
 [node name="SkinChooser" type="Node2D" parent="."]
 visible = false
+position = Vector2(-13, -38)
 script = ExtResource("9_de2wb")
 
 [node name="Skin1" type="Sprite2D" parent="SkinChooser"]
@@ -281,10 +291,10 @@ offset = Vector2(0, -300)
 script = ExtResource("3_f3hsb")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(13, 38)
 shape = SubResource("RectangleShape2D_krk6c")
 
 [node name="Speak" type="Node2D" parent="."]
+position = Vector2(-13, -38)
 script = ExtResource("3_ne4cx")
 speak_aura = ExtResource("4_8n4by")
 radius = 20.0
@@ -295,7 +305,6 @@ wait_time = 0.75
 one_shot = true
 
 [node name="HoleDetector" parent="." instance=ExtResource("6_eb6gp")]
-position = Vector2(13, 38)
 scale = Vector2(3.3, 3.3)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -309,6 +318,11 @@ unique_name_in_owner = true
 libraries = {
 "": SubResource("AnimationLibrary_jsxs5")
 }
+
+[node name="RollingSound" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = SubResource("AudioStreamRandomizer_bu7lb")
+bus = &"SFX"
 
 [connection signal="timeout" from="RollTimer" to="." method="stop_roll"]
 [connection signal="fall_in_hole" from="HoleDetector" to="." method="fall_in_hole"]
