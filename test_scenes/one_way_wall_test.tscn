@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=4 uid="uid://hatfid6c57mm"]
+
+[ext_resource type="PackedScene" uid="uid://bm05x1jwytuuc" path="res://world/tilemap/main_tile_layer.tscn" id="1_lhymf"]
+[ext_resource type="PackedScene" uid="uid://c7ck7ril2jix2" path="res://player/player.tscn" id="2_wr2sk"]
+[ext_resource type="PackedScene" uid="uid://ch344rluh4xbs" path="res://world/camera/main_cam.tscn" id="3_s5np2"]
+
+[node name="OneWayWallTest" type="Node2D"]
+
+[node name="TileMapLayer" parent="." instance=ExtResource("1_lhymf")]
+z_index = -1
+tile_map_data = PackedByteArray("AAAAAAEAAQAAAAEAAAABAAEAAQABAAEAAAACAAEAAQABAAEAAAADAAEAAQABAAEAAAAEAAEAAQABAAEAAAAFAAEAAQABAAEAAAAGAAEAAQABAAEAAAAHAAAAAQACAAAAAAAHAAEAAQACAAEAAAAHAP//AQACAAAAAAAAAAAAAQAAAAAAAAAAAP//AQAAAAAAAAA=")
+
+[node name="Player" parent="." instance=ExtResource("2_wr2sk")]
+position = Vector2(464, 378)
+
+[node name="MainCam" parent="." instance=ExtResource("3_s5np2")]
