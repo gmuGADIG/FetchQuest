@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=3 uid="uid://d3gw8agbyr31b"]
+
+[ext_resource type="PackedScene" uid="uid://b60qs6jc07tbj" path="res://world/interactable/activators/switch/switch.tscn" id="1_7e3s6"]
+[ext_resource type="Script" path="res://world/interactable/activators/multi_activator/multi_activator.gd" id="2_6thiq"]
+[ext_resource type="PackedScene" uid="uid://blh1fs712dql8" path="res://world/interactable/activatable/locked_door/locked_door.tscn" id="3_ohm3n"]
+[ext_resource type="PackedScene" uid="uid://c7ck7ril2jix2" path="res://player/player.tscn" id="4_ndtqs"]
+[ext_resource type="PackedScene" uid="uid://b5bscusffqp5h" path="res://world/interactable/activators/pressure_plate/pressure_plate.tscn" id="5_jkywq"]
+
+[node name="MultiSwitchTest" type="Node2D"]
+
+[node name="Switch" parent="." instance=ExtResource("1_7e3s6")]
+position = Vector2(555, 92)
+type = 1
+metadata/Activatables = [NodePath("../MultiActivator")]
+
+[node name="Switch2" parent="." instance=ExtResource("1_7e3s6")]
+position = Vector2(242, 267)
+type = 1
+metadata/Activatables = [NodePath("../MultiActivator")]
+
+[node name="PressurePlate" parent="." instance=ExtResource("5_jkywq")]
+position = Vector2(841, 481)
+scale = Vector2(1.6456, 1.6456)
+metadata/Activatables = [NodePath("../MultiActivator")]
+
+[node name="MultiActivator" type="Node2D" parent="." groups=["Activatable", "Activator"]]
+position = Vector2(564, 342)
+script = ExtResource("2_6thiq")
+required_activation_count = 3
+metadata/Activatables = [NodePath("../LockedDoor")]
+
+[node name="LockedDoor" parent="." instance=ExtResource("3_ohm3n")]
+position = Vector2(905, 199)
+key_usable = false
+
+[node name="Player" parent="." instance=ExtResource("4_ndtqs")]
+position = Vector2(507, 528)
