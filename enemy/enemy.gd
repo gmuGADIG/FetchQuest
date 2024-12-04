@@ -218,7 +218,7 @@ func _on_hitting_area_body_entered(body: Node2D) -> void:
 	var player := body as Player
 	if player != null:
 		var knockback := global_position.direction_to(player.global_position) * knockback_force
-		player.hurt(DamageEvent.new(damage, knockback))
+		player.hurt(DamageEvent.new(_get_contact_damage(), knockback))
 
 func hitFlicker() -> void:
 		var enemy_normal_modulate : Color = enemy_sprite.modulate
