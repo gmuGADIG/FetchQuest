@@ -7,6 +7,7 @@ extends Area2D
 var direction: Vector2:
 	get: 
 		return Vector2.RIGHT.rotated(rotation)
+		#return (self.global_position + get_tree().get_first_node_in_group("Player").position).normalized()
 
 func _physics_process(delta: float) -> void:
 	position += direction * speed * delta
