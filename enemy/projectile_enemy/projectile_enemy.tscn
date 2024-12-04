@@ -10,7 +10,7 @@
 radius = 304.105
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3wk5l"]
-size = Vector2(112, 112)
+size = Vector2(79.3333, 80)
 
 [node name="ProjectileEnemy" node_paths=PackedStringArray("enemy_sprite") instance=ExtResource("1_27jju")]
 script = ExtResource("2_rirh3")
@@ -24,6 +24,12 @@ agressive_target_distance_max = 500
 
 [node name="PlayerDetectionComponent" parent="." index="0"]
 detectable_distance = 800.0
+
+[node name="HittingArea" parent="." index="1"]
+visible = false
+
+[node name="CollisionShape2D" parent="HittingArea" index="0"]
+position = Vector2(736.25, -548.5)
 
 [node name="Sprite2D" type="Sprite2D" parent="." index="3"]
 visible = false
@@ -51,7 +57,9 @@ scale = Vector2(3, 3)
 shape = SubResource("RectangleShape2D_3wk5l")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="7"]
+scale = Vector2(0.7, 0.7)
 sprite_frames = ExtResource("5_ivjup")
 animation = &"fire_right"
+metadata/_edit_lock_ = true
 
 [connection signal="timeout" from="ShootProjectileBehavior/CooldownTimer" to="ShootProjectileBehavior" method="timeout"]
