@@ -6,6 +6,13 @@
 # If you override _ready, _process, or _physics_process, you MUST call
 # super._ready() (or super._process(delta), etc) in your overridden method.
 #
+# How to make a new enemy:
+# For a base level enemy, the only thing that needs to be done is state switching. 
+# If custom movement is desired, override the respective state's _process function
+# (_process_roaming, _process_stunned, etc.)
+# In order to change the behavior to switch between states, override the decide_state
+# function, which is called every _process
+#
 # Each enemy should have a collision shape that has a radius associated with
 # one of the navigation layers. That way the enemy navigation will work correctly.
 # Right now, the only supported radius is associated with a square collision
@@ -34,12 +41,15 @@ signal health_changed
 
 @onready var navigation_agent: NavigationAgent2D = get_node("NavigationAgent2D")
 
+@export var deaggro_time: float = 3.0 ##The amount of time it takes for the enemy to switch back to roaming when it cannot see the player
+
+var time_since_last_seen_player : float = 0.0
 
 #The desired range the enemy wants to navigate to
 @export var agressive_target_distance_min: int = 1
 @export var agressive_target_distance_max: int = 300
 
-var enemy_state : EnemyState = EnemyState.ROAMING
+@export var enemy_state : EnemyState = EnemyState.ROAMING
 var navigation_target: Vector2 = self.position
 
 @onready var original_position : Vector2 = position
@@ -53,16 +63,21 @@ enum EnemyState {
 }
 
 func _ready() -> void:
-	enemy_state = EnemyState.AGRESSIVE
+	randomize()
+	enemy_state = EnemyState.ROAMING
 	assert(navigation_agent != null, "Enemy must have a navigation agent")
 	navigation_agent.velocity_computed.connect(self._on_velocity_computed)
 	actor_setup.call_deferred()
 
 func actor_setup() -> void:
-	await get_tree().physics_frame
-	approach(Player.instance.global_position)
+	#await get_tree().physics_frame
+	approach(self.global_position)
 
 func _process(delta: float) -> void:
+	
+	
+	decide_state(delta)
+	
 	match enemy_state:
 		EnemyState.ROAMING:
 			_process_roaming(delta)
@@ -111,7 +126,17 @@ func on_death() -> void:
 	dropped_item.position = position
 	add_sibling.call_deferred(dropped_item)
 	print("Item '", dropped_item.name, "' was dropped by ", get_path())
-	
+
+func decide_state(delta: float) -> void:
+	if $PlayerDetectionComponent.can_see_player:
+		enemy_state = EnemyState.AGRESSIVE
+		time_since_last_seen_player = 0.0
+	else:
+		if enemy_state == EnemyState.AGRESSIVE:
+			time_since_last_seen_player += delta
+			if(time_since_last_seen_player >= deaggro_time):
+				enemy_state = EnemyState.ROAMING
+
 func _process_roaming(delta: float) -> void:
 	if roaming_time > 0: # waiting; subtract from timer and do nothing
 		roaming_time -= delta
