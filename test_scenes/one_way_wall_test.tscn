@@ -1,16 +1,125 @@
-[gd_scene load_steps=4 format=4 uid="uid://hatfid6c57mm"]
+[gd_scene load_steps=22 format=4 uid="uid://hatfid6c57mm"]
 
 [ext_resource type="PackedScene" uid="uid://bm05x1jwytuuc" path="res://world/tilemap/main_tile_layer.tscn" id="1_lhymf"]
 [ext_resource type="PackedScene" uid="uid://c7ck7ril2jix2" path="res://player/player.tscn" id="2_wr2sk"]
 [ext_resource type="PackedScene" uid="uid://ch344rluh4xbs" path="res://world/camera/main_cam.tscn" id="3_s5np2"]
+[ext_resource type="Script" path="res://addons/rmsmartshape/shapes/shape.gd" id="4_w3b65"]
+[ext_resource type="Script" path="res://addons/rmsmartshape/vertex_properties.gd" id="5_i5yt6"]
+[ext_resource type="Script" path="res://addons/rmsmartshape/shapes/point.gd" id="6_5oi5y"]
+[ext_resource type="Script" path="res://addons/rmsmartshape/shapes/point_array.gd" id="7_huva7"]
+[ext_resource type="Resource" uid="uid://bwwp5hgtd7p8c" path="res://world/smart_shapes/grass/grass_wildwoods.tres" id="8_v13i6"]
+
+[sub_resource type="Resource" id="Resource_lo6bs"]
+script = ExtResource("5_i5yt6")
+texture_idx = 0
+flip = false
+width = 1.0
+
+[sub_resource type="Resource" id="Resource_rsq46"]
+script = ExtResource("6_5oi5y")
+position = Vector2(-727.584, 919.965)
+point_in = Vector2(290.713, 369.999)
+point_out = Vector2(-290.713, -369.999)
+properties = SubResource("Resource_lo6bs")
+
+[sub_resource type="Resource" id="Resource_hcdkm"]
+script = ExtResource("5_i5yt6")
+texture_idx = 0
+flip = false
+width = 1.0
+
+[sub_resource type="Resource" id="Resource_g2bgo"]
+script = ExtResource("6_5oi5y")
+position = Vector2(-727.584, 919.965)
+point_in = Vector2(290.713, 369.999)
+point_out = Vector2(-290.713, -369.999)
+properties = SubResource("Resource_hcdkm")
+
+[sub_resource type="Resource" id="Resource_2sory"]
+script = ExtResource("5_i5yt6")
+texture_idx = 0
+flip = false
+width = 1.0
+
+[sub_resource type="Resource" id="Resource_e2fdw"]
+script = ExtResource("6_5oi5y")
+position = Vector2(-599.218, -680.845)
+point_in = Vector2(-358.672, 200.101)
+point_out = Vector2(358.672, -200.101)
+properties = SubResource("Resource_2sory")
+
+[sub_resource type="Resource" id="Resource_tqod8"]
+script = ExtResource("5_i5yt6")
+texture_idx = 0
+flip = false
+width = 1.0
+
+[sub_resource type="Resource" id="Resource_3w8gx"]
+script = ExtResource("6_5oi5y")
+position = Vector2(1843.53, -582.683)
+point_in = Vector2(-479.488, -200.101)
+point_out = Vector2(479.488, 200.101)
+properties = SubResource("Resource_tqod8")
+
+[sub_resource type="Resource" id="Resource_gf3fa"]
+script = ExtResource("5_i5yt6")
+texture_idx = 0
+flip = false
+width = 1.0
+
+[sub_resource type="Resource" id="Resource_r0mpi"]
+script = ExtResource("6_5oi5y")
+position = Vector2(2251.28, 897.312)
+point_in = Vector2(445.509, -524.794)
+point_out = Vector2(-445.509, 524.794)
+properties = SubResource("Resource_gf3fa")
+
+[sub_resource type="Resource" id="Resource_d7j6f"]
+script = ExtResource("5_i5yt6")
+texture_idx = 0
+flip = false
+width = 1.0
+
+[sub_resource type="Resource" id="Resource_s82aw"]
+script = ExtResource("6_5oi5y")
+position = Vector2(367.31, 1218.23)
+point_in = Vector2(588.978, 162.346)
+point_out = Vector2(-588.978, -162.346)
+properties = SubResource("Resource_d7j6f")
+
+[sub_resource type="Resource" id="Resource_5ca0v"]
+script = ExtResource("7_huva7")
+_points = {
+0: SubResource("Resource_rsq46"),
+1: SubResource("Resource_g2bgo"),
+2: SubResource("Resource_e2fdw"),
+3: SubResource("Resource_3w8gx"),
+4: SubResource("Resource_r0mpi"),
+6: SubResource("Resource_s82aw")
+}
+_point_order = PackedInt32Array(1, 2, 3, 4, 6, 0)
+_constraints = {
+Vector2i(1, 0): 15
+}
+_next_key = 7
+_material_overrides = {}
+tessellation_stages = 3
+tessellation_tolerance = 6.0
+curve_bake_interval = 20.0
 
 [node name="OneWayWallTest" type="Node2D"]
 
 [node name="TileMapLayer" parent="." instance=ExtResource("1_lhymf")]
 z_index = -1
-tile_map_data = PackedByteArray("AAAAAAEAAQAAAAEAAAABAAEAAQABAAEAAAACAAEAAQABAAEAAAADAAEAAQABAAEAAAAEAAEAAQABAAEAAAAFAAEAAQABAAEAAAAGAAEAAQABAAEAAAAHAAAAAQACAAAAAAAHAAEAAQACAAEAAAAHAP//AQACAAAAAAAAAAAAAQAAAAAAAAAAAP//AQAAAAAAAAA=")
+tile_map_data = PackedByteArray("AAAAAAEABAAAAAAAAQABAAEABAAAAAAAAwACAAEABAAAAAAAAwADAAEABAAAAAAAAwAEAAEABAAAAAAAAwAFAAEABAAAAAAAAwAGAAEABAAAAAAAAwAHAAAABAAAAAAABQAHAAEABAAAAAAAAgAHAP//BAAAAAAABQAAAAAABAAAAAAABAAAAP//BAAAAAAABAA=")
 
 [node name="Player" parent="." instance=ExtResource("2_wr2sk")]
 position = Vector2(464, 378)
 
 [node name="MainCam" parent="." instance=ExtResource("3_s5np2")]
+
+[node name="SS2D_Shape" type="Node2D" parent="."]
+z_index = -10
+script = ExtResource("4_w3b65")
+_points = SubResource("Resource_5ca0v")
+shape_material = ExtResource("8_v13i6")
