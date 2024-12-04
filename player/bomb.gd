@@ -21,10 +21,8 @@ func explode() -> void:
 	print(damaged_things)
 	for thing in damaged_things:
 		if thing.has_method("hurt") and !(thing is Bomb):
-			if (thing is Player):
-				thing.hurt(DamageEvent.new(damage_to_player, velocity.normalized() * knockback)) 
-			else:
-				thing.hurt(DamageEvent.new(damage, velocity.normalized() * knockback)) 
+			var hurt_damage := damage_to_player if thing is Player else damage
+			thing.hurt(DamageEvent.new(hurt_damage, velocity.normalized() * knockback, DamageEvent.DamageType.Bomb)) 
 	
 	#TODO: change animation
 	#get_node("BombSprite").scale.x *= 4
