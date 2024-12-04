@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://sequd0p5a1o1"]
+[gd_scene load_steps=30 format=3 uid="uid://sequd0p5a1o1"]
 
 [ext_resource type="PackedScene" uid="uid://cnd06dpkgufe4" path="res://world/levels/level_base.tscn" id="1_fah3u"]
 [ext_resource type="Script" path="res://addons/rmsmartshape/shapes/shape_closed.gd" id="2_ye76r"]
@@ -13,8 +13,9 @@
 [ext_resource type="Script" path="res://addons/rmsmartshape/materials/shape_material.gd" id="11_aqi58"]
 [ext_resource type="Texture2D" uid="uid://dc4pcxr2lfkka" path="res://demo_art/dungeon_entrance.png" id="12_ibq6i"]
 [ext_resource type="PackedScene" uid="uid://blh1fs712dql8" path="res://world/interactable/activatable/locked_door/locked_door.tscn" id="13_28qb5"]
+[ext_resource type="PackedScene" uid="uid://dv2sjq4bbxtxq" path="res://world/interactable/water_toggler/water_toggle_switch.tscn" id="14_wra53"]
 
-[sub_resource type="Resource" id="Resource_f37he"]
+[sub_resource type="Resource" id="Resource_wg8mr"]
 script = ExtResource("3_lktlt")
 texture_idx = 0
 flip = false
@@ -25,9 +26,9 @@ script = ExtResource("4_u0btn")
 position = Vector2(-672, -128)
 point_in = Vector2(0, 0)
 point_out = Vector2(0, 0)
-properties = SubResource("Resource_f37he")
+properties = SubResource("Resource_wg8mr")
 
-[sub_resource type="Resource" id="Resource_ief3a"]
+[sub_resource type="Resource" id="Resource_0i1eg"]
 script = ExtResource("3_lktlt")
 texture_idx = 0
 flip = false
@@ -38,9 +39,9 @@ script = ExtResource("4_u0btn")
 position = Vector2(-680, 1232)
 point_in = Vector2(0, 0)
 point_out = Vector2(0, 0)
-properties = SubResource("Resource_ief3a")
+properties = SubResource("Resource_0i1eg")
 
-[sub_resource type="Resource" id="Resource_rbr2v"]
+[sub_resource type="Resource" id="Resource_xplih"]
 script = ExtResource("3_lktlt")
 texture_idx = 0
 flip = false
@@ -48,12 +49,12 @@ width = 1.0
 
 [sub_resource type="Resource" id="Resource_6wfej"]
 script = ExtResource("4_u0btn")
-position = Vector2(2008, 1208)
+position = Vector2(2000, 1216)
 point_in = Vector2(0, 0)
 point_out = Vector2(0, 0)
-properties = SubResource("Resource_rbr2v")
+properties = SubResource("Resource_xplih")
 
-[sub_resource type="Resource" id="Resource_n271q"]
+[sub_resource type="Resource" id="Resource_lrhj5"]
 script = ExtResource("3_lktlt")
 texture_idx = 0
 flip = false
@@ -61,12 +62,12 @@ width = 1.0
 
 [sub_resource type="Resource" id="Resource_tnm2q"]
 script = ExtResource("4_u0btn")
-position = Vector2(1968, -104)
+position = Vector2(1976, -144)
 point_in = Vector2(0, 0)
 point_out = Vector2(0, 0)
-properties = SubResource("Resource_n271q")
+properties = SubResource("Resource_lrhj5")
 
-[sub_resource type="Resource" id="Resource_3u5eh"]
+[sub_resource type="Resource" id="Resource_ixju5"]
 script = ExtResource("3_lktlt")
 texture_idx = 0
 flip = false
@@ -77,7 +78,7 @@ script = ExtResource("4_u0btn")
 position = Vector2(-672, -128)
 point_in = Vector2(0, 0)
 point_out = Vector2(0, 0)
-properties = SubResource("Resource_3u5eh")
+properties = SubResource("Resource_ixju5")
 
 [sub_resource type="Resource" id="Resource_q8b8v"]
 script = ExtResource("5_un5oq")
@@ -88,12 +89,15 @@ _points = {
 3: SubResource("Resource_tnm2q"),
 4: SubResource("Resource_opdkq")
 }
-_point_order = Array[int]([4, 3, 2, 1, 0])
+_point_order = PackedInt32Array(4, 3, 2, 1, 0)
 _constraints = {
-Array[int]([0, 4]): 15
+Vector2i(0, 4): 15
 }
 _next_key = 15
 _material_overrides = {}
+tessellation_stages = 3
+tessellation_tolerance = 6.0
+curve_bake_interval = 20.0
 
 [sub_resource type="Resource" id="Resource_vtnh8"]
 script = ExtResource("7_00kwa")
@@ -102,6 +106,8 @@ textures_corner_outer = Array[Texture2D]([])
 textures_corner_inner = Array[Texture2D]([])
 textures_taper_left = Array[Texture2D]([])
 textures_taper_right = Array[Texture2D]([])
+textures_taper_corner_left = Array[Texture2D]([])
+textures_taper_corner_right = Array[Texture2D]([])
 randomize_texture = false
 use_corner_texture = false
 use_taper_texture = true
@@ -118,6 +124,7 @@ script = ExtResource("6_awuk5")
 edge_material = SubResource("Resource_vtnh8")
 normal_range = SubResource("Resource_en2qp")
 weld = true
+taper_sharp_corners = false
 render = true
 z_index = 0
 z_as_relative = true
@@ -166,14 +173,17 @@ position = Vector2(-717, 942)
 texture = ExtResource("12_ibq6i")
 
 [node name="DungeonEntrance4" type="Sprite2D" parent="Doors" index="3"]
-position = Vector2(1955, -183)
+position = Vector2(1930, -7)
 scale = Vector2(1.65052, 2.17241)
 texture = ExtResource("12_ibq6i")
 
 [node name="DungeonEntrance5" type="Sprite2D" parent="Doors" index="4"]
-position = Vector2(2016, 819)
+position = Vector2(1868, 1196)
 scale = Vector2(1.47906, 1.7069)
 texture = ExtResource("12_ibq6i")
 
 [node name="LockedDoor" parent="." index="9" instance=ExtResource("13_28qb5")]
 position = Vector2(644, -237)
+
+[node name="WaterToggler" parent="." index="10" instance=ExtResource("14_wra53")]
+position = Vector2(672, 462)
