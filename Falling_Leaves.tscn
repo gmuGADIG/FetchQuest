@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://de4wpxel1s7y6"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_gswju"]
+
+[sub_resource type="Gradient" id="Gradient_71e6i"]
+offsets = PackedFloat32Array(0, 0.0621019, 0.132166, 0.815287, 1)
+colors = PackedColorArray(0.0707415, 0.212276, 0.0698911, 1, 0.0196592, 0.144209, 0.0951877, 1, 0.44273, 0.645239, 0.448014, 1, 0.864258, 0.964426, 0.847056, 1, 0.894406, 0.982485, 0.877281, 1)
+
+[node name="Node2D" type="Node2D"]
+position = Vector2(21, 10)
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+position = Vector2(552, 59)
+amount = 20
+lifetime = 7.92
+texture = SubResource("CanvasTexture_gswju")
+emission_shape = 2
+emission_sphere_radius = 128.0
+spread = 180.0
+gravity = Vector2(0, 100)
+initial_velocity_max = 0.5
+radial_accel_min = -18.35
+radial_accel_max = 49.11
+scale_amount_min = 3.96
+scale_amount_max = 27.63
+color_ramp = SubResource("Gradient_71e6i")

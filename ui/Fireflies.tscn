@@ -1,9 +1,27 @@
-[gd_scene format=3 uid="uid://b5u4o6qms34n6"]
+[gd_scene load_steps=2 format=3 uid="uid://b5u4o6qms34n6"]
+
+[sub_resource type="Gradient" id="Gradient_7ibeg"]
+offsets = PackedFloat32Array(0.106688, 0.136943, 0.378981)
+colors = PackedColorArray(1, 0.901961, 0, 1, 1, 0.938436, 0.372047, 1, 1, 0.509409, 0.0216284, 1)
 
 [node name="Node2D" type="Node2D"]
 
-[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
-angular_velocity_min = -683.68
-angular_velocity_max = -460.12
-orbit_velocity_min = -893.5
-orbit_velocity_max = -426.04
+[node name="swordspark" type="CPUParticles2D" parent="."]
+position = Vector2(23, 12)
+lifetime = 0.5
+explosiveness = 0.73
+emission_shape = 1
+emission_sphere_radius = 29.02
+gravity = Vector2(0, -9.81)
+initial_velocity_min = 227.81
+initial_velocity_max = 269.23
+angular_velocity_min = -622.01
+angular_velocity_max = -360.99
+radial_accel_min = 17.75
+radial_accel_max = 21.3
+damping_max = 26.923
+angle_min = -528.3
+angle_max = -519.8
+scale_amount_min = 3.96
+scale_amount_max = 21.91
+color_ramp = SubResource("Gradient_7ibeg")
