@@ -10,11 +10,14 @@ class_name FrogShockwave
 @onready var collider: CollisionPolygon2D = $CollisionPolygon2D
 @onready var sprite: Sprite2D = $Sprite2D
 
+@onready var expiry_timer: Timer = $DestroyTimer
+
 var radian_vectors: Array = []
 
 var radius: float = 1
 
 func _ready() -> void:
+	expiry_timer.timeout.connect(queue_free)
 	compute_sines_and_cosines()
 	
 func _physics_process(delta: float) -> void:
