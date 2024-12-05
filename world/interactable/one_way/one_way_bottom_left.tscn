@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://wnrs64c2ytlf"]
+
+[ext_resource type="Texture2D" uid="uid://l7ktp8gw0qkv" path="res://world/tilemap/oneway/oneway.png" id="1_320me"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hbga5"]
+atlas = ExtResource("1_320me")
+region = Rect2(0, 256, 256, 256)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yes2p"]
+size = Vector2(256, 256)
+
+[node name="OneWayBottomLeft" type="StaticBody2D"]
+z_index = -1
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_hbga5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_yes2p")
+debug_color = Color(0.680929, 0.5037, 0, 0.0823529)

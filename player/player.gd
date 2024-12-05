@@ -10,6 +10,7 @@ static var instance: Player
 @export var knockback_friction: float = 5.0 ## How fast the player slows down from knockback
 @export var roll_speed: float = 1000.0
 
+
 @onready var health: int = max_health: ## Current health
 	set(value):
 		health = value
@@ -21,11 +22,15 @@ static var instance: Player
 		stamina_changed.emit()
 
 @onready var force_applied: Vector2 = Vector2.ZERO ## All external forces applied
-@onready var bomb_scene := preload("bomb.tscn")
 
 @onready var animation_player: AnimationPlayer = %AnimationPlayer
-
 @onready var hole_detector: Node2D = $HoleDetector
+@onready var roll_sound: AudioStreamPlayer = %RollingSound
+
+var bomb_scene := preload("bomb.tscn")
+
+# TODO: handle different dog sprites
+@onready var _animated_sprite := %Skin1
 
 var active_sword: ThrownSword ## The active thrown sword. Null if the player is currently holding the sword
 
@@ -34,6 +39,7 @@ var last_aim_direction := Vector2.RIGHT
 
 var invincible: bool = false
 
+var facing_right: bool = true;
 var rolling: bool = false
 var roll_vector: Vector2 = Vector2(0, 0)
 var roll_timer: float = 0.25
@@ -80,31 +86,31 @@ func start_roll() -> void:
 	rolling = true
 	# get direction for the roll
 	roll_vector = Input.get_vector("move_left", "move_right", "move_up", "move_down").normalized()
+	if(not facing_right):
+		_animated_sprite.play("Artie_Roll_Left")
+	else:
+		_animated_sprite.play("Artie_Roll_Right")
 	# switch off collision with enemy bullets and the holes
 	self.set_collision_mask_value(6, false)
 	hole_detector.enabled = false
 
 	# make the timer go
 	$RollTimer.start(roll_timer)
+	
+	# play sound
+	roll_sound.play()
 
 # callback from roll timer. reverts changes made by start_roll
 func stop_roll() -> void:
+	_animated_sprite.stop()
 	rolling = false
+	
 	hole_detector.enabled = true
 
 	self.set_collision_mask_value(6, true)
 
 func _init() -> void:
 	instance = self
-
-func _process(_delta: float) -> void:
-	if Input.is_action_just_pressed("speak"):
-		if !$Speak.on_cooldown():
-			$Speak.speak()
-
-	if Input.is_action_just_pressed("attack"):
-		if active_sword == null:
-			throw_sword()
 
 ## Returns a normalized vector in the direction the player is aiming.
 func get_aim() -> Vector2:
@@ -121,8 +127,25 @@ func throw_sword() -> void:
 	add_sibling(sword)
 	sword.throw(get_aim())
 
-func _physics_process(delta: float) -> void:
+func _process(delta: float) -> void:
+	if Input.is_action_just_pressed("speak"):
+		if !$Speak.on_cooldown():
+			$Speak.speak()
+			if(not facing_right):
+				_animated_sprite.play("Artie_Bark_Left")
+			else:
+				_animated_sprite.play("Artie_Bark_Right")
+
+	if Input.is_action_just_pressed("attack"):
+		if active_sword == null:
+			throw_sword()
+
 	velocity = Input.get_vector("move_left", "move_right", "move_up", "move_down") * move_speed
+	if(velocity != Vector2.ZERO):
+		if(velocity.x < 0):
+			facing_right = false
+		else:
+			facing_right = true
 	if($Speak.is_speaking()):
 		velocity *= $Speak.movement_multiplier
 	# normal movement input is not processed while rolling
@@ -134,11 +157,27 @@ func _physics_process(delta: float) -> void:
 	recover_stamina(delta)
 
 	if (Input.is_action_just_pressed("dog_roll")):
+		_animated_sprite.stop()
 		start_roll()
-
+		
+	if(not rolling && not $Speak.is_speaking()):
+		if(velocity == Vector2.ZERO):
+			if(facing_right):
+				_animated_sprite.play("Artie_Base_Right")
+			else:
+				_animated_sprite.play("Artie_Base_Left")
+		elif(not facing_right):
+			_animated_sprite.play("Artie_Walk_Left")
+		else:
+			_animated_sprite.play("Artie_Walk_Right")
 	velocity += force_applied
-	force_applied = force_applied.lerp(Vector2.ZERO, delta * knockback_friction)
+
+	force_applied = force_applied * exp(-knockback_friction * delta)
+	if force_applied.length() < 10: force_applied = Vector2.ZERO
+
 	move_and_slide()
+	
+	handle_one_ways()
 
 func _input(event: InputEvent) -> void:
 	#TODO: REMOVE THIS
@@ -151,6 +190,32 @@ func _input(event: InputEvent) -> void:
 			bomb_instance.velocity = get_aim() * bomb_throw_speed
 			add_sibling(bomb_instance)
 			PlayerInventory.bombs-=1
+
+## Called every frame after move_and_slide
+## Checks for collision with one-way tiles and moves accordingly
+func handle_one_ways() -> void:
+	if rolling: return
+	
+	for i in range(get_slide_collision_count()):
+		var collision := get_slide_collision(i)
+		var one_way := collision.get_collider() as OneWay
+		if one_way != null:
+			var player_direction := -collision.get_normal()
+			if player_direction == one_way.direction:
+				jump_over_one_way(one_way.direction)
+				break # prevent jumping twice in a frame
+
+func jump_over_one_way(direction: Vector2) -> void:
+	var jump_to := position + OneWay.JUMP_SIZE * direction
+	
+	process_mode = PROCESS_MODE_DISABLED
+	
+	var tween := get_tree().create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
+	tween.tween_property(self, "position", jump_to, .5)
+	
+	await tween.finished
+	process_mode = PROCESS_MODE_INHERIT
+	
 
 ## Damages the player, lowering its health.
 func hurt(damage_event: DamageEvent) -> void:
