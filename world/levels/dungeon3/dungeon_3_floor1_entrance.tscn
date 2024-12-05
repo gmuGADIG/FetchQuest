@@ -1,109 +1,83 @@
-[gd_scene load_steps=25 format=3 uid="uid://bbbt874mvpecx"]
+[gd_scene load_steps=22 format=3 uid="uid://bbbt874mvpecx"]
 
-[ext_resource type="PackedScene" uid="uid://cnd06dpkgufe4" path="res://world/levels/level_base.tscn" id="1_igkpq"]
-[ext_resource type="Script" path="res://addons/rmsmartshape/shapes/shape.gd" id="2_uusd1"]
-[ext_resource type="Script" path="res://addons/rmsmartshape/vertex_properties.gd" id="3_bbwa1"]
-[ext_resource type="Script" path="res://addons/rmsmartshape/shapes/point.gd" id="4_tuxw6"]
-[ext_resource type="Script" path="res://addons/rmsmartshape/shapes/point_array.gd" id="5_rjwav"]
-[ext_resource type="Resource" uid="uid://vgy02p4w5scg" path="res://world/smart_shapes/stone/stone.tres" id="6_uxsl2"]
-[ext_resource type="Texture2D" uid="uid://dc4pcxr2lfkka" path="res://demo_art/dungeon_entrance.png" id="11_lni05"]
-[ext_resource type="Script" path="res://world/interactable/transition_trigger/transition_trigger.gd" id="12_lo6vh"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_k58yn"]
-size = Vector2(25, 954.5)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_55jni"]
-size = Vector2(1672, 50)
+[ext_resource type="PackedScene" uid="uid://cnd06dpkgufe4" path="res://world/levels/level_base.tscn" id="1_0ml5m"]
+[ext_resource type="Script" path="res://addons/rmsmartshape/shapes/shape.gd" id="2_vqk4l"]
+[ext_resource type="Script" path="res://addons/rmsmartshape/vertex_properties.gd" id="3_tqm2n"]
+[ext_resource type="Script" path="res://addons/rmsmartshape/shapes/point.gd" id="4_hcijr"]
+[ext_resource type="Script" path="res://addons/rmsmartshape/shapes/point_array.gd" id="5_lw8u5"]
+[ext_resource type="Resource" uid="uid://vgy02p4w5scg" path="res://world/smart_shapes/stone/stone.tres" id="6_620f3"]
+[ext_resource type="Texture2D" uid="uid://dc4pcxr2lfkka" path="res://demo_art/dungeon_entrance.png" id="7_dqopx"]
+[ext_resource type="Script" path="res://world/interactable/transition_trigger/transition_trigger.gd" id="8_a1pe7"]
 
 [sub_resource type="Resource" id="Resource_lst0q"]
-script = ExtResource("3_bbwa1")
-texture_idx = 4
+script = ExtResource("3_tqm2n")
+texture_idx = 3
 flip = false
 width = 1.0
 
 [sub_resource type="Resource" id="Resource_ac1qy"]
-script = ExtResource("4_tuxw6")
-position = Vector2(-240, -1096)
+script = ExtResource("4_hcijr")
+position = Vector2(-240, -104)
 point_in = Vector2(0, 0)
 point_out = Vector2(0, 0)
 properties = SubResource("Resource_lst0q")
 
-[sub_resource type="Resource" id="Resource_66jjw"]
-script = ExtResource("3_bbwa1")
-texture_idx = 4
-flip = false
-width = 1.0
-
 [sub_resource type="Resource" id="Resource_1xcap"]
-script = ExtResource("4_tuxw6")
-position = Vector2(-240, -1096)
+script = ExtResource("4_hcijr")
+position = Vector2(-240, -104)
 point_in = Vector2(0, 0)
 point_out = Vector2(0, 0)
-properties = SubResource("Resource_66jjw")
+properties = SubResource("Resource_lst0q")
 
 [sub_resource type="Resource" id="Resource_1wmet"]
-script = ExtResource("3_bbwa1")
-texture_idx = 23
+script = ExtResource("3_tqm2n")
+texture_idx = 25
 flip = false
 width = 1.0
 
 [sub_resource type="Resource" id="Resource_qpq5w"]
-script = ExtResource("4_tuxw6")
-position = Vector2(-240, 656)
+script = ExtResource("4_hcijr")
+position = Vector2(-240, 784)
 point_in = Vector2(0, 0)
 point_out = Vector2(0, 0)
 properties = SubResource("Resource_1wmet")
 
 [sub_resource type="Resource" id="Resource_n2nlf"]
-script = ExtResource("3_bbwa1")
-texture_idx = 23
+script = ExtResource("3_tqm2n")
+texture_idx = 18
 flip = false
 width = 1.0
 
 [sub_resource type="Resource" id="Resource_7t73i"]
-script = ExtResource("4_tuxw6")
-position = Vector2(1424, 816)
+script = ExtResource("4_hcijr")
+position = Vector2(1368, 784)
 point_in = Vector2(0, 0)
 point_out = Vector2(0, 0)
 properties = SubResource("Resource_n2nlf")
 
 [sub_resource type="Resource" id="Resource_6nk8t"]
-script = ExtResource("3_bbwa1")
+script = ExtResource("3_tqm2n")
 texture_idx = 5
 flip = false
 width = 1.0
 
 [sub_resource type="Resource" id="Resource_onwys"]
-script = ExtResource("4_tuxw6")
-position = Vector2(1424, -1096)
+script = ExtResource("4_hcijr")
+position = Vector2(1368, -104)
 point_in = Vector2(0, 0)
 point_out = Vector2(0, 0)
 properties = SubResource("Resource_6nk8t")
 
-[sub_resource type="Resource" id="Resource_hydy1"]
-script = ExtResource("3_bbwa1")
-texture_idx = 0
-flip = false
-width = 1.0
-
-[sub_resource type="Resource" id="Resource_wpfp6"]
-script = ExtResource("4_tuxw6")
-position = Vector2(1392, 816)
-point_in = Vector2(0, 0)
-point_out = Vector2(0, 0)
-properties = SubResource("Resource_hydy1")
-
 [sub_resource type="Resource" id="Resource_xpffa"]
-script = ExtResource("5_rjwav")
+script = ExtResource("5_lw8u5")
 _points = {
 0: SubResource("Resource_ac1qy"),
 14: SubResource("Resource_1xcap"),
 15: SubResource("Resource_qpq5w"),
 16: SubResource("Resource_7t73i"),
-17: SubResource("Resource_onwys"),
-18: SubResource("Resource_wpfp6")
+17: SubResource("Resource_onwys")
 }
-_point_order = PackedInt32Array(0, 17, 16, 18, 15, 14)
+_point_order = PackedInt32Array(0, 17, 16, 15, 14)
 _constraints = {
 Vector2i(14, 0): 15
 }
@@ -113,69 +87,79 @@ tessellation_stages = 3
 tessellation_tolerance = 6.0
 curve_bake_interval = 20.0
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k58yn"]
+size = Vector2(25, 954.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_55jni"]
+size = Vector2(1672, 50)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_41yhe"]
 size = Vector2(158, 146)
 
-[node name="LevelBase" instance=ExtResource("1_igkpq")]
+[node name="LevelBase" instance=ExtResource("1_0ml5m")]
 position = Vector2(0, -8)
 
 [node name="MainCam" parent="." index="0"]
 position = Vector2(592, 344)
-limit_left = -232
+limit_left = -256
 limit_top = -120
-limit_right = 1416
+limit_right = 1392
 limit_bottom = 800
 
 [node name="Entrance" type="Node2D" parent="EntryPoints" index="0"]
 position = Vector2(608, 648)
 
+[node name="Player" parent="." index="5"]
+z_index = 2
+position = Vector2(112, 312)
+
 [node name="Walls" type="Node" parent="." index="6"]
 
-[node name="Left_Wall" type="StaticBody2D" parent="Walls" index="0"]
+[node name="Floor" type="Node2D" parent="Walls" index="0"]
+script = ExtResource("2_vqk4l")
+_points = SubResource("Resource_xpffa")
+shape_material = ExtResource("6_620f3")
+
+[node name="Left_Wall" type="StaticBody2D" parent="Walls" index="1"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Left_Wall" index="0"]
-position = Vector2(-232, 346.75)
+position = Vector2(-248, 336)
 shape = SubResource("RectangleShape2D_k58yn")
 
-[node name="Bottom_Wall" type="StaticBody2D" parent="Walls" index="1"]
+[node name="Bottom_Wall" type="StaticBody2D" parent="Walls" index="2"]
 position = Vector2(128, 480)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Bottom_Wall" index="0"]
-position = Vector2(468.75, 328)
+position = Vector2(464, 320)
 shape = SubResource("RectangleShape2D_55jni")
 
-[node name="Right_Wall" type="StaticBody2D" parent="Walls" index="2"]
+[node name="Right_Wall" type="StaticBody2D" parent="Walls" index="3"]
 position = Vector2(1648, -8)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Right_Wall" index="0"]
-position = Vector2(-232, 346.75)
+position = Vector2(-272, 344)
 shape = SubResource("RectangleShape2D_k58yn")
 
-[node name="Top_Wall" type="StaticBody2D" parent="Walls" index="3"]
+[node name="Top_Wall" type="StaticBody2D" parent="Walls" index="4"]
 position = Vector2(128, -448)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Top_Wall" index="0"]
-position = Vector2(468, 343)
+position = Vector2(456, 328)
 shape = SubResource("RectangleShape2D_55jni")
-
-[node name="Floor" type="Node2D" parent="Walls" index="4"]
-script = ExtResource("2_uusd1")
-_points = SubResource("Resource_xpffa")
-shape_material = ExtResource("6_uxsl2")
 
 [node name="Transitions" type="Node" parent="." index="7"]
 
 [node name="2F_Stair" type="Sprite2D" parent="Transitions" index="0"]
-position = Vector2(1256, -64)
+position = Vector2(1256, -48)
 scale = Vector2(1.05099, 1.12943)
-texture = ExtResource("11_lni05")
+texture = ExtResource("7_dqopx")
 
 [node name="TransitionScene" type="Area2D" parent="Transitions/2F_Stair" index="0"]
 position = Vector2(-6.00761, 27.8925)
 scale = Vector2(0.429116, 0.429116)
 collision_layer = 0
 collision_mask = 2
-script = ExtResource("12_lo6vh")
+script = ExtResource("8_a1pe7")
 scene_name = "dungeon_3_testing"
 entry_point = "Main"
 
@@ -184,16 +168,16 @@ position = Vector2(6, -13)
 shape = SubResource("RectangleShape2D_41yhe")
 
 [node name="1B_Stair" type="Sprite2D" parent="Transitions" index="1"]
-position = Vector2(-96, -64)
+position = Vector2(-96, -48)
 scale = Vector2(1.05099, 1.12943)
-texture = ExtResource("11_lni05")
+texture = ExtResource("7_dqopx")
 
 [node name="TransitionScene" type="Area2D" parent="Transitions/1B_Stair" index="0"]
 position = Vector2(-6.00761, 27.8925)
 scale = Vector2(0.429116, 0.429116)
 collision_layer = 0
 collision_mask = 2
-script = ExtResource("12_lo6vh")
+script = ExtResource("8_a1pe7")
 scene_name = "dungeon_3_testing"
 entry_point = "Main"
 
@@ -202,16 +186,16 @@ position = Vector2(6, -13)
 shape = SubResource("RectangleShape2D_41yhe")
 
 [node name="Courtyard" type="Sprite2D" parent="Transitions" index="2"]
-position = Vector2(576, -64)
+position = Vector2(576, -48)
 scale = Vector2(1.05099, 1.12943)
-texture = ExtResource("11_lni05")
+texture = ExtResource("7_dqopx")
 
 [node name="TransitionScene" type="Area2D" parent="Transitions/Courtyard" index="0"]
 position = Vector2(-6.00761, 27.8925)
 scale = Vector2(0.429116, 0.429116)
 collision_layer = 0
 collision_mask = 2
-script = ExtResource("12_lo6vh")
+script = ExtResource("8_a1pe7")
 scene_name = "dungeon_3_testing"
 entry_point = "Main"
 
@@ -220,17 +204,17 @@ position = Vector2(6, -13)
 shape = SubResource("RectangleShape2D_41yhe")
 
 [node name="Exit" type="Sprite2D" parent="Transitions" index="3"]
-position = Vector2(576, 752)
+position = Vector2(576, 736)
 rotation = 3.14159
 scale = Vector2(1.05099, 1.12943)
-texture = ExtResource("11_lni05")
+texture = ExtResource("7_dqopx")
 
 [node name="TransitionScene" type="Area2D" parent="Transitions/Exit" index="0"]
 position = Vector2(-6.00761, 27.8925)
 scale = Vector2(0.429116, 0.429116)
 collision_layer = 0
 collision_mask = 2
-script = ExtResource("12_lo6vh")
+script = ExtResource("8_a1pe7")
 scene_name = "latest_demo_2"
 entry_point = "Dungeon"
 
