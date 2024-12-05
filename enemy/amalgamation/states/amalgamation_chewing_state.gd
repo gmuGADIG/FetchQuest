@@ -13,6 +13,7 @@ func enter() -> void:
 	
 	# Hide the player while chewing
 	Player.instance.modulate.a = 0
+	# Turn off Player input
 	Player.instance.set_process_input(false)
 	Player.instance.set_process(false)
 	# Chew for 'duration' seconds, then idle
@@ -27,6 +28,7 @@ func update(_delta:float) -> void:
 
 func exit() -> void:
 	# Spit the player out
+	#turn on Player input
 	Player.instance.set_process_input(true)
 	Player.instance.set_process(true)
 	var tween:Tween = create_tween()
