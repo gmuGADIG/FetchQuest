@@ -1,15 +1,19 @@
-[gd_scene load_steps=7 format=3 uid="uid://dutetduietx8r"]
+[gd_scene load_steps=8 format=3 uid="uid://dutetduietx8r"]
 
 [ext_resource type="Script" path="res://enemy/shield_enemy/shield_enemy.gd" id="1_35cbv"]
 [ext_resource type="PackedScene" uid="uid://blpi4x6if673v" path="res://enemy/base_enemy.tscn" id="2_k6ptp"]
-[ext_resource type="Texture2D" uid="uid://deern6512fesn" path="res://demo_art/test_enemy.svg" id="2_n1066"]
 [ext_resource type="Texture2D" uid="uid://dymucenpxmluo" path="res://icon.svg" id="2_yu8al"]
+[ext_resource type="Texture2D" uid="uid://crpi8s5u67ra5" path="res://enemy/shield_enemy/sprites/Shield_Enemy_Idle.PNG" id="4_xtylt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6ymve"]
 size = Vector2(195, 195)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rnx4b"]
 size = Vector2(118, 106)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u4k3q"]
+atlas = ExtResource("4_xtylt")
+region = Rect2(0, 0, 796, 570)
 
 [node name="ShieldEnemy" node_paths=PackedStringArray("enemy_sprite") instance=ExtResource("2_k6ptp")]
 position = Vector2(0, -1)
@@ -34,6 +38,7 @@ shape = SubResource("RectangleShape2D_rnx4b")
 
 [node name="EnemySprite" type="Sprite2D" parent="." index="2"]
 self_modulate = Color(0.473481, 0.00278523, 0.831244, 1)
-texture = ExtResource("2_n1066")
+scale = Vector2(-0.227, 0.227)
+texture = SubResource("AtlasTexture_u4k3q")
 
 [connection signal="body_entered" from="Shield" to="." method="_on_shield_body_entered"]
