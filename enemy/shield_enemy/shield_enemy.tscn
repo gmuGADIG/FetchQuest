@@ -11,9 +11,8 @@ size = Vector2(195, 195)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rnx4b"]
 size = Vector2(118, 106)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_u4k3q"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_pruo6"]
 atlas = ExtResource("4_xtylt")
-region = Rect2(0, 0, 796, 570)
 
 [node name="ShieldEnemy" node_paths=PackedStringArray("enemy_sprite") instance=ExtResource("2_k6ptp")]
 position = Vector2(0, -1)
@@ -39,6 +38,7 @@ shape = SubResource("RectangleShape2D_rnx4b")
 [node name="EnemySprite" type="Sprite2D" parent="." index="2"]
 self_modulate = Color(0.473481, 0.00278523, 0.831244, 1)
 scale = Vector2(-0.227, 0.227)
-texture = SubResource("AtlasTexture_u4k3q")
+texture = SubResource("AtlasTexture_pruo6")
+hframes = 6
 
 [connection signal="body_entered" from="Shield" to="." method="_on_shield_body_entered"]
