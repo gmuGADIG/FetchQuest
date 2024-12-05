@@ -10,6 +10,7 @@ func _ready() -> void:
 	red_coin_manager.increment_coin_count() #tells Manager it exist
 
 func consume(_consumer: Node2D) -> void:
+	if not is_inside_tree(): return
 	if(_consumer.is_in_group("Player")):
 		# sound plays update UI?
 		print("RedCoin: picked up")
