@@ -7,10 +7,10 @@ class_name WeakFloor extends Node2D
 @onready var _sprite := $Sprite2D
 
 ## How long the floor can be stood on before it disappears.
-@export var safe_length: float = 0.5
+@export var safe_length: float = 0.75
 
 ## How long it takes for the floor to respawn. Set to -1 to disable respawning.
-@export var respawn_time: float = 1.0
+@export var respawn_time: float = 1.5
 
 var alive: bool = true
 
