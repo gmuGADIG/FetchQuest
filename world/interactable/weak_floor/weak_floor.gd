@@ -27,12 +27,14 @@ func _set_alive_and_reset_timer(new_alive: bool) -> void:
 	_hole_occluder_collision.disabled = not alive
 	
 	if alive:
-		_sprite.modulate.a = 1.0
+		_sprite.modulate = Color.WHITE # .a = 1.0
 		
 # Sets the "decay" animation to a specific "time" between 0 and 1. For now
 # just changes the modulate.
 func _animate_decay(how_decayed: float) -> void:
-	_sprite.modulate.a = 1.0 - how_decayed
+	const color_good = Color.WHITE
+	const color_decay = Color.DIM_GRAY
+	_sprite.modulate = color_good.lerp(color_decay, how_decayed)
 
 func _process(delta: float) -> void:
 	if alive:
