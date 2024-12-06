@@ -7,6 +7,10 @@
 [node name="Game Over" type="Node2D"]
 script = ExtResource("1_xmlm4")
 
+[node name="GameOverAudioPlayer" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+bus = &"SFX"
+
 [node name="Game over" type="Label" parent="."]
 modulate = Color(1, 0.0980392, 0.133333, 1)
 offset_left = 195.0
@@ -44,5 +48,7 @@ texture = ExtResource("3_811yh")
 expand_mode = 1
 
 [connection signal="ready" from="." to="." method="_on_ready"]
+[connection signal="pressed" from="Restart checkpoint" to="." method="_on_menu_major_button_pressed"]
 [connection signal="pressed" from="Restart checkpoint" to="." method="_on_restart_checkpoint_pressed"]
 [connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="Quit" to="." method="_on_menu_major_button_pressed"]
