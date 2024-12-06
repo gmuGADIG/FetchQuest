@@ -1,9 +1,18 @@
-[gd_scene load_steps=5 format=3 uid="uid://bovhexq6t5u8o"]
+[gd_scene load_steps=8 format=3 uid="uid://bovhexq6t5u8o"]
 
 [ext_resource type="Script" path="res://ui/options/options_menu.gd" id="1_1bpan"]
 [ext_resource type="Theme" uid="uid://hft8rbf0e22b" path="res://ui/main_ui_theme.tres" id="1_eq1l6"]
 [ext_resource type="Script" path="res://ui/options/volume_controller.gd" id="1_wtrl1"]
 [ext_resource type="Script" path="res://ui/options/quit_options_menu.gd" id="1_xfctd"]
+[ext_resource type="AudioStream" uid="uid://bo7hpkhva02yb" path="res://ui/sounds/SFX UI Click 1.wav" id="3_e1dnh"]
+[ext_resource type="AudioStream" uid="uid://cnf6rc2x77im6" path="res://ui/sounds/SFX UI Click 2.wav" id="4_dyqgd"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_36onc"]
+playback_mode = 1
+random_volume_offset_db = 3.0
+streams_count = 2
+stream_0/stream = ExtResource("3_e1dnh")
+stream_1/stream = ExtResource("4_dyqgd")
 
 [node name="OptionsMenu" type="ColorRect"]
 anchors_preset = 15
@@ -14,6 +23,11 @@ grow_vertical = 2
 theme = ExtResource("1_eq1l6")
 color = Color(0.140146, 0.354812, 0.257587, 1)
 script = ExtResource("1_1bpan")
+
+[node name="ClickSound" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = SubResource("AudioStreamRandomizer_36onc")
+bus = &"SFX"
 
 [node name="Title" type="RichTextLabel" parent="."]
 layout_mode = 1
@@ -148,9 +162,16 @@ focus_neighbor_bottom = NodePath("../Back_To_Menu")
 script = ExtResource("1_wtrl1")
 audio_bus_name = "SFX"
 
+[connection signal="pressed" from="Back_To_Menu" to="." method="_on_menu_major_button_pressed"]
+[connection signal="drag_ended" from="Volume_Slider_Master2" to="." method="_on_menu_minor_button_pressed"]
+[connection signal="drag_started" from="Volume_Slider_Master2" to="." method="_on_menu_minor_button_pressed"]
 [connection signal="mouse_exited" from="Volume_Slider_Master2" to="Volume_Slider_Master2" method="release_focus"]
 [connection signal="value_changed" from="Volume_Slider_Master2" to="Volume_Slider_Master2" method="_on_value_changed"]
+[connection signal="drag_ended" from="Volume_Slider2_Music" to="." method="_on_menu_minor_button_pressed"]
+[connection signal="drag_started" from="Volume_Slider2_Music" to="." method="_on_menu_minor_button_pressed"]
 [connection signal="mouse_exited" from="Volume_Slider2_Music" to="Volume_Slider2_Music" method="release_focus"]
 [connection signal="value_changed" from="Volume_Slider2_Music" to="Volume_Slider2_Music" method="_on_value_changed"]
+[connection signal="drag_ended" from="Volume_Slider_SFX" to="." method="_on_menu_minor_button_pressed"]
+[connection signal="drag_started" from="Volume_Slider_SFX" to="." method="_on_menu_minor_button_pressed"]
 [connection signal="mouse_exited" from="Volume_Slider_SFX" to="Volume_Slider_SFX" method="release_focus"]
 [connection signal="value_changed" from="Volume_Slider_SFX" to="Volume_Slider_SFX" method="_on_value_changed"]
