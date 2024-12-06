@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://3pqt7fqw2ddu"]
+[gd_scene load_steps=47 format=3 uid="uid://3pqt7fqw2ddu"]
 
 [ext_resource type="Script" path="res://world/decoration/trees/tree_gen.gd" id="1_ppxs0"]
 [ext_resource type="PackedScene" uid="uid://lwuwqeygvnpx" path="res://world/decoration/trees/willow_crystal/crystal_willow.tscn" id="2_u7s0i"]
@@ -7,6 +7,11 @@
 [ext_resource type="Script" path="res://addons/rmsmartshape/shapes/point.gd" id="5_mnw0t"]
 [ext_resource type="Script" path="res://addons/rmsmartshape/shapes/point_array.gd" id="6_3y8xm"]
 [ext_resource type="Resource" uid="uid://6wcd4668mjsi" path="res://world/smart_shapes/grass/grass_grove.tres" id="7_dg0x2"]
+[ext_resource type="PackedScene" uid="uid://bwo5q4wroaigc" path="res://world/interactable/transition_trigger/transition_trigger.tscn" id="8_7u2xq"]
+[ext_resource type="PackedScene" uid="uid://5x8wo3lcwigq" path="res://world/objects/breakable_object/breakable_object.tscn" id="9_vni05"]
+[ext_resource type="PackedScene" uid="uid://dutetduietx8r" path="res://enemy/shield_enemy/shield_enemy.tscn" id="10_djjeg"]
+[ext_resource type="PackedScene" uid="uid://bimerg4hcbya2" path="res://enemy/charging_enemy/charging_enemy.tscn" id="11_yunf7"]
+[ext_resource type="PackedScene" uid="uid://dd84x31n3uw6i" path="res://enemy/creep_enemy/creep.tscn" id="12_27jwm"]
 
 [sub_resource type="Resource" id="Resource_ves21"]
 script = ExtResource("4_vrs7k")
@@ -21,7 +26,7 @@ point_in = Vector2(0, 0)
 point_out = Vector2(0, 0)
 properties = SubResource("Resource_ves21")
 
-[sub_resource type="Resource" id="Resource_wld7o"]
+[sub_resource type="Resource" id="Resource_vqn1b"]
 script = ExtResource("4_vrs7k")
 texture_idx = 0
 flip = false
@@ -32,9 +37,9 @@ script = ExtResource("5_mnw0t")
 position = Vector2(5015.56, -2077.3)
 point_in = Vector2(0, 0)
 point_out = Vector2(0, 0)
-properties = SubResource("Resource_wld7o")
+properties = SubResource("Resource_vqn1b")
 
-[sub_resource type="Resource" id="Resource_scn1o"]
+[sub_resource type="Resource" id="Resource_x4vvx"]
 script = ExtResource("4_vrs7k")
 texture_idx = 0
 flip = false
@@ -45,9 +50,9 @@ script = ExtResource("5_mnw0t")
 position = Vector2(11455.6, -2205.3)
 point_in = Vector2(0, 0)
 point_out = Vector2(0, 0)
-properties = SubResource("Resource_scn1o")
+properties = SubResource("Resource_x4vvx")
 
-[sub_resource type="Resource" id="Resource_mr2dw"]
+[sub_resource type="Resource" id="Resource_hn7yl"]
 script = ExtResource("4_vrs7k")
 texture_idx = 0
 flip = false
@@ -58,9 +63,9 @@ script = ExtResource("5_mnw0t")
 position = Vector2(12396.3, -2227.25)
 point_in = Vector2(0, 0)
 point_out = Vector2(0, 0)
-properties = SubResource("Resource_mr2dw")
+properties = SubResource("Resource_hn7yl")
 
-[sub_resource type="Resource" id="Resource_bldax"]
+[sub_resource type="Resource" id="Resource_go2ft"]
 script = ExtResource("4_vrs7k")
 texture_idx = 0
 flip = false
@@ -71,9 +76,9 @@ script = ExtResource("5_mnw0t")
 position = Vector2(13044.9, -1745.34)
 point_in = Vector2(0, 0)
 point_out = Vector2(0, 0)
-properties = SubResource("Resource_bldax")
+properties = SubResource("Resource_go2ft")
 
-[sub_resource type="Resource" id="Resource_brjox"]
+[sub_resource type="Resource" id="Resource_xpkkr"]
 script = ExtResource("4_vrs7k")
 texture_idx = 0
 flip = false
@@ -84,9 +89,9 @@ script = ExtResource("5_mnw0t")
 position = Vector2(13045.9, 2508.17)
 point_in = Vector2(0, 0)
 point_out = Vector2(0, 0)
-properties = SubResource("Resource_brjox")
+properties = SubResource("Resource_xpkkr")
 
-[sub_resource type="Resource" id="Resource_xsh2q"]
+[sub_resource type="Resource" id="Resource_xpwuc"]
 script = ExtResource("4_vrs7k")
 texture_idx = 0
 flip = false
@@ -97,9 +102,9 @@ script = ExtResource("5_mnw0t")
 position = Vector2(3194.55, 2765.7)
 point_in = Vector2(0, 0)
 point_out = Vector2(0, 0)
-properties = SubResource("Resource_xsh2q")
+properties = SubResource("Resource_xpwuc")
 
-[sub_resource type="Resource" id="Resource_v6ol5"]
+[sub_resource type="Resource" id="Resource_v8o8i"]
 script = ExtResource("4_vrs7k")
 texture_idx = 0
 flip = false
@@ -110,7 +115,7 @@ script = ExtResource("5_mnw0t")
 position = Vector2(3930.22, -48.8252)
 point_in = Vector2(0, 0)
 point_out = Vector2(0, 0)
-properties = SubResource("Resource_v6ol5")
+properties = SubResource("Resource_v8o8i")
 
 [sub_resource type="Resource" id="Resource_igvsp"]
 script = ExtResource("4_vrs7k")
@@ -138,7 +143,7 @@ point_in = Vector2(0, 0)
 point_out = Vector2(0, 0)
 properties = SubResource("Resource_nuh2m")
 
-[sub_resource type="Resource" id="Resource_ojvrt"]
+[sub_resource type="Resource" id="Resource_a3bx1"]
 script = ExtResource("4_vrs7k")
 texture_idx = 0
 flip = false
@@ -149,9 +154,9 @@ script = ExtResource("5_mnw0t")
 position = Vector2(6450.49, 1194.66)
 point_in = Vector2(0, 0)
 point_out = Vector2(0, 0)
-properties = SubResource("Resource_ojvrt")
+properties = SubResource("Resource_a3bx1")
 
-[sub_resource type="Resource" id="Resource_nwob6"]
+[sub_resource type="Resource" id="Resource_v1x72"]
 script = ExtResource("4_vrs7k")
 texture_idx = 0
 flip = false
@@ -162,7 +167,7 @@ script = ExtResource("5_mnw0t")
 position = Vector2(6523.89, 651.89)
 point_in = Vector2(0, 0)
 point_out = Vector2(0, 0)
-properties = SubResource("Resource_nwob6")
+properties = SubResource("Resource_v1x72")
 
 [sub_resource type="Resource" id="Resource_uejcb"]
 script = ExtResource("4_vrs7k")
@@ -203,7 +208,7 @@ point_in = Vector2(0, 0)
 point_out = Vector2(0, 0)
 properties = SubResource("Resource_2tiyl")
 
-[sub_resource type="Resource" id="Resource_44nbc"]
+[sub_resource type="Resource" id="Resource_ofqs1"]
 script = ExtResource("4_vrs7k")
 texture_idx = 0
 flip = false
@@ -214,7 +219,7 @@ script = ExtResource("5_mnw0t")
 position = Vector2(4365.54, -385.367)
 point_in = Vector2(0, 0)
 point_out = Vector2(0, 0)
-properties = SubResource("Resource_44nbc")
+properties = SubResource("Resource_ofqs1")
 
 [sub_resource type="Resource" id="Resource_r5jr7"]
 script = ExtResource("6_3y8xm")
@@ -246,6 +251,8 @@ tessellation_stages = 3
 tessellation_tolerance = 6.0
 curve_bake_interval = 20.0
 
+[sub_resource type="Curve2D" id="Curve2D_1vqdf"]
+
 [node name="MiryGrove" type="Node2D"]
 z_index = -5
 
@@ -258,7 +265,7 @@ tree_interval = 295.714
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="TreeGen2"]
 y_sort_enabled = true
-polygon = PackedVector2Array(3732.19, -1294.55, 12715.1, -2462.12, 12857, -1414.91, 5534.58, -897.469, 3803.7, -933.481)
+polygon = PackedVector2Array(4366.97, -1372.78, 12715.1, -2462.12, 12857, -1414.91, 5534.58, -897.469, 4342.97, -925.78)
 
 [node name="TreeGen" type="StaticBody2D" parent="."]
 y_sort_enabled = true
@@ -290,4 +297,100 @@ tree_interval = 291.428
 randomness = 0.362
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="TreeGen3"]
-polygon = PackedVector2Array(3889.74, -1404.49, 5351.33, -1199.78, 6727.99, -982.761, 7067.69, -585.677, 5266.4, -634.009, 3932.2, -898.417)
+polygon = PackedVector2Array(3889.74, -1404.49, 5351.33, -1199.78, 6727.99, -982.761, 7067.69, -585.677, 5266.4, -634.009, 3950.08, -967.598)
+
+[node name="TreeGen4" type="StaticBody2D" parent="."]
+y_sort_enabled = true
+script = ExtResource("1_ppxs0")
+tree_scene = ExtResource("2_u7s0i")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="TreeGen4"]
+y_sort_enabled = true
+polygon = PackedVector2Array(4754, 2000, 4972, 1949, 5007, 3001, 4705, 2971)
+
+[node name="TreeGen6" type="StaticBody2D" parent="."]
+y_sort_enabled = true
+script = ExtResource("1_ppxs0")
+tree_scene = ExtResource("2_u7s0i")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="TreeGen6"]
+y_sort_enabled = true
+position = Vector2(-100, -61)
+polygon = PackedVector2Array(7483, 287, 7400, 53, 11150, 63, 10843, 257)
+
+[node name="TreeGen7" type="StaticBody2D" parent="."]
+y_sort_enabled = true
+script = ExtResource("1_ppxs0")
+tree_scene = ExtResource("2_u7s0i")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="TreeGen7"]
+y_sort_enabled = true
+polygon = PackedVector2Array(11121, 769, 11523, -240, 13015, -320, 13005, 32, 11785, 2, 11419, 718)
+
+[node name="Path2D" type="Path2D" parent="."]
+curve = SubResource("Curve2D_1vqdf")
+
+[node name="Polygon2D" type="Polygon2D" parent="Path2D"]
+y_sort_enabled = true
+polygon = PackedVector2Array(11075, 1213, 10985, 991, 10611, 731, 8464, 617, 8426, 445, 10585, 426, 10858, 312, 11093, -704, 11094, -956, 11049, -1103, 10866, -1155, 5105, -1199, 5113, -1416, 10847, -1371, 11169, -1309, 11290, -1184, 11317, -1003, 11195, -342, 11055, 293, 11023, 686, 11290, 890, 11366, 1220, 11098, 1516, 6756, 2029, 6532.85, 2026.46, 5099, 1652, 5091, 1561, 6557, 1906, 6768, 1906, 10835, 1382)
+
+[node name="TransitionScene" parent="." instance=ExtResource("8_7u2xq")]
+position = Vector2(7954, 570)
+scale = Vector2(40.4716, 15.4947)
+scene_name = "dungeon_2_entrance_room"
+entry_point = "Spawn"
+
+[node name="TreeGen5" type="StaticBody2D" parent="."]
+y_sort_enabled = true
+script = ExtResource("1_ppxs0")
+tree_scene = ExtResource("2_u7s0i")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="TreeGen5"]
+y_sort_enabled = true
+polygon = PackedVector2Array(7603, 1576, 7487, 1404, 10899, 1136, 10879, 1308)
+
+[node name="BreakableObject" parent="." instance=ExtResource("9_vni05")]
+position = Vector2(4985, 1327)
+breakable_by = 2
+
+[node name="BreakableObject2" parent="." instance=ExtResource("9_vni05")]
+position = Vector2(4965, 1487)
+breakable_by = 2
+
+[node name="BreakableObject3" parent="." instance=ExtResource("9_vni05")]
+position = Vector2(4962, 1806)
+breakable_by = 2
+
+[node name="BreakableObject4" parent="." instance=ExtResource("9_vni05")]
+position = Vector2(4960, 1633)
+breakable_by = 2
+
+[node name="TreeGen8" type="StaticBody2D" parent="."]
+y_sort_enabled = true
+script = ExtResource("1_ppxs0")
+tree_scene = ExtResource("2_u7s0i")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="TreeGen8"]
+y_sort_enabled = true
+polygon = PackedVector2Array(5591, -1581, 5591, -1724, 8472, -1752, 8459, -1606)
+
+[node name="TreeGen9" type="StaticBody2D" parent="."]
+y_sort_enabled = true
+script = ExtResource("1_ppxs0")
+tree_scene = ExtResource("2_u7s0i")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="TreeGen9"]
+y_sort_enabled = true
+polygon = PackedVector2Array(9031, -1594, 9005, -1771, 11501, -1714, 11526, -1594)
+
+[node name="ShieldEnemy" parent="." instance=ExtResource("10_djjeg")]
+position = Vector2(12278, 570)
+
+[node name="ChargingEnemy" parent="." instance=ExtResource("11_yunf7")]
+position = Vector2(9801, 1749)
+
+[node name="ChargingEnemy2" parent="." instance=ExtResource("11_yunf7")]
+position = Vector2(9280, 1711)
+
+[node name="Creep" parent="." instance=ExtResource("12_27jwm")]
+position = Vector2(7940, 1608)
