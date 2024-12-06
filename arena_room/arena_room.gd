@@ -1,19 +1,47 @@
+@tool
 extends Node2D
 
-@export var door:Node2D
-@export var door_trigger:Area2D
+## A door/wall that will be loaded in when the player enters the arena room
+@export var door:Node2D:
+	set(v):
+		door = v
+		update_configuration_warnings()
+## An Area2D that will detect when the player enters the room
+@export var door_trigger:Node2D:
+	set(v):
+		door_trigger = v
+		update_configuration_warnings()
 
 var enemies:Array
 var disable:bool = false
+var door_triggered := false
+
+func _get_configuration_warnings() -> PackedStringArray:
+	var result := PackedStringArray()
+
+	if door == null:
+		result.push_back("`door` property not set in inspector!")
+
+	if door_trigger == null:
+		result.push_back("`door_trigger` property not set in inspector!")
+	
+	return result
 
 func _ready() -> void:
-	await get_tree().physics_frame
-	await get_tree().physics_frame
+	if Engine.is_editor_hint(): return
+
+	for warning in _get_configuration_warnings():
+		assert(false, warning)
+
+	door_trigger.body_entered.connect(_on_door_trigger_body_entered)
+
 	enemies = get_enemies()
 	disable_enemies()
 	remove_child(door)
 
 func _process(delta: float) -> void:
+	if Engine.is_editor_hint(): return
+
 	if disable:
 		return
 	if all_enemies_dead():
@@ -30,16 +58,19 @@ func get_enemies() -> Array:
 func disable_enemies() -> void:
 	for enemy:Enemy in enemies:
 		remove_child(enemy)
-		
+
 func enable_enemies() -> void:
 	for enemy:Enemy in enemies:
 		add_child(enemy)
 
-func door_triggered(body: Node2D) -> void:
+func _on_door_trigger_body_entered(body: Node2D) -> void:
+	if door_triggered: return 
 	if body is not Player:
 		return
-	enable_enemies()
-	add_child(door)
+
+	door_triggered = true
+	enable_enemies.call_deferred()
+	add_child.call_deferred(door)
 	door_trigger.queue_free()
 
 func all_enemies_dead() -> bool:

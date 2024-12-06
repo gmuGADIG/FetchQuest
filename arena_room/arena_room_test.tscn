@@ -1,17 +1,79 @@
-[gd_scene load_steps=4 format=3 uid="uid://c0xhqobagikbg"]
+[gd_scene load_steps=7 format=3 uid="uid://c0xhqobagikbg"]
 
 [ext_resource type="PackedScene" uid="uid://cnd06dpkgufe4" path="res://world/level_base.tscn" id="1_auvot"]
 [ext_resource type="PackedScene" uid="uid://dxchr34htjrt3" path="res://arena_room/arena_room.tscn" id="2_di34o"]
 [ext_resource type="PackedScene" uid="uid://yllbcpq24cl0" path="res://enemy/creep_enemy/creep_enemy.tscn" id="4_7tuim"]
+[ext_resource type="Texture2D" uid="uid://dymucenpxmluo" path="res://icon.svg" id="4_v0hrc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8llew"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hyedb"]
 
 [node name="ArenaRoomTest" instance=ExtResource("1_auvot")]
 
 [node name="Node2D" type="Node2D" parent="EntryPoints" index="0"]
 
-[node name="ArenaRoom" parent="." index="6" instance=ExtResource("2_di34o")]
+[node name="ArenaRoom" parent="." index="6" node_paths=PackedStringArray("door", "door_trigger") instance=ExtResource("2_di34o")]
 position = Vector2(0, -515)
+door = NodePath("Door")
+door_trigger = NodePath("DoorTrigger")
 
-[node name="CreepEnemy" parent="ArenaRoom" index="5" instance=ExtResource("4_7tuim")]
+[node name="CreepEnemy" parent="ArenaRoom" index="0" instance=ExtResource("4_7tuim")]
 
-[node name="CreepEnemy2" parent="ArenaRoom" index="6" instance=ExtResource("4_7tuim")]
+[node name="CreepEnemy2" parent="ArenaRoom" index="1" instance=ExtResource("4_7tuim")]
 position = Vector2(165, -219)
+
+[node name="Wall" type="StaticBody2D" parent="ArenaRoom" index="2"]
+position = Vector2(400, 0)
+rotation = 1.5708
+scale = Vector2(40, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="ArenaRoom/Wall" index="0"]
+scale = Vector2(0.15625, 0.171875)
+texture = ExtResource("4_v0hrc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ArenaRoom/Wall" index="1"]
+shape = SubResource("RectangleShape2D_8llew")
+
+[node name="Wall2" type="StaticBody2D" parent="ArenaRoom" index="3"]
+position = Vector2(-400, 0)
+rotation = -1.5708
+scale = Vector2(40, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="ArenaRoom/Wall2" index="0"]
+scale = Vector2(0.15625, 0.171875)
+texture = ExtResource("4_v0hrc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ArenaRoom/Wall2" index="1"]
+shape = SubResource("RectangleShape2D_8llew")
+
+[node name="Wall3" type="StaticBody2D" parent="ArenaRoom" index="4"]
+position = Vector2(0, -400)
+scale = Vector2(40, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="ArenaRoom/Wall3" index="0"]
+scale = Vector2(0.15625, 0.171875)
+texture = ExtResource("4_v0hrc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ArenaRoom/Wall3" index="1"]
+shape = SubResource("RectangleShape2D_8llew")
+
+[node name="Door" type="StaticBody2D" parent="ArenaRoom" index="5"]
+position = Vector2(0, 400)
+scale = Vector2(40, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="ArenaRoom/Door" index="0"]
+scale = Vector2(0.15625, 0.171875)
+texture = ExtResource("4_v0hrc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ArenaRoom/Door" index="1"]
+shape = SubResource("RectangleShape2D_8llew")
+
+[node name="DoorTrigger" type="Area2D" parent="ArenaRoom" index="6"]
+position = Vector2(0, 326)
+scale = Vector2(40, 1)
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ArenaRoom/DoorTrigger" index="0"]
+shape = SubResource("RectangleShape2D_hyedb")
+debug_color = Color(0.951762, 3.27289e-06, 0.562032, 0.42)

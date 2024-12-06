@@ -14,6 +14,7 @@
 class_name Enemy extends CharacterBody2D
 
 signal health_changed
+signal died
 
 @export var max_health: int = 3
 @export var damage : int = 1
@@ -45,6 +46,7 @@ var navigation_target: Vector2 = self.position
 @onready var original_position : Vector2 = position
 @onready var target_position: Vector2 = _get_roaming_target()
 var roaming_time : float = 0.0
+var is_dead := false
 
 enum EnemyState {
 	ROAMING,
@@ -89,6 +91,10 @@ func hurt(damage_event: DamageEvent) -> void:
 
 ## Function to call upon death of enemy
 func on_death() -> void:
+	if is_dead: return
+	is_dead = true
+	died.emit()
+
 	# if the chance fails, bail out of the function and do nothing
 	if (randf() > pickup_drop_chance): return
 	
