@@ -12,3 +12,13 @@ func _physics_process(_delta: float) -> void:
 	player.velocity = Vector2(horizontal, vertical).normalized() * move_speed
 	
 	player.move_and_slide()
+
+
+func _on_hole_detector_close_to_hole() -> void:
+	
+	pass # Replace with function body.
+
+
+func _on_hole_detector_in_hole() -> void:
+	
+	pass # Replace with function body.

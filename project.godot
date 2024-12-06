@@ -22,10 +22,14 @@ ControllerManager="*res://autoloads/controller_manager.gd"
 DialogueManager="*res://dialogic_example/dialogue_manager.gd"
 Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
 PlayerInventory="*res://autoloads/player_inventory/player_inventory.tscn"
+QuestSystem="*res://quest/quest_system.tscn"
 SceneTransition="*res://autoloads/scene_transition/scene_transition.tscn"
 ChestBetweenScenes="*res://autoloads/chest_between_scenes/chest_between_scenes.tscn"
 FastTravelPoints="*res://autoloads/fast_travel_points/fast_travel_points.tscn"
 FullscreenManager="*res://autoloads/fullscreen_manager.gd"
+ActivatorManager="*res://autoloads/activator_manager.gd"
+ChosenSkin="*res://autoloads/chosen_skin.gd"
+SFXManager="*res://autoloads/sfx_manager.tscn"
 
 [debug]
 
@@ -37,9 +41,11 @@ directories/dch_directory={
 "Franklin": "res://dialogic_example/example_characters/Franklin.dch",
 "Michael": "res://dialogic_example/example_characters/Michael.dch",
 "Mr SignPost": "res://dialogic_example/example_characters/Mr SignPost.dch",
-"Rupert": "res://dialogic_example/example_characters/Rupert.dch"
+"Rupert": "res://dialogic_example/example_characters/Rupert.dch",
+"blue_brian": "res://npc/test_npc/blue_brian.dch"
 }
 directories/dtl_directory={
+"blue_brian_hello": "res://npc/test_npc/blue_brian_hello.dtl",
 "demo3Cats": "res://dialogic_example/example_timelines/demo3Cats.dtl",
 "demoTimeline": "res://dialogic_example/example_timelines/demoTimeline.dtl",
 "demoTimeline2": "res://dialogic_example/example_timelines/demoTimeline2.dtl",
@@ -80,14 +86,16 @@ window/stretch/mode="canvas_items"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/dialogic/plugin.cfg", "res://addons/rmsmartshape/plugin.cfg")
+enabled=PackedStringArray("res://addons/activator_plugin/plugin.cfg", "res://addons/dialogic/plugin.cfg", "res://addons/rmsmartshape/plugin.cfg")
 
 [file_customization]
 
 folder_colors={
 "res://addons/": "gray",
 "res://dialogic_example/": "gray",
+"res://ehayes contributions/": "pink",
 "res://enemy/": "red",
+"res://npc/": "purple",
 "res://player/": "blue",
 "res://test_scenes/": "gray",
 "res://ui/": "orange",
@@ -101,8 +109,10 @@ Enemy=""
 Item="Something the player can pick up"
 Hittable=""
 Reloads="Group exclusive to the Reloadable type"
-HoleOccluder="For platforms which can overlap holes, preventing the player from falling into them."
 World=""
+Activatable="Nodes that can be activated by switches/etc."
+Activator="Something that can be activated by the player."
+HoleOccluder="For platforms which can overlap holes, preventing the player from falling into them."
 
 [input]
 
@@ -264,9 +274,11 @@ fullscreen={
 2d_physics/layer_6="Enemy Projectiles"
 2d_physics/layer_7="Switch"
 2d_physics/layer_8="Bomb"
+2d_physics/layer_9="Barkable"
 
 [physics]
 
+common/physics_jitter_fix=0.0
 common/physics_interpolation=true
 
 [rendering]

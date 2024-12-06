@@ -1,0 +1,197 @@
+[gd_scene load_steps=20 format=3 uid="uid://b8elsmaoe5so8"]
+
+[ext_resource type="PackedScene" uid="uid://b60qs6jc07tbj" path="res://world/interactable/activators/switch/switch.tscn" id="1_f1drm"]
+[ext_resource type="PackedScene" uid="uid://blh1fs712dql8" path="res://world/interactable/activatable/locked_door/locked_door.tscn" id="1_s3dps"]
+[ext_resource type="PackedScene" uid="uid://cnd06dpkgufe4" path="res://world/levels/level_base.tscn" id="1_wy8hw"]
+[ext_resource type="PackedScene" uid="uid://c7ck7ril2jix2" path="res://player/player.tscn" id="2_cm2wf"]
+[ext_resource type="Texture2D" uid="uid://dc4pcxr2lfkka" path="res://demo_art/dungeon_entrance.png" id="4_5qmbd"]
+[ext_resource type="Script" path="res://world/interactable/transition_trigger/transition_trigger.gd" id="5_6u1x0"]
+[ext_resource type="PackedScene" uid="uid://cg2jt0166hik8" path="res://world/interactable/activators/red_coin/red_coin_manager.tscn" id="7_1fg4c"]
+[ext_resource type="PackedScene" uid="uid://gp1o7iklljk2" path="res://world/interactable/activators/red_coin/red_coin.tscn" id="8_5fa58"]
+[ext_resource type="PackedScene" uid="uid://mpm2bfwj3tbw" path="res://world/interactable/activatable/activatable_spawner/activatable_spawner.tscn" id="9_wclgf"]
+[ext_resource type="PackedScene" uid="uid://bom8mopkckp5y" path="res://world/interactable/chest/chest.tscn" id="10_3dvwh"]
+[ext_resource type="PackedScene" uid="uid://dt3m30r5dehup" path="res://world/interactable/pickups/pickup_key.tscn" id="11_wr2v5"]
+[ext_resource type="PackedScene" uid="uid://dovs54pxe1oba" path="res://generic/particle_fixer/particle_fixer.tscn" id="12_ow5kj"]
+[ext_resource type="PackedScene" uid="uid://uj2rytnj1h4" path="res://enemy/test_enemy/test_enemy.tscn" id="13_w55na"]
+[ext_resource type="PackedScene" uid="uid://dmirbxdryy5gu" path="res://world/interactable/activatable/moving_objects/platform_mover.tscn" id="14_6nkom"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jbjxn"]
+size = Vector2(158, 146)
+
+[sub_resource type="Gradient" id="Gradient_qlg4y"]
+offsets = PackedFloat32Array(0, 0.301775, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_hkyrh"]
+gradient = SubResource("Gradient_qlg4y")
+width = 32
+height = 32
+fill = 1
+fill_from = Vector2(0.504274, 0.581197)
+fill_to = Vector2(0.82906, 0.260684)
+
+[sub_resource type="Gradient" id="Gradient_a1dce"]
+offsets = PackedFloat32Array(0.33815, 0.520231)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="Gradient" id="Gradient_chl02"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.517341, 0.846821)
+colors = PackedColorArray(1, 1, 0, 1, 1, 0.643137, 0, 1, 1, 1, 1, 1)
+
+[node name="ActivatorTest" instance=ExtResource("1_wy8hw")]
+
+[node name="Switch" parent="." index="4" instance=ExtResource("1_f1drm")]
+position = Vector2(228, 156)
+metadata/Activatables = [NodePath("../Enemies")]
+
+[node name="Switch2" parent="." index="5" instance=ExtResource("1_f1drm")]
+position = Vector2(725, -249)
+type = 1
+metadata/Activatables = [NodePath("../PlatformMover")]
+
+[node name="Switch3" parent="." index="6" instance=ExtResource("1_f1drm")]
+position = Vector2(725, -471)
+type = 1
+metadata/Activatables = [NodePath("../PlatformMover2")]
+
+[node name="Switch4" parent="." index="7" instance=ExtResource("1_f1drm")]
+position = Vector2(725, -931)
+type = 1
+metadata/Activatables = [NodePath("../PlatformMover3")]
+
+[node name="Player" parent="." index="8" instance=ExtResource("2_cm2wf")]
+position = Vector2(629, 307)
+
+[node name="DungeonEntrance" type="Sprite2D" parent="." index="9"]
+position = Vector2(865, 171)
+scale = Vector2(2.33037, 2.33037)
+texture = ExtResource("4_5qmbd")
+
+[node name="TransitionScene" type="Area2D" parent="DungeonEntrance" index="0"]
+position = Vector2(-6.00761, 27.8925)
+scale = Vector2(0.429116, 0.429116)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("5_6u1x0")
+scene_name = "demo_dungeon"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DungeonEntrance/TransitionScene" index="0"]
+position = Vector2(6, -13)
+shape = SubResource("RectangleShape2D_jbjxn")
+
+[node name="LockedDoor" parent="DungeonEntrance" index="1" instance=ExtResource("1_s3dps")]
+position = Vector2(0.858246, 27.0343)
+scale = Vector2(0.321611, 0.346257)
+
+[node name="RedCoinPuzzle" type="Node2D" parent="." index="10"]
+position = Vector2(-166, -422)
+
+[node name="RedCoinManager" parent="RedCoinPuzzle" index="0" instance=ExtResource("7_1fg4c")]
+position = Vector2(604, 994)
+metadata/Activatables = [NodePath("../EntitySpawner")]
+
+[node name="RedCoin" parent="RedCoinPuzzle/RedCoinManager" index="0" instance=ExtResource("8_5fa58")]
+position = Vector2(-299, -233)
+
+[node name="RedCoin2" parent="RedCoinPuzzle/RedCoinManager" index="1" instance=ExtResource("8_5fa58")]
+position = Vector2(-3, -233)
+
+[node name="RedCoin3" parent="RedCoinPuzzle/RedCoinManager" index="2" instance=ExtResource("8_5fa58")]
+position = Vector2(-299, 30)
+
+[node name="RedCoin4" parent="RedCoinPuzzle/RedCoinManager" index="3" instance=ExtResource("8_5fa58")]
+position = Vector2(-3, 30)
+
+[node name="EntitySpawner" parent="RedCoinPuzzle" index="1" instance=ExtResource("9_wclgf")]
+position = Vector2(456, 914)
+
+[node name="Chest" parent="RedCoinPuzzle/EntitySpawner" index="0" instance=ExtResource("10_3dvwh")]
+loot_table = Array[PackedScene]([ExtResource("11_wr2v5")])
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="RedCoinPuzzle/EntitySpawner" index="1"]
+emitting = false
+amount = 10
+lifetime = 1.5
+one_shot = true
+explosiveness = 1.0
+texture = SubResource("GradientTexture2D_hkyrh")
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 300.0
+initial_velocity_max = 400.0
+damping_min = 400.0
+damping_max = 400.0
+color_ramp = SubResource("Gradient_a1dce")
+color_initial_ramp = SubResource("Gradient_chl02")
+
+[node name="ParticleFixer" parent="RedCoinPuzzle/EntitySpawner/CPUParticles2D" index="0" instance=ExtResource("12_ow5kj")]
+
+[node name="Enemies" parent="." index="11" instance=ExtResource("9_wclgf")]
+position = Vector2(832, 521)
+
+[node name="TestEnemy" parent="Enemies" index="0" instance=ExtResource("13_w55na")]
+
+[node name="TestEnemy2" parent="Enemies" index="1" instance=ExtResource("13_w55na")]
+position = Vector2(250, 0)
+
+[node name="TestEnemy3" parent="Enemies" index="2" instance=ExtResource("13_w55na")]
+position = Vector2(-214, 0)
+
+[node name="PlatformMover" parent="." index="12" instance=ExtResource("14_6nkom")]
+position = Vector2(1219, -306)
+scale = Vector2(0.439749, 0.439749)
+activate_type = 3
+
+[node name="Label" type="Label" parent="PlatformMover" index="1"]
+offset_left = -836.84
+offset_top = -106.879
+offset_right = -474.84
+offset_bottom = -43.879
+theme_override_font_sizes/font_size = 45
+text = "half full activate type"
+
+[node name="PlatformMover2" parent="." index="13" instance=ExtResource("14_6nkom")]
+position = Vector2(1219, -531)
+scale = Vector2(0.439749, 0.439749)
+activate_type = 2
+
+[node name="Label" type="Label" parent="PlatformMover2" index="1"]
+offset_left = -836.84
+offset_top = -106.879
+offset_right = -474.84
+offset_bottom = -43.879
+theme_override_font_sizes/font_size = 45
+text = "full activate type"
+
+[node name="PlatformMover3" parent="." index="14" instance=ExtResource("14_6nkom")]
+position = Vector2(1219, -984)
+scale = Vector2(0.439749, 0.439749)
+
+[node name="Label" type="Label" parent="PlatformMover3" index="1"]
+offset_left = -836.84
+offset_top = -106.879
+offset_right = -474.84
+offset_bottom = -43.879
+theme_override_font_sizes/font_size = 45
+text = "automatic activate type"
+
+[node name="Switch5" parent="." index="15" instance=ExtResource("1_f1drm")]
+position = Vector2(725, -723)
+type = 1
+metadata/Activatables = [NodePath("../PlatformMover4")]
+
+[node name="PlatformMover4" parent="." index="16" instance=ExtResource("14_6nkom")]
+position = Vector2(1219, -776)
+scale = Vector2(0.439749, 0.439749)
+activate_type = 1
+
+[node name="Label" type="Label" parent="PlatformMover4" index="1"]
+offset_left = -836.84
+offset_top = -106.879
+offset_right = -474.84
+offset_bottom = -43.879
+theme_override_font_sizes/font_size = 45
+text = "semi automatic activate type"
+
+[connection signal="body_entered" from="DungeonEntrance/TransitionScene" to="DungeonEntrance/TransitionScene" method="_on_body_entered"]

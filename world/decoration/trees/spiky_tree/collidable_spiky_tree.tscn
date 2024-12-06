@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://bhknx5qbikjsg"]
+
+[ext_resource type="PackedScene" uid="uid://bhknx5qbikjsg" path="res://world/decoration/trees/spiky_tree/spiky_tree.tscn" id="1_fmuyg"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pddaw"]
+
+[node name="SpikyTreeCollidable" type="StaticBody2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(10, 10)
+shape = SubResource("CircleShape2D_pddaw")
+
+[node name="SpikyTree" parent="." instance=ExtResource("1_fmuyg")]

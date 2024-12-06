@@ -1,0 +1,53 @@
+[gd_scene load_steps=7 format=3 uid="uid://bpbneqy0gmguy"]
+
+[ext_resource type="PackedScene" uid="uid://c7ck7ril2jix2" path="res://player/player.tscn" id="1_8arcm"]
+[ext_resource type="PackedScene" uid="uid://bimerg4hcbya2" path="res://enemy/charging_enemy/charging_enemy.tscn" id="2_x47o1"]
+[ext_resource type="Script" path="res://enemy/navigation_updater.gd" id="3_tnn7i"]
+[ext_resource type="Texture2D" uid="uid://dob25g5tki0tr" path="res://demo_art/test_wall.svg" id="4_dph2u"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_tit5u"]
+vertices = PackedVector2Array(2570.82, 1374.19, -1259, 1441.82, -1259, -675.57, 2316.12, -885.461)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-1269, -685, -1269, 1452, 2582, 1384, 2325, -896)])
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rsw5m"]
+size = Vector2(246, 248)
+
+[node name="ChargingEnemyTest" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource("1_8arcm")]
+position = Vector2(633, 267)
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+zoom = Vector2(0.761, 0.761)
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+visible = false
+navigation_polygon = SubResource("NavigationPolygon_tit5u")
+script = ExtResource("3_tnn7i")
+
+[node name="ChargingEnemy" parent="." instance=ExtResource("2_x47o1")]
+
+[node name="DemoWall" type="StaticBody2D" parent="."]
+position = Vector2(384, 673)
+scale = Vector2(0.196859, 1.75955)
+
+[node name="Sprite2D" type="Sprite2D" parent="DemoWall"]
+texture = ExtResource("4_dph2u")
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DemoWall"]
+shape = SubResource("RectangleShape2D_rsw5m")
+metadata/_edit_lock_ = true
+
+[node name="DemoWall2" type="StaticBody2D" parent="."]
+position = Vector2(974, 510)
+scale = Vector2(0.196859, 1.75955)
+
+[node name="Sprite2D" type="Sprite2D" parent="DemoWall2"]
+texture = ExtResource("4_dph2u")
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DemoWall2"]
+shape = SubResource("RectangleShape2D_rsw5m")
+metadata/_edit_lock_ = true

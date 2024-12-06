@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://cmddv4ns3l2hm"]
+
+[ext_resource type="PackedScene" uid="uid://bm0vmhr3bq1we" path="res://world/decoration/trees/palm_tree/palm_tree.tscn" id="1_jkoqh"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dvn5k"]
+radius = 8.92749
+
+[node name="PalmTreeCollidable" type="StaticBody2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(10, 10)
+shape = SubResource("CircleShape2D_dvn5k")
+
+[node name="PalmTree" parent="." instance=ExtResource("1_jkoqh")]
