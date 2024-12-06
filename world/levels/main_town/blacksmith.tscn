@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://b8inufx3udb4x"]
+[gd_scene load_steps=9 format=3 uid="uid://b8inufx3udb4x"]
 
 [ext_resource type="PackedScene" uid="uid://cnd06dpkgufe4" path="res://world/levels/level_base.tscn" id="1_o2u8f"]
 [ext_resource type="Texture2D" uid="uid://c4tqrgyodg8vo" path="res://world/levels/main_town/IMG_3598.jpg" id="2_wfgha"]
 [ext_resource type="Texture2D" uid="uid://dymucenpxmluo" path="res://icon.svg" id="4_memf6"]
 [ext_resource type="Texture2D" uid="uid://c3q7u3yjdqdg7" path="res://world/levels/main_town/MM3D_Jar_Model.webp" id="5_4xwjk"]
+[ext_resource type="PackedScene" uid="uid://bwo5q4wroaigc" path="res://world/interactable/transition_trigger/transition_trigger.tscn" id="5_jf0cg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3hcwu"]
 size = Vector2(122.821, 124.878)
@@ -175,6 +176,14 @@ position = Vector2(-637.246, -671.91)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Mm3dJarModel7/StaticBody2D" index="0"]
 position = Vector2(1003.8, -292.418)
 shape = SubResource("CapsuleShape2D_gh257")
+
+[node name="SmithEnterance" type="Node2D" parent="EntryPoints" index="0"]
+position = Vector2(566, 616)
+
+[node name="TransitionScene" parent="EntryPoints/SmithEnterance" index="0" instance=ExtResource("5_jf0cg")]
+position = Vector2(53, 240)
+scene_name = "town_town"
+entry_point = "smith_exit"
 
 [node name="Player" parent="." index="20"]
 position = Vector2(695, 567)
