@@ -1,9 +1,5 @@
 extends CanvasLayer
 
-#Variables used by the audio player to play sounds!
-@onready var button_major_sound: AudioStream = preload("res://ui/sounds/SFX UI Bonk 1.wav")
-@onready var audio_player: AudioStreamPlayer = $PauseMenuAudioPlayer
-
 func _ready() -> void:
 	# The pause menu must always process. We can set this either in the inspector
 	# or manually. TODO: Does setting it manually cause a problem if the pause
@@ -44,12 +40,10 @@ func _process(delta: float) -> void:
 		
 	
 func _on_resume_pressed() -> void:
-	await audio_player.finised
 	# When resume is pressed, we simply unpause.
 	get_tree().paused = false
 	
 func _on_quit_pressed() -> void:
-	await audio_player.finised
 	# Unpause so that everything will work
 	get_tree().paused = false
 	# Go to main menu.
@@ -62,5 +56,4 @@ func _on_option_menu_hidden() -> void:
 #When a "major" button is pressed (the options, resume, and quit buttons in the pause menu), play their respective sounds!
 #Called when a signal is recieved from the respective buttons
 func _on_menu_major_button_pressed() -> void:
-	audio_player.stream = button_major_sound
-	audio_player.play(0.0)
+	SFXManager.bonk_sound.play()
