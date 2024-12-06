@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://d2wfow130dqfd"]
+
+[ext_resource type="PackedScene" uid="uid://c83724olgyhnm" path="res://world/decoration/trees/oak_mushroom/mushroom_oak.tscn" id="1_hxq0f"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dvn5k"]
+radius = 8.92749
+
+[node name="MushroomOakCollidable" type="StaticBody2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(10, 10)
+shape = SubResource("CircleShape2D_dvn5k")
+
+[node name="MushroomOak" parent="." instance=ExtResource("1_hxq0f")]

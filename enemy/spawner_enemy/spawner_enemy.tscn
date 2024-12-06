@@ -1,25 +1,159 @@
-[gd_scene load_steps=6 format=3 uid="uid://duhvhegf6byvr"]
+[gd_scene load_steps=11 format=3 uid="uid://duhvhegf6byvr"]
 
 [ext_resource type="PackedScene" uid="uid://blpi4x6if673v" path="res://enemy/base_enemy.tscn" id="1_6f1ak"]
 [ext_resource type="Script" path="res://enemy/spawner_enemy/spawner_enemy.gd" id="2_0bja5"]
-[ext_resource type="PackedScene" uid="uid://uj2rytnj1h4" path="res://enemy/test_enemy/test_enemy.tscn" id="3_v7nka"]
-[ext_resource type="Texture2D" uid="uid://dymucenpxmluo" path="res://icon.svg" id="4_l7lg5"]
+[ext_resource type="PackedScene" uid="uid://cnn1msk2i5pn5" path="res://enemy/spawner_enemy/spawner_enemy_baby.tscn" id="3_dnbft"]
+[ext_resource type="Texture2D" uid="uid://3y8ke0yj1ubg" path="res://enemy/spawner_enemy/spawner_enemy_idle.png" id="4_ratxk"]
+[ext_resource type="Texture2D" uid="uid://85xk0f0wmj7r" path="res://enemy/spawner_enemy/spawner_enemy_detect_player.png" id="5_b30i3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6fsdk"]
 size = Vector2(117, 107)
 
-[node name="SpawnerEnemy" instance=ExtResource("1_6f1ak")]
+[sub_resource type="Animation" id="Animation_50m3b"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpawnerEnemy:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("4_ratxk")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SpawnerEnemy:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [7]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("SpawnerEnemy:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [6]
+}
+
+[sub_resource type="Animation" id="Animation_a1jxc"]
+resource_name = "idle"
+length = 0.7
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpawnerEnemy:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("4_ratxk")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SpawnerEnemy:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [7]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("SpawnerEnemy:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0, 6]
+}
+
+[sub_resource type="Animation" id="Animation_1dn8n"]
+resource_name = "spawner_enemy_detect_player"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpawnerEnemy:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("5_b30i3")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SpawnerEnemy:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [14]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("SpawnerEnemy:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.9286),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0, 13]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xqdkr"]
+_data = {
+"RESET": SubResource("Animation_50m3b"),
+"idle": SubResource("Animation_a1jxc"),
+"spawner_enemy_detect_player": SubResource("Animation_1dn8n")
+}
+
+[node name="SpawnerEnemy" node_paths=PackedStringArray("enemy_sprite") instance=ExtResource("1_6f1ak")]
 script = ExtResource("2_0bja5")
-spawned_enemy = ExtResource("3_v7nka")
+spawned_enemy = ExtResource("3_dnbft")
 spawn_amount = 2
 spawn_on_death = false
 spawn_rate = 5.0
 spawn_cap = 5
 spawn_animation_length = 0.5
+safe_spawn_distance_from_self = 155.563
+safe_spawn_distance_from_wall = 60.0
+enemy_sprite = NodePath("SpawnerEnemy")
 
 [node name="SpawnerEnemy" type="Sprite2D" parent="." index="0"]
-scale = Vector2(0.75, 0.75)
-texture = ExtResource("4_l7lg5")
+position = Vector2(0, -7)
+scale = Vector2(0.526667, 0.526667)
+texture = ExtResource("4_ratxk")
+hframes = 7
+frame = 6
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
 position = Vector2(2.5, 2.5)
@@ -29,3 +163,14 @@ shape = SubResource("RectangleShape2D_6fsdk")
 
 [node name="TimeToSpawnTimer" type="Timer" parent="." index="5"]
 one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="8"]
+libraries = {
+"": SubResource("AnimationLibrary_xqdkr")
+}
+autoplay = "idle"
+next/spawner_enemy_detect_player = &"idle"
+
+[node name="ChildSpawnFinder" type="RayCast2D" parent="." index="9"]
+target_position = Vector2(0, 500)
+collision_mask = 5

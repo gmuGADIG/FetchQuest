@@ -1,8 +1,6 @@
 extends Enemy
 
-@onready var sprite_normal: Sprite2D = $Sprite_Normal
-@onready var sprite_activated: Sprite2D = $Sprite_Activated
-@onready var sprite_stunned: Sprite2D = $Sprite_Stunned
+@onready var sprite: AnimatedSprite2D = $ChargingAnimation
 
 ## The contact damage that the charging enemy does when it is charging.
 @export var charging_damage: int = 2
@@ -39,27 +37,59 @@ func set_own_state(state: EnemyState) -> void:
 	# We could do this with one sprite that changes texture, but that's not
 	# as straightforward to fix up if we have fewer textures later. Still,
 	# could be refactored.
-	sprite_normal.hide()
-	sprite_activated.hide()
-	sprite_stunned.hide()
 	
 	self.enemy_state = state
 	
 	match state:
 		EnemyState.ROAMING:
-			sprite_normal.show()
+			_set_idle_animation()
 			# Re-enable detection
 			# NOTE: If the player detection component changes behavior this
 			# could be problematic.
-			$PlayerDetectionComponent.detecting = true
+			#$PlayerDetectionComponent.detecting = true
 			
 		EnemyState.AGRESSIVE:
-			sprite_activated.show()
+			_set_charge_animation()
 			state_timer = charge_length
 			
 		EnemyState.STUNNED:
-			sprite_stunned.show()
+			_set_idle_animation()
 			state_timer = stun_length
+
+func _set_charge_animation() -> void:
+	var dirs := [
+		Vector2.DOWN,
+		Vector2.LEFT,
+		Vector2.RIGHT
+	]
+
+	dirs.sort_custom(func(a: Vector2, b: Vector2) -> bool: return a.dot(velocity) > b.dot(velocity))
+	match dirs[0]:
+		Vector2.DOWN:
+			sprite.play("charging down")
+		Vector2.LEFT:
+			sprite.play("charging left")
+		Vector2.RIGHT:
+			sprite.play("charging right")
+
+func _set_idle_animation() -> void:
+	var dirs := [
+		Vector2.DOWN,
+		Vector2.UP,
+		Vector2.LEFT,
+		Vector2.RIGHT
+	]
+
+	dirs.sort_custom(func(a: Vector2, b: Vector2) -> bool: return a.dot(velocity) > b.dot(velocity))
+	match dirs[0]:
+		Vector2.UP:
+			sprite.play("up idle")
+		Vector2.DOWN:
+			sprite.play("down idle")
+		Vector2.LEFT:
+			sprite.play("left idle")
+		Vector2.RIGHT:
+			sprite.play("right idle")
 
 func _player_detected() -> void:
 	# When we detect the player, immediately charge.
@@ -120,7 +150,16 @@ func _physics_process(delta: float) -> void:
 			set_own_state(EnemyState.STUNNED)
 	else:
 		super(delta)
-		
+
+func _process(delta: float) -> void:
+	super(delta)
+	
+	match enemy_state:
+		EnemyState.AGRESSIVE:
+			_set_charge_animation()
+		_:
+			_set_idle_animation()
+
 func _get_contact_damage() -> int:
 	match enemy_state:
 		EnemyState.ROAMING:

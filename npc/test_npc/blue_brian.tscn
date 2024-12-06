@@ -1,0 +1,18 @@
+[gd_scene load_steps=6 format=3 uid="uid://bqpnsu5bxcnf7"]
+
+[ext_resource type="PackedScene" uid="uid://dvhfibvbfhnnv" path="res://npc/base_npc.tscn" id="1_mnunw"]
+[ext_resource type="Texture2D" uid="uid://0ba17120df4x" path="res://dialogic_example/player/player_art_final.png" id="2_34itg"]
+[ext_resource type="Script" path="res://addons/dialogic/Resources/timeline.gd" id="3_18fek"]
+[ext_resource type="Resource" path="res://npc/test_npc/blue_brian_hello.dtl" id="4_iu8dx"]
+[ext_resource type="Resource" path="res://npc/test_npc/blue_brian.dch" id="5_egkm1"]
+
+[node name="BlueBrian" instance=ExtResource("1_mnunw")]
+
+[node name="Sprite2D" parent="." index="0"]
+position = Vector2(-10, -37)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("2_34itg")
+
+[node name="TalkingInteractable" parent="." index="2"]
+timeline = Array[ExtResource("3_18fek")]([ExtResource("4_iu8dx")])
+character = ExtResource("5_egkm1")

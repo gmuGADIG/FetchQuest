@@ -4,7 +4,6 @@ class_name ThrownSword
 # Variables that are initialized at runtime
 @onready var thrower: Player = Player.instance  ## Reference to the player who throws the sword
 @onready var lifespan_timer: Timer = $LifespanTimer   ## The max lifespan of the sword
-@onready var recall_timer: Timer = $RecallTimer ## The minimum time before the sword can be recalled
 
 # Exported variables for external control and tuning in the editor
 @export var throw_distance: float      ## Ideal throw distance. used to calculate the initial and max velocity
@@ -22,6 +21,9 @@ var player_dist: Vector2             ## Distance vector from the sword to the pl
 var local_acceleration: float        ## Local acceleration applied to the sword (adjustable)
 var last_bounce: Vector2             ## The last position the sword bounced from.
 
+#sounds
+@onready var swordSFX_Throw :AudioStreamPlayer2D = $SwordSFX_Throw
+
 ## Signal emitted when the sword bounces, providing bounce intensity
 signal sword_bounced(intensity: float)
 
@@ -36,6 +38,8 @@ func throw(throw_direction: Vector2) -> void:
 	direction = throw_direction.normalized() * initial_speed
 	local_acceleration = acceleration
 	velocity = direction.normalized() * initial_speed
+	swordSFX_Throw.play()
+	
 	
 	# apply player velocity on top
 	var player_velocity := thrower.velocity
@@ -61,6 +65,7 @@ func _physics_process(delta: float) -> void:
 	var cos_theta: float = player_dist.dot(old_player_dist) / (player_dist.length() * old_player_dist.length())
 	if player_dist.length() <= 100 and cos_theta < 0 and returning:
 		queue_free()
+		SFXManager.catch_sound.play()
 		
 	if num_bounces > 0 and (position - last_bounce).length() >= max_bounce_distance:
 		return_sword()
@@ -79,13 +84,6 @@ func _physics_process(delta: float) -> void:
 	var collision: KinematicCollision2D = move_and_collide(velocity * delta)
 	if collision:
 		_on_collision(collision)
-		
-func _process(_delta: float) -> void:
-	if Input.is_action_just_released("attack"):
-		if (recall_timer.is_stopped()):
-			return_sword()
-		else:
-			recall_timer.timeout.connect(return_sword)
 
 ## Handles sword ricochet off surfaces
 func sword_bounce() -> void:
