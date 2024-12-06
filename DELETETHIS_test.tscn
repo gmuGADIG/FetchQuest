@@ -1,0 +1,134 @@
+[gd_scene load_steps=24 format=4 uid="uid://bdh4beqxfl3u4"]
+
+[ext_resource type="PackedScene" uid="uid://cnd06dpkgufe4" path="res://world/levels/level_base.tscn" id="1_mr1b0"]
+[ext_resource type="Script" path="res://addons/rmsmartshape/shapes/shape.gd" id="2_qqn38"]
+[ext_resource type="Script" path="res://addons/rmsmartshape/vertex_properties.gd" id="3_wcvmc"]
+[ext_resource type="Script" path="res://addons/rmsmartshape/shapes/point.gd" id="4_w332g"]
+[ext_resource type="Script" path="res://addons/rmsmartshape/shapes/point_array.gd" id="5_npetj"]
+[ext_resource type="Script" path="res://addons/rmsmartshape/materials/edge_material_metadata.gd" id="6_ttl6d"]
+[ext_resource type="Texture2D" uid="uid://dvg230vnr4pnr" path="res://ehayes contributions/CastleFloorTexture.png" id="7_7ehuw"]
+[ext_resource type="Script" path="res://addons/rmsmartshape/materials/shape_material.gd" id="8_bo32o"]
+[ext_resource type="Texture2D" uid="uid://bg1gevjr4c0mk" path="res://ehayes contributions/Flat Stones Tileset.png" id="9_22cew"]
+
+[sub_resource type="Resource" id="Resource_rhvra"]
+script = ExtResource("3_wcvmc")
+texture_idx = 0
+flip = false
+width = 1.0
+
+[sub_resource type="Resource" id="Resource_s0vad"]
+script = ExtResource("4_w332g")
+position = Vector2(-134.517, -47.6354)
+point_in = Vector2(0, 0)
+point_out = Vector2(0, 0)
+properties = SubResource("Resource_rhvra")
+
+[sub_resource type="Resource" id="Resource_4ukv4"]
+script = ExtResource("3_wcvmc")
+texture_idx = 0
+flip = false
+width = 1.0
+
+[sub_resource type="Resource" id="Resource_hnpc4"]
+script = ExtResource("4_w332g")
+position = Vector2(-132.735, 755.955)
+point_in = Vector2(0, 0)
+point_out = Vector2(0, 0)
+properties = SubResource("Resource_4ukv4")
+
+[sub_resource type="Resource" id="Resource_uwway"]
+script = ExtResource("3_wcvmc")
+texture_idx = 0
+flip = false
+width = 1.0
+
+[sub_resource type="Resource" id="Resource_xp7bs"]
+script = ExtResource("4_w332g")
+position = Vector2(1330.12, 755.955)
+point_in = Vector2(0, 0)
+point_out = Vector2(0, 0)
+properties = SubResource("Resource_uwway")
+
+[sub_resource type="Resource" id="Resource_cayt1"]
+script = ExtResource("3_wcvmc")
+texture_idx = 0
+flip = false
+width = 1.0
+
+[sub_resource type="Resource" id="Resource_ob7to"]
+script = ExtResource("4_w332g")
+position = Vector2(1330.12, -47.6354)
+point_in = Vector2(0, 0)
+point_out = Vector2(0, 0)
+properties = SubResource("Resource_cayt1")
+
+[sub_resource type="Resource" id="Resource_5rtdk"]
+script = ExtResource("3_wcvmc")
+texture_idx = 0
+flip = false
+width = 1.0
+
+[sub_resource type="Resource" id="Resource_tp4w4"]
+script = ExtResource("4_w332g")
+position = Vector2(-134.517, -47.6354)
+point_in = Vector2(0, 0)
+point_out = Vector2(0, 0)
+properties = SubResource("Resource_5rtdk")
+
+[sub_resource type="Resource" id="Resource_v7d27"]
+script = ExtResource("5_npetj")
+_points = {
+0: SubResource("Resource_s0vad"),
+1: SubResource("Resource_hnpc4"),
+2: SubResource("Resource_xp7bs"),
+3: SubResource("Resource_ob7to"),
+4: SubResource("Resource_tp4w4")
+}
+_point_order = PackedInt32Array(4, 3, 2, 1, 0)
+_constraints = {
+Vector2i(0, 4): 15
+}
+_next_key = 5
+_material_overrides = {}
+tessellation_stages = 3
+tessellation_tolerance = 6.0
+curve_bake_interval = 20.0
+
+[sub_resource type="Resource" id="Resource_bv3go"]
+script = ExtResource("8_bo32o")
+_edge_meta_materials = Array[ExtResource("6_ttl6d")]([])
+fill_textures = Array[Texture2D]([ExtResource("7_7ehuw")])
+fill_texture_z_index = -10
+fill_texture_show_behind_parent = false
+fill_texture_scale = 1.0
+fill_texture_absolute_position = false
+fill_texture_absolute_rotation = false
+fill_texture_offset = Vector2(0, 0)
+fill_texture_angle_offset = 0.0
+fill_mesh_offset = 0.0
+render_offset = 0.0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_572nm"]
+texture = ExtResource("9_22cew")
+texture_region_size = Vector2i(256, 256)
+0:0/0 = 0
+1:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_bwuys"]
+tile_size = Vector2i(256, 256)
+sources/0 = SubResource("TileSetAtlasSource_572nm")
+
+[node name="LevelBase2" instance=ExtResource("1_mr1b0")]
+
+[node name="Node2D" type="Node2D" parent="EntryPoints" index="0"]
+
+[node name="SS2D_Shape" type="Node2D" parent="." index="6"]
+script = ExtResource("2_qqn38")
+_points = SubResource("Resource_v7d27")
+shape_material = SubResource("Resource_bv3go")
+
+[node name="TileMapLayer" type="TileMapLayer" parent="." index="7"]
+tile_map_data = PackedByteArray("AAAAAAAAAAAAAAAAAAAAAAEAAAAAAAEAAAABAAAAAAABAAAAAAABAAEAAAABAAEAAAACAAAAAAAAAAAAAAACAAEAAAAAAAEAAAADAAEAAAABAAEAAAAAAAIAAAAAAAAAAAAAAAMAAAAAAAEAAAABAAIAAAABAAAAAAABAAMAAAABAAEAAAACAAIAAAAAAAAAAAACAAMAAAAAAAEAAAADAAIAAAABAAAAAAADAAMAAAABAAEAAAAEAAEAAAAAAAAAAAAEAAIAAAAAAAEAAAAFAAEAAAABAAAAAAAFAAIAAAABAAEAAAD+/wEAAAAAAAAAAAD+/wIAAAAAAAEAAAD//wEAAAABAAAAAAD//wIAAAABAAEAAAADAAAAAAABAAAAAAA=")
+tile_set = SubResource("TileSet_bwuys")
