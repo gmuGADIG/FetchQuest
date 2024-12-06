@@ -24,7 +24,6 @@ func _ready() -> void:
 		printerr("No entry point of name '%s' was found!" % current_entry_point)
 	else:
 		Player.instance.position = entry_node.position
-		MainCam.instance.reset_smoothing.call_deferred() # this makes the camera snap to the new position
 	
 	# reset the entry point. this makes sure it's being set each time the scene changes
 	current_entry_point = ""
