@@ -5,6 +5,7 @@ extends HSlider
 @onready var _bus := AudioServer.get_bus_index(audio_bus_name)
 
 func _ready() -> void:
+	value_changed.connect(_on_value_changed)
 	# Make sure we have a range of 0-1 for linear_to_db() in _on_value_changed().
 	min_value = 0
 	max_value = 1

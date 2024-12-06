@@ -1,177 +1,292 @@
-[gd_scene load_steps=8 format=3 uid="uid://bovhexq6t5u8o"]
+[gd_scene load_steps=36 format=3 uid="uid://bovhexq6t5u8o"]
 
 [ext_resource type="Script" path="res://ui/options/options_menu.gd" id="1_1bpan"]
-[ext_resource type="Theme" uid="uid://hft8rbf0e22b" path="res://ui/main_ui_theme.tres" id="1_eq1l6"]
+[ext_resource type="Texture2D" uid="uid://bhja70b06or7e" path="res://ui/options/bkg.png" id="1_bfx5k"]
 [ext_resource type="Script" path="res://ui/options/volume_controller.gd" id="1_wtrl1"]
 [ext_resource type="Script" path="res://ui/options/quit_options_menu.gd" id="1_xfctd"]
+[ext_resource type="Texture2D" uid="uid://dmqr0a3ol8fs6" path="res://ui/options/bubble_background.png" id="2_bvy66"]
 [ext_resource type="AudioStream" uid="uid://bo7hpkhva02yb" path="res://ui/sounds/SFX UI Click 1.wav" id="3_e1dnh"]
+[ext_resource type="Texture2D" uid="uid://bqt0a7ha31iev" path="res://ui/options/bubble.png" id="3_vauxu"]
 [ext_resource type="AudioStream" uid="uid://cnf6rc2x77im6" path="res://ui/sounds/SFX UI Click 2.wav" id="4_dyqgd"]
+[ext_resource type="Texture2D" uid="uid://cynqhs7r2navf" path="res://ui/options/back_button_hover.png" id="4_v7vh3"]
+[ext_resource type="Texture2D" uid="uid://nfu0xonkit07" path="res://ui/options/back_button.png" id="5_j4guk"]
+[ext_resource type="FontFile" uid="uid://dxaeux1wbk5l1" path="res://ui/fonts/Chewy-Regular.ttf" id="6_id8gv"]
 
-[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_36onc"]
+[sub_resource type="Theme" id="Theme_71vjs"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_onoqa"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xpbt2"]
+texture = ExtResource("4_v7vh3")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_n8o2l"]
+texture = ExtResource("4_v7vh3")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_50p7k"]
+texture = ExtResource("4_v7vh3")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bdqy0"]
+texture = ExtResource("5_j4guk")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ki6uj"]
+texture = ExtResource("4_v7vh3")
+
+[sub_resource type="Theme" id="Theme_dejq2"]
+Button/font_sizes/font_size = 56
+Button/styles/focus = SubResource("StyleBoxEmpty_onoqa")
+Button/styles/hover = SubResource("StyleBoxTexture_xpbt2")
+Button/styles/hover_pressed = SubResource("StyleBoxTexture_n8o2l")
+Button/styles/hover_pressed_mirrored = SubResource("StyleBoxTexture_50p7k")
+Button/styles/normal = SubResource("StyleBoxTexture_bdqy0")
+Button/styles/pressed = SubResource("StyleBoxTexture_ki6uj")
+
+[sub_resource type="Theme" id="Theme_kjc0j"]
+default_font = ExtResource("6_id8gv")
+RichTextLabel/colors/default_color = Color(0.639216, 0.482353, 0.305882, 1)
+RichTextLabel/colors/font_shadow_color = Color(0.537255, 0.372549, 0.219608, 1)
+RichTextLabel/constants/shadow_offset_x = -6
+RichTextLabel/constants/shadow_offset_y = 3
+RichTextLabel/font_sizes/normal_font_size = 77
+
+[sub_resource type="Image" id="Image_xob78"]
+data = {
+"data": PackedByteArray(255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 18, 253, 253, 253, 100, 255, 255, 255, 156, 254, 254, 254, 183, 254, 254, 254, 183, 255, 255, 255, 156, 253, 253, 253, 99, 255, 255, 255, 17, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 65, 254, 254, 254, 183, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 182, 255, 255, 255, 63, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 65, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 255, 255, 255, 63, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 18, 254, 254, 254, 183, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 181, 255, 255, 255, 16, 255, 255, 255, 0, 255, 255, 255, 0, 253, 253, 253, 100, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 255, 255, 255, 97, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 156, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 155, 255, 255, 255, 0, 255, 255, 255, 0, 254, 254, 254, 183, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 182, 255, 255, 255, 0, 255, 255, 255, 0, 254, 254, 254, 183, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 181, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 156, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 154, 255, 255, 255, 0, 255, 255, 255, 0, 253, 253, 253, 99, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 253, 253, 253, 97, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 17, 254, 254, 254, 182, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 180, 255, 255, 255, 15, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 63, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 255, 255, 255, 61, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 63, 254, 254, 254, 181, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 180, 255, 255, 255, 61, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 16, 255, 255, 255, 97, 254, 254, 254, 155, 254, 254, 254, 182, 254, 254, 254, 181, 254, 254, 254, 154, 253, 253, 253, 97, 255, 255, 255, 15, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0),
+"format": "RGBA8",
+"height": 16,
+"mipmaps": false,
+"width": 16
+}
+
+[sub_resource type="ImageTexture" id="ImageTexture_p7y3y"]
+image = SubResource("Image_xob78")
+
+[sub_resource type="Image" id="Image_8cou0"]
+data = {
+"data": PackedByteArray(255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 9, 255, 255, 255, 49, 255, 255, 255, 77, 255, 255, 255, 90, 255, 255, 255, 90, 255, 255, 255, 77, 255, 255, 255, 49, 255, 255, 255, 9, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 32, 255, 255, 255, 90, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 90, 255, 255, 255, 31, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 32, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 31, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 9, 255, 255, 255, 90, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 89, 255, 255, 255, 8, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 49, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 48, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 77, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 77, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 90, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 90, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 90, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 89, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 77, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 76, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 49, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 48, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 9, 255, 255, 255, 90, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 89, 255, 255, 255, 8, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 31, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 30, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 31, 255, 255, 255, 89, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 89, 255, 255, 255, 30, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 8, 255, 255, 255, 48, 255, 255, 255, 77, 255, 255, 255, 90, 255, 255, 255, 89, 255, 255, 255, 76, 255, 255, 255, 48, 255, 255, 255, 8, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0),
+"format": "RGBA8",
+"height": 16,
+"mipmaps": false,
+"width": 16
+}
+
+[sub_resource type="ImageTexture" id="ImageTexture_o8nng"]
+image = SubResource("Image_8cou0")
+
+[sub_resource type="Image" id="Image_ievso"]
+data = {
+"data": PackedByteArray(255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 23, 254, 254, 254, 133, 254, 254, 254, 209, 254, 254, 254, 244, 254, 254, 254, 244, 254, 254, 254, 209, 254, 254, 254, 132, 255, 255, 255, 22, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 87, 254, 254, 254, 244, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 243, 255, 255, 255, 84, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 87, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 255, 255, 255, 255, 84, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 23, 254, 254, 254, 244, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 242, 255, 255, 255, 21, 255, 255, 255, 0, 255, 255, 255, 0, 254, 254, 254, 133, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 130, 255, 255, 255, 0, 255, 255, 255, 0, 254, 254, 254, 209, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 207, 255, 255, 255, 0, 255, 255, 255, 0, 254, 254, 254, 244, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 243, 255, 255, 255, 0, 255, 255, 255, 0, 254, 254, 254, 244, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 242, 255, 255, 255, 0, 255, 255, 255, 0, 254, 254, 254, 209, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 206, 255, 255, 255, 0, 255, 255, 255, 0, 254, 254, 254, 132, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 129, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 22, 254, 254, 254, 243, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 241, 255, 255, 255, 20, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 84, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 255, 255, 255, 255, 81, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 84, 254, 254, 254, 242, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 255, 254, 254, 254, 241, 255, 255, 255, 81, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 21, 254, 254, 254, 130, 254, 254, 254, 207, 254, 254, 254, 243, 254, 254, 254, 242, 254, 254, 254, 206, 254, 254, 254, 129, 255, 255, 255, 20, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0),
+"format": "RGBA8",
+"height": 16,
+"mipmaps": false,
+"width": 16
+}
+
+[sub_resource type="ImageTexture" id="ImageTexture_4drya"]
+image = SubResource("Image_ievso")
+
+[sub_resource type="Image" id="Image_uw1lq"]
+data = {
+"data": PackedByteArray(255, 255, 255, 0, 255, 255, 255, 64, 255, 255, 255, 64, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 64, 255, 255, 255, 64, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 64, 255, 255, 255, 64, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 64, 255, 255, 255, 64, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 64, 255, 255, 255, 64, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 64, 255, 255, 255, 64, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 64, 255, 255, 255, 64, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 64, 255, 255, 255, 64, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 64, 255, 255, 255, 64, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 64, 255, 255, 255, 64, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 64, 255, 255, 255, 64, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 64, 255, 255, 255, 64, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 64, 255, 255, 255, 64, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 64, 255, 255, 255, 64, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 64, 255, 255, 255, 64, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 64, 255, 255, 255, 64, 255, 255, 255, 0),
+"format": "RGBA8",
+"height": 16,
+"mipmaps": false,
+"width": 4
+}
+
+[sub_resource type="ImageTexture" id="ImageTexture_iyfd5"]
+image = SubResource("Image_uw1lq")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e3417"]
+bg_color = Color(0.410855, 0.541005, 0.42382, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tjko7"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(1, 1, 1, 0.75)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+corner_detail = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mwula"]
+bg_color = Color(0.291946, 0.200047, 0.0480808, 1)
+
+[sub_resource type="Theme" id="Theme_igv6s"]
+default_font_size = 23
+HSlider/constants/center_grabber = 0
+HSlider/constants/grabber_offset = 0
+HSlider/icons/grabber = SubResource("ImageTexture_p7y3y")
+HSlider/icons/grabber_disabled = SubResource("ImageTexture_o8nng")
+HSlider/icons/grabber_highlight = SubResource("ImageTexture_4drya")
+HSlider/icons/tick = SubResource("ImageTexture_iyfd5")
+HSlider/styles/grabber_area = SubResource("StyleBoxFlat_e3417")
+HSlider/styles/grabber_area_highlight = SubResource("StyleBoxFlat_tjko7")
+HSlider/styles/slider = SubResource("StyleBoxFlat_mwula")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jn1l8"]
+bg_color = Color(0.535455, 0.37339, 0.218772, 1)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+expand_margin_left = 4.0
+expand_margin_top = 10.0
+expand_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fy51w"]
+bg_color = Color(0.603922, 0.654902, 0.235294, 1)
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_ntuq2"]
 playback_mode = 1
 random_volume_offset_db = 3.0
 streams_count = 2
 stream_0/stream = ExtResource("3_e1dnh")
 stream_1/stream = ExtResource("4_dyqgd")
 
-[node name="OptionsMenu" type="ColorRect"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme = ExtResource("1_eq1l6")
-color = Color(0.140146, 0.354812, 0.257587, 1)
+[node name="OptionsMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 0
 script = ExtResource("1_1bpan")
 
-[node name="ClickSound" type="AudioStreamPlayer" parent="."]
-unique_name_in_owner = true
-stream = SubResource("AudioStreamRandomizer_36onc")
-bus = &"SFX"
+[node name="BKG" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = -296.0
+offset_top = -202.0
+offset_right = 1624.0
+offset_bottom = 878.0
+theme = SubResource("Theme_71vjs")
+texture = ExtResource("1_bfx5k")
 
-[node name="Title" type="RichTextLabel" parent="."]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -239.0
-offset_top = 60.0
-offset_right = 239.0
-offset_bottom = 137.0
-grow_horizontal = 2
-size_flags_horizontal = 4
-size_flags_vertical = 6
-theme_override_font_sizes/normal_font_size = 56
-bbcode_enabled = true
-text = "[center]Options Menu[/center]"
-fit_content = true
+[node name="bubbleTextLining" type="Sprite2D" parent="."]
+position = Vector2(637.5, 269)
+scale = Vector2(0.602604, 0.72963)
+texture = ExtResource("2_bvy66")
 
-[node name="Back_To_Menu" type="Button" parent="."]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -150.038
-offset_top = -82.0
-offset_right = 150.037
-offset_bottom = -32.0
-grow_horizontal = 2
-grow_vertical = 0
-text = "Back to Menu"
+[node name="bubbleTextThing" type="Sprite2D" parent="."]
+position = Vector2(635, 264)
+scale = Vector2(0.566667, 0.678241)
+texture = ExtResource("3_vauxu")
+
+[node name="backButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 413.0
+offset_top = 445.0
+offset_right = 802.0
+offset_bottom = 672.0
+theme = SubResource("Theme_dejq2")
+theme_override_fonts/font = ExtResource("6_id8gv")
+theme_override_font_sizes/font_size = 56
 script = ExtResource("1_xfctd")
 
-[node name="Volume_Slider_Master_Text" type="RichTextLabel" parent="."]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -150.0
-offset_top = -114.0
-offset_right = 150.0
-offset_bottom = -64.0
-grow_horizontal = 2
-grow_vertical = 2
-bbcode_enabled = true
-text = "[center][b]Master Volume[/b][/center]"
+[node name="musicTitle" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 494.0
+offset_top = 134.0
+offset_right = 716.0
+offset_bottom = 224.0
+theme = SubResource("Theme_kjc0j")
+text = " MUSIC"
+scroll_active = false
 
-[node name="Volume_Slider_Master2" type="HSlider" parent="."]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -150.0
-offset_top = -101.0
-offset_right = 150.0
-offset_bottom = -51.0
-grow_horizontal = 2
-grow_vertical = 2
-focus_neighbor_bottom = NodePath("../Volume_Slider2_Music")
-script = ExtResource("1_wtrl1")
+[node name="sfxTitle" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 540.0
+offset_top = 287.0
+offset_right = 706.0
+offset_bottom = 377.0
+theme = SubResource("Theme_kjc0j")
+text = " SFX"
+scroll_active = false
 
-[node name="Volume_Slider_Music_Text" type="RichTextLabel" parent="."]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -150.0
-offset_top = -44.0
-offset_right = 150.0
-offset_bottom = 6.0
-grow_horizontal = 2
-grow_vertical = 2
-bbcode_enabled = true
-text = "[center][b]Music[/b][/center]"
-
-[node name="Volume_Slider2_Music" type="HSlider" parent="."]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -150.0
-offset_top = -33.0
-offset_right = 150.0
-offset_bottom = 17.0
-grow_horizontal = 2
-grow_vertical = 2
-focus_neighbor_top = NodePath("../Volume_Slider_Master2")
-focus_neighbor_bottom = NodePath("../Volume_Slider_SFX")
-script = ExtResource("1_wtrl1")
-audio_bus_name = "Music"
-
-[node name="Volume_Slider_SFX_Text" type="RichTextLabel" parent="."]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -150.0
+[node name="optionsTitle" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 360.0
 offset_top = 28.0
-offset_right = 150.0
-offset_bottom = 78.0
-grow_horizontal = 2
-grow_vertical = 2
-bbcode_enabled = true
-text = "[center][b]SFX[/b][/center]"
+offset_right = 874.0
+offset_bottom = 118.0
+theme = SubResource("Theme_kjc0j")
+text = " OPTIONS MENU"
+scroll_active = false
+autowrap_mode = 0
 
-[node name="Volume_Slider_SFX" type="HSlider" parent="."]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -147.0
-offset_top = 36.0
-offset_right = 153.0
-offset_bottom = 86.0
-grow_horizontal = 2
-grow_vertical = 2
-focus_neighbor_top = NodePath("../Volume_Slider2_Music")
-focus_neighbor_bottom = NodePath("../Back_To_Menu")
+[node name="softVolume" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 360.0
+offset_top = 208.0
+offset_right = 563.0
+offset_bottom = 298.0
+theme = SubResource("Theme_kjc0j")
+text = " 0"
+scroll_active = false
+
+[node name="softSFX" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 360.0
+offset_top = 355.0
+offset_right = 563.0
+offset_bottom = 445.0
+theme = SubResource("Theme_kjc0j")
+text = " 0"
+scroll_active = false
+
+[node name="loudMusic" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 759.0
+offset_top = 208.0
+offset_right = 962.0
+offset_bottom = 298.0
+theme = SubResource("Theme_kjc0j")
+text = " 100"
+scroll_active = false
+
+[node name="loudSfx" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 759.0
+offset_top = 355.0
+offset_right = 962.0
+offset_bottom = 445.0
+theme = SubResource("Theme_kjc0j")
+text = " 100"
+scroll_active = false
+
+[node name="sfxSlider" type="HSlider" parent="."]
+layout_mode = 0
+offset_left = 436.0
+offset_top = 355.0
+offset_right = 759.0
+offset_bottom = 462.0
+theme = SubResource("Theme_igv6s")
+theme_override_styles/slider = SubResource("StyleBoxFlat_jn1l8")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxFlat_fy51w")
 script = ExtResource("1_wtrl1")
 audio_bus_name = "SFX"
 
-[connection signal="pressed" from="Back_To_Menu" to="." method="_on_menu_major_button_pressed"]
-[connection signal="drag_ended" from="Volume_Slider_Master2" to="." method="_on_menu_minor_button_pressed"]
-[connection signal="drag_started" from="Volume_Slider_Master2" to="." method="_on_menu_minor_button_pressed"]
-[connection signal="mouse_exited" from="Volume_Slider_Master2" to="Volume_Slider_Master2" method="release_focus"]
-[connection signal="value_changed" from="Volume_Slider_Master2" to="Volume_Slider_Master2" method="_on_value_changed"]
-[connection signal="drag_ended" from="Volume_Slider2_Music" to="." method="_on_menu_minor_button_pressed"]
-[connection signal="drag_started" from="Volume_Slider2_Music" to="." method="_on_menu_minor_button_pressed"]
-[connection signal="mouse_exited" from="Volume_Slider2_Music" to="Volume_Slider2_Music" method="release_focus"]
-[connection signal="value_changed" from="Volume_Slider2_Music" to="Volume_Slider2_Music" method="_on_value_changed"]
-[connection signal="drag_ended" from="Volume_Slider_SFX" to="." method="_on_menu_minor_button_pressed"]
-[connection signal="drag_started" from="Volume_Slider_SFX" to="." method="_on_menu_minor_button_pressed"]
-[connection signal="mouse_exited" from="Volume_Slider_SFX" to="Volume_Slider_SFX" method="release_focus"]
-[connection signal="value_changed" from="Volume_Slider_SFX" to="Volume_Slider_SFX" method="_on_value_changed"]
+[node name="musicSlider" type="HSlider" parent="."]
+layout_mode = 0
+offset_left = 436.0
+offset_top = 208.0
+offset_right = 759.0
+offset_bottom = 315.0
+theme = SubResource("Theme_igv6s")
+theme_override_styles/slider = SubResource("StyleBoxFlat_jn1l8")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxFlat_fy51w")
+script = ExtResource("1_wtrl1")
+audio_bus_name = "Music"
+
+[node name="ClickSound" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamRandomizer_ntuq2")
+bus = &"SFX"
+
+[connection signal="pressed" from="backButton" to="." method="_on_menu_major_button_pressed"]
+[connection signal="drag_ended" from="sfxSlider" to="." method="_on_menu_minor_button_pressed"]
+[connection signal="drag_started" from="sfxSlider" to="." method="_on_menu_minor_button_pressed"]
+[connection signal="drag_ended" from="musicSlider" to="." method="_on_menu_minor_button_pressed"]
+[connection signal="drag_started" from="musicSlider" to="." method="_on_menu_minor_button_pressed"]

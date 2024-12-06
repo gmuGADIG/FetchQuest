@@ -1,4 +1,4 @@
-extends ColorRect
+extends Control
 
 #The variables used by the sound player for playing the sounds for the buttons
 @onready var audio_player: AudioStreamPlayer = $ClickSound
@@ -13,7 +13,7 @@ func _ready() -> void:
 # when we go back.
 func _on_own_visibility_changed() -> void:
 	if self.visible:
-		$Back_To_Menu.grab_focus()
+		$backButton.grab_focus()
 	else:
 		# When the option menu is hidden, emit a signal, 
 		option_menu_hidden.emit()
