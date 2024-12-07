@@ -1,63 +1,235 @@
-[gd_scene load_steps=5 format=3 uid="uid://23h7uaou8f05"]
+[gd_scene load_steps=28 format=3 uid="uid://23h7uaou8f05"]
 
 [ext_resource type="PackedScene" uid="uid://bovhexq6t5u8o" path="res://ui/options/options_menu.tscn" id="1_5n5k7"]
-[ext_resource type="Theme" uid="uid://hft8rbf0e22b" path="res://ui/main_ui_theme.tres" id="5_nsalu"]
+[ext_resource type="Texture2D" uid="uid://vf0s1yxq1yr2" path="res://ui/title/Official Fetch Quest Title Screen.png" id="2_4p1gc"]
+[ext_resource type="FontFile" uid="uid://dxaeux1wbk5l1" path="res://ui/fonts/Chewy-Regular.ttf" id="3_vl0qw"]
+[ext_resource type="Texture2D" uid="uid://u5ff0ws2dnaq" path="res://ui/title/Settings Cog.png" id="5_524n4"]
+[ext_resource type="Texture2D" uid="uid://dksmpwoovhna3" path="res://ui/title/Options Shadow Gear.png" id="6_355cm"]
 [ext_resource type="Script" path="res://ui/title/main_menu.gd" id="6_ogkp4"]
 [ext_resource type="Script" path="res://ui/options/open_options_menu_button.gd" id="7_s51k4"]
 
-[node name="TempTitleScreen" type="CanvasLayer"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qqo3l"]
+bg_color = Color(0.592157, 0.00392157, 0.945098, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.941322, 0.790283, 0, 1)
+corner_radius_top_left = 18
+corner_radius_top_right = 18
+corner_radius_bottom_right = 18
+corner_radius_bottom_left = 18
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xsy3k"]
+bg_color = Color(0.592157, 0.00392157, 0.945098, 1)
+border_width_bottom = 10
+border_color = Color(0.592157, 0.00392157, 0.945098, 1)
+corner_radius_top_left = 18
+corner_radius_top_right = 18
+corner_radius_bottom_right = 18
+corner_radius_bottom_left = 18
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n28ui"]
+bg_color = Color(0.819978, 0.656264, 1, 1)
+border_width_bottom = 10
+border_color = Color(0.591845, 0.00380868, 0.945972, 1)
+corner_radius_top_left = 18
+corner_radius_top_right = 18
+corner_radius_bottom_right = 18
+corner_radius_bottom_left = 18
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bhrwc"]
+bg_color = Color(0.592157, 0.00392157, 0.945098, 1)
+border_width_bottom = 10
+border_color = Color(0.592157, 0.00392157, 0.945098, 1)
+corner_radius_top_left = 18
+corner_radius_top_right = 18
+corner_radius_bottom_right = 18
+corner_radius_bottom_left = 18
+
+[sub_resource type="Theme" id="Theme_bvbs3"]
+Button/colors/font_color = Color(1, 1, 1, 1)
+Button/colors/font_focus_color = Color(1, 1, 1, 1)
+Button/font_sizes/font_size = 56
+Button/fonts/font = ExtResource("3_vl0qw")
+Button/styles/focus = SubResource("StyleBoxFlat_qqo3l")
+Button/styles/hover = SubResource("StyleBoxFlat_xsy3k")
+Button/styles/normal = SubResource("StyleBoxFlat_n28ui")
+Button/styles/pressed = SubResource("StyleBoxFlat_bhrwc")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lbmhs"]
+bg_color = Color(0.878431, 0.501961, 0, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.941176, 0.792157, 0, 1)
+corner_radius_top_left = 18
+corner_radius_top_right = 18
+corner_radius_bottom_right = 18
+corner_radius_bottom_left = 18
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ys3cp"]
+bg_color = Color(0.878431, 0.501961, 0, 1)
+border_width_bottom = 10
+border_color = Color(0.878431, 0.501961, 0, 1)
+corner_radius_top_left = 18
+corner_radius_top_right = 18
+corner_radius_bottom_right = 18
+corner_radius_bottom_left = 18
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l770x"]
+bg_color = Color(1, 0.752199, 0.442018, 1)
+border_width_bottom = 10
+border_color = Color(0.879003, 0.503, 0, 1)
+corner_radius_top_left = 18
+corner_radius_top_right = 18
+corner_radius_bottom_right = 18
+corner_radius_bottom_left = 18
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3odas"]
+bg_color = Color(0.878431, 0.501961, 0, 1)
+border_width_bottom = 10
+border_color = Color(0.878431, 0.501961, 0, 1)
+corner_radius_top_left = 18
+corner_radius_top_right = 18
+corner_radius_bottom_right = 18
+corner_radius_bottom_left = 18
+
+[sub_resource type="Theme" id="Theme_8gjr8"]
+Button/colors/font_color = Color(1, 1, 1, 1)
+Button/colors/font_focus_color = Color(1, 1, 1, 1)
+Button/font_sizes/font_size = 56
+Button/fonts/font = ExtResource("3_vl0qw")
+Button/styles/focus = SubResource("StyleBoxFlat_lbmhs")
+Button/styles/hover = SubResource("StyleBoxFlat_ys3cp")
+Button/styles/normal = SubResource("StyleBoxFlat_l770x")
+Button/styles/pressed = SubResource("StyleBoxFlat_3odas")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fvcwh"]
+bg_color = Color(0, 0.639216, 0.0901961, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.941176, 0.792157, 0, 1)
+corner_radius_top_left = 18
+corner_radius_top_right = 18
+corner_radius_bottom_right = 18
+corner_radius_bottom_left = 18
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ph2rc"]
+bg_color = Color(0, 0.639216, 0.0901961, 1)
+border_width_bottom = 10
+border_color = Color(0, 0.639216, 0.0901961, 1)
+corner_radius_top_left = 18
+corner_radius_top_right = 18
+corner_radius_bottom_right = 18
+corner_radius_bottom_left = 18
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l6qrc"]
+bg_color = Color(0.424431, 1, 0.523862, 1)
+border_width_bottom = 10
+border_color = Color(0, 0.63801, 0.0902298, 1)
+corner_radius_top_left = 18
+corner_radius_top_right = 18
+corner_radius_bottom_right = 18
+corner_radius_bottom_left = 18
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tcd6i"]
+bg_color = Color(0, 0.87451, 0.141176, 1)
+border_width_bottom = 10
+border_color = Color(0, 0.87451, 0.141176, 1)
+corner_radius_top_left = 18
+corner_radius_top_right = 18
+corner_radius_bottom_right = 18
+corner_radius_bottom_left = 18
+
+[sub_resource type="Theme" id="Theme_4oxyf"]
+default_font = ExtResource("3_vl0qw")
+Button/colors/font_color = Color(1, 1, 1, 1)
+Button/colors/font_focus_color = Color(1, 1, 1, 1)
+Button/font_sizes/font_size = 56
+Button/fonts/font = ExtResource("3_vl0qw")
+Button/styles/focus = SubResource("StyleBoxFlat_fvcwh")
+Button/styles/hover = SubResource("StyleBoxFlat_ph2rc")
+Button/styles/normal = SubResource("StyleBoxFlat_l6qrc")
+Button/styles/pressed = SubResource("StyleBoxFlat_tcd6i")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_n84vt"]
+texture = ExtResource("5_524n4")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_res17"]
+texture = ExtResource("5_524n4")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wlt6e"]
+texture = ExtResource("5_524n4")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_3j6ho"]
+texture = ExtResource("6_355cm")
+
+[sub_resource type="Theme" id="Theme_gydnp"]
+Button/styles/focus = SubResource("StyleBoxTexture_n84vt")
+Button/styles/hover = SubResource("StyleBoxTexture_res17")
+Button/styles/normal = SubResource("StyleBoxTexture_wlt6e")
+Button/styles/pressed = SubResource("StyleBoxTexture_3j6ho")
+
+[node name="TitleScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 0
 script = ExtResource("6_ogkp4")
 
-[node name="Label" type="Label" parent="."]
-offset_left = 21.0
-offset_top = 11.0
-offset_right = 1102.0
-offset_bottom = 123.0
-theme = ExtResource("5_nsalu")
-theme_override_font_sizes/font_size = 100
-text = "Fetch Quest"
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(576, 324.5)
+scale = Vector2(0.6, 0.600926)
+texture = ExtResource("2_4p1gc")
+
+[node name="ContinueGame" type="Button" parent="."]
+layout_mode = 0
+offset_left = 429.0
+offset_top = 430.0
+offset_right = 693.0
+offset_bottom = 508.0
+theme = SubResource("Theme_bvbs3")
+theme_type_variation = &"FlatButton"
+text = "CONTINUE"
 
 [node name="Quit" type="Button" parent="."]
-offset_left = 875.0
-offset_top = 498.0
-offset_right = 1145.0
-offset_bottom = 642.0
-theme_override_font_sizes/font_size = 70
-text = "Quit"
+layout_mode = 0
+offset_left = 430.0
+offset_top = 526.0
+offset_right = 694.0
+offset_bottom = 606.0
+theme = SubResource("Theme_8gjr8")
+theme_type_variation = &"FlatButton"
+text = "QUIT"
+
+[node name="NewGame" type="Button" parent="."]
+layout_mode = 0
+offset_left = 430.0
+offset_top = 334.0
+offset_right = 695.0
+offset_bottom = 420.0
+theme = SubResource("Theme_4oxyf")
+text = "NEW GAME"
 
 [node name="Options" type="Button" parent="." node_paths=PackedStringArray("options_menu")]
-offset_left = 313.0
-offset_top = 347.0
-offset_right = 599.0
-offset_bottom = 424.0
-theme_override_font_sizes/font_size = 50
-text = "Option"
+layout_mode = 0
+offset_left = 980.0
+offset_top = 523.0
+offset_right = 1085.0
+offset_bottom = 612.0
+theme = SubResource("Theme_gydnp")
 script = ExtResource("7_s51k4")
 options_menu = NodePath("../OptionsMenu")
 
-[node name="NewGame" type="Button" parent="."]
-offset_left = 282.0
-offset_top = 178.0
-offset_right = 669.0
-offset_bottom = 255.0
-theme_override_font_sizes/font_size = 50
-text = "New Game"
-
-[node name="ContinueGame" type="Button" parent="."]
-offset_left = 419.0
-offset_top = 261.0
-offset_right = 822.0
-offset_bottom = 338.0
-theme_override_font_sizes/font_size = 50
-text = "Continue"
-
 [node name="OptionsMenu" parent="." instance=ExtResource("1_5n5k7")]
-color = Color(0.252853, 0.327126, 0.292831, 1)
+visible = false
 
-[connection signal="pressed" from="Quit" to="." method="_on_menu_major_button_pressed"]
-[connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]
-[connection signal="pressed" from="Options" to="." method="_on_menu_major_button_pressed"]
-[connection signal="pressed" from="NewGame" to="." method="_on_menu_major_button_pressed"]
-[connection signal="pressed" from="NewGame" to="." method="_on_new_game_pressed"]
 [connection signal="pressed" from="ContinueGame" to="." method="_on_menu_major_button_pressed"]
 [connection signal="pressed" from="ContinueGame" to="." method="_on_continue_game_pressed"]
+[connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="Quit" to="." method="_on_menu_major_button_pressed"]
+[connection signal="pressed" from="NewGame" to="." method="_on_new_game_pressed"]
+[connection signal="pressed" from="NewGame" to="." method="_on_menu_major_button_pressed"]
+[connection signal="pressed" from="Options" to="." method="_on_menu_major_button_pressed"]
