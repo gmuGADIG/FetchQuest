@@ -1,180 +1,63 @@
-[gd_scene load_steps=8 format=3 uid="uid://b8inufx3udb4x"]
+[gd_scene load_steps=6 format=4 uid="uid://b8inufx3udb4x"]
 
-[ext_resource type="PackedScene" uid="uid://cnd06dpkgufe4" path="res://world/levels/level_base.tscn" id="1_o2u8f"]
+[ext_resource type="PackedScene" uid="uid://cnd06dpkgufe4" path="res://world/level_base.tscn" id="1_o2u8f"]
+[ext_resource type="PackedScene" uid="uid://bm05x1jwytuuc" path="res://world/tilemap/main_tile_layer.tscn" id="2_5241x"]
 [ext_resource type="Texture2D" uid="uid://c4tqrgyodg8vo" path="res://world/levels/main_town/IMG_3598.jpg" id="2_wfgha"]
-[ext_resource type="Texture2D" uid="uid://dymucenpxmluo" path="res://icon.svg" id="4_memf6"]
-[ext_resource type="Texture2D" uid="uid://c3q7u3yjdqdg7" path="res://world/levels/main_town/MM3D_Jar_Model.webp" id="5_4xwjk"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_3hcwu"]
-size = Vector2(122.821, 124.878)
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_u7ig6"]
-radius = 507.697
-height = 2785.99
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gh257"]
-radius = 766.951
-height = 2808.39
+[ext_resource type="PackedScene" uid="uid://bwo5q4wroaigc" path="res://world/interactable/transition_trigger/transition_trigger.tscn" id="5_jf0cg"]
+[ext_resource type="PackedScene" uid="uid://cyvppko06hjoq" path="res://npc/blacksmith/blacksmith_npc.tscn" id="7_gtroh"]
 
 [node name="Blacksmith" instance=ExtResource("1_o2u8f")]
 
-[node name="Walls" type="StaticBody2D" parent="." index="0"]
+[node name="Background" type="ColorRect" parent="." index="0"]
+modulate = Color(0, 0, 0, 1)
+z_index = -50
+offset_left = -2905.0
+offset_top = -2168.0
+offset_right = 6298.0
+offset_bottom = 3639.0
+
+[node name="TileMapLayer" parent="." index="1" instance=ExtResource("2_5241x")]
+z_index = -5
+tile_map_data = PackedByteArray("AAD///7/BQAAAAAAAAAAAP7/BQAAAAAAAAABAP7/BQABAAAAAAACAP7/BQAAAAAAAAADAP7/BQAAAAAAAAAEAP7/BQABAAAAAAAFAP7/BQAAAAAAAAAGAP7/BQAAAAAAAAAHAP7/BQABAAAAAAAIAP7/BQAAAAAAAAAJAP7/BQAAAAAAAAAJAP//BQABAAAAAAAIAP//BQAAAAAAAAAHAP//BQAAAAAAAAAGAP//BQABAAAAAAAFAP//BQAAAAAAAAAEAP//BQABAAAAAAADAP//BQABAAAAAAACAP//BQABAAAAAAABAP//BQABAAAAAAAAAP//BQAAAAAAAAD/////BQAAAAAAAAD//wAABQABAAAAAAAAAAAABQABAAAAAAABAAAABQABAAAAAAACAAAABQABAAAAAAADAAAABQABAAAAAAAEAAAABQABAAAAAAAFAAAABQABAAAAAAAGAAAABQABAAAAAAAHAAAABQAAAAAAAAAIAAAABQAAAAAAAAAJAAAABQABAAAAAAAHAAEABQABAAAAAAAGAAEABQABAAAAAAAFAAEABQAAAAAAAAAEAAEABQABAAAAAAADAAEABQAAAAAAAAACAAEABQABAAAAAAABAAEABQABAAAAAAAAAAEABQABAAAAAAD//wEABQABAAAAAAAIAAEABQABAAAAAAAJAAEABQAAAAAAAAAJAAIABQABAAAAAAAIAAIABQABAAAAAAAHAAIABQABAAAAAAAGAAIABQAAAAAAAAAFAAIABQABAAAAAAAEAAIABQABAAAAAAADAAIABQAAAAAAAAACAAIABQAAAAAAAAABAAIABQAAAAAAAAAAAAIABQAAAAAAAAD//wIABQAAAAAAAAD//wMABQAAAAAAAAAAAAMABQABAAAAAAABAAMABQABAAAAAAACAAMABQAAAAAAAAADAAMABQAAAAAAAAAEAAMABQABAAAAAAAFAAMABQABAAAAAAAGAAMABQABAAAAAAAHAAMABQAAAAAAAAAIAAMABQAAAAAAAAAJAAMABQAAAAAAAAAHAAQABQAAAAAAAAAGAAQABQABAAAAAAAFAAQABQABAAAAAAAEAAQABQAAAAAAAAADAAQABQAAAAAAAAACAAQABQAAAAAAAAABAAQABQABAAAAAAAAAAQABQAAAAAAAAD//wQABQABAAAAAAACAAUABQABAAAAAAADAAUABQABAAAAAAAEAAUABQABAAAAAAAFAAUABQAAAAAAAAAGAAUABQABAAAAAAAIAAQABQABAAAAAAAJAAQABQABAAAAAAAJAAUABQAAAAAAAAAIAAUABQABAAAAAAAHAAUABQAAAAAAAAABAAUABQAAAAAAAAAAAAUABQAAAAAAAAD//wUABQABAAAAAAA=")
+
+[node name="Walls" type="StaticBody2D" parent="." index="2"]
 position = Vector2(-28, 539)
 scale = Vector2(1.18602, 1.18602)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Walls" index="0"]
 polygon = PackedVector2Array(-93.2254, -671.219, -82.8671, 218.537, 1123.88, 220.878, 1131.28, -682.146, 1248.18, -682.146, 1237.09, 269.268, -184.971, 263.024, -177.572, -768.78, 1265.94, -766.439, 1260.76, -671.219, 1099.47, -679.805, 568.505, -675.982)
 
-[node name="Polygon2D" type="Polygon2D" parent="Walls" index="1"]
-z_index = -1
-position = Vector2(25.2947, 46.3736)
-color = Color(0.241156, 0.241156, 0.241156, 1)
-polygon = PackedVector2Array(-107.081, -685.487, -109.61, 214.162, 1157.65, 225.966, 1144.16, -698.977)
+[node name="MainCam" parent="." index="3"]
+process_mode = 4
+visible = false
+enabled = false
 
-[node name="HUD" parent="." index="2"]
+[node name="HUD" parent="." index="4"]
 visible = false
 
-[node name="Img3598" type="Sprite2D" parent="." index="5"]
+[node name="DesignReference" type="Sprite2D" parent="." index="7"]
 visible = false
-modulate = Color(1, 1, 1, 0.678431)
+z_index = 5
 position = Vector2(636, 396)
 rotation = -1.58376
 scale = Vector2(0.523098, 0.470528)
 texture = ExtResource("2_wfgha")
 
-[node name="Anvil" type="Node2D" parent="." index="6"]
-position = Vector2(232, -125)
-scale = Vector2(1.63517, 1.06151)
+[node name="SmithEnterance" type="Node2D" parent="EntryPoints" index="0"]
+position = Vector2(583, 454)
 
-[node name="Box Placeholder" type="Sprite2D" parent="Anvil" index="0"]
-modulate = Color(0.792898, 0.621307, 0.273935, 1)
-position = Vector2(-108.246, 282.615)
-scale = Vector2(1.35156, 1.28125)
-texture = ExtResource("4_memf6")
+[node name="TransitionScene" parent="EntryPoints/SmithEnterance" index="0" instance=ExtResource("5_jf0cg")]
+position = Vector2(53, 240)
+scene_name = "town_town"
+entry_point = "smith_exit"
 
-[node name="StaticBody2D" type="StaticBody2D" parent="Anvil/Box Placeholder" index="0"]
-position = Vector2(-8.77904, -24.8097)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Anvil/Box Placeholder/StaticBody2D" index="0"]
-position = Vector2(5.15918, 22.6039)
-shape = SubResource("RectangleShape2D_3hcwu")
-
-[node name="Box Placeholder2" type="Sprite2D" parent="Anvil" index="1"]
-modulate = Color(0.792898, 0.621307, 0.273935, 1)
-position = Vector2(-113.75, 511.534)
-scale = Vector2(1.35156, 1.28125)
-texture = ExtResource("4_memf6")
-
-[node name="StaticBody2D" type="StaticBody2D" parent="Anvil/Box Placeholder2" index="0"]
-position = Vector2(7.55311, -69.8947)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Anvil/Box Placeholder2/StaticBody2D" index="0"]
-position = Vector2(-7.10063, 80.9236)
-shape = SubResource("RectangleShape2D_3hcwu")
-
-[node name="Box Placeholder3" type="Sprite2D" parent="Anvil" index="2"]
-modulate = Color(0.792898, 0.621307, 0.273935, 1)
-position = Vector2(-107.634, 737.626)
-scale = Vector2(1.35156, 1.28125)
-texture = ExtResource("4_memf6")
-
-[node name="StaticBody2D" type="StaticBody2D" parent="Anvil/Box Placeholder3" index="0"]
-position = Vector2(1.26111, -61.0797)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Anvil/Box Placeholder3/StaticBody2D" index="0"]
-position = Vector2(2.81124, 52.9918)
-shape = SubResource("RectangleShape2D_3hcwu")
-
-[node name="Black smith" type="Node2D" parent="." index="7"]
-position = Vector2(155, 40)
-metadata/_edit_group_ = true
-
-[node name="Icon" type="Sprite2D" parent="Black smith" index="0"]
-position = Vector2(555, 167)
-texture = ExtResource("4_memf6")
-
-[node name="Anivl" type="Node2D" parent="." index="8"]
-position = Vector2(179, 105)
-metadata/_edit_group_ = true
-
-[node name="Icon" type="Sprite2D" parent="Anivl" index="0"]
-modulate = Color(0.270222, 0.270222, 0.270222, 1)
-position = Vector2(727, 207)
-scale = Vector2(1.125, 0.6875)
-texture = ExtResource("4_memf6")
-
-[node name="Furnace" type="Node2D" parent="." index="9"]
-position = Vector2(-14, 55)
-metadata/_edit_group_ = true
-
-[node name="Polygon2D" type="Polygon2D" parent="Furnace" index="0"]
-position = Vector2(80, -22)
-polygon = PackedVector2Array(725, -279, 905, -139, 917, 27, 547, 27, 559, -141)
-
-[node name="StaticBody2D" type="StaticBody2D" parent="Furnace" index="1"]
-position = Vector2(80, -22)
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Furnace/StaticBody2D" index="0"]
-polygon = PackedVector2Array(553, 29, 554, -146, 729, -280, 911, -133, 920, 32)
-
-[node name="Mm3dJarModel" type="Sprite2D" parent="." index="10"]
-position = Vector2(258, -92.9999)
-scale = Vector2(0.177326, 0.177326)
-texture = ExtResource("5_4xwjk")
-
-[node name="Mm3dJarModel2" type="Sprite2D" parent="." index="11"]
-position = Vector2(110, -73.9999)
-scale = Vector2(0.177326, 0.177326)
-texture = ExtResource("5_4xwjk")
-
-[node name="StaticBody2D" type="StaticBody2D" parent="Mm3dJarModel2" index="0"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Mm3dJarModel2/StaticBody2D" index="0"]
-position = Vector2(862.819, -0.000344198)
-rotation = -1.57662
-shape = SubResource("CapsuleShape2D_u7ig6")
-
-[node name="Mm3dJarModel8" type="Sprite2D" parent="." index="12"]
-position = Vector2(433, -82)
-scale = Vector2(0.177326, 0.177326)
-texture = ExtResource("5_4xwjk")
-
-[node name="Mm3dJarModel3" type="Sprite2D" parent="." index="13"]
-position = Vector2(1087, 581.147)
-scale = Vector2(0.177326, 0.177326)
-texture = ExtResource("5_4xwjk")
-
-[node name="Mm3dJarModel4" type="Sprite2D" parent="." index="14"]
-position = Vector2(1220, 426.147)
-scale = Vector2(0.177326, 0.177326)
-texture = ExtResource("5_4xwjk")
-
-[node name="Mm3dJarModel5" type="Sprite2D" parent="." index="15"]
-position = Vector2(1213, 552.147)
-scale = Vector2(0.177326, 0.177326)
-texture = ExtResource("5_4xwjk")
-
-[node name="Mm3dJarModel9" type="Sprite2D" parent="." index="16"]
-position = Vector2(1079, 402)
-scale = Vector2(0.177326, 0.177326)
-texture = ExtResource("5_4xwjk")
-
-[node name="Mm3dJarModel6" type="Sprite2D" parent="." index="17"]
-position = Vector2(1206, 718.147)
-scale = Vector2(0.177326, 0.177326)
-texture = ExtResource("5_4xwjk")
-
-[node name="Mm3dJarModel7" type="Sprite2D" parent="." index="18"]
-position = Vector2(1082, 712)
-scale = Vector2(0.177326, 0.177326)
-texture = ExtResource("5_4xwjk")
-
-[node name="StaticBody2D" type="StaticBody2D" parent="Mm3dJarModel7" index="0"]
-position = Vector2(-637.246, -671.91)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Mm3dJarModel7/StaticBody2D" index="0"]
-position = Vector2(1003.8, -292.418)
-shape = SubResource("CapsuleShape2D_gh257")
-
-[node name="Player" parent="." index="20"]
+[node name="Player" parent="." index="9"]
 position = Vector2(695, 567)
+
+[node name="BlacksmithNPC" parent="." index="10" instance=ExtResource("7_gtroh")]
+position = Vector2(888, -87)
+scale = Vector2(2.42856, 2.42856)
+
+[node name="SpecialCamera" type="Camera2D" parent="." index="11"]
+position = Vector2(601, 59)
+zoom = Vector2(0.7, 0.7)

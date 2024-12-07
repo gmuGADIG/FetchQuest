@@ -1,6 +1,6 @@
-[gd_scene load_steps=38 format=4 uid="uid://c0b860627rcs5"]
+[gd_scene load_steps=40 format=4 uid="uid://c0b860627rcs5"]
 
-[ext_resource type="PackedScene" uid="uid://cnd06dpkgufe4" path="res://world/level_base.tscn" id="1_2iy6g"]
+[ext_resource type="PackedScene" uid="uid://cnd06dpkgufe4" path="res://world/levels/level_base.tscn" id="1_2iy6g"]
 [ext_resource type="Script" path="res://world/decoration/trees/tree_gen.gd" id="2_n44bl"]
 [ext_resource type="PackedScene" uid="uid://gkyoiixhetyn" path="res://world/decoration/bushes/bush_big.tscn" id="3_a0yt1"]
 [ext_resource type="PackedScene" uid="uid://7rwwk775fptb" path="res://world/decoration/bushes/bush_small.tscn" id="4_qjjla"]
@@ -8,7 +8,9 @@
 [ext_resource type="Script" path="res://reloader/reloader.gd" id="8_gqbog"]
 [ext_resource type="PackedScene" uid="uid://1mnsgb10h43t" path="res://world/fast_travel/toilet_travel_station.tscn" id="8_qhp37"]
 [ext_resource type="PackedScene" uid="uid://bgujmor7r2ari" path="res://world/decoration/buildings/house_tudor_b.tscn" id="8_xsw5j"]
-[ext_resource type="PackedScene" uid="uid://cnveqoba0t7tx" path="res://world/decoration/trees/evergreen_tree_with_fireflies.tscn" id="10_3x3mv"]
+[ext_resource type="Script" path="res://world/decoration/fences/fence_gen.gd" id="9_1vsr4"]
+[ext_resource type="PackedScene" uid="uid://cnveqoba0t7tx" path="res://world/decoration/trees/evergreen_fireflies/evergreen_fireflies.tscn" id="10_3x3mv"]
+[ext_resource type="PackedScene" uid="uid://chljqqgo8mvxg" path="res://world/decoration/fences/fence1.tscn" id="10_f4dcs"]
 [ext_resource type="PackedScene" uid="uid://uj2rytnj1h4" path="res://enemy/test_enemy/test_enemy.tscn" id="10_sv285"]
 [ext_resource type="PackedScene" uid="uid://b8ogwotn6nsdk" path="res://world/interactable/sinking-wall/sinking_wall.tscn" id="11_ch02a"]
 [ext_resource type="PackedScene" uid="uid://dutetduietx8r" path="res://enemy/shield_enemy/shield_enemy.tscn" id="11_gwnhp"]
@@ -20,7 +22,7 @@
 [ext_resource type="PackedScene" uid="uid://bxaar1hpspnom" path="res://world/interactable/activatable/moving_objects/movable_platform.tscn" id="14_hyg0y"]
 [ext_resource type="PackedScene" uid="uid://bm05x1jwytuuc" path="res://world/tilemap/main_tile_layer.tscn" id="15_nkduh"]
 [ext_resource type="PackedScene" uid="uid://blh1fs712dql8" path="res://world/interactable/activatable/locked_door/locked_door.tscn" id="16_be0xc"]
-[ext_resource type="PackedScene" uid="uid://cl1lr3ddw0s8j" path="res://world/decoration/trees/evergreen_tree.tscn" id="17_0qa0k"]
+[ext_resource type="PackedScene" uid="uid://cl1lr3ddw0s8j" path="res://world/decoration/trees/evergreen/evergreen.tscn" id="17_0qa0k"]
 [ext_resource type="Texture2D" uid="uid://dc4pcxr2lfkka" path="res://demo_art/dungeon_entrance.png" id="17_o8ma7"]
 [ext_resource type="PackedScene" uid="uid://bom8mopkckp5y" path="res://world/interactable/chest/chest.tscn" id="18_ricm7"]
 [ext_resource type="Script" path="res://world/interactable/transition_trigger/transition_trigger.gd" id="18_u8qny"]
@@ -215,6 +217,15 @@ position = Vector2(948, 269)
 [node name="ToiletTravelStation" parent="HouseArea" index="5" instance=ExtResource("8_qhp37")]
 position = Vector2(306, 695)
 entry_point = "Main"
+
+[node name="FenceGen" type="Line2D" parent="HouseArea" index="6"]
+y_sort_enabled = true
+position = Vector2(15, 2)
+points = PackedVector2Array(374, 69, 561, 282, 606, 541, 775, 852)
+default_color = Color(1, 1, 1, 0)
+script = ExtResource("9_1vsr4")
+fence_scene = ExtResource("10_f4dcs")
+fence_spacing = 80.0
 
 [node name="FirstEnemyArea" type="Node2D" parent="." index="2"]
 y_sort_enabled = true

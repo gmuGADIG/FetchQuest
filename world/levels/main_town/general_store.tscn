@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://cgfglx0lxku18"]
+[gd_scene load_steps=9 format=3 uid="uid://cgfglx0lxku18"]
 
-[ext_resource type="PackedScene" uid="uid://cnd06dpkgufe4" path="res://world/levels/level_base.tscn" id="1_g5wrv"]
+[ext_resource type="PackedScene" uid="uid://cnd06dpkgufe4" path="res://world/level_base.tscn" id="1_g5wrv"]
 [ext_resource type="Texture2D" uid="uid://dymucenpxmluo" path="res://icon.svg" id="4_536er"]
+[ext_resource type="PackedScene" uid="uid://bwo5q4wroaigc" path="res://world/interactable/transition_trigger/transition_trigger.tscn" id="5_c1l7d"]
 [ext_resource type="Texture2D" uid="uid://c3q7u3yjdqdg7" path="res://world/levels/main_town/MM3D_Jar_Model.webp" id="5_ca04d"]
 [ext_resource type="Texture2D" uid="uid://c4tqrgyodg8vo" path="res://world/levels/main_town/IMG_3598.jpg" id="6_e1r1a"]
 
@@ -178,5 +179,15 @@ scale = Vector2(1.35156, 1.28125)
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="walls" index="0"]
 polygon = PackedVector2Array(-93.2254, -671.219, -82.8671, 218.537, 1123.88, 220.878, 1131.28, -682.146, 1248.18, -682.146, 1237.09, 269.268, -184.971, 263.024, -177.572, -768.78, 1265.94, -766.439, 1260.76, -671.219, 1099.47, -679.805)
 
+[node name="EntryPoints" parent="." index="18"]
+position = Vector2(620, 605)
+
+[node name="StoreEnterance" type="Node2D" parent="EntryPoints" index="0"]
+
 [node name="Player" parent="." index="19"]
 position = Vector2(623, 566)
+
+[node name="TransitionScene" parent="." index="20" instance=ExtResource("5_c1l7d")]
+position = Vector2(605, 943)
+scene_name = "town_town"
+entry_point = " store_exit"
