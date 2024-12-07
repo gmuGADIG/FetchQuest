@@ -58,7 +58,7 @@ signal item_updated(key: String)
 		max_bombs_updated.emit()
 
 ## The maximum health the player can have 
-@export var max_health: int = 3:
+@export var max_health: int = 6:
 	set(v):
 		max_health = v
 		max_health_updated.emit()
