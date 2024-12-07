@@ -3,20 +3,18 @@ class_name Player extends CharacterBody2D
 static var instance: Player
 
 @export var move_speed: float = 500.0 ## Move speed in pixels per second
-@export var max_health: int = 6 ## Max health and starting health
 @export var bomb_throw_speed: float = 1000.0 ## Bombs are thrown with this much velocity
-@export var max_stamina: float = 3.0
 @export var stamina_recovery_rate: float = 1.0 ## How much stamina
 @export var knockback_friction: float = 5.0 ## How fast the player slows down from knockback
 @export var roll_speed: float = 1000.0
 
 
-@onready var health: int = max_health: ## Current health
+@onready var health: int = PlayerInventory.max_health: ## Current health
 	set(value):
 		health = value
 		health_changed.emit()
 
-@onready var stamina: float = max_stamina:
+@onready var stamina: float = PlayerInventory.max_stamina:
 	set(value):
 		stamina = value
 		stamina_changed.emit()
@@ -46,21 +44,20 @@ var roll_timer: float = 0.25
 
 signal health_changed
 signal stamina_changed
+signal sword_thrown
+signal sword_caught
 
 # returns true if a stamina pip was used, false otherwise
 func expend_stamina() -> bool:
-	var int_stamina: int = int(stamina)
-	if int_stamina < 1:
+	if stamina < 1:
 		return false
 
-	stamina = max(float(int_stamina - 1), 0.0)
+	stamina = stamina - 1.
 	return true
 
 # recovers stamina by stamina_recovery_rate up to the max
 func recover_stamina(delta: float) -> void:
-	stamina += delta * stamina_recovery_rate
-	if stamina > max_stamina:
-		stamina = max_stamina
+	stamina = move_toward(stamina, PlayerInventory.max_stamina, delta * stamina_recovery_rate)
 
 #Changes speed to fit a sin wave for smoother rolls
 func get_roll_speed() -> float:
@@ -127,6 +124,9 @@ func throw_sword() -> void:
 	add_sibling(sword)
 	sword.throw(get_aim())
 
+	sword_thrown.emit()
+	sword.tree_exited.connect(sword_caught.emit)
+
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("speak"):
 		if !$Speak.on_cooldown():
@@ -180,9 +180,6 @@ func _process(delta: float) -> void:
 	handle_one_ways()
 
 func _input(event: InputEvent) -> void:
-	#TODO: REMOVE THIS
-	PlayerInventory.bombs = 314159
-
 	if(event.is_action_pressed("throw_bomb")):
 		if PlayerInventory.bombs > 0:
 			var bomb_instance := bomb_scene.instantiate()
@@ -224,7 +221,7 @@ func hurt(damage_event: DamageEvent) -> void:
 	if invincible: return # immune if invincible is true for i frames
 	health -= damage_event.damage
 	add_force(damage_event.knockback)
-	print("player.gd: Health lowered to %s/%s" % [health, max_health])
+	print("player.gd: Health lowered to %s/%s" % [health, PlayerInventory.max_health])
 
 	if health <= 0:
 		get_tree().change_scene_to_file.call_deferred("uid://b6jsq4syp4v0w")
@@ -233,10 +230,10 @@ func hurt(damage_event: DamageEvent) -> void:
 
 ## Increases the player, not exceeding its max health
 func heal(gained: int) -> void:
-	if health >= max_health: return
+	if health >= PlayerInventory.max_health: return
 
-	health = move_toward(health, max_health, gained) as int
-	print("player.gd: Health raised to %s/%s" % [health, max_health])
+	health = move_toward(health, PlayerInventory.max_health, gained) as int
+	print("player.gd: Health raised to %s/%s" % [health, PlayerInventory.max_health])
 
 ## Apply a force to the player. Generally, a good magnitude is around 500 to 1000
 func add_force(force: Vector2) -> void:
