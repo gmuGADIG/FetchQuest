@@ -1,0 +1,54 @@
+[gd_scene load_steps=8 format=3 uid="uid://mu212xi0ksia"]
+
+[ext_resource type="PackedScene" uid="uid://dvhfibvbfhnnv" path="res://npc/base_npc.tscn" id="1_khagr"]
+[ext_resource type="Texture2D" uid="uid://bj1blh2jksyjg" path="res://npc/guard/Guard.PNG" id="2_04bdx"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qh4wy"]
+atlas = ExtResource("2_04bdx")
+region = Rect2(0, 0, 270, 500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xgat0"]
+atlas = ExtResource("2_04bdx")
+region = Rect2(270, 0, 270, 500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_utwah"]
+atlas = ExtResource("2_04bdx")
+region = Rect2(540, 0, 270, 500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6defi"]
+atlas = ExtResource("2_04bdx")
+region = Rect2(810, 0, 270, 500)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_n7ch5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qh4wy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xgat0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_utwah")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6defi")
+}],
+"loop": true,
+"name": &"default",
+"speed": 3.0
+}]
+
+[node name="GuardNPC" instance=ExtResource("1_khagr")]
+
+[node name="CollisionShape2D" parent="." index="0"]
+scale = Vector2(1.98731, 1.98731)
+
+[node name="TalkingInteractable" parent="." index="1"]
+scale = Vector2(2.27734, 2.27734)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="2"]
+position = Vector2(-13, -176)
+sprite_frames = SubResource("SpriteFrames_n7ch5")
+autoplay = "default"
+frame_progress = 0.649896

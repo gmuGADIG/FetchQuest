@@ -1,0 +1,57 @@
+[gd_scene load_steps=8 format=3 uid="uid://dktgjnd1ws43x"]
+
+[ext_resource type="PackedScene" uid="uid://dvhfibvbfhnnv" path="res://npc/base_npc.tscn" id="1_tbskn"]
+[ext_resource type="Texture2D" uid="uid://b1fttaeoxacgd" path="res://npc/gossiping_elder/gossipingElder.png" id="2_tiojb"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jshch"]
+atlas = ExtResource("2_tiojb")
+region = Rect2(0, 0, 2048, 2048)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t4q8k"]
+atlas = ExtResource("2_tiojb")
+region = Rect2(2048, 0, 2048, 2048)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jbwuv"]
+atlas = ExtResource("2_tiojb")
+region = Rect2(4096, 0, 2048, 2048)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5jwrd"]
+atlas = ExtResource("2_tiojb")
+region = Rect2(6144, 0, 2048, 2048)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_g2mmg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jshch")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t4q8k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jbwuv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5jwrd")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="ElderNPC" instance=ExtResource("1_tbskn")]
+
+[node name="CollisionShape2D" parent="." index="0"]
+position = Vector2(4, -26)
+scale = Vector2(2.37317, 2.37317)
+
+[node name="TalkingInteractable" parent="." index="1"]
+position = Vector2(5, -39)
+scale = Vector2(1.95612, 1.95612)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="2"]
+position = Vector2(3, -97)
+scale = Vector2(0.175808, 0.175808)
+sprite_frames = SubResource("SpriteFrames_g2mmg")
+autoplay = "default"
+frame_progress = 0.303715
