@@ -5,10 +5,6 @@
 [node name="Skins" type="Node2D"]
 script = ExtResource("1_8i4rg")
 
-[node name="SkinSelectorAudioPlayer" type="AudioStreamPlayer" parent="."]
-unique_name_in_owner = true
-bus = &"SFX"
-
 [node name="skin1" type="Button" parent="."]
 offset_left = 136.0
 offset_top = 52.0
@@ -33,9 +29,9 @@ offset_bottom = 455.0
 text = "skin3
 "
 
-[connection signal="pressed" from="skin1" to="." method="_skin1_pressed"]
 [connection signal="pressed" from="skin1" to="." method="_on_menu_major_button_pressed"]
-[connection signal="pressed" from="skin2" to="." method="_skin2_pressed"]
+[connection signal="pressed" from="skin1" to="." method="_skin1_pressed"]
 [connection signal="pressed" from="skin2" to="." method="_on_menu_major_button_pressed"]
-[connection signal="pressed" from="skin3" to="." method="_skin3_pressed"]
+[connection signal="pressed" from="skin2" to="." method="_skin2_pressed"]
 [connection signal="pressed" from="skin3" to="." method="_on_menu_major_button_pressed"]
+[connection signal="pressed" from="skin3" to="." method="_skin3_pressed"]
