@@ -1,21 +1,23 @@
-[gd_scene load_steps=6 format=3 uid="uid://dlqewjtyi44jq"]
+[gd_scene load_steps=9 format=3 uid="uid://dlqewjtyi44jq"]
 
 [ext_resource type="Texture2D" uid="uid://vf0s1yxq1yr2" path="res://ui/Official Fetch Quest Title Screen.png" id="1_5rbow"]
+[ext_resource type="Script" path="res://ui/title/main_menu.gd" id="1_vbv6i"]
 [ext_resource type="Theme" uid="uid://c1fnrmf3wvqgr" path="res://ui/title/Continue.tres" id="2_jw46e"]
 [ext_resource type="Theme" uid="uid://coykutqq7m7m1" path="res://ui/title/Quit Button.tres" id="3_es30q"]
 [ext_resource type="Theme" uid="uid://b3sfpfttk5ia5" path="res://NewGame.tres" id="4_f12hv"]
 [ext_resource type="Theme" uid="uid://djfh01tndubds" path="res://Options Gear.tres" id="5_jnj65"]
+[ext_resource type="PackedScene" uid="uid://bovhexq6t5u8o" path="res://ui/options/options_menu.tscn" id="6_i7r55"]
+[ext_resource type="Script" path="res://ui/options/open_options_menu_button.gd" id="7_ra5bw"]
 
-[node name="CanvasLayer" type="CanvasLayer"]
+[node name="TitleScreen" type="CanvasLayer"]
+script = ExtResource("1_vbv6i")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-
-[node name="Sprite2D2" type="Sprite2D" parent="."]
+[node name="Background" type="Sprite2D" parent="."]
 position = Vector2(576, 324.5)
 scale = Vector2(0.6, 0.600926)
 texture = ExtResource("1_5rbow")
 
-[node name="Button" type="Button" parent="."]
+[node name="ContinueGame" type="Button" parent="."]
 offset_left = 429.0
 offset_top = 430.0
 offset_right = 693.0
@@ -24,7 +26,7 @@ theme = ExtResource("2_jw46e")
 theme_type_variation = &"FlatButton"
 text = "CONTINUE"
 
-[node name="Button2" type="Button" parent="."]
+[node name="Quit" type="Button" parent="."]
 offset_left = 430.0
 offset_top = 526.0
 offset_right = 694.0
@@ -33,7 +35,7 @@ theme = ExtResource("3_es30q")
 theme_type_variation = &"FlatButton"
 text = "QUIT"
 
-[node name="Button3" type="Button" parent="."]
+[node name="NewGame" type="Button" parent="."]
 offset_left = 430.0
 offset_top = 334.0
 offset_right = 695.0
@@ -41,9 +43,21 @@ offset_bottom = 420.0
 theme = ExtResource("4_f12hv")
 text = "NEW GAME"
 
-[node name="Button4" type="Button" parent="."]
+[node name="Options" type="Button" parent="." node_paths=PackedStringArray("options_menu")]
 offset_left = 980.0
 offset_top = 523.0
 offset_right = 1085.0
 offset_bottom = 612.0
 theme = ExtResource("5_jnj65")
+script = ExtResource("7_ra5bw")
+options_menu = NodePath("../OptionsMenu")
+
+[node name="OptionsMenu" parent="." instance=ExtResource("6_i7r55")]
+
+[connection signal="pressed" from="ContinueGame" to="." method="_on_menu_major_button_pressed"]
+[connection signal="pressed" from="ContinueGame" to="." method="_on_continue_game_pressed"]
+[connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="Quit" to="." method="_on_menu_major_button_pressed"]
+[connection signal="pressed" from="NewGame" to="." method="_on_menu_major_button_pressed"]
+[connection signal="pressed" from="NewGame" to="." method="_on_new_game_pressed"]
+[connection signal="pressed" from="Options" to="." method="_on_menu_major_button_pressed"]
