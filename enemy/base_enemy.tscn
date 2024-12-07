@@ -8,8 +8,8 @@
 size = Vector2(117, 108)
 
 [node name="BaseEnemy" type="CharacterBody2D" groups=["Enemy", "Hittable"]]
-collision_layer = 4
-collision_mask = 9
+collision_layer = 260
+collision_mask = 5
 script = ExtResource("1_xa7a1")
 
 [node name="PlayerDetectionComponent" type="Node2D" parent="."]
@@ -30,6 +30,8 @@ shape = SubResource("RectangleShape2D_fdgx0")
 [node name="Reloadable" type="VisibleOnScreenNotifier2D" parent="." groups=["Reloads"]]
 scale = Vector2(5.8, 5.5)
 script = ExtResource("3_ikojr")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 
 [connection signal="player_detected" from="PlayerDetectionComponent" to="PlayerDetectionComponent" method="_on_player_detected"]
 [connection signal="body_entered" from="HittingArea" to="." method="_on_hitting_area_body_entered"]

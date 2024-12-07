@@ -1,0 +1,28 @@
+[gd_scene load_steps=7 format=3 uid="uid://cfsy0w3w5od27"]
+
+[ext_resource type="Script" path="res://autoloads/sfx_manager.gd" id="1_jxmi1"]
+[ext_resource type="AudioStream" uid="uid://bsjn4b3ch4jkv" path="res://player/sword/sword_sounds/SFX_SwordCatch_Tison.ogg" id="2_dwo05"]
+[ext_resource type="AudioStream" uid="uid://boi8ijkmpdvak" path="res://ui/sounds/SFX UI Bonk 1.wav" id="3_paeol"]
+[ext_resource type="AudioStream" uid="uid://c47sl3dcwat8h" path="res://ui/sounds/SFX UI Bonk 2.wav" id="4_mcwd3"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_mp0wx"]
+streams_count = 1
+stream_0/stream = ExtResource("2_dwo05")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_lnsmt"]
+playback_mode = 1
+streams_count = 2
+stream_0/stream = ExtResource("3_paeol")
+stream_1/stream = ExtResource("4_mcwd3")
+
+[node name="SFXManager" type="Node"]
+script = ExtResource("1_jxmi1")
+
+[node name="CatchSound" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamRandomizer_mp0wx")
+bus = &"SFX"
+
+[node name="BonkSound" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamRandomizer_lnsmt")
+volume_db = -10.0
+bus = &"SFX"

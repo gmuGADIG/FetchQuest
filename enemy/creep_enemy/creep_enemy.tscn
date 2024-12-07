@@ -1,0 +1,33 @@
+[gd_scene load_steps=6 format=3 uid="uid://yllbcpq24cl0"]
+
+[ext_resource type="PackedScene" uid="uid://blpi4x6if673v" path="res://enemy/base_enemy.tscn" id="1_mhp5o"]
+[ext_resource type="Script" path="res://enemy/creep_enemy/creep_enemy.gd" id="2_dr0mb"]
+[ext_resource type="PackedScene" uid="uid://dd84x31n3uw6i" path="res://enemy/creep_enemy/creep.tscn" id="3_mgyv2"]
+[ext_resource type="Texture2D" uid="uid://deern6512fesn" path="res://demo_art/test_enemy.svg" id="3_vgsle"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dkb7p"]
+size = Vector2(117, 108)
+
+[node name="CreepEnemy" node_paths=PackedStringArray("enemy_sprite") instance=ExtResource("1_mhp5o")]
+scale = Vector2(0.75, 0.75)
+script = ExtResource("2_dr0mb")
+creep_prefab = ExtResource("3_mgyv2")
+creep_spawn_time = 3.0
+roaming_radius = 1000.0
+enemy_sprite = NodePath("Sprite2D")
+agressive_target_distance_min = 200
+agressive_target_distance_max = 400
+
+[node name="Sprite2D" type="Sprite2D" parent="." index="0"]
+self_modulate = Color(0, 1, 0.266667, 1)
+texture = ExtResource("3_vgsle")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
+shape = SubResource("RectangleShape2D_dkb7p")
+
+[node name="CreepSpawnTimer" type="Timer" parent="." index="2"]
+
+[node name="PlayerDetectionComponent" parent="." index="3"]
+detectable_distance = 600.0
+
+[connection signal="timeout" from="CreepSpawnTimer" to="." method="_on_creep_spawn_timer_timeout"]

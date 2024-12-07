@@ -13,6 +13,12 @@ func _ready() -> void:
 	hide()
 	
 func _process(delta: float) -> void:
+	
+	#Ensures that if another menu is open that causes the game to be paused but it is NOT this one,
+	#do nothing!
+	if(get_tree().paused and not visible):
+		return
+		
 	# NOTE: Right now, the pause menu is responsible for handling the pause hotkey,
 	# -- this makes sense, because then the pause hotkey will work if and only if
 	# the PauseMenu has been added to the scene.
@@ -31,6 +37,7 @@ func _process(delta: float) -> void:
 	if visible and not was_visible:
 		$OptionsMenu.hide()
 		$Panel/Resume.grab_focus()
+		
 	
 func _on_resume_pressed() -> void:
 	# When resume is pressed, we simply unpause.
@@ -45,3 +52,8 @@ func _on_quit_pressed() -> void:
 # When the option menu is hidden, we grab focus of the options button.
 func _on_option_menu_hidden() -> void:
 	$Panel/OptionsMenuButton.grab_focus()
+
+#When a "major" button is pressed (the options, resume, and quit buttons in the pause menu), play their respective sounds!
+#Called when a signal is recieved from the respective buttons
+func _on_menu_major_button_pressed() -> void:
+	SFXManager.bonk_sound.play()

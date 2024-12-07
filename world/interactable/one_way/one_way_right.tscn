@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://db2s3cfrffd5m"]
+
+[ext_resource type="Script" path="res://world/interactable/one_way/one_way.gd" id="1_w0gcq"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_qem05"]
+load_path = "res://.godot/imported/oneway.png-2b8effe1e2f84fdeb566a44b466f6828.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yhlde"]
+atlas = SubResource("CompressedTexture2D_qem05")
+region = Rect2(512, 0, 256, 256)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_45y0s"]
+size = Vector2(256, 256)
+
+[node name="OneWayRight" type="StaticBody2D"]
+z_index = -1
+script = ExtResource("1_w0gcq")
+direction = Vector2(1, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_yhlde")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_45y0s")
+debug_color = Color(0.680929, 0.5037, 0, 0.0823529)

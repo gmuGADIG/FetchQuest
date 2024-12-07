@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://cs27evde2700e"]
+
+[ext_resource type="PackedScene" uid="uid://bxaar1hpspnom" path="res://world/interactable/activatable/moving_objects/movable_platform.tscn" id="1_dte7s"]
+[ext_resource type="PackedScene" uid="uid://c7ck7ril2jix2" path="res://player/player.tscn" id="2_8rvtd"]
+[ext_resource type="PackedScene" uid="uid://jc32vog7she0" path="res://new hole detector/hole.tscn" id="3_71brj"]
+[ext_resource type="PackedScene" uid="uid://coef3wudsai3m" path="res://world/interactable/weak_floor/weak_floor.tscn" id="4_577jn"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="MovablePlatform" parent="." instance=ExtResource("1_dte7s")]
+position = Vector2(171, 422)
+
+[node name="WeakFloor" parent="." instance=ExtResource("4_577jn")]
+position = Vector2(-283, 560)
+safe_length = 0.7
+respawn_time = 1.5
+
+[node name="WeakFloor2" parent="." instance=ExtResource("4_577jn")]
+position = Vector2(-281, 295)
+safe_length = 0.7
+respawn_time = 1.5
+
+[node name="WeakFloor3" parent="." instance=ExtResource("4_577jn")]
+position = Vector2(-276, 27)
+safe_length = 0.7
+respawn_time = 1.5
+
+[node name="Player" parent="." instance=ExtResource("2_8rvtd")]
+position = Vector2(610, 421)
+
+[node name="Hole" parent="." instance=ExtResource("3_71brj")]
+position = Vector2(-764, 486)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(67, 595)

@@ -14,8 +14,6 @@ extends Node2D
 @export var cooldown_time: float = 1.5
 #A multiplier applied to the player movemnet speed when speaking
 @export var movement_multiplier: float = 0.2
-#The damage done on speak
-@export var damage: float = 1.5
 
 
 #Whether the player is speaking
@@ -26,22 +24,14 @@ var _on_cooldown: bool = false
 
 func _ready() -> void:
 	scale = Vector2(2*radius, 2*radius)
-	
-func _process(_delta: float) -> void:
-	scale = Vector2(2*radius, 2*radius)
-	pass
-	
 
 func speak() -> void:
 	_is_speaking = true
 	_on_cooldown = true
+	
 	#toggle the aura
 	var speak_instance: Area2D = speak_aura.instantiate()
-	speak_instance.set_damage(damage)
-	#instance.top_level = true;
 	add_child(speak_instance)
-	#instance.top_level = true;	
-	
 	
 	#schedule tasks to end the speak & cooldown
 	var speak_timer := Timer.new()
