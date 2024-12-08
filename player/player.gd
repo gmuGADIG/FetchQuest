@@ -27,8 +27,10 @@ static var instance: Player
 
 var bomb_scene := preload("bomb.tscn")
 
-# TODO: handle different dog sprites
-@onready var _animated_sprite := %Skin1
+@onready var _animated_sprites: Array[AnimatedSprite2D] = [%Skin1, %Skin2, %Skin3]
+func play_animation(animation: StringName) -> void:
+	for a in _animated_sprites:
+		a.play(animation)
 
 var active_sword: ThrownSword ## The active thrown sword. Null if the player is currently holding the sword
 
@@ -84,9 +86,9 @@ func start_roll() -> void:
 	# get direction for the roll
 	roll_vector = Input.get_vector("move_left", "move_right", "move_up", "move_down").normalized()
 	if(not facing_right):
-		_animated_sprite.play("Artie_Roll_Left")
+		play_animation("roll_left")
 	else:
-		_animated_sprite.play("Artie_Roll_Right")
+		play_animation("roll_right")
 	# switch off collision with enemy bullets and the holes
 	self.set_collision_mask_value(6, false)
 	hole_detector.enabled = false
@@ -99,7 +101,7 @@ func start_roll() -> void:
 
 # callback from roll timer. reverts changes made by start_roll
 func stop_roll() -> void:
-	_animated_sprite.stop()
+	# _animated_sprite.stop()
 	rolling = false
 	
 	hole_detector.enabled = true
@@ -132,9 +134,9 @@ func _process(delta: float) -> void:
 		if !$Speak.on_cooldown():
 			$Speak.speak()
 			if(not facing_right):
-				_animated_sprite.play("Artie_Bark_Left")
+				play_animation("bark_left")
 			else:
-				_animated_sprite.play("Artie_Bark_Right")
+				play_animation("bark_right")
 
 	if Input.is_action_just_pressed("attack"):
 		if active_sword == null:
@@ -157,19 +159,19 @@ func _process(delta: float) -> void:
 	recover_stamina(delta)
 
 	if (Input.is_action_just_pressed("dog_roll")):
-		_animated_sprite.stop()
+		# _animated_sprite.stop()
 		start_roll()
 		
 	if(not rolling && not $Speak.is_speaking()):
 		if(velocity == Vector2.ZERO):
 			if(facing_right):
-				_animated_sprite.play("Artie_Base_Right")
+				play_animation("idle_right")
 			else:
-				_animated_sprite.play("Artie_Base_Left")
+				play_animation("idle_left")
 		elif(not facing_right):
-			_animated_sprite.play("Artie_Walk_Left")
+			play_animation("walk_left")
 		else:
-			_animated_sprite.play("Artie_Walk_Right")
+			play_animation("walk_right")
 	velocity += force_applied
 
 	force_applied = force_applied * exp(-knockback_friction * delta)
