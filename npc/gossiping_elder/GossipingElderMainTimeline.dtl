@@ -1,19 +1,4 @@
-if QuestSystem.is_quest_completed("gossip"):
-	if {dungeons_completed} == 0:
-		GossipyElder: Why, aren’t you the cutest? Oh, but no one’s cuter than my wife and cats. You’re a close third, but don’t let anyone know I told you that.
-		GossipyElder: Be safe out there. Beyond the town is a dangerous world, but you didn’t hear that from me.
-	elif {dungeons_completed} == 1:
-		GossipyElder: How do I know so much about everyone? I have my ways and connections… I talk and listen of course!
-		GossipyElder: Listening to your surroundings does wonders. My hearing might not be strong, but when there’s gossip to collect my ears are as sharp as ever.
-		GossipyElder: I’ve also always enjoyed knitting in my spare time. Would you be a dear and fetch some yarn for little old me?
-		GossipyElder: ...Ohoho.. I’m only joking sweetie, I can grab it myself. I can tell you would have done it anyway because you’re a good boy, aren’t you?
-	elif {dungeons_completed} == 2:
-		GossipyElder: Now, you didn’t hear this from me, but I believe something big is going to happen soon… I hope we don’t have to leave again. I quite like it here.
-		GossipyElder: Princess Caninea has been taking such good care of us after we fled. I hope she isn’t biting off more than she can chew. Could you do me a favor and check up on her from time to time?
-		GossipyElder: As an elder, I have to make sure everyone is doing well. How else will I be able to squeeze information out of them? Ohoho..
-	else:
-		# they didn't write anything for this case :/
-elif QuestSystem.is_quest_assigned("gossip"):
+if QuestSystem.is_quest_unassigned("gossip"):
 	# The start of the Fetch Gossip quest
 	GossipyElder: Hello there dear. Word around town is that a hero is going to be saving us all and that hero is you. Isn’t that interesting?
 	GossipyElder: You see, I’m the eyes and ears of this town, but I’m lacking some valuable information on a few of the lovely townsfolk here. Would you be a dear and help little old me out? All I need from you is to get some items that’ll confirm these sneaking suspicions of mine.
@@ -25,7 +10,7 @@ elif QuestSystem.is_quest_assigned("gossip"):
 		GossipyElder: There’s a survivalist here and she’s quite the sweetheart. Loves animals and all that. I’ve heard she’s been looking for a bit of help for a.. well, my memory isn’t the best you see but I believe it’s for a sanctuary. She probably has a bulk of her help wanted posters at her house.
 		GossipyElder: Take your time in finding all that I need. Be a sweetheart and visit me if you have what I require or you need my hints to be repeated!
 		do QuestSystem.assign_quest("gossip")
-else:
+elif not QuestSystem.is_quest_turned_in("gossip"):
 	if QuestSystem.is_quest_completed("gossip"):
 		# Finished quest
 		GossipyElder: Thank you for helping out an old lady such as myself.
@@ -42,3 +27,18 @@ else:
 			GossipyElder: There’s a survivalist here and she’s quite the sweetheart. Loves animals and all that. I’ve heard she’s been looking for a bit of help for a.. well, my memory isn’t the best you see but I believe it’s for a sanctuary. She probably has a bulk of her help wanted posters at her house.
 		- Arf! (Nevermind)
 			GossipyElder: Aww.. did you just want to visit me? You're such a sweetheart. Run along now! My kitties can become jealous quite easily.
+else:
+	if {dungeons_completed} == 0:
+		GossipyElder: Why, aren’t you the cutest? Oh, but no one’s cuter than my wife and cats. You’re a close third, but don’t let anyone know I told you that.
+		GossipyElder: Be safe out there. Beyond the town is a dangerous world, but you didn’t hear that from me.
+	elif {dungeons_completed} == 1:
+		GossipyElder: How do I know so much about everyone? I have my ways and connections… I talk and listen of course!
+		GossipyElder: Listening to your surroundings does wonders. My hearing might not be strong, but when there’s gossip to collect my ears are as sharp as ever.
+		GossipyElder: I’ve also always enjoyed knitting in my spare time. Would you be a dear and fetch some yarn for little old me?
+		GossipyElder: ...Ohoho.. I’m only joking sweetie, I can grab it myself. I can tell you would have done it anyway because you’re a good boy, aren’t you?
+	elif {dungeons_completed} == 2:
+		GossipyElder: Now, you didn’t hear this from me, but I believe something big is going to happen soon… I hope we don’t have to leave again. I quite like it here.
+		GossipyElder: Princess Caninea has been taking such good care of us after we fled. I hope she isn’t biting off more than she can chew. Could you do me a favor and check up on her from time to time?
+		GossipyElder: As an elder, I have to make sure everyone is doing well. How else will I be able to squeeze information out of them? Ohoho..
+	else:
+		# they didn't write anything for this case :/

@@ -15,11 +15,17 @@ func assign_quest(id: String) -> void:
 func finish_quest(id: String) -> void:
 	_find_quest_by_id(id).turn_in()
 
-func is_quest_assigned(id: String) -> bool:
-	return _find_quest_by_id(id).is_assigned()
+# don't know about the quest (state is unassigned)
+# know about the quest but unfinished (state is 
+
+func is_quest_unassigned(id: String) -> bool:
+	return _find_quest_by_id(id).is_unassigned()
 
 func is_quest_completed(id: String) -> bool:
 	return _find_quest_by_id(id).is_completed()
+
+func is_quest_turned_in(id: String) -> bool:
+	return _find_quest_by_id(id).is_turned_in()
 
 func get_assigned_quests() -> Array[Quest]:
 	return quests.filter(func(q: Quest) -> bool: return q.is_assigned())
