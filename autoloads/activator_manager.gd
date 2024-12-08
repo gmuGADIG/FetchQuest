@@ -6,6 +6,7 @@ func _on_switch_activated(activatable: Node) -> void:
 func _on_scene_ready() -> void:
 	for activator in get_tree().get_nodes_in_group(ActivatorPlugin.ACTIVATOR_GROUP):
 		for np: NodePath in activator.get_meta(ActivatorPlugin.META_NAME, []):
+			if np.is_empty(): continue
 			var activatable := activator.get_node(np)
 
 			if activatable.has_method("activate") and activator.has_signal("switch_activated"):
