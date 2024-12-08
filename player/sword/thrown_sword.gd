@@ -113,8 +113,10 @@ func _on_collision(collision: KinematicCollision2D) -> void:
 	direction = velocity  # Update direction after bounce
 	sword_bounce()        # Handle ricochet logic
 
-	if (collision.get_collider() as CollisionObject2D).get_collision_layer_value(10):
+	var collider := collision.get_collider()
+	if collider is CollisionObject2D and collider.get_collision_layer_value(10):
 		return_sword()
+	
 
 ## Called by item.gd. Grabs the item and makes it follow the sword.
 func pickup_item(item: Item) -> void:
