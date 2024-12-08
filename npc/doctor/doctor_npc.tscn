@@ -1,7 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://cwp0q1v7qa62f"]
+[gd_scene load_steps=11 format=3 uid="uid://cwp0q1v7qa62f"]
 
 [ext_resource type="PackedScene" uid="uid://dvhfibvbfhnnv" path="res://npc/base_npc.tscn" id="1_bfctd"]
 [ext_resource type="Texture2D" uid="uid://ccgsk3cykr5l3" path="res://npc/doctor/doctor_spritesheet.png" id="2_123q6"]
+[ext_resource type="Script" path="res://addons/dialogic/Resources/timeline.gd" id="2_214x7"]
+[ext_resource type="Resource" path="res://npc/doctor/dialogue/Doctor_timeline.dtl" id="3_u35wp"]
+[ext_resource type="Resource" path="res://npc/doctor/dialogue/Doctor.dch" id="4_bby6e"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7jnig"]
 atlas = ExtResource("2_123q6")
@@ -48,6 +51,8 @@ scale = Vector2(1.38415, 1.38415)
 [node name="TalkingInteractable" parent="." index="1"]
 position = Vector2(0, -39)
 scale = Vector2(1.44292, 1.44292)
+timeline = Array[ExtResource("2_214x7")]([ExtResource("3_u35wp")])
+character = ExtResource("4_bby6e")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="2"]
 position = Vector2(-24, -105)
