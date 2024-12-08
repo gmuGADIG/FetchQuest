@@ -13,6 +13,7 @@ var entry_scene: PackedScene = preload("quest_entry/quest_entry.tscn")
 @onready var title: Label = %QuestTitle
 @onready var description: Label = %QuestDescription
 @onready var reward: Label = %QuestReward
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 var entry_to_quests: Dictionary = {}
 
@@ -43,8 +44,11 @@ func _on_entry_clicked(entry: QuestEntry) -> void:
 
 func _display() -> void:
 	visible = true
+	animation_player.play("open")
+	
 	get_tree().paused = true 
 
+	entry_to_quests.clear()
 	for child in entry_storage.get_children():
 		child.queue_free()
 	
@@ -70,5 +74,7 @@ func _display() -> void:
 		_on_entry_clicked(first_entry)
 
 func _on_back_button_pressed() -> void:
+	animation_player.play("open", -1, -1, true)
+	await animation_player.animation_finished
 	get_tree().paused = false
 	visible = false
