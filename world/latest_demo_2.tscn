@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=4 uid="uid://c0b860627rcs5"]
+[gd_scene load_steps=38 format=4 uid="uid://c0b860627rcs5"]
 
 [ext_resource type="PackedScene" uid="uid://cnd06dpkgufe4" path="res://world/levels/level_base.tscn" id="1_2iy6g"]
 [ext_resource type="Script" path="res://world/decoration/trees/tree_gen.gd" id="2_n44bl"]
@@ -11,10 +11,7 @@
 [ext_resource type="Script" path="res://world/tilemap/fences/fence_gen.gd" id="9_1vsr4"]
 [ext_resource type="PackedScene" uid="uid://cnveqoba0t7tx" path="res://world/decoration/trees/evergreen_tree_with_fireflies.tscn" id="10_3x3mv"]
 [ext_resource type="PackedScene" uid="uid://chljqqgo8mvxg" path="res://world/tilemap/fences/fence1.tscn" id="10_f4dcs"]
-[ext_resource type="PackedScene" uid="uid://uj2rytnj1h4" path="res://enemy/test_enemy/test_enemy.tscn" id="10_sv285"]
 [ext_resource type="PackedScene" uid="uid://b8ogwotn6nsdk" path="res://world/interactable/sinking-wall/sinking_wall.tscn" id="11_ch02a"]
-[ext_resource type="PackedScene" uid="uid://dutetduietx8r" path="res://enemy/shield_enemy/shield_enemy.tscn" id="11_gwnhp"]
-[ext_resource type="PackedScene" uid="uid://duhvhegf6byvr" path="res://enemy/spawner_enemy/spawner_enemy.tscn" id="12_57xbn"]
 [ext_resource type="PackedScene" uid="uid://dt3m30r5dehup" path="res://world/interactable/pickups/pickup_key.tscn" id="12_joquo"]
 [ext_resource type="PackedScene" uid="uid://bs6o5glcfe2as" path="res://enemy/projectile_enemy/projectile_enemy.tscn" id="12_t5ow0"]
 [ext_resource type="Script" path="res://world/interactable/activatable/moving_objects/platform_mover.gd" id="13_glw2f"]
@@ -33,6 +30,7 @@
 [ext_resource type="PackedScene" uid="uid://yllbcpq24cl0" path="res://enemy/creep_enemy/creep_enemy.tscn" id="26_hg8qn"]
 [ext_resource type="PackedScene" uid="uid://dovs54pxe1oba" path="res://generic/particle_fixer/particle_fixer.tscn" id="27_h03p2"]
 [ext_resource type="PackedScene" uid="uid://bimerg4hcbya2" path="res://enemy/charging_enemy/charging_enemy.tscn" id="27_kqj6m"]
+[ext_resource type="PackedScene" uid="uid://c4q0hmrfl5yh2" path="res://enemy/frog_boss/frog_boss.tscn" id="31_1tm5l"]
 
 [sub_resource type="Curve2D" id="Curve2D_j10fm"]
 _data = {
@@ -251,15 +249,6 @@ secondary_tree_odds = 0.165
 polygon = PackedVector2Array(483, 1342, 395, 1450, 245, 1511, 9, 1533, -197, 1590, -352, 1683, -419, 1768, -535, 1806, -733, 1804, -778, 1795, -773, 1322)
 
 [node name="Enemies" type="Node2D" parent="FirstEnemyArea" index="2"]
-
-[node name="TestEnemy" parent="FirstEnemyArea/Enemies" index="0" instance=ExtResource("10_sv285")]
-position = Vector2(441, 1871)
-
-[node name="ShieldEnemy" parent="FirstEnemyArea/Enemies" index="1" instance=ExtResource("11_gwnhp")]
-position = Vector2(1170, 1870)
-
-[node name="SpawnerEnemy" parent="FirstEnemyArea/Enemies" index="2" instance=ExtResource("12_57xbn")]
-position = Vector2(865, 2309)
 
 [node name="BushedOutside" type="Node2D" parent="FirstEnemyArea" index="3"]
 y_sort_enabled = true
@@ -604,6 +593,9 @@ knockback_friction = 3.0
 
 [node name="TileMapLayer" parent="." index="18" instance=ExtResource("15_nkduh")]
 position = Vector2(783, 1805)
+
+[node name="Frog Boss" parent="." index="20" instance=ExtResource("31_1tm5l")]
+position = Vector2(868, 1867)
 
 [connection signal="body_entered" from="PuzzleArea/DungeonEntrance/TransitionScene" to="PuzzleArea/DungeonEntrance/TransitionScene" method="_on_body_entered"]
 [connection signal="body_entered" from="BossArea/DungeonEntrance/TransitionScene" to="BossArea/DungeonEntrance/TransitionScene" method="_on_body_entered"]
