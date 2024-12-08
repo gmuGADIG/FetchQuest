@@ -1,0 +1,63 @@
+[gd_scene load_steps=6 format=4 uid="uid://b8inufx3udb4x"]
+
+[ext_resource type="PackedScene" uid="uid://cnd06dpkgufe4" path="res://world/level_base.tscn" id="1_o2u8f"]
+[ext_resource type="PackedScene" uid="uid://bm05x1jwytuuc" path="res://world/tilemap/main_tile_layer.tscn" id="2_5241x"]
+[ext_resource type="Texture2D" uid="uid://c4tqrgyodg8vo" path="res://world/levels/main_town/IMG_3598.jpg" id="2_wfgha"]
+[ext_resource type="PackedScene" uid="uid://bwo5q4wroaigc" path="res://world/interactable/transition_trigger/transition_trigger.tscn" id="5_jf0cg"]
+[ext_resource type="PackedScene" uid="uid://cyvppko06hjoq" path="res://npc/blacksmith/blacksmith_npc.tscn" id="7_gtroh"]
+
+[node name="Blacksmith" instance=ExtResource("1_o2u8f")]
+
+[node name="Background" type="ColorRect" parent="." index="0"]
+modulate = Color(0, 0, 0, 1)
+z_index = -50
+offset_left = -2905.0
+offset_top = -2168.0
+offset_right = 6298.0
+offset_bottom = 3639.0
+
+[node name="TileMapLayer" parent="." index="1" instance=ExtResource("2_5241x")]
+z_index = -5
+tile_map_data = PackedByteArray("AAD///7/BQAAAAAAAAAAAP7/BQAAAAAAAAABAP7/BQABAAAAAAACAP7/BQAAAAAAAAADAP7/BQAAAAAAAAAEAP7/BQABAAAAAAAFAP7/BQAAAAAAAAAGAP7/BQAAAAAAAAAHAP7/BQABAAAAAAAIAP7/BQAAAAAAAAAJAP7/BQAAAAAAAAAJAP//BQABAAAAAAAIAP//BQAAAAAAAAAHAP//BQAAAAAAAAAGAP//BQABAAAAAAAFAP//BQAAAAAAAAAEAP//BQABAAAAAAADAP//BQABAAAAAAACAP//BQABAAAAAAABAP//BQABAAAAAAAAAP//BQAAAAAAAAD/////BQAAAAAAAAD//wAABQABAAAAAAAAAAAABQABAAAAAAABAAAABQABAAAAAAACAAAABQABAAAAAAADAAAABQABAAAAAAAEAAAABQABAAAAAAAFAAAABQABAAAAAAAGAAAABQABAAAAAAAHAAAABQAAAAAAAAAIAAAABQAAAAAAAAAJAAAABQABAAAAAAAHAAEABQABAAAAAAAGAAEABQABAAAAAAAFAAEABQAAAAAAAAAEAAEABQABAAAAAAADAAEABQAAAAAAAAACAAEABQABAAAAAAABAAEABQABAAAAAAAAAAEABQABAAAAAAD//wEABQABAAAAAAAIAAEABQABAAAAAAAJAAEABQAAAAAAAAAJAAIABQABAAAAAAAIAAIABQABAAAAAAAHAAIABQABAAAAAAAGAAIABQAAAAAAAAAFAAIABQABAAAAAAAEAAIABQABAAAAAAADAAIABQAAAAAAAAACAAIABQAAAAAAAAABAAIABQAAAAAAAAAAAAIABQAAAAAAAAD//wIABQAAAAAAAAD//wMABQAAAAAAAAAAAAMABQABAAAAAAABAAMABQABAAAAAAACAAMABQAAAAAAAAADAAMABQAAAAAAAAAEAAMABQABAAAAAAAFAAMABQABAAAAAAAGAAMABQABAAAAAAAHAAMABQAAAAAAAAAIAAMABQAAAAAAAAAJAAMABQAAAAAAAAAHAAQABQAAAAAAAAAGAAQABQABAAAAAAAFAAQABQABAAAAAAAEAAQABQAAAAAAAAADAAQABQAAAAAAAAACAAQABQAAAAAAAAABAAQABQABAAAAAAAAAAQABQAAAAAAAAD//wQABQABAAAAAAACAAUABQABAAAAAAADAAUABQABAAAAAAAEAAUABQABAAAAAAAFAAUABQAAAAAAAAAGAAUABQABAAAAAAAIAAQABQABAAAAAAAJAAQABQABAAAAAAAJAAUABQAAAAAAAAAIAAUABQABAAAAAAAHAAUABQAAAAAAAAABAAUABQAAAAAAAAAAAAUABQAAAAAAAAD//wUABQABAAAAAAA=")
+
+[node name="Walls" type="StaticBody2D" parent="." index="2"]
+position = Vector2(-28, 539)
+scale = Vector2(1.18602, 1.18602)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Walls" index="0"]
+polygon = PackedVector2Array(-93.2254, -671.219, -82.8671, 218.537, 1123.88, 220.878, 1131.28, -682.146, 1248.18, -682.146, 1237.09, 269.268, -184.971, 263.024, -177.572, -768.78, 1265.94, -766.439, 1260.76, -671.219, 1099.47, -679.805, 568.505, -675.982)
+
+[node name="MainCam" parent="." index="3"]
+process_mode = 4
+visible = false
+enabled = false
+
+[node name="HUD" parent="." index="4"]
+visible = false
+
+[node name="DesignReference" type="Sprite2D" parent="." index="7"]
+visible = false
+z_index = 5
+position = Vector2(636, 396)
+rotation = -1.58376
+scale = Vector2(0.523098, 0.470528)
+texture = ExtResource("2_wfgha")
+
+[node name="SmithEnterance" type="Node2D" parent="EntryPoints" index="0"]
+position = Vector2(583, 454)
+
+[node name="TransitionScene" parent="EntryPoints/SmithEnterance" index="0" instance=ExtResource("5_jf0cg")]
+position = Vector2(53, 240)
+scene_name = "town_town"
+entry_point = "smith_exit"
+
+[node name="Player" parent="." index="9"]
+position = Vector2(695, 567)
+
+[node name="BlacksmithNPC" parent="." index="10" instance=ExtResource("7_gtroh")]
+position = Vector2(888, -87)
+scale = Vector2(2.42856, 2.42856)
+
+[node name="SpecialCamera" type="Camera2D" parent="." index="11"]
+position = Vector2(601, 59)
+zoom = Vector2(0.7, 0.7)

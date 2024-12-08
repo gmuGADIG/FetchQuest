@@ -1,0 +1,49 @@
+[gd_scene load_steps=4 format=3 uid="uid://ptoqylfawyy7"]
+
+[ext_resource type="Script" path="res://ui/fast_travel_map/fast_travel_map.gd" id="1_pm886"]
+[ext_resource type="PackedScene" uid="uid://cxth4eim2l47t" path="res://ui/fast_travel_map/toilet_travel_icon.tscn" id="2_hcnld"]
+[ext_resource type="Texture2D" uid="uid://d4gsyqpla4cjv" path="res://ui/fast_travel_map/FQ-Map_1-work-in-progress.png" id="2_ivg83"]
+
+[node name="FastTravelMap" type="CanvasLayer"]
+process_mode = 3
+script = ExtResource("1_pm886")
+
+[node name="Map" type="Sprite2D" parent="."]
+position = Vector2(594, 322)
+scale = Vector2(0.413727, 0.391128)
+texture = ExtResource("2_ivg83")
+
+[node name="Resume" type="Button" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -153.0
+offset_top = -95.0
+offset_right = 123.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 0
+focus_neighbor_top = NodePath("../OptionsMenuButton")
+focus_neighbor_bottom = NodePath("../Quit")
+theme_override_font_sizes/font_size = 48
+text = "Resume"
+
+[node name="Questbrook" parent="." instance=ExtResource("2_hcnld")]
+position = Vector2(458, 403)
+scene_name = "town_town"
+entry_point = "fast_travel"
+
+[node name="Thicket" parent="." instance=ExtResource("2_hcnld")]
+position = Vector2(383, 170)
+scene_name = "overworld"
+entry_point = "FastTravelThicket"
+
+[node name="Grove" parent="." instance=ExtResource("2_hcnld")]
+position = Vector2(706, 384)
+scene_name = "overworld"
+entry_point = "FastTravelGrove"
+
+[connection signal="tree_exited" from="." to="." method="_on_tree_exited"]
+[connection signal="pressed" from="Resume" to="." method="_on_resume_pressed"]

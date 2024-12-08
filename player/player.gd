@@ -3,19 +3,18 @@ class_name Player extends CharacterBody2D
 static var instance: Player
 
 @export var move_speed: float = 500.0 ## Move speed in pixels per second
-@export var max_health: int = 6 ## Max health and starting health
 @export var bomb_throw_speed: float = 1000.0 ## Bombs are thrown with this much velocity
-@export var max_stamina: float = 3.0
 @export var stamina_recovery_rate: float = 1.0 ## How much stamina
 @export var knockback_friction: float = 5.0 ## How fast the player slows down from knockback
 @export var roll_speed: float = 1000.0
 
-@onready var health: int = max_health: ## Current health
+
+@onready var health: int = PlayerInventory.max_health: ## Current health
 	set(value):
 		health = value
 		health_changed.emit()
 
-@onready var stamina: float = max_stamina:
+@onready var stamina: float = PlayerInventory.max_stamina:
 	set(value):
 		stamina = value
 		stamina_changed.emit()
@@ -28,6 +27,11 @@ static var instance: Player
 
 var bomb_scene := preload("bomb.tscn")
 
+@onready var _animated_sprites: Array[AnimatedSprite2D] = [%Skin1, %Skin2, %Skin3]
+func play_animation(animation: StringName) -> void:
+	for a in _animated_sprites:
+		a.play(animation)
+
 var active_sword: ThrownSword ## The active thrown sword. Null if the player is currently holding the sword
 
 ## On controller, if the aim stick isn't held in any direction, the last non-zero aim will be used
@@ -35,27 +39,27 @@ var last_aim_direction := Vector2.RIGHT
 
 var invincible: bool = false
 
+var facing_right: bool = true;
 var rolling: bool = false
 var roll_vector: Vector2 = Vector2(0, 0)
 var roll_timer: float = 0.25
 
 signal health_changed
 signal stamina_changed
+signal sword_thrown
+signal sword_caught
 
 # returns true if a stamina pip was used, false otherwise
 func expend_stamina() -> bool:
-	var int_stamina: int = int(stamina)
-	if int_stamina < 1:
+	if stamina < 1:
 		return false
 
-	stamina = max(float(int_stamina - 1), 0.0)
+	stamina = stamina - 1.
 	return true
 
 # recovers stamina by stamina_recovery_rate up to the max
 func recover_stamina(delta: float) -> void:
-	stamina += delta * stamina_recovery_rate
-	if stamina > max_stamina:
-		stamina = max_stamina
+	stamina = move_toward(stamina, PlayerInventory.max_stamina, delta * stamina_recovery_rate)
 
 #Changes speed to fit a sin wave for smoother rolls
 func get_roll_speed() -> float:
@@ -81,6 +85,10 @@ func start_roll() -> void:
 	rolling = true
 	# get direction for the roll
 	roll_vector = Input.get_vector("move_left", "move_right", "move_up", "move_down").normalized()
+	if(not facing_right):
+		play_animation("roll_left")
+	else:
+		play_animation("roll_right")
 	# switch off collision with enemy bullets and the holes
 	self.set_collision_mask_value(6, false)
 	hole_detector.enabled = false
@@ -93,22 +101,15 @@ func start_roll() -> void:
 
 # callback from roll timer. reverts changes made by start_roll
 func stop_roll() -> void:
+	# _animated_sprite.stop()
 	rolling = false
+	
 	hole_detector.enabled = true
 
 	self.set_collision_mask_value(6, true)
 
 func _init() -> void:
 	instance = self
-
-func _process(_delta: float) -> void:
-	if Input.is_action_just_pressed("speak"):
-		if !$Speak.on_cooldown():
-			$Speak.speak()
-
-	if Input.is_action_just_pressed("attack"):
-		if active_sword == null:
-			throw_sword()
 
 ## Returns a normalized vector in the direction the player is aiming.
 func get_aim() -> Vector2:
@@ -125,8 +126,28 @@ func throw_sword() -> void:
 	add_sibling(sword)
 	sword.throw(get_aim())
 
-func _physics_process(delta: float) -> void:
+	sword_thrown.emit()
+	sword.tree_exited.connect(sword_caught.emit)
+
+func _process(delta: float) -> void:
+	if Input.is_action_just_pressed("speak"):
+		if !$Speak.on_cooldown():
+			$Speak.speak()
+			if(not facing_right):
+				play_animation("bark_left")
+			else:
+				play_animation("bark_right")
+
+	if Input.is_action_just_pressed("attack"):
+		if active_sword == null:
+			throw_sword()
+
 	velocity = Input.get_vector("move_left", "move_right", "move_up", "move_down") * move_speed
+	if(velocity != Vector2.ZERO):
+		if(velocity.x < 0):
+			facing_right = false
+		else:
+			facing_right = true
 	if($Speak.is_speaking()):
 		velocity *= $Speak.movement_multiplier
 	# normal movement input is not processed while rolling
@@ -138,16 +159,29 @@ func _physics_process(delta: float) -> void:
 	recover_stamina(delta)
 
 	if (Input.is_action_just_pressed("dog_roll")):
+		# _animated_sprite.stop()
 		start_roll()
-
+		
+	if(not rolling && not $Speak.is_speaking()):
+		if(velocity == Vector2.ZERO):
+			if(facing_right):
+				play_animation("idle_right")
+			else:
+				play_animation("idle_left")
+		elif(not facing_right):
+			play_animation("walk_left")
+		else:
+			play_animation("walk_right")
 	velocity += force_applied
-	force_applied = force_applied.lerp(Vector2.ZERO, delta * knockback_friction)
+
+	force_applied = force_applied * exp(-knockback_friction * delta)
+	if force_applied.length() < 10: force_applied = Vector2.ZERO
+
 	move_and_slide()
+	
+	handle_one_ways()
 
 func _input(event: InputEvent) -> void:
-	#TODO: REMOVE THIS
-	PlayerInventory.bombs = 314159
-
 	if(event.is_action_pressed("throw_bomb")):
 		if PlayerInventory.bombs > 0:
 			var bomb_instance := bomb_scene.instantiate()
@@ -156,6 +190,32 @@ func _input(event: InputEvent) -> void:
 			add_sibling(bomb_instance)
 			PlayerInventory.bombs-=1
 
+## Called every frame after move_and_slide
+## Checks for collision with one-way tiles and moves accordingly
+func handle_one_ways() -> void:
+	if rolling: return
+	
+	for i in range(get_slide_collision_count()):
+		var collision := get_slide_collision(i)
+		var one_way := collision.get_collider() as OneWay
+		if one_way != null:
+			var player_direction := -collision.get_normal()
+			if player_direction == one_way.direction:
+				jump_over_one_way(one_way.direction)
+				break # prevent jumping twice in a frame
+
+func jump_over_one_way(direction: Vector2) -> void:
+	var jump_to := position + OneWay.JUMP_SIZE * direction
+	
+	process_mode = PROCESS_MODE_DISABLED
+	
+	var tween := get_tree().create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
+	tween.tween_property(self, "position", jump_to, .5)
+	
+	await tween.finished
+	process_mode = PROCESS_MODE_INHERIT
+	
+
 ## Damages the player, lowering its health.
 func hurt(damage_event: DamageEvent) -> void:
 	if health <= 0: return # don't die twice
@@ -163,7 +223,7 @@ func hurt(damage_event: DamageEvent) -> void:
 	if invincible: return # immune if invincible is true for i frames
 	health -= damage_event.damage
 	add_force(damage_event.knockback)
-	print("player.gd: Health lowered to %s/%s" % [health, max_health])
+	print("player.gd: Health lowered to %s/%s" % [health, PlayerInventory.max_health])
 
 	if health <= 0:
 		get_tree().change_scene_to_file.call_deferred("uid://b6jsq4syp4v0w")
@@ -172,10 +232,10 @@ func hurt(damage_event: DamageEvent) -> void:
 
 ## Increases the player, not exceeding its max health
 func heal(gained: int) -> void:
-	if health >= max_health: return
+	if health >= PlayerInventory.max_health: return
 
-	health = move_toward(health, max_health, gained) as int
-	print("player.gd: Health raised to %s/%s" % [health, max_health])
+	health = move_toward(health, PlayerInventory.max_health, gained) as int
+	print("player.gd: Health raised to %s/%s" % [health, PlayerInventory.max_health])
 
 ## Apply a force to the player. Generally, a good magnitude is around 500 to 1000
 func add_force(force: Vector2) -> void:

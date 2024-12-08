@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=3 uid="uid://cjv0vpibnhfvp"]
+
+[ext_resource type="PackedScene" uid="uid://dvhfibvbfhnnv" path="res://npc/base_npc.tscn" id="1_2s7kj"]
+[ext_resource type="Texture2D" uid="uid://ceg63cpiw4kam" path="res://npc/shopkeeper/shopkeeper_spritesheet.PNG" id="2_viluo"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_38kjb"]
+atlas = ExtResource("2_viluo")
+region = Rect2(22, 0, 232, 500)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xynws"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_38kjb")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="ShopkeeperNPC" instance=ExtResource("1_2s7kj")]
+scale = Vector2(0.554937, 0.554937)
+
+[node name="CollisionShape2D" parent="." index="0"]
+position = Vector2(0, -20)
+scale = Vector2(1.79208, 1.79208)
+
+[node name="TalkingInteractable" parent="." index="1"]
+scale = Vector2(1.587, 1.587)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="2"]
+position = Vector2(-21, -152)
+scale = Vector2(0.84999, 0.84999)
+sprite_frames = SubResource("SpriteFrames_xynws")
+autoplay = "default"
+frame_progress = 0.262282

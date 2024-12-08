@@ -1,0 +1,187 @@
+[gd_scene load_steps=31 format=3 uid="uid://cgfe6ifcyh8tl"]
+
+[ext_resource type="PackedScene" uid="uid://cnd06dpkgufe4" path="res://world/levels/level_base.tscn" id="1_im3mq"]
+[ext_resource type="Script" path="res://addons/rmsmartshape/shapes/shape.gd" id="2_wgcag"]
+[ext_resource type="Script" path="res://addons/rmsmartshape/vertex_properties.gd" id="3_a7o8f"]
+[ext_resource type="Script" path="res://addons/rmsmartshape/shapes/point.gd" id="4_8wmo1"]
+[ext_resource type="Script" path="res://addons/rmsmartshape/shapes/point_array.gd" id="5_pnu35"]
+[ext_resource type="Script" path="res://addons/rmsmartshape/materials/edge_material_metadata.gd" id="6_d05ba"]
+[ext_resource type="Script" path="res://addons/rmsmartshape/materials/edge_material.gd" id="7_auvh3"]
+[ext_resource type="Texture2D" uid="uid://44kulpb4g2yb" path="res://world/smart_shapes/stone/stone_edge.png" id="8_rljab"]
+[ext_resource type="Texture2D" uid="uid://db34f7pg3nm1u" path="res://world/smart_shapes/stone/stone_corner.png" id="9_glg0n"]
+[ext_resource type="Script" path="res://addons/rmsmartshape/normal_range.gd" id="10_o07gq"]
+[ext_resource type="Texture2D" uid="uid://daw0oyi4x1btj" path="res://world/smart_shapes/stone/stone_center.png" id="11_apvu0"]
+[ext_resource type="Script" path="res://addons/rmsmartshape/materials/shape_material.gd" id="12_36q1h"]
+[ext_resource type="Texture2D" uid="uid://dc4pcxr2lfkka" path="res://demo_art/dungeon_entrance.png" id="13_lelq2"]
+[ext_resource type="Script" path="res://world/interactable/transition_trigger/transition_trigger.gd" id="14_yjx28"]
+
+[sub_resource type="Resource" id="Resource_3w67f"]
+script = ExtResource("3_a7o8f")
+texture_idx = 3
+flip = false
+width = 1.0
+
+[sub_resource type="Resource" id="Resource_ms4cq"]
+script = ExtResource("4_8wmo1")
+position = Vector2(-240, -104)
+point_in = Vector2(0, 0)
+point_out = Vector2(0, 0)
+properties = SubResource("Resource_3w67f")
+
+[sub_resource type="Resource" id="Resource_hmq11"]
+script = ExtResource("3_a7o8f")
+texture_idx = 3
+flip = false
+width = 1.0
+
+[sub_resource type="Resource" id="Resource_c7sv1"]
+script = ExtResource("4_8wmo1")
+position = Vector2(-240, -104)
+point_in = Vector2(0, 0)
+point_out = Vector2(0, 0)
+properties = SubResource("Resource_hmq11")
+
+[sub_resource type="Resource" id="Resource_26j68"]
+script = ExtResource("3_a7o8f")
+texture_idx = 25
+flip = false
+width = 1.0
+
+[sub_resource type="Resource" id="Resource_neu1m"]
+script = ExtResource("4_8wmo1")
+position = Vector2(-240, 784)
+point_in = Vector2(0, 0)
+point_out = Vector2(0, 0)
+properties = SubResource("Resource_26j68")
+
+[sub_resource type="Resource" id="Resource_h6orj"]
+script = ExtResource("3_a7o8f")
+texture_idx = 18
+flip = false
+width = 1.0
+
+[sub_resource type="Resource" id="Resource_0j61k"]
+script = ExtResource("4_8wmo1")
+position = Vector2(1368, 784)
+point_in = Vector2(0, 0)
+point_out = Vector2(0, 0)
+properties = SubResource("Resource_h6orj")
+
+[sub_resource type="Resource" id="Resource_2k7tj"]
+script = ExtResource("3_a7o8f")
+texture_idx = 5
+flip = false
+width = 1.0
+
+[sub_resource type="Resource" id="Resource_l70h6"]
+script = ExtResource("4_8wmo1")
+position = Vector2(1368, -104)
+point_in = Vector2(0, 0)
+point_out = Vector2(0, 0)
+properties = SubResource("Resource_2k7tj")
+
+[sub_resource type="Resource" id="Resource_k37ii"]
+script = ExtResource("5_pnu35")
+_points = {
+0: SubResource("Resource_ms4cq"),
+14: SubResource("Resource_c7sv1"),
+15: SubResource("Resource_neu1m"),
+16: SubResource("Resource_0j61k"),
+17: SubResource("Resource_l70h6")
+}
+_point_order = PackedInt32Array(0, 17, 16, 15, 14)
+_constraints = {
+Vector2i(14, 0): 15
+}
+_next_key = 19
+_material_overrides = {}
+tessellation_stages = 3
+tessellation_tolerance = 6.0
+curve_bake_interval = 20.0
+
+[sub_resource type="Resource" id="Resource_cxwon"]
+script = ExtResource("7_auvh3")
+textures = Array[Texture2D]([ExtResource("8_rljab")])
+textures_corner_outer = Array[Texture2D]([ExtResource("9_glg0n")])
+textures_corner_inner = Array[Texture2D]([ExtResource("9_glg0n")])
+textures_taper_left = Array[Texture2D]([])
+textures_taper_right = Array[Texture2D]([])
+textures_taper_corner_left = Array[Texture2D]([])
+textures_taper_corner_right = Array[Texture2D]([])
+randomize_texture = false
+use_corner_texture = true
+use_taper_texture = true
+fit_mode = 1
+
+[sub_resource type="Resource" id="Resource_tx3d3"]
+script = ExtResource("10_o07gq")
+begin = 0.0
+distance = 360.0
+edgeRendering = Vector2(0, 0)
+
+[sub_resource type="Resource" id="Resource_rqts2"]
+script = ExtResource("6_d05ba")
+edge_material = SubResource("Resource_cxwon")
+normal_range = SubResource("Resource_tx3d3")
+weld = true
+taper_sharp_corners = false
+render = true
+z_index = 1
+z_as_relative = true
+offset = 0.9
+
+[sub_resource type="Resource" id="Resource_ydhle"]
+script = ExtResource("12_36q1h")
+_edge_meta_materials = Array[ExtResource("6_d05ba")]([SubResource("Resource_rqts2")])
+fill_textures = Array[Texture2D]([ExtResource("11_apvu0")])
+fill_texture_z_index = 0
+fill_texture_show_behind_parent = false
+fill_texture_scale = 0.5
+fill_texture_absolute_position = false
+fill_texture_absolute_rotation = false
+fill_texture_offset = Vector2(0, 0)
+fill_texture_angle_offset = 0.0
+fill_mesh_offset = 0.0
+render_offset = 0.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pefym"]
+size = Vector2(158, 146)
+
+[node name="LevelBase2" instance=ExtResource("1_im3mq")]
+
+[node name="MainCam" parent="." index="0"]
+limit_left = -256
+limit_top = -120
+limit_right = 1392
+limit_bottom = 800
+
+[node name="Main" type="Node2D" parent="EntryPoints" index="0"]
+position = Vector2(576, 640)
+
+[node name="Floor" type="Node2D" parent="." index="6"]
+z_index = -10
+position = Vector2(0, 8)
+script = ExtResource("2_wgcag")
+_points = SubResource("Resource_k37ii")
+shape_material = SubResource("Resource_ydhle")
+
+[node name="Courtyard" type="Sprite2D" parent="." index="7"]
+position = Vector2(576, 744)
+rotation = 3.14159
+scale = Vector2(1.05099, 1.12943)
+texture = ExtResource("13_lelq2")
+
+[node name="TransitionScene" type="Area2D" parent="Courtyard" index="0"]
+position = Vector2(-6.00761, 27.8925)
+scale = Vector2(0.429116, 0.429116)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("14_yjx28")
+scene_name = "dungeon_3_floor1_courtyard"
+entry_point = "ChamberExit"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Courtyard/TransitionScene" index="0"]
+position = Vector2(6, -13)
+shape = SubResource("RectangleShape2D_pefym")
+
+[connection signal="body_entered" from="Courtyard/TransitionScene" to="Courtyard/TransitionScene" method="_on_body_entered"]

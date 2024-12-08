@@ -1,6 +1,59 @@
-[gd_scene load_steps=2 format=3 uid="uid://oa5pi8dnpsif"]
+[gd_scene load_steps=12 format=3 uid="uid://oa5pi8dnpsif"]
 
 [ext_resource type="Script" path="res://quest/quest_system.gd" id="1_vwsky"]
+[ext_resource type="Script" path="res://quest/quest.gd" id="2_mcauu"]
+[ext_resource type="Script" path="res://quest/fetch_item.gd" id="3_3yki1"]
+[ext_resource type="Script" path="res://quest/fetch_quest.gd" id="3_elkl0"]
+
+[sub_resource type="Resource" id="Resource_sub6d"]
+script = ExtResource("3_3yki1")
+id = "quest_gossip_a"
+count = 1
+
+[sub_resource type="Resource" id="Resource_37ixn"]
+script = ExtResource("3_3yki1")
+id = "quest_gossip_b"
+count = 1
+
+[sub_resource type="Resource" id="Resource_uu0m8"]
+script = ExtResource("3_3yki1")
+id = "quest_gossip_c"
+count = 1
+
+[sub_resource type="Resource" id="Resource_vkwvv"]
+script = ExtResource("3_3yki1")
+id = "quest_gossip_d"
+count = 1
+
+[sub_resource type="Resource" id="Resource_036bn"]
+script = ExtResource("3_elkl0")
+fetch_items = Array[ExtResource("3_3yki1")]([SubResource("Resource_sub6d"), SubResource("Resource_37ixn"), SubResource("Resource_uu0m8"), SubResource("Resource_vkwvv")])
+quest_id = "gossip"
+is_main_quest = false
+display_name = "Whispers of Questbrooke"
+description = "Help the elder uncover the truth about some villagers by gathering specific items tied to her suspicions.
+
+The elder has her suspicions about certain villagers and needs you to fetch items to confirm or deny her rumors. Pay close attention to her clues—they hint at what to find and where to look. Explore the town and nearby areas to locate the evidence she seeks, then bring it back to her."
+instructions = Array[String]([])
+good_boy_reward = 0
+
+[sub_resource type="Resource" id="Resource_50844"]
+script = ExtResource("3_3yki1")
+id = "quest_camera"
+count = 5
+
+[sub_resource type="Resource" id="Resource_6tm4f"]
+script = ExtResource("3_elkl0")
+fetch_items = Array[ExtResource("3_3yki1")]([SubResource("Resource_50844")])
+quest_id = "camera"
+is_main_quest = false
+display_name = "Peeping Fungus"
+description = "Remove \"Suspicion Mushrooms\" (hidden \"cameras\") from the area to protect the townspeople’s privacy and bring them back to the Shopkeeper.
+
+Suspicious mushrooms have sprouted in the south west of Questbrooke, making the locals uneasy. These fungi seem to have eyes on everyone, and the Shopkeeper wants them gone—for the sake of business, of course. Explore the area, find all 5 hidden mushrooms, and return them to the Shopkeeper."
+instructions = Array[String]([])
+good_boy_reward = 20
 
 [node name="QuestSystem" type="Node"]
 script = ExtResource("1_vwsky")
+quests = Array[ExtResource("2_mcauu")]([SubResource("Resource_036bn"), SubResource("Resource_6tm4f")])

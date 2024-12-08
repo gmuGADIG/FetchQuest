@@ -1,0 +1,17 @@
+[gd_scene load_steps=5 format=3 uid="uid://d1neftn7js5i3"]
+
+[ext_resource type="PackedScene" uid="uid://c7ck7ril2jix2" path="res://player/player.tscn" id="1_xv5jv"]
+[ext_resource type="PackedScene" uid="uid://c4q0hmrfl5yh2" path="res://enemy/frog_boss/frog_boss.tscn" id="2_lvjk6"]
+[ext_resource type="Script" path="res://world/camera/main_cam.gd" id="5_fm1uk"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_wmh88"]
+
+[node name="FrogBossTest" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource("1_xv5jv")]
+
+[node name="Frog Boss" parent="." instance=ExtResource("2_lvjk6")]
+
+[node name="MainCam" type="Camera2D" parent="."]
+script = ExtResource("5_fm1uk")
+shake_noise = SubResource("FastNoiseLite_wmh88")

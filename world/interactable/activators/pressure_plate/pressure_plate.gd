@@ -14,7 +14,7 @@ func _process(_delta: float) -> void:
 	if pressed != pressed_this_frame:
 		if pressed_this_frame:
 			switch_activated.emit()
-		if pressed_this_frame:
+		else:
 			switch_deactivated.emit()
 
 	pressed = pressed_this_frame

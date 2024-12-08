@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://sv3l5ubvvkda"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_7s5vp"]
+load_path = "res://.godot/imported/oneway.png-2b8effe1e2f84fdeb566a44b466f6828.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ynanh"]
+atlas = SubResource("CompressedTexture2D_7s5vp")
+region = Rect2(512, 256, 256, 256)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w7lec"]
+size = Vector2(256, 256)
+
+[node name="OneWayBottomRight" type="StaticBody2D"]
+z_index = -1
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_ynanh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_w7lec")
+debug_color = Color(0.680929, 0.5037, 0, 0.0823529)

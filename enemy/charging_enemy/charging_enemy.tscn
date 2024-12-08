@@ -253,7 +253,7 @@ _data = {
 "RESET": SubResource("Animation_544fv")
 }
 
-[node name="ChargingEnemy" instance=ExtResource("1_nwicp")]
+[node name="ChargingEnemy" node_paths=PackedStringArray("enemy_sprite") instance=ExtResource("1_nwicp")]
 script = ExtResource("2_xj1sy")
 charging_damage = 2
 charging_speed = 500.0
@@ -261,6 +261,7 @@ charge_windup = 0.7
 charge_length = 1.5
 stun_length = 2.0
 is_winding_up = false
+enemy_sprite = NodePath("ChargingAnimation")
 
 [node name="ChargingAnimation" type="AnimatedSprite2D" parent="." index="0"]
 position = Vector2(0, -5)

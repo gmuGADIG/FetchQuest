@@ -11,4 +11,5 @@ func _ready() -> void:
 	$ShootProjectileBehavior.attack_range = attack_range
 	$ShootProjectileBehavior.attack_spread = attack_spread
 	$ShootProjectileBehavior.animation_length = animation_length
+	$AnimatedSprite2D.animation="fire_right"
 	

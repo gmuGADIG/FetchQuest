@@ -10,8 +10,7 @@ static func set_entry_point(entry_point_name: String) -> void:
 
 # On ready, sets the players position to the current entry point
 func _ready() -> void:
-	assert(get_child_count() != 0, "Scene has no entry points! Add a child to the EntryPoints node, with a name that will be referred to by anything entering this scene.")
-	
+	assert(get_child_count() != 0, "Scene has no entry points! Add a child to the EryPoints node, with a name that will be referred to by anything entering this scene.")
 	
 	var entry_node: Node2D = get_node_or_null(current_entry_point)
 	if current_entry_point == "":
@@ -23,8 +22,10 @@ func _ready() -> void:
 	if entry_node == null: 
 		printerr("No entry point of name '%s' was found!" % current_entry_point)
 	else:
-		Player.instance.position = entry_node.position
-		MainCam.instance.reset_smoothing.call_deferred() # this makes the camera snap to the new position
+		Player.instance.global_position = entry_node.global_position
 	
 	# reset the entry point. this makes sure it's being set each time the scene changes
 	current_entry_point = ""
+
+	MainCam.instance.global_position = Player.instance.global_position
+	MainCam.instance.reset_smoothing.call_deferred()

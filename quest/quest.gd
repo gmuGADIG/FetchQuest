@@ -4,7 +4,7 @@ class_name Quest extends Resource
 @export var is_main_quest:bool = false ## Whether this is part of the main quest line. Will affect how it's displayed in the UI.
 @export var display_name:String = "" ## The display name of the quest
 @export_multiline var description:String = "" ## The description that is shown to the user.
-@export var instructions:Array[String] = [""] ## If a quest is split into steps, this list tells the user what those steps are.
+@export var instructions:Array[String] = [] ## If a quest is split into steps, this list tells the user what those steps are.
 @export var good_boy_reward: int ## How many Good Boy Points are awarded when the quest is completed.
 
 ## How many instructions have been completed. Indexes into `instructions` list.
