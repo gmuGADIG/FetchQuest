@@ -37,7 +37,7 @@ func _on_entry_clicked(entry: QuestEntry) -> void:
 	title.text = quest.display_name
 	description.text = quest.description
 	reward.text = "%s Good Boy Points" % quest.good_boy_reward
-	completion_stamp.visible = quest.is_completed()
+	completion_stamp.visible = quest.is_completed() or quest.is_turned_in()
 
 	right_page.visible = true
 
