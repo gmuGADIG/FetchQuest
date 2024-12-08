@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://f5fpm2n5cr1t"]
+
+[ext_resource type="Texture2D" uid="uid://bdylr7ieawxh4" path="res://world/decoration/church_instruments/Harp.png" id="1_26y0h"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h25j2"]
+size = Vector2(177, 80)
+
+[node name="Node2D" type="Node2D"]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(1, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(9.5, 77)
+shape = SubResource("RectangleShape2D_h25j2")
+
+[node name="Harp" type="Sprite2D" parent="StaticBody2D"]
+y_sort_enabled = true
+texture = ExtResource("1_26y0h")
