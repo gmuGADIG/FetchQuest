@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://dksmpwoovhna3" path="res://ui/title/Options Shadow Gear.png" id="6_355cm"]
 [ext_resource type="Script" path="res://ui/title/main_menu.gd" id="6_ogkp4"]
 [ext_resource type="Script" path="res://ui/options/open_options_menu_button.gd" id="7_s51k4"]
+[ext_resource type="PackedScene" uid="uid://rap0uso4fckx" path="res://dj_music_man/music_players/instant_music_player.tscn" id="8_dxujq"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qqo3l"]
 bg_color = Color(0.592157, 0.00392157, 0.945098, 1)
@@ -234,6 +235,8 @@ options_menu = NodePath("../OptionsMenu")
 
 [node name="OptionsMenu" parent="." instance=ExtResource("1_5n5k7")]
 visible = false
+
+[node name="MusicPlayer" parent="." instance=ExtResource("8_dxujq")]
 
 [connection signal="pressed" from="ContinueGame" to="." method="_on_menu_major_button_pressed"]
 [connection signal="pressed" from="ContinueGame" to="." method="_on_continue_game_pressed"]
