@@ -155,15 +155,17 @@ texture = ExtResource("2_yu8al")
 shape = SubResource("RectangleShape2D_rnx4b")
 
 [node name="EnemySprite" type="Sprite2D" parent="." index="2"]
+visible = false
 self_modulate = Color(0.473481, 0.00278523, 0.831244, 1)
 scale = Vector2(-0.227, 0.227)
 texture = SubResource("AtlasTexture_pruo6")
 hframes = 6
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="7"]
-scale = Vector2(0.210526, 0.210526)
+[node name="ShieldEnemyAnimation" type="AnimatedSprite2D" parent="." index="7"]
+scale = Vector2(0.274553, 0.274552)
 sprite_frames = SubResource("SpriteFrames_b5msn")
-animation = &"walking"
-frame_progress = 0.0600279
+animation = &"idle"
+frame_progress = 0.419135
+flip_h = true
 
 [connection signal="body_entered" from="Shield" to="." method="_on_shield_body_entered"]

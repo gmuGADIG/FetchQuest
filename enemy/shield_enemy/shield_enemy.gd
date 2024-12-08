@@ -3,8 +3,7 @@ class_name ShieldEnemy extends Enemy
 ## The size of the shield in degrees (360 is a full shield and 0 is no shield)
 @export_range(0, 360, 0.025) var shield_size:float = 60
 
-var idle_path:String = "uid://crpi8s5u67ra5"
-var walking_path:String = "uid://dsqmxhv5w2k1o"
+@onready var shield_sprite: AnimatedSprite2D = $ShieldEnemyAnimation
 
 # NOTE 	This movement code is taken from the test_enemy 
 #   	and will probably not stay like this forever
