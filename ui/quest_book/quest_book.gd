@@ -57,7 +57,8 @@ func _display() -> void:
 
 	var first_entry: QuestEntry = null
 	for quest in QuestSystem.quests:
-		if quest.is_unassigned(): return
+		print(quest.display_name)
+		if quest.is_unassigned(): continue
 
 		var entry: QuestEntry = entry_scene.instantiate()
 		entry.quest_name = quest.display_name
