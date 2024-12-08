@@ -76,8 +76,6 @@ func actor_setup() -> void:
 	approach(self.global_position)
 
 func _process(delta: float) -> void:
-	
-	
 	decide_state(delta)
 	
 	match enemy_state:
@@ -170,7 +168,6 @@ func _process_agressive(delta: float) -> void:
 	
 	var target : Vector2
 	#When the enemy is inside of the valid target region
-	
 	
 	if (enemy_distance > agressive_target_distance_min) && (enemy_distance < agressive_target_distance_max):
 		if(self.position.distance_squared_to(navigation_target)>10):
