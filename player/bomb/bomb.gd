@@ -6,6 +6,9 @@ class_name Bomb extends CharacterBody2D
 @export var knockback: float = 10
 var explode_timer := Timer.new()
 
+@onready var explosion_area: Area2D = %ExplosionArea
+@onready var animator: AnimationPlayer = %AnimationPlayer
+
 func _ready() -> void:
 	add_child(explode_timer)
 	explode_timer.wait_time = time_till_explode
@@ -14,21 +17,17 @@ func _ready() -> void:
 	explode_timer.start()
 
 func explode() -> void:
-	$Explosion.visible = true
-	$BombSprite.visible = false
-	var damaged_area := get_node("Explosion")
-	var damaged_things :Array[Node2D]= damaged_area.get_overlapping_bodies()
-	print(damaged_things)
+	var damaged_things := explosion_area.get_overlapping_bodies()
+
 	for thing in damaged_things:
 		if thing.has_method("hurt") and !(thing is Bomb):
 			var hurt_damage := damage_to_player if thing is Player else damage
 			thing.hurt(DamageEvent.new(hurt_damage, velocity.normalized() * knockback, DamageEvent.DamageType.Bomb)) 
-	
-	#TODO: change animation
-	#get_node("BombSprite").scale.x *= 4
-	#get_node("BombSprite").scale.y *= 4
-	await get_tree().create_timer(0.1).timeout
-	print("KABOOM")
+
+	$Explosion.visible = true
+	$BombSprite.visible = false
+	animator.play("explode")
+	await animator.animation_finished
 
 	queue_free()
 
