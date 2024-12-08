@@ -295,12 +295,18 @@ scale = Vector2(0.21, 0.21)
 sprite_frames = SubResource("SpriteFrames_r4o7u")
 animation = &"Artie_Roll_Right"
 
+[node name="XRay" type="Node" parent="SkinChooser/Skin1"]
+script = ExtResource("3_f3hsb")
+x_ray_opacity = 0.4
+
 [node name="Skin2" type="Sprite2D" parent="SkinChooser"]
 unique_name_in_owner = true
 visible = false
 position = Vector2(10, 3)
 scale = Vector2(0.301772, 0.286698)
 texture = ExtResource("3_4uqbb")
+
+[node name="XRay" type="Node" parent="SkinChooser/Skin2"]
 script = ExtResource("3_f3hsb")
 
 [node name="Skin3" type="Sprite2D" parent="SkinChooser"]
@@ -310,6 +316,8 @@ position = Vector2(0, 53)
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("2_ts2mf")
 offset = Vector2(0, -300)
+
+[node name="XRay" type="Node" parent="SkinChooser/Skin3"]
 script = ExtResource("3_f3hsb")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
