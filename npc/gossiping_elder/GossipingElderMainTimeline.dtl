@@ -1,16 +1,4 @@
-if {gossip.quest_accepted} == false:
-	# The start of the Fetch Gossip quest
-	GossipyElder: Hello there dear. Word around town is that a hero is going to be saving us all and that hero is you. Isn’t that interesting?
-	GossipyElder: You see, I’m the eyes and ears of this town, but I’m lacking some valuable information on a few of the lovely townsfolk here. Would you be a dear and help little old me out? All I need from you is to get some items that’ll confirm these sneaking suspicions of mine.
-	- Woof!
-		GossipyElder: I knew I could count on you! Such a good boy you are. Now, you didn’t hear all of this from me, but…
-		GossipyElder: That blacksmith of ours really tries killing a pesky bug. It’s truly a funny sight to see! Although, I have a belief that it’s all a facade. I’m sure near that shop of his is a personal log of his true feelings.
-		GossipyElder: Word around town is that people have mysteriously gone missing before and the doctor was a part of the reason why. Probably somewhere near his house is a reminder of what happened to those people.
-		GossipyElder: There’s this farmer, really nice and sweet, but I believe he has a little secret. A secret he isn’t good at hiding, but still a secret! I have a sneaking suspicion our lovely farmer has had an ideal dream and the proof is placed where he spends his days.
-		GossipyElder: There’s a survivalist here and she’s quite the sweetheart. Loves animals and all that. I’ve heard she’s been looking for a bit of help for a.. well, my memory isn’t the best you see but I believe it’s for a sanctuary. She probably has a bulk of her help wanted posters at her house.
-		GossipyElder: Take your time in finding all that I need. Be a sweetheart and visit me if you have what I require or you need my hints to be repeated!
-		# TODO: start quest
-elif {gossip.quest_done} == true:
+if QuestSystem.is_quest_completed("gossip"):
 	if {dungeons_completed} == 0:
 		GossipyElder: Why, aren’t you the cutest? Oh, but no one’s cuter than my wife and cats. You’re a close third, but don’t let anyone know I told you that.
 		GossipyElder: Be safe out there. Beyond the town is a dangerous world, but you didn’t hear that from me.
@@ -25,15 +13,24 @@ elif {gossip.quest_done} == true:
 		GossipyElder: As an elder, I have to make sure everyone is doing well. How else will I be able to squeeze information out of them? Ohoho..
 	else:
 		# they didn't write anything for this case :/
+elif QuestSystem.is_quest_assigned("gossip"):
+	# The start of the Fetch Gossip quest
+	GossipyElder: Hello there dear. Word around town is that a hero is going to be saving us all and that hero is you. Isn’t that interesting?
+	GossipyElder: You see, I’m the eyes and ears of this town, but I’m lacking some valuable information on a few of the lovely townsfolk here. Would you be a dear and help little old me out? All I need from you is to get some items that’ll confirm these sneaking suspicions of mine.
+	- Woof!
+		GossipyElder: I knew I could count on you! Such a good boy you are. Now, you didn’t hear all of this from me, but…
+		GossipyElder: That blacksmith of ours really tries killing a pesky bug. It’s truly a funny sight to see! Although, I have a belief that it’s all a facade. I’m sure near that shop of his is a personal log of his true feelings.
+		GossipyElder: Word around town is that people have mysteriously gone missing before and the doctor was a part of the reason why. Probably somewhere near his house is a reminder of what happened to those people.
+		GossipyElder: There’s this farmer, really nice and sweet, but I believe he has a little secret. A secret he isn’t good at hiding, but still a secret! I have a sneaking suspicion our lovely farmer has had an ideal dream and the proof is placed where he spends his days.
+		GossipyElder: There’s a survivalist here and she’s quite the sweetheart. Loves animals and all that. I’ve heard she’s been looking for a bit of help for a.. well, my memory isn’t the best you see but I believe it’s for a sanctuary. She probably has a bulk of her help wanted posters at her house.
+		GossipyElder: Take your time in finding all that I need. Be a sweetheart and visit me if you have what I require or you need my hints to be repeated!
+		do QuestSystem.assign_quest("gossip")
 else:
-	# TODO: get items from player inventory
-	if {gossip.has_new_item} == true:
-		if {gossip.items_collected} == 4:
-			GossipyElder: Thank you for helping out an old lady such as myself.
-			GossipyElder: I should give you a reward for doing so well. I hope you like cat food, ohoho!
-		else:
-			GossipyElder: Ooh.. mhm.. yes, yes.. this will do nicely.
-			GossipyElder: Thank you for this valuable piece of information. You’re such a good boy, aren’t you?
+	if QuestSystem.is_quest_completed("gossip"):
+		# Finished quest
+		GossipyElder: Thank you for helping out an old lady such as myself.
+		GossipyElder: I should give you a reward for doing so well. I hope you like cat food, ohoho!
+		do QuestSystem.finish_quest("gossip")
 	else:
 		# Repeat quest dialogue
 		GossipyElder: Hello again dear. Have you found any of the items I’ve requested? While I would say there’s no rush, my cats here are an impatient bunch. Ohoho! Of course I don’t mind waiting, sweetie, take all the time you need.

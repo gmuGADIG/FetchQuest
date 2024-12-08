@@ -12,6 +12,15 @@ signal quest_completed(quest: Quest)
 func assign_quest(id: String) -> void:
 	_find_quest_by_id(id).assign_quest()
 
+func finish_quest(id: String) -> void:
+	_find_quest_by_id(id).turn_in()
+
+func is_quest_assigned(id: String) -> bool:
+	return _find_quest_by_id(id).is_assigned()
+
+func is_quest_completed(id: String) -> bool:
+	return _find_quest_by_id(id).is_completed()
+
 func get_assigned_quests() -> Array[Quest]:
 	return quests.filter(func(q: Quest) -> bool: return q.is_assigned())
 
