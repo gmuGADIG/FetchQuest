@@ -1,7 +1,9 @@
-[gd_scene load_steps=29 format=3 uid="uid://cyq8hxsw5y82a"]
+[gd_scene load_steps=31 format=3 uid="uid://cyq8hxsw5y82a"]
 
 [ext_resource type="PackedScene" uid="uid://cnd06dpkgufe4" path="res://world/levels/level_base.tscn" id="1_3oodm"]
+[ext_resource type="Texture2D" uid="uid://dc4pcxr2lfkka" path="res://demo_art/dungeon_entrance.png" id="2_4tf8t"]
 [ext_resource type="Script" path="res://addons/rmsmartshape/shapes/shape.gd" id="2_heehg"]
+[ext_resource type="PackedScene" uid="uid://bwo5q4wroaigc" path="res://world/interactable/transition_trigger/transition_trigger.tscn" id="3_sy00c"]
 [ext_resource type="Script" path="res://addons/rmsmartshape/vertex_properties.gd" id="3_wdteq"]
 [ext_resource type="Script" path="res://addons/rmsmartshape/shapes/point.gd" id="4_tyfqe"]
 [ext_resource type="Script" path="res://addons/rmsmartshape/shapes/point_array.gd" id="5_0qflf"]
@@ -9,7 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://df2gjfswqcbjc" path="res://world/tilemap/wood_floor/wood_floor.png" id="7_t44hm"]
 [ext_resource type="Script" path="res://addons/rmsmartshape/materials/shape_material.gd" id="8_swt2h"]
 
-[sub_resource type="Resource" id="Resource_7qaew"]
+[sub_resource type="Resource" id="Resource_ydrfx"]
 script = ExtResource("3_wdteq")
 texture_idx = 0
 flip = false
@@ -20,9 +22,9 @@ script = ExtResource("4_tyfqe")
 position = Vector2(-72, -48)
 point_in = Vector2(0, 0)
 point_out = Vector2(0, 0)
-properties = SubResource("Resource_7qaew")
+properties = SubResource("Resource_ydrfx")
 
-[sub_resource type="Resource" id="Resource_a05k4"]
+[sub_resource type="Resource" id="Resource_36rd4"]
 script = ExtResource("3_wdteq")
 texture_idx = 0
 flip = false
@@ -33,9 +35,9 @@ script = ExtResource("4_tyfqe")
 position = Vector2(1224, -48)
 point_in = Vector2(0, 0)
 point_out = Vector2(0, 0)
-properties = SubResource("Resource_a05k4")
+properties = SubResource("Resource_36rd4")
 
-[sub_resource type="Resource" id="Resource_bg2d5"]
+[sub_resource type="Resource" id="Resource_4r435"]
 script = ExtResource("3_wdteq")
 texture_idx = 0
 flip = false
@@ -46,9 +48,9 @@ script = ExtResource("4_tyfqe")
 position = Vector2(1208, 704)
 point_in = Vector2(0, 0)
 point_out = Vector2(0, 0)
-properties = SubResource("Resource_bg2d5")
+properties = SubResource("Resource_4r435")
 
-[sub_resource type="Resource" id="Resource_6xolb"]
+[sub_resource type="Resource" id="Resource_trtsm"]
 script = ExtResource("3_wdteq")
 texture_idx = 0
 flip = false
@@ -59,9 +61,9 @@ script = ExtResource("4_tyfqe")
 position = Vector2(-80, 688)
 point_in = Vector2(0, 0)
 point_out = Vector2(0, 0)
-properties = SubResource("Resource_6xolb")
+properties = SubResource("Resource_trtsm")
 
-[sub_resource type="Resource" id="Resource_fs0pb"]
+[sub_resource type="Resource" id="Resource_i1e00"]
 script = ExtResource("3_wdteq")
 texture_idx = 0
 flip = false
@@ -72,9 +74,9 @@ script = ExtResource("4_tyfqe")
 position = Vector2(-72, -48)
 point_in = Vector2(0, 0)
 point_out = Vector2(0, 0)
-properties = SubResource("Resource_fs0pb")
+properties = SubResource("Resource_i1e00")
 
-[sub_resource type="Resource" id="Resource_o5d73"]
+[sub_resource type="Resource" id="Resource_dvump"]
 script = ExtResource("3_wdteq")
 texture_idx = 0
 flip = false
@@ -85,9 +87,9 @@ script = ExtResource("4_tyfqe")
 position = Vector2(352, -56)
 point_in = Vector2(0, 0)
 point_out = Vector2(0, 0)
-properties = SubResource("Resource_o5d73")
+properties = SubResource("Resource_dvump")
 
-[sub_resource type="Resource" id="Resource_64esi"]
+[sub_resource type="Resource" id="Resource_0iyq6"]
 script = ExtResource("3_wdteq")
 texture_idx = 0
 flip = false
@@ -98,9 +100,9 @@ script = ExtResource("4_tyfqe")
 position = Vector2(360, -888)
 point_in = Vector2(0, 0)
 point_out = Vector2(0, 0)
-properties = SubResource("Resource_64esi")
+properties = SubResource("Resource_0iyq6")
 
-[sub_resource type="Resource" id="Resource_4xmxw"]
+[sub_resource type="Resource" id="Resource_ay11p"]
 script = ExtResource("3_wdteq")
 texture_idx = 0
 flip = false
@@ -111,9 +113,9 @@ script = ExtResource("4_tyfqe")
 position = Vector2(680, -888)
 point_in = Vector2(0, 0)
 point_out = Vector2(0, 0)
-properties = SubResource("Resource_4xmxw")
+properties = SubResource("Resource_ay11p")
 
-[sub_resource type="Resource" id="Resource_o0860"]
+[sub_resource type="Resource" id="Resource_r3q0p"]
 script = ExtResource("3_wdteq")
 texture_idx = 0
 flip = false
@@ -124,7 +126,7 @@ script = ExtResource("4_tyfqe")
 position = Vector2(688, -56)
 point_in = Vector2(0, 0)
 point_out = Vector2(0, 0)
-properties = SubResource("Resource_o0860")
+properties = SubResource("Resource_r3q0p")
 
 [sub_resource type="Resource" id="Resource_nmmxe"]
 script = ExtResource("5_0qflf")
@@ -166,7 +168,19 @@ render_offset = 0.0
 [node name="LevelBase2" instance=ExtResource("1_3oodm")]
 
 [node name="Floor2Entrance" type="Node2D" parent="EntryPoints" index="0"]
-position = Vector2(581, 515)
+position = Vector2(589, 512)
+
+[node name="Sprite2D" type="Sprite2D" parent="EntryPoints" index="1"]
+position = Vector2(587, 699)
+rotation = 3.13692
+scale = Vector2(1.86682, 1.89253)
+texture = ExtResource("2_4tf8t")
+
+[node name="TransitionScene" parent="EntryPoints/Sprite2D" index="0" instance=ExtResource("3_sy00c")]
+position = Vector2(-3, 27)
+scale = Vector2(3.54595, 3.08716)
+scene_name = "dungeon_1_entrance"
+entry_point = "Floor2"
 
 [node name="SS2D_Shape" type="Node2D" parent="." index="6"]
 script = ExtResource("2_heehg")
