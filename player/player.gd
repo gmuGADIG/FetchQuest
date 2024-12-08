@@ -25,7 +25,7 @@ static var instance: Player
 @onready var hole_detector: Node2D = $HoleDetector
 @onready var roll_sound: AudioStreamPlayer = %RollingSound
 
-var bomb_scene := preload("bomb.tscn")
+var bomb_scene := preload("bomb/bomb.tscn")
 
 @onready var _animated_sprites: Array[AnimatedSprite2D] = [%Skin1, %Skin2, %Skin3]
 func play_animation(animation: StringName) -> void:
