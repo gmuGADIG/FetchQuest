@@ -1,6 +1,7 @@
-[gd_scene load_steps=15 format=3 uid="uid://bf5kmm2uk5t8r"]
+[gd_scene load_steps=16 format=3 uid="uid://bf5kmm2uk5t8r"]
 
 [ext_resource type="Script" path="res://ui/skins/skins.gd" id="1_8i4rg"]
+[ext_resource type="Texture2D" uid="uid://djws21bxdcpt7" path="res://world/decoration/trees/oak/oak_tree.png" id="2_lr5ln"]
 [ext_resource type="Theme" uid="uid://hft8rbf0e22b" path="res://ui/main_ui_theme.tres" id="3_sjb4j"]
 [ext_resource type="Texture2D" uid="uid://brg4owq1xh3x0" path="res://ui/skins/previews/cata.png" id="4_8555x"]
 [ext_resource type="Texture2D" uid="uid://cxs671vkr5lwh" path="res://ui/skins/previews/corgi.png" id="5_h4tko"]
@@ -44,57 +45,6 @@ shadow_color = Color(0, 0, 0, 0.368627)
 shadow_offset = Vector2(2, 2)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_c4das"]
-
-[sub_resource type="Animation" id="Animation_mir5u"]
-resource_name = "open"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Control/Skin1:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.4),
-"transitions": PackedFloat32Array(0.392292, 1),
-"update": 0,
-"values": [Vector2(54, 451), Vector2(54, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Control/Skin2:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0.1, 0.5),
-"transitions": PackedFloat32Array(0.392292, 1),
-"update": 0,
-"values": [Vector2(414, 451), Vector2(414, 0)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Control/Skin3:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0.2, 0.6),
-"transitions": PackedFloat32Array(0.392292, 1),
-"update": 0,
-"values": [Vector2(774, 451), Vector2(774, 0)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Control/ChooseSkinLabel:position")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.733333),
-"transitions": PackedFloat32Array(0.31864, 1),
-"update": 0,
-"values": [Vector2(274.5, -317), Vector2(274.5, -169)]
-}
 
 [sub_resource type="Animation" id="Animation_frirq"]
 length = 0.001
@@ -147,6 +97,57 @@ tracks/3/keys = {
 "values": [Vector2(274.5, -169)]
 }
 
+[sub_resource type="Animation" id="Animation_mir5u"]
+resource_name = "open"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control/Skin1:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(0.392292, 1),
+"update": 0,
+"values": [Vector2(54, 451), Vector2(54, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Control/Skin2:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.1, 0.5),
+"transitions": PackedFloat32Array(0.392292, 1),
+"update": 0,
+"values": [Vector2(414, 451), Vector2(414, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Control/Skin3:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.2, 0.6),
+"transitions": PackedFloat32Array(0.392292, 1),
+"update": 0,
+"values": [Vector2(774, 451), Vector2(774, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Control/ChooseSkinLabel:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.733333),
+"transitions": PackedFloat32Array(0.31864, 1),
+"update": 0,
+"values": [Vector2(274.5, -317), Vector2(274.5, -169)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_nvt31"]
 _data = {
 "RESET": SubResource("Animation_frirq"),
@@ -163,6 +164,14 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.729412, 0.984314, 1, 1)
+
+[node name="Tree1" type="Sprite2D" parent="."]
+position = Vector2(48, 849)
+texture = ExtResource("2_lr5ln")
+
+[node name="Tree2" type="Sprite2D" parent="."]
+position = Vector2(1073, 798)
+texture = ExtResource("2_lr5ln")
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
