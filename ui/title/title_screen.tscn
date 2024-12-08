@@ -1,12 +1,14 @@
-[gd_scene load_steps=28 format=3 uid="uid://23h7uaou8f05"]
+[gd_scene load_steps=30 format=3 uid="uid://23h7uaou8f05"]
 
 [ext_resource type="PackedScene" uid="uid://bovhexq6t5u8o" path="res://ui/options/options_menu.tscn" id="1_5n5k7"]
 [ext_resource type="Texture2D" uid="uid://vf0s1yxq1yr2" path="res://ui/title/Official Fetch Quest Title Screen.png" id="2_4p1gc"]
+[ext_resource type="Texture2D" uid="uid://djws21bxdcpt7" path="res://world/decoration/trees/oak/oak_tree.png" id="3_dkgup"]
 [ext_resource type="FontFile" uid="uid://dxaeux1wbk5l1" path="res://ui/fonts/Chewy-Regular.ttf" id="3_vl0qw"]
 [ext_resource type="Texture2D" uid="uid://u5ff0ws2dnaq" path="res://ui/title/Settings Cog.png" id="5_524n4"]
 [ext_resource type="Texture2D" uid="uid://dksmpwoovhna3" path="res://ui/title/Options Shadow Gear.png" id="6_355cm"]
 [ext_resource type="Script" path="res://ui/title/main_menu.gd" id="6_ogkp4"]
 [ext_resource type="Script" path="res://ui/options/open_options_menu_button.gd" id="7_s51k4"]
+[ext_resource type="PackedScene" uid="uid://rap0uso4fckx" path="res://dj_music_man/music_players/instant_music_player.tscn" id="8_dxujq"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qqo3l"]
 bg_color = Color(0.592157, 0.00392157, 0.945098, 1)
@@ -184,6 +186,14 @@ position = Vector2(576, 324.5)
 scale = Vector2(0.6, 0.600926)
 texture = ExtResource("2_4p1gc")
 
+[node name="Tree1" type="Sprite2D" parent="."]
+position = Vector2(48, 849)
+texture = ExtResource("3_dkgup")
+
+[node name="Tree2" type="Sprite2D" parent="."]
+position = Vector2(1073, 798)
+texture = ExtResource("3_dkgup")
+
 [node name="ContinueGame" type="Button" parent="."]
 layout_mode = 0
 offset_left = 429.0
@@ -226,10 +236,12 @@ options_menu = NodePath("../OptionsMenu")
 [node name="OptionsMenu" parent="." instance=ExtResource("1_5n5k7")]
 visible = false
 
-[connection signal="pressed" from="ContinueGame" to="." method="_on_menu_major_button_pressed"]
+[node name="MusicPlayer" parent="." instance=ExtResource("8_dxujq")]
+
 [connection signal="pressed" from="ContinueGame" to="." method="_on_continue_game_pressed"]
+[connection signal="pressed" from="ContinueGame" to="." method="_on_menu_major_button_pressed"]
 [connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]
 [connection signal="pressed" from="Quit" to="." method="_on_menu_major_button_pressed"]
-[connection signal="pressed" from="NewGame" to="." method="_on_new_game_pressed"]
 [connection signal="pressed" from="NewGame" to="." method="_on_menu_major_button_pressed"]
+[connection signal="pressed" from="NewGame" to="." method="_on_new_game_pressed"]
 [connection signal="pressed" from="Options" to="." method="_on_menu_major_button_pressed"]

@@ -1,0 +1,29 @@
+[gd_scene load_steps=7 format=3 uid="uid://tx8ojmu4pq18"]
+
+[ext_resource type="PackedScene" uid="uid://dvhfibvbfhnnv" path="res://npc/base_npc.tscn" id="1_t8ves"]
+[ext_resource type="Texture2D" uid="uid://duw00r0qix0ic" path="res://npc/minor_characters/fluffle_spritesheet.png" id="2_yuuij"]
+[ext_resource type="Script" path="res://addons/dialogic/Resources/timeline.gd" id="3_8hb5d"]
+[ext_resource type="Resource" path="res://npc/minor characters/FluffleGreenNPC_Timeline.dtl" id="4_jwa1q"]
+[ext_resource type="Resource" path="res://npc/minor characters/FluffleGreenNPC.dch" id="5_336qi"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4m1f6"]
+atlas = ExtResource("2_yuuij")
+region = Rect2(512, 0, 512, 512)
+
+[node name="FluffleGreenNPC" instance=ExtResource("1_t8ves")]
+scale = Vector2(0.186, 0.186)
+
+[node name="Sprite2D" type="Sprite2D" parent="." index="0"]
+position = Vector2(16.129, -252.688)
+scale = Vector2(1.31929, 1.31929)
+texture = SubResource("AtlasTexture_4m1f6")
+
+[node name="CollisionShape2D" parent="." index="1"]
+position = Vector2(-5.37634, -53.7634)
+scale = Vector2(2.88304, 2.88304)
+
+[node name="TalkingInteractable" parent="." index="2"]
+position = Vector2(-5.37634, -247.312)
+scale = Vector2(-3.93716, -3.93716)
+timeline = Array[ExtResource("3_8hb5d")]([ExtResource("4_jwa1q")])
+character = ExtResource("5_336qi")

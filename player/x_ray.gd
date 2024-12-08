@@ -1,15 +1,22 @@
-extends Sprite2D
+class_name XRay extends Node
 ## Makes a sprite partially visible even when behind something
 
-@export_range(0, 1) var x_ray_opacity := 0.1
+@export_range(0, 1) var x_ray_opacity := 0.2
 
 func _ready() -> void:
-	var x_ray_sprite: Sprite2D = self.duplicate()
+	var dup: Node2D = get_parent().duplicate()
 
-	x_ray_sprite.visible = true
-	x_ray_sprite.set_script(null)
-	x_ray_sprite.modulate.a *= x_ray_opacity
-	x_ray_sprite.z_index = 10
-	x_ray_sprite.transform = Transform2D()
+	dup.get_node(NodePath(name)).free()
+	dup.visible = true
+	dup.set_script(null)
+	dup.modulate.a *= x_ray_opacity
+	dup.z_index = 10
+	dup.transform = Transform2D()
 
-	add_child.call_deferred(x_ray_sprite)
+	get_parent().add_child.call_deferred(dup)
+	
+	var anim := get_parent() as AnimatedSprite2D
+	if anim:
+		anim.animation_changed.connect(func() -> void:
+			(dup as AnimatedSprite2D).play(anim.animation)
+		)

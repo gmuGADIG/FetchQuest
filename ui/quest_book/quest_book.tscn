@@ -1,0 +1,330 @@
+[gd_scene load_steps=14 format=3 uid="uid://dwbcxlxofsw8k"]
+
+[ext_resource type="Theme" uid="uid://hft8rbf0e22b" path="res://ui/main_ui_theme.tres" id="2_c604x"]
+[ext_resource type="Script" path="res://ui/quest_book/quest_book.gd" id="2_ohtim"]
+[ext_resource type="Texture2D" uid="uid://bolap0eybw5ho" path="res://ui/quest_book/QuestborkInterior.png" id="2_racl6"]
+[ext_resource type="Texture2D" uid="uid://dd3eyhkdykg38" path="res://ui/quest_book/PawprintStamp.png" id="3_d70c6"]
+[ext_resource type="Texture2D" uid="uid://2fuv1lotgm2g" path="res://ui/quest_book/QuestCompleteStamp.png" id="4_as6u8"]
+[ext_resource type="PackedScene" uid="uid://bmf3yf7vc0ia5" path="res://ui/quest_book/quest_entry/quest_entry.tscn" id="5_kas0y"]
+[ext_resource type="Texture2D" uid="uid://dvnj1j84vmqkv" path="res://ui/quest_book/back.png" id="6_7nstj"]
+
+[sub_resource type="Theme" id="Theme_sx6ho"]
+Label/colors/font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kiv0t"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_52u04"]
+bg_color = Color(0.627, 0.627, 0.627, 0)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="Animation" id="Animation_ydkbl"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Book:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Book:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_k1bu0"]
+resource_name = "open"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Book:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(-343, 882), Vector2(58, -50), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Book:rotation")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [-0.217649, 0.0471239, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1r5hp"]
+_data = {
+"RESET": SubResource("Animation_ydkbl"),
+"open": SubResource("Animation_k1bu0")
+}
+
+[node name="QuestBook" type="CanvasLayer"]
+process_mode = 3
+script = ExtResource("2_ohtim")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.383)
+
+[node name="Book" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_c604x")
+
+[node name="Background" type="TextureRect" parent="Book"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 12.0
+offset_top = -5.0
+offset_right = 12.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_racl6")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="RightPage" type="Control" parent="Book"]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme = SubResource("Theme_sx6ho")
+
+[node name="Panel" type="Panel" parent="Book/RightPage"]
+layout_mode = 0
+offset_left = 609.0
+offset_top = 206.0
+offset_right = 1056.0
+offset_bottom = 509.0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_kiv0t")
+
+[node name="QuestTitle" type="Label" parent="Book/RightPage/Panel"]
+unique_name_in_owner = true
+layout_mode = 2
+offset_top = -115.0
+offset_right = 445.0
+offset_bottom = -73.0
+theme_override_font_sizes/font_size = 32
+text = "Whispers of Questbrooke"
+horizontal_alignment = 1
+
+[node name="QuestDescription" type="Label" parent="Book/RightPage/Panel"]
+unique_name_in_owner = true
+layout_mode = 2
+offset_left = 17.0
+offset_top = -61.0
+offset_right = 428.0
+offset_bottom = 104.0
+theme_override_font_sizes/font_size = 20
+text = "Help the elder uncover the truth about some villagers by gathering specific items tied to her suspicions.
+The elder has her suspicions about certain villagers and needs you to fetch items to confirm or deny her rumors. Pay close attention to her clues—they hint at what to find and where to look. Explore the town and nearby areas to locate the evidence she seeks, then bring it back to her."
+autowrap_mode = 3
+
+[node name="Panel" type="Panel" parent="Book/RightPage/Panel"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 19.0
+offset_top = -57.0
+offset_right = -19.0
+offset_bottom = -14.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_52u04")
+
+[node name="Label" type="Label" parent="Book/RightPage/Panel/Panel"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 13.0
+offset_top = -10.5
+offset_right = 68.0
+offset_bottom = 10.5
+grow_vertical = 2
+theme_override_font_sizes/font_size = 24
+text = "REWARD:"
+
+[node name="QuestReward" type="Label" parent="Book/RightPage/Panel/Panel"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -165.0
+offset_top = -10.5
+offset_right = -12.0
+offset_bottom = 10.5
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_font_sizes/font_size = 24
+text = "me being proud of you :)"
+
+[node name="QuestCompletionStamp" type="Control" parent="Book/RightPage"]
+unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0.941)
+anchors_preset = 0
+offset_left = 832.0
+offset_top = 276.0
+offset_right = 832.0
+offset_bottom = 276.0
+scale = Vector2(1.52286, 1.52286)
+metadata/_edit_group_ = true
+
+[node name="Paw" type="TextureRect" parent="Book/RightPage/QuestCompletionStamp"]
+modulate = Color(0.41598, 0.41598, 0.41598, 1)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -84.0
+offset_top = -81.0
+offset_right = 84.0
+offset_bottom = 81.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_d70c6")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Text" type="TextureRect" parent="Book/RightPage/QuestCompletionStamp"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -113.62
+offset_top = -52.5134
+offset_right = 98.38
+offset_bottom = 64.4866
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 0.105163
+texture = ExtResource("4_as6u8")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="QuestEntryStorage" type="VBoxContainer" parent="Book"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 147.0
+offset_top = 69.0
+offset_right = 534.0
+offset_bottom = 510.0
+
+[node name="QuestEntry" parent="Book/QuestEntryStorage" instance=ExtResource("5_kas0y")]
+modulate = Color(0.9, 0.9, 0.9, 1)
+layout_mode = 2
+selected = true
+
+[node name="QuestEntry2" parent="Book/QuestEntryStorage" instance=ExtResource("5_kas0y")]
+modulate = Color(1, 1, 0.4, 1)
+layout_mode = 2
+quest_name = "MAIN QUEST :O"
+main_quest = true
+
+[node name="QuestEntry3" parent="Book/QuestEntryStorage" instance=ExtResource("5_kas0y")]
+layout_mode = 2
+quest_name = "some other quest"
+
+[node name="QuestEntry4" parent="Book/QuestEntryStorage" instance=ExtResource("5_kas0y")]
+layout_mode = 2
+quest_name = "some other quest"
+
+[node name="QuestEntry5" parent="Book/QuestEntryStorage" instance=ExtResource("5_kas0y")]
+layout_mode = 2
+quest_name = "some other quest"
+
+[node name="QuestEntry6" parent="Book/QuestEntryStorage" instance=ExtResource("5_kas0y")]
+layout_mode = 2
+quest_name = "some other quest"
+
+[node name="LeftPagePlaceholder" type="Label" parent="Book"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -428.0
+offset_top = -35.5
+offset_right = -19.0
+offset_bottom = 41.5
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -0.314276
+theme_override_colors/font_color = Color(0, 0, 0, 0.352941)
+theme_override_font_sizes/font_size = 56
+text = "no quests yet..."
+
+[node name="BackButton" type="TextureButton" parent="."]
+offset_left = 27.0
+offset_top = 489.0
+offset_right = 155.0
+offset_bottom = 617.0
+texture_normal = ExtResource("6_7nstj")
+
+[node name="DropShadow" type="TextureRect" parent="BackButton"]
+modulate = Color(0.303233, 0.303233, 0.303233, 1)
+show_behind_parent = true
+layout_mode = 0
+offset_left = 3.0
+offset_top = 6.0
+offset_right = 131.0
+offset_bottom = 134.0
+texture = ExtResource("6_7nstj")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_1r5hp")
+}
+
+[connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]

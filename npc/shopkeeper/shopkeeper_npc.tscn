@@ -1,7 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://cjv0vpibnhfvp"]
+[gd_scene load_steps=8 format=3 uid="uid://cjv0vpibnhfvp"]
 
 [ext_resource type="PackedScene" uid="uid://dvhfibvbfhnnv" path="res://npc/base_npc.tscn" id="1_2s7kj"]
+[ext_resource type="Script" path="res://addons/dialogic/Resources/timeline.gd" id="2_au0rb"]
 [ext_resource type="Texture2D" uid="uid://ceg63cpiw4kam" path="res://npc/shopkeeper/shopkeeper_spritesheet.PNG" id="2_viluo"]
+[ext_resource type="Resource" path="res://npc/shopkeeper/Shopkeeper.dtl" id="3_s76m4"]
+[ext_resource type="Resource" path="res://npc/shopkeeper/shopkeeper.dch" id="4_qlkxd"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_38kjb"]
 atlas = ExtResource("2_viluo")
@@ -27,9 +30,12 @@ scale = Vector2(1.79208, 1.79208)
 
 [node name="TalkingInteractable" parent="." index="1"]
 scale = Vector2(1.587, 1.587)
+timeline = Array[ExtResource("2_au0rb")]([ExtResource("3_s76m4")])
+character = ExtResource("4_qlkxd")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="2"]
 position = Vector2(-21, -152)
 scale = Vector2(0.84999, 0.84999)
 sprite_frames = SubResource("SpriteFrames_xynws")
+autoplay = "default"
 frame_progress = 0.262282

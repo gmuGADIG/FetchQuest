@@ -58,7 +58,7 @@ signal item_updated(key: String)
 		max_bombs_updated.emit()
 
 ## The maximum health the player can have 
-@export var max_health: int = 3:
+@export var max_health: int = 6:
 	set(v):
 		max_health = v
 		max_health_updated.emit()
@@ -87,8 +87,8 @@ func get_quantity(key: String) -> int:
 
 ## Gives the player [param amount] of the item referred to by [param key]
 func add_quantity(key: String, amount: int) -> void:
-	item_updated.emit(key)
 	_key_to_item[key].quantity_held += amount
+	item_updated.emit(key)
 
 ## Takes [param amount] of an item referred to by [param key] from the player. 
 ## [br][br]

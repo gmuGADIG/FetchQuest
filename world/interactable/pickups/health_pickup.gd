@@ -6,6 +6,6 @@ class_name HealthPickup
 func consume(consumer: Node2D) -> void:
 	if (consumer is Player):
 		var player: Player = consumer as Player
-		if (player.health < player.max_health):
+		if (player.health < PlayerInventory.max_health):
 			player.heal(health_amount)
 			queue_free()
