@@ -31,6 +31,7 @@ func _input(event: InputEvent) -> void:
 		return
 	
 	if _player_in_range() && event.is_action_pressed("interact"):
+		Dialogic.VAR.talk_count = times_played # allow the dialogue to vary on repitition
 		DialogueManager.set_interactable(self) #Give the Dialogue Manager access to the interactable
 		DialogueManager.layout = Dialogic.start(timeline[curr_timeline_index])
 		get_viewport().set_input_as_handled()
