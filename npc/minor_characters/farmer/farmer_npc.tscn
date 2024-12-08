@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://2durxsp124th"]
+
+[ext_resource type="PackedScene" uid="uid://dvhfibvbfhnnv" path="res://npc/base_npc.tscn" id="1_2vr5h"]
+[ext_resource type="Texture2D" uid="uid://bwur66tnumoix" path="res://npc/minor_characters/SmallMFnpcs_SpriteSheet.png" id="2_hgig8"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7gft3"]
+atlas = ExtResource("2_hgig8")
+region = Rect2(0, 0, 1024, 1024)
+
+[node name="FarmerNPC" instance=ExtResource("1_2vr5h")]
+
+[node name="Sprite2D" type="Sprite2D" parent="." index="0"]
+position = Vector2(0, -432)
+texture = SubResource("AtlasTexture_7gft3")
+
+[node name="CollisionShape2D" parent="." index="1"]
+scale = Vector2(4.11215, 4.11215)
+
+[node name="TalkingInteractable" parent="." index="2"]
+position = Vector2(5, -166)
+scale = Vector2(-5.40517, -5.40517)
