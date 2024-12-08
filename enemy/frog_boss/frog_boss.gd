@@ -146,6 +146,7 @@ func spawn_shockwave() -> void:
 	var land_shockwave: FrogShockwave = shockwave.instantiate()
 	land_shockwave.global_position = global_position
 	get_parent().add_child(land_shockwave)
+	MainCam.shake(100, 0.2)
 
 func disable_hitbox() -> void:
 	collider.disabled = true
