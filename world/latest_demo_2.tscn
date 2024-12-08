@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=4 uid="uid://c0b860627rcs5"]
+[gd_scene load_steps=39 format=4 uid="uid://c0b860627rcs5"]
 
 [ext_resource type="PackedScene" uid="uid://cnd06dpkgufe4" path="res://world/levels/level_base.tscn" id="1_2iy6g"]
 [ext_resource type="Script" path="res://world/decoration/trees/tree_gen.gd" id="2_n44bl"]
@@ -31,6 +31,7 @@
 [ext_resource type="PackedScene" uid="uid://dovs54pxe1oba" path="res://generic/particle_fixer/particle_fixer.tscn" id="27_h03p2"]
 [ext_resource type="PackedScene" uid="uid://bimerg4hcbya2" path="res://enemy/charging_enemy/charging_enemy.tscn" id="27_kqj6m"]
 [ext_resource type="PackedScene" uid="uid://c4q0hmrfl5yh2" path="res://enemy/frog_boss/frog_boss.tscn" id="31_1tm5l"]
+[ext_resource type="PackedScene" uid="uid://rap0uso4fckx" path="res://dj_music_man/music_players/instant_music_player.tscn" id="32_tlxi0"]
 
 [sub_resource type="Curve2D" id="Curve2D_j10fm"]
 _data = {
@@ -596,6 +597,8 @@ position = Vector2(783, 1805)
 
 [node name="Frog Boss" parent="." index="20" instance=ExtResource("31_1tm5l")]
 position = Vector2(868, 1867)
+
+[node name="MusicPlayer" parent="." index="21" instance=ExtResource("32_tlxi0")]
 
 [connection signal="body_entered" from="PuzzleArea/DungeonEntrance/TransitionScene" to="PuzzleArea/DungeonEntrance/TransitionScene" method="_on_body_entered"]
 [connection signal="body_entered" from="BossArea/DungeonEntrance/TransitionScene" to="BossArea/DungeonEntrance/TransitionScene" method="_on_body_entered"]
