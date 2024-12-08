@@ -8,6 +8,8 @@ extends CharacterBody2D
 @onready var action_cooldown: Timer = $ActionCooldown
 
 @export var time_between_actions: float = 0.25
+@onready var initial_time_between_actions := time_between_actions
+
 
 signal health_changed
 signal frog_die
@@ -60,7 +62,7 @@ func hurt(damage_event: DamageEvent) -> void:
 		if boss_phase == 1:
 			jump_time /= 2
 			hop_time /= 2
-			time_between_actions /= 2
+			time_between_actions = initial_time_between_actions / 2
 			boss_phase = 2
 			play_hurt_animation()
 		elif boss_phase == 2:
