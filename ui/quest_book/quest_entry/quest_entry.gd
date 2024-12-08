@@ -35,10 +35,6 @@ func _update() -> void:
 func _ready() -> void:
 	_update()
 
-func _input(event: InputEvent) -> void:
-	if event is InputEventMouseButton and event.is_pressed():
-		print("[quest_entry] %s has been clicked." % quest_name)
-
 func _on_button_pressed() -> void:
 	clicked.emit()
 
