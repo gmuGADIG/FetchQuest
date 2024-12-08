@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://oa5pi8dnpsif"]
+[gd_scene load_steps=13 format=3 uid="uid://oa5pi8dnpsif"]
 
 [ext_resource type="Script" path="res://quest/quest_system.gd" id="1_vwsky"]
 [ext_resource type="Script" path="res://quest/quest.gd" id="2_mcauu"]
@@ -26,6 +26,7 @@ id = "quest_gossip_d"
 count = 1
 
 [sub_resource type="Resource" id="Resource_036bn"]
+resource_name = "gossip"
 script = ExtResource("3_elkl0")
 fetch_items = Array[ExtResource("3_3yki1")]([SubResource("Resource_sub6d"), SubResource("Resource_37ixn"), SubResource("Resource_uu0m8"), SubResource("Resource_vkwvv")])
 quest_id = "gossip"
@@ -43,6 +44,7 @@ id = "quest_camera"
 count = 5
 
 [sub_resource type="Resource" id="Resource_6tm4f"]
+resource_name = "camera"
 script = ExtResource("3_elkl0")
 fetch_items = Array[ExtResource("3_3yki1")]([SubResource("Resource_50844")])
 quest_id = "camera"
@@ -54,6 +56,20 @@ Suspicious mushrooms have sprouted in the south west of Questbrooke, making the 
 instructions = Array[String]([])
 good_boy_reward = 20
 
+[sub_resource type="Resource" id="Resource_ba26s"]
+resource_name = "main"
+script = ExtResource("2_mcauu")
+quest_id = "main"
+is_main_quest = true
+display_name = "The Fallen Crown"
+description = "To save the kingdom from utter ruin, you must destroy the dark forces that sustain the plague and face the corrupted king himself.
+
+Journey to Sinister Thicket and defeat the twisted amalgamation lurking within.
+Travel to Miry Grove and slay the monstrous frog spreading corruption across the marshes.
+Confront King Mycelius in the Corrupted Kingdom and bring an end to his reign of despair."
+instructions = Array[String]([])
+good_boy_reward = 200
+
 [node name="QuestSystem" type="Node"]
 script = ExtResource("1_vwsky")
-quests = Array[ExtResource("2_mcauu")]([SubResource("Resource_036bn"), SubResource("Resource_6tm4f")])
+quests = Array[ExtResource("2_mcauu")]([SubResource("Resource_036bn"), SubResource("Resource_6tm4f"), SubResource("Resource_ba26s")])
