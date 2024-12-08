@@ -1,7 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://7jg4idlgb7t5"]
+[gd_scene load_steps=6 format=3 uid="uid://7jg4idlgb7t5"]
 
 [ext_resource type="PackedScene" uid="uid://dvhfibvbfhnnv" path="res://npc/base_npc.tscn" id="1_pl6lm"]
+[ext_resource type="Script" path="res://addons/dialogic/Resources/timeline.gd" id="2_u6t26"]
 [ext_resource type="Texture2D" uid="uid://b0tan6sjvhmhj" path="res://npc/huntress/RangerFull.png" id="2_yq1em"]
+[ext_resource type="Resource" path="res://npc/huntress/huntress_timeline.dtl" id="3_inhv5"]
+[ext_resource type="Resource" path="res://npc/huntress/huntress.dch" id="4_ymwfl"]
 
 [node name="HuntressNPC" instance=ExtResource("1_pl6lm")]
 
@@ -12,6 +15,8 @@ scale = Vector2(1.65631, 1.65631)
 [node name="TalkingInteractable" parent="." index="1"]
 position = Vector2(8, -123)
 scale = Vector2(2.11823, 2.11823)
+timeline = Array[ExtResource("2_u6t26")]([ExtResource("3_inhv5")])
+character = ExtResource("4_ymwfl")
 
 [node name="Sprite2D" type="Sprite2D" parent="." index="2"]
 position = Vector2(0, -222)

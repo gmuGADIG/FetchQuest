@@ -1,7 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://mu212xi0ksia"]
+[gd_scene load_steps=11 format=3 uid="uid://mu212xi0ksia"]
 
 [ext_resource type="PackedScene" uid="uid://dvhfibvbfhnnv" path="res://npc/base_npc.tscn" id="1_khagr"]
 [ext_resource type="Texture2D" uid="uid://bj1blh2jksyjg" path="res://npc/guard/Guard.PNG" id="2_04bdx"]
+[ext_resource type="Script" path="res://addons/dialogic/Resources/timeline.gd" id="2_jwcw5"]
+[ext_resource type="Resource" path="res://npc/guard/guard_timeline.dtl" id="3_aj1gy"]
+[ext_resource type="Resource" path="res://npc/guard/guard.dch" id="4_1wi77"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qh4wy"]
 atlas = ExtResource("2_04bdx")
@@ -46,6 +49,8 @@ scale = Vector2(1.98731, 1.98731)
 
 [node name="TalkingInteractable" parent="." index="1"]
 scale = Vector2(2.27734, 2.27734)
+timeline = Array[ExtResource("2_jwcw5")]([ExtResource("3_aj1gy")])
+character = ExtResource("4_1wi77")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="2"]
 position = Vector2(-13, -176)

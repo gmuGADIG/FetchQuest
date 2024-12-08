@@ -1,7 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://c5o4c8ntqckk6"]
+[gd_scene load_steps=11 format=3 uid="uid://c5o4c8ntqckk6"]
 
 [ext_resource type="PackedScene" uid="uid://dvhfibvbfhnnv" path="res://npc/base_npc.tscn" id="1_gphql"]
+[ext_resource type="Script" path="res://addons/dialogic/Resources/timeline.gd" id="2_gjqj5"]
 [ext_resource type="Texture2D" uid="uid://dv1kwvaljnseg" path="res://npc/librarian/LibrarianSpriteSheet.png" id="2_jkwe7"]
+[ext_resource type="Resource" path="res://npc/librarian/librarian_timeline.dtl" id="3_cyrtp"]
+[ext_resource type="Resource" path="res://npc/librarian/librarian.dch" id="4_i77ab"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2d6jw"]
 atlas = ExtResource("2_jkwe7")
@@ -48,6 +51,8 @@ scale = Vector2(1.69453, 1.69453)
 [node name="TalkingInteractable" parent="." index="1"]
 position = Vector2(0, -76)
 scale = Vector2(1.90028, 1.90028)
+timeline = Array[ExtResource("2_gjqj5")]([ExtResource("3_cyrtp")])
+character = ExtResource("4_i77ab")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="2"]
 position = Vector2(11, -206)
