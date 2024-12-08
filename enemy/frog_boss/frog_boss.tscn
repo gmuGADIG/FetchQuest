@@ -1,8 +1,17 @@
-[gd_scene load_steps=15 format=3 uid="uid://c4q0hmrfl5yh2"]
+[gd_scene load_steps=17 format=3 uid="uid://c4q0hmrfl5yh2"]
 
 [ext_resource type="Script" path="res://enemy/frog_boss/frog_boss.gd" id="1_rd0g3"]
 [ext_resource type="PackedScene" uid="uid://ds6ix22a4e2va" path="res://enemy/frog_boss/shockwave.tscn" id="2_i6ben"]
 [ext_resource type="Texture2D" uid="uid://cfxhmpam2g3qx" path="res://enemy/frog_boss/sprite_sheet.png" id="3_n6hqq"]
+
+[sub_resource type="Gradient" id="Gradient_4ga5k"]
+offsets = PackedFloat32Array(0, 0.707763)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_x8drm"]
+gradient = SubResource("Gradient_4ga5k")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kf54t"]
 size = Vector2(126, 126)
@@ -112,6 +121,11 @@ animations = [{
 collision_layer = 4
 script = ExtResource("1_rd0g3")
 shockwave = ExtResource("2_i6ben")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+scale = Vector2(9, 9)
+color = Color(0.864667, 1, 0.86, 1)
+texture = SubResource("GradientTexture2D_x8drm")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_kf54t")
