@@ -1,11 +1,16 @@
 extends Node
 
+const ACTIVATOR_GROUP = "Activator"
+const ACTIVATABLE_GROUP = "Activatable"
+const META_NAME = "Activatables"
+
 func _on_switch_activated(activatable: Node) -> void:
 	activatable.activate()
 
 func _on_scene_ready() -> void:
-	for activator in get_tree().get_nodes_in_group(ActivatorPlugin.ACTIVATOR_GROUP):
-		for np: NodePath in activator.get_meta(ActivatorPlugin.META_NAME, []):
+	for activator in get_tree().get_nodes_in_group(ACTIVATOR_GROUP):
+		print("[activator_manager] %s -> %s" % [activator.get_path(), activator.get_meta(META_NAME, [])])
+		for np: NodePath in activator.get_meta(META_NAME, []):
 			if np.is_empty(): continue
 			var activatable := activator.get_node(np)
 
