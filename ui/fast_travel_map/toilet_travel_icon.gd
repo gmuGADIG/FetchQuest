@@ -1,4 +1,4 @@
-extends Area2D
+extends BaseButton
 
 #Stolen from transition Trigger
 ## Name of the scene to transition to, without the file path or extension.[br]
@@ -19,11 +19,11 @@ func _ready() -> void:
 	assert(scene_name.get_extension() == "", "Transition trigger at %s uses a scene name with a file extension, which should be removed." % self.get_path())
 	assert(scene_name != "", "Transition trigger at %s has an empty scene name." % self.get_path())
 	assert(SceneManager.scene_exists(scene_name), "Transition trigger at %s could not resolve scene name: '%s'" % [self.get_path(), scene_name])
+
+	pressed.connect(_on_pressed)
 #END of Stolen code
 
-func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
-	if event.is_action_pressed("attack"):
-		print("clicked! loading " + scene_name)
-		get_tree().paused = false;
-		EntryPoints.current_entry_point = entry_point
-		SceneTransition.change_scene(SceneManager.get_packed_scene(scene_name))
+func _on_pressed() -> void:
+	get_tree().paused = false
+	EntryPoints.current_entry_point = entry_point
+	SceneTransition.change_scene(SceneManager.get_packed_scene(scene_name))
