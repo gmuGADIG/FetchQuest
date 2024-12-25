@@ -1,0 +1,44 @@
+[gd_scene load_steps=9 format=3 uid="uid://bkog04m58p8yr"]
+
+[ext_resource type="Script" path="res://enemy/king_boss/king_boss.gd" id="1_e7hx1"]
+[ext_resource type="Texture2D" uid="uid://c8fviu06jlue8" path="res://enemy/king_boss/temp_art/pale_king.jpg" id="1_mqdv4"]
+[ext_resource type="Script" path="res://enemy/king_boss/king_state_machine.gd" id="2_gts2v"]
+[ext_resource type="Script" path="res://enemy/king_boss/states/king_mushroom_state.gd" id="3_skwkj"]
+[ext_resource type="Script" path="res://enemy/king_boss/states/king_throw_state.gd" id="4_2u2cj"]
+[ext_resource type="Script" path="res://enemy/king_boss/states/king_whistle_state.gd" id="5_wyvc1"]
+[ext_resource type="Script" path="res://enemy/king_boss/states/king_idle_state.gd" id="6_mmxgv"]
+[ext_resource type="Texture2D" uid="uid://dymucenpxmluo" path="res://icon.svg" id="8_3ia6q"]
+
+[node name="KingBoss" type="Node2D"]
+script = ExtResource("1_e7hx1")
+
+[node name="KingStateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("2_gts2v")
+initial_state = NodePath("KingIdleState")
+
+[node name="KingMushroomState" type="Node" parent="KingStateMachine"]
+script = ExtResource("3_skwkj")
+
+[node name="KingThrowState" type="Node" parent="KingStateMachine"]
+script = ExtResource("4_2u2cj")
+
+[node name="KingWhistleState" type="Node" parent="KingStateMachine"]
+script = ExtResource("5_wyvc1")
+
+[node name="KingIdleState" type="Node" parent="KingStateMachine"]
+script = ExtResource("6_mmxgv")
+
+[node name="RandomTeleportTimer" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
+[node name="BossSprite" type="Sprite2D" parent="."]
+scale = Vector2(0.125, 0.125)
+texture = ExtResource("1_mqdv4")
+
+[node name="BubbleSprite" type="Sprite2D" parent="."]
+self_modulate = Color(0, 0, 0, 0.454902)
+scale = Vector2(0.828125, 1.35938)
+texture = ExtResource("8_3ia6q")
+
+[connection signal="timeout" from="RandomTeleportTimer" to="." method="_on_random_teleport_timer_timeout"]
