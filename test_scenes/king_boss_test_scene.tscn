@@ -22,9 +22,11 @@ visible = false
 [node name="QuestBook" parent="." instance=ExtResource("7_56dib")]
 visible = false
 
-[node name="KingBoss" parent="." node_paths=PackedStringArray("movement_points") instance=ExtResource("2_ddp3g")]
+[node name="KingBoss" parent="." node_paths=PackedStringArray("movement_points", "room_center") instance=ExtResource("2_ddp3g")]
 position = Vector2(208, -13)
 movement_points = [NodePath("../KingPossiblePositions/Marker2D"), NodePath("../KingPossiblePositions/Marker2D2"), NodePath("../KingPossiblePositions/Marker2D3"), NodePath("../KingPossiblePositions/Marker2D4"), NodePath("../KingPossiblePositions/Marker2D5"), NodePath("../KingPossiblePositions/Marker2D6"), NodePath("../KingPossiblePositions/Marker2D7"), NodePath("../KingPossiblePositions/Marker2D8"), NodePath("../KingPossiblePositions/Marker2D9")]
+room_center = NodePath("../RoomCenter")
+room_size = Vector2(1000, 1000)
 
 [node name="KingPossiblePositions" type="Node" parent="."]
 
@@ -63,3 +65,6 @@ gizmo_extents = 50.0
 [node name="Marker2D9" type="Marker2D" parent="KingPossiblePositions"]
 position = Vector2(346, 268)
 gizmo_extents = 50.0
+
+[node name="RoomCenter" type="Marker2D" parent="."]
+position = Vector2(86, 140)

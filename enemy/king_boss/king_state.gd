@@ -7,6 +7,9 @@ signal state_transition
 ## The King
 @onready var king:King = get_parent().get_parent()
 
+## The State Machine
+@onready var state_machine:KingStateMachine = get_parent()
+
 func enter() -> void:
 	pass
 

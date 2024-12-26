@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://bkog04m58p8yr"]
+[gd_scene load_steps=10 format=3 uid="uid://bkog04m58p8yr"]
 
 [ext_resource type="Script" path="res://enemy/king_boss/king_boss.gd" id="1_e7hx1"]
 [ext_resource type="Texture2D" uid="uid://c8fviu06jlue8" path="res://enemy/king_boss/temp_art/pale_king.jpg" id="1_mqdv4"]
@@ -7,29 +7,37 @@
 [ext_resource type="Script" path="res://enemy/king_boss/states/king_throw_state.gd" id="4_2u2cj"]
 [ext_resource type="Script" path="res://enemy/king_boss/states/king_whistle_state.gd" id="5_wyvc1"]
 [ext_resource type="Script" path="res://enemy/king_boss/states/king_idle_state.gd" id="6_mmxgv"]
+[ext_resource type="Script" path="res://enemy/king_boss/states/king_vulnerable_state.gd" id="7_n47v0"]
 [ext_resource type="Texture2D" uid="uid://dymucenpxmluo" path="res://icon.svg" id="8_3ia6q"]
 
-[node name="KingBoss" type="Node2D"]
+[node name="KingBoss" type="Node2D" node_paths=PackedStringArray("mushroom_state", "throw_state", "whistle_state")]
 script = ExtResource("1_e7hx1")
+mushroom_state = NodePath("KingStateMachine/Mushroom")
+throw_state = NodePath("KingStateMachine/Throw")
+whistle_state = NodePath("KingStateMachine/Whistle")
+mushroom_state_weight = 100.0
+mushroom_state_duration = 4.0
 
 [node name="KingStateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("2_gts2v")
-initial_state = NodePath("KingIdleState")
+initial_state = NodePath("Idle")
 
-[node name="KingMushroomState" type="Node" parent="KingStateMachine"]
+[node name="Mushroom" type="Node" parent="KingStateMachine"]
 script = ExtResource("3_skwkj")
 
-[node name="KingThrowState" type="Node" parent="KingStateMachine"]
+[node name="Throw" type="Node" parent="KingStateMachine"]
 script = ExtResource("4_2u2cj")
 
-[node name="KingWhistleState" type="Node" parent="KingStateMachine"]
+[node name="Whistle" type="Node" parent="KingStateMachine"]
 script = ExtResource("5_wyvc1")
 
-[node name="KingIdleState" type="Node" parent="KingStateMachine"]
+[node name="Idle" type="Node" parent="KingStateMachine"]
 script = ExtResource("6_mmxgv")
 
+[node name="Vulnerable" type="Node" parent="KingStateMachine"]
+script = ExtResource("7_n47v0")
+
 [node name="RandomTeleportTimer" type="Timer" parent="."]
-wait_time = 0.5
 autostart = true
 
 [node name="BossSprite" type="Sprite2D" parent="."]

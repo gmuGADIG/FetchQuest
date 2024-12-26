@@ -42,4 +42,4 @@ func change_state(source_state: KingState, desired_state_name: String) -> void:
 	current_state = desired_state
 	current_state.enter()
 
-	#print("king_state_machine.gd: Success! Changed from " + source_state.name + " to " + desired_state_name)
+	print("king_state_machine.gd: Success! Changed from " + source_state.name + " to " + desired_state_name)

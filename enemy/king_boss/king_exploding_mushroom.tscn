@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://cbwb62ehju17j"]
+
+[ext_resource type="Script" path="res://enemy/king_boss/king_exploding_mushroom.gd" id="1_oojmw"]
+[ext_resource type="Texture2D" uid="uid://bxs3wy11wmbex" path="res://enemy/king_boss/temp_art/mushroom.png" id="2_nlywd"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ej0iv"]
+radius = 65.0
+
+[node name="KingExplodingMushroom" type="Node2D"]
+script = ExtResource("1_oojmw")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.560386, 0.560386)
+texture = ExtResource("2_nlywd")
+
+[node name="PlayerDetector" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetector"]
+shape = SubResource("CircleShape2D_ej0iv")
