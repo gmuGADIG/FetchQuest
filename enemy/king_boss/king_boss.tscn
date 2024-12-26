@@ -12,11 +12,14 @@
 
 [node name="KingBoss" type="Node2D" node_paths=PackedStringArray("mushroom_state", "throw_state", "whistle_state")]
 script = ExtResource("1_e7hx1")
+time_between_teleports = 3.0
 mushroom_state = NodePath("KingStateMachine/Mushroom")
 throw_state = NodePath("KingStateMachine/Throw")
 whistle_state = NodePath("KingStateMachine/Whistle")
-mushroom_state_weight = 100.0
-mushroom_state_duration = 4.0
+mushroom_state_weight = 20.0
+whistle_state_weight = 100.0
+total_shockwaves = 3
+whistle_state_duration = 9.0
 
 [node name="KingStateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("2_gts2v")
@@ -38,7 +41,6 @@ script = ExtResource("6_mmxgv")
 script = ExtResource("7_n47v0")
 
 [node name="RandomTeleportTimer" type="Timer" parent="."]
-autostart = true
 
 [node name="BossSprite" type="Sprite2D" parent="."]
 scale = Vector2(0.125, 0.125)
