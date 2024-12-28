@@ -22,6 +22,10 @@ func consume(_consumer: Node2D) -> void:
 		$CollisionShape2D.queue_free()
 		$Sprite2D.queue_free()
 		
+		print(velocity)
+		physics_state = ItemPhysicsState.IDLE
+		velocity = Vector2.ZERO
+		
 		# waits a time then deletes entire object
 		await get_tree().create_timer(label_visible_time).timeout
 		queue_free()
