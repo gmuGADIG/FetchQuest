@@ -1,0 +1,41 @@
+[gd_scene load_steps=5 format=3 uid="uid://dqcntu8lypm17"]
+
+[ext_resource type="PackedScene" uid="uid://blpi4x6if673v" path="res://enemy/base_enemy.tscn" id="1_0kot3"]
+[ext_resource type="Script" path="res://world/levels/main_town/dummy/dummy.gd" id="2_80gsk"]
+[ext_resource type="Texture2D" uid="uid://cpxjjfwwowfx3" path="res://world/levels/main_town/dummy/Dummy_battle.webp" id="3_alo4h"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6ktsr"]
+size = Vector2(77, 106)
+
+[node name="Dummy" node_paths=PackedStringArray("enemy_sprite") instance=ExtResource("1_0kot3")]
+script = ExtResource("2_80gsk")
+max_health = 100
+enemy_sprite = NodePath("enemy_sprite")
+
+[node name="Hitbox" type="CollisionShape2D" parent="." index="0"]
+position = Vector2(-5.5, 1)
+shape = SubResource("RectangleShape2D_6ktsr")
+
+[node name="PlayerDetectionComponent" parent="." index="1"]
+process_mode = 4
+visible = false
+
+[node name="DetectionRaycast" parent="PlayerDetectionComponent" index="0"]
+process_mode = 4
+visible = false
+
+[node name="HittingArea" parent="." index="2"]
+process_mode = 4
+visible = false
+
+[node name="CollisionShape2D" parent="HittingArea" index="0"]
+process_mode = 4
+visible = false
+
+[node name="NavigationAgent2D" parent="." index="4"]
+process_mode = 4
+
+[node name="enemy_sprite" type="Sprite2D" parent="." index="5"]
+position = Vector2(-5.5, 1.17778)
+scale = Vector2(0.213889, 0.213889)
+texture = ExtResource("3_alo4h")
