@@ -30,7 +30,7 @@
 [ext_resource type="PackedScene" uid="uid://yllbcpq24cl0" path="res://enemy/creep_enemy/creep_enemy.tscn" id="26_hg8qn"]
 [ext_resource type="PackedScene" uid="uid://dovs54pxe1oba" path="res://generic/particle_fixer/particle_fixer.tscn" id="27_h03p2"]
 [ext_resource type="PackedScene" uid="uid://bimerg4hcbya2" path="res://enemy/charging_enemy/charging_enemy.tscn" id="27_kqj6m"]
-[ext_resource type="PackedScene" uid="uid://cwp0q1v7qa62f" path="res://npc/doctor/doctor_npc.tscn" id="32_5rcp6"]
+[ext_resource type="PackedScene" uid="uid://c4q0hmrfl5yh2" path="res://enemy/frog_boss/frog_boss.tscn" id="31_1tm5l"]
 [ext_resource type="PackedScene" uid="uid://rap0uso4fckx" path="res://dj_music_man/music_players/instant_music_player.tscn" id="32_tlxi0"]
 
 [sub_resource type="Curve2D" id="Curve2D_j10fm"]
@@ -595,10 +595,10 @@ knockback_friction = 3.0
 [node name="TileMapLayer" parent="." index="18" instance=ExtResource("15_nkduh")]
 position = Vector2(783, 1805)
 
-[node name="MusicPlayer" parent="." index="20" instance=ExtResource("32_tlxi0")]
+[node name="Frog Boss" parent="." index="20" instance=ExtResource("31_1tm5l")]
+position = Vector2(868, 1867)
 
-[node name="DoctorNPC" parent="." index="21" instance=ExtResource("32_5rcp6")]
-position = Vector2(344, 831)
+[node name="MusicPlayer" parent="." index="21" instance=ExtResource("32_tlxi0")]
 
 [connection signal="body_entered" from="PuzzleArea/DungeonEntrance/TransitionScene" to="PuzzleArea/DungeonEntrance/TransitionScene" method="_on_body_entered"]
 [connection signal="body_entered" from="BossArea/DungeonEntrance/TransitionScene" to="BossArea/DungeonEntrance/TransitionScene" method="_on_body_entered"]
