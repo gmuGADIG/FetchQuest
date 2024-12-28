@@ -12,8 +12,10 @@ func _process(delta: float) -> void:
 	
 	if close_to_hole_area.get_overlapping_bodies().is_empty():
 		last_safe_position = global_position
-
+	
+	
 	if _has_unoccluded_hole(hole_area.get_overlapping_bodies()):
+		print(hole_area.get_overlapping_bodies())
 		fall_in_hole.emit()
 
 static func _has_unoccluded_hole(collisions: Array[Node2D]) -> bool:
@@ -24,3 +26,6 @@ static func _has_unoccluded_hole(collisions: Array[Node2D]) -> bool:
 			if body.is_in_group("HoleOccluder"):
 				return false # colliding with an occluded hole
 		return not collisions.is_empty() # unoccluded hole
+		
+func print_stuff() -> void:
+	print(_has_unoccluded_hole(hole_area.get_overlapping_bodies()))
