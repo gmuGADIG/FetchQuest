@@ -23,8 +23,7 @@ func consume(_consumer: Node2D) -> void:
 		$Sprite2D.queue_free()
 		
 		print(velocity)
-		physics_state = ItemPhysicsState.IDLE
-		velocity = Vector2.ZERO
+		physics_state = ItemPhysicsState.INTANGIBLE
 		
 		# waits a time then deletes entire object
 		await get_tree().create_timer(label_visible_time).timeout
