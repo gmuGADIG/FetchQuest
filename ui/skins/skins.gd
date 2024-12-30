@@ -1,5 +1,8 @@
 extends CanvasLayer
 
+func _ready() -> void:
+	$Control/Skin2.grab_focus()
+
 func _skin1_pressed() -> void:
 	ChosenSkin.chosen_skin = 1
 	SFXManager.bonk_sound.play()

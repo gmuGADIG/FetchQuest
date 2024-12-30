@@ -37,4 +37,3 @@ func _ready() -> void:
 
 func _on_button_pressed() -> void:
 	clicked.emit()
-

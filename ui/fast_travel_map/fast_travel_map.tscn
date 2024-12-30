@@ -41,46 +41,65 @@ grow_horizontal = 2
 text = "Fast  Travel  Toilet"
 label_settings = SubResource("LabelSettings_dbpao")
 
-[node name="Resume" type="Button" parent="."]
+[node name="Buttons" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Locations" type="Control" parent="Buttons"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Questbrook" parent="Buttons/Locations" instance=ExtResource("2_hcnld")]
+layout_mode = 1
+offset_left = 445.12
+offset_top = 372.36
+offset_right = 476.12
+offset_bottom = 409.36
+focus_neighbor_right = NodePath("../Grove")
+focus_neighbor_bottom = NodePath("../../Resume")
+scene_name = "town_town"
+entry_point = "fast_travel"
+
+[node name="Thicket" parent="Buttons/Locations" instance=ExtResource("2_hcnld")]
+layout_mode = 1
+offset_left = 394.12
+offset_top = 127.36
+offset_right = 425.12
+offset_bottom = 164.36
+focus_neighbor_right = NodePath("../Grove")
+focus_neighbor_bottom = NodePath("../Questbrook")
+scene_name = "overworld"
+entry_point = "FastTravelThicket"
+
+[node name="Grove" parent="Buttons/Locations" instance=ExtResource("2_hcnld")]
+layout_mode = 1
+offset_left = 721.12
+offset_top = 298.36
+offset_right = 752.12
+offset_bottom = 335.36
+focus_neighbor_left = NodePath("../Questbrook")
+focus_neighbor_bottom = NodePath("../../Resume")
+scene_name = "overworld"
+entry_point = "FastTravelGrove"
+
+[node name="Resume" type="Button" parent="Buttons"]
+layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -138.0
-offset_top = -107.0
-offset_right = 138.0
-offset_bottom = -32.0
+offset_left = 418.0
+offset_top = 501.0
+offset_right = 694.0
+offset_bottom = 576.0
 grow_horizontal = 2
 grow_vertical = 0
-focus_neighbor_top = NodePath("../OptionsMenuButton")
-focus_neighbor_bottom = NodePath("../Quit")
 theme_override_font_sizes/font_size = 48
 text = "Resume"
 
-[node name="Questbrook" parent="." instance=ExtResource("2_hcnld")]
-offset_left = 458.0
-offset_top = 403.0
-offset_right = 489.0
-offset_bottom = 440.0
-scene_name = "town_town"
-entry_point = "fast_travel"
-
-[node name="Thicket" parent="." instance=ExtResource("2_hcnld")]
-offset_left = 383.0
-offset_top = 170.0
-offset_right = 414.0
-offset_bottom = 207.0
-scene_name = "overworld"
-entry_point = "FastTravelThicket"
-
-[node name="Grove" parent="." instance=ExtResource("2_hcnld")]
-offset_left = 706.0
-offset_top = 384.0
-offset_right = 737.0
-offset_bottom = 421.0
-scene_name = "overworld"
-entry_point = "FastTravelGrove"
-
 [connection signal="tree_exited" from="." to="." method="_on_tree_exited"]
-[connection signal="pressed" from="Resume" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="Buttons/Resume" to="." method="_on_resume_pressed"]
