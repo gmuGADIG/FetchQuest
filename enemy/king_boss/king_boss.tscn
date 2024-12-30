@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bkog04m58p8yr"]
+[gd_scene load_steps=11 format=3 uid="uid://bkog04m58p8yr"]
 
 [ext_resource type="Script" path="res://enemy/king_boss/king_boss.gd" id="1_e7hx1"]
 [ext_resource type="Texture2D" uid="uid://c8fviu06jlue8" path="res://enemy/king_boss/temp_art/pale_king.jpg" id="1_mqdv4"]
@@ -10,15 +10,19 @@
 [ext_resource type="Script" path="res://enemy/king_boss/states/king_vulnerable_state.gd" id="7_n47v0"]
 [ext_resource type="Texture2D" uid="uid://dymucenpxmluo" path="res://icon.svg" id="8_3ia6q"]
 
-[node name="KingBoss" type="Node2D" node_paths=PackedStringArray("mushroom_state", "throw_state", "whistle_state")]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qfw8x"]
+size = Vector2(86, 152)
+
+[node name="KingBoss" type="CharacterBody2D" node_paths=PackedStringArray("mushroom_state", "throw_state", "whistle_state") groups=["Hittable"]]
+collision_layer = 4
 script = ExtResource("1_e7hx1")
 time_between_teleports = 3.0
 mushroom_state = NodePath("KingStateMachine/Mushroom")
 throw_state = NodePath("KingStateMachine/Throw")
 whistle_state = NodePath("KingStateMachine/Whistle")
-mushroom_state_weight = 20.0
-whistle_state_weight = 100.0
+throw_state_weight = 100.0
 total_shockwaves = 3
+total_scepter_throws = 4
 whistle_state_duration = 9.0
 
 [node name="KingStateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
@@ -50,5 +54,9 @@ texture = ExtResource("1_mqdv4")
 self_modulate = Color(0, 0, 0, 0.454902)
 scale = Vector2(0.828125, 1.35938)
 texture = ExtResource("8_3ia6q")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_qfw8x")
+debug_color = Color(1, 0.463754, 0.566218, 0.42)
 
 [connection signal="timeout" from="RandomTeleportTimer" to="." method="_on_random_teleport_timer_timeout"]

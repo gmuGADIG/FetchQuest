@@ -1,0 +1,1 @@
+class_name KingDroppedScepter extends Area2D
