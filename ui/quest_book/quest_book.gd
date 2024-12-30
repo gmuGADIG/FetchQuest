@@ -23,6 +23,8 @@ func _unhandled_input(event: InputEvent) -> void:
 			_on_back_button_pressed()
 		elif not get_tree().paused:
 			_display()
+	elif event.is_action_pressed("dog_roll") && visible:
+		_on_back_button_pressed()
 
 func _ready() -> void:
 	visible = false
@@ -57,7 +59,7 @@ func _display() -> void:
 
 	var first_entry: QuestEntry = null
 	for quest in QuestSystem.quests:
-		print(quest.display_name)
+		#print(quest.display_name)
 		if quest.is_unassigned(): continue
 
 		var entry: QuestEntry = entry_scene.instantiate()
@@ -72,6 +74,8 @@ func _display() -> void:
 			first_entry = entry
 	
 	if first_entry:
+		#print(first_entry.display_name)
+		first_entry.get_node("Button").grab_focus()
 		_on_entry_clicked(first_entry)
 
 func _on_back_button_pressed() -> void:
