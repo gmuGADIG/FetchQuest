@@ -162,7 +162,7 @@ func _process_agressive(delta: float) -> void:
 	#Note that these variables are the square distance
 	var enemy_distance: float = self.position.distance_to(Player.instance.position)
 	var navigation_target_distance: float = navigation_target.distance_to(Player.instance.position)
-	var player_location: Vector2 = Player.instance.position
+	var player_location: Vector2 = Player.instance.global_position
 	var target_distance: float = agressive_target_distance_min+(agressive_target_distance_max-agressive_target_distance_min)/2
 	var target_direction: Vector2
 	
