@@ -79,12 +79,17 @@ func start_roll() -> void:
 	if (rolling): # obviously we don't want to roll twice over
 		return
 
+	# get direction for the roll
+	roll_vector = Input.get_vector("move_left", "move_right", "move_up", "move_down").normalized()
+	# dont roll if the player isn't moving
+	if (roll_vector == Vector2.ZERO):
+		return
+
 	if (not expend_stamina()):
 		return
 
 	rolling = true
-	# get direction for the roll
-	roll_vector = Input.get_vector("move_left", "move_right", "move_up", "move_down").normalized()
+
 	if(not facing_right):
 		play_animation("roll_left")
 	else:
