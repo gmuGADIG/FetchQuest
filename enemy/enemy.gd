@@ -224,10 +224,11 @@ func _on_hitting_area_body_entered(body: Node2D) -> void:
 		player.hurt(DamageEvent.new(_get_contact_damage(), knockback))
 
 func hitFlicker() -> void:
-		var enemy_normal_modulate : Color = enemy_sprite.modulate
-		enemy_sprite.modulate=Color(0.4,0.4,0.4,1)
-		await get_tree().create_timer(0.1).timeout
-		enemy_sprite.modulate= enemy_normal_modulate
+	#print("Flicker")
+	#var enemy_normal_modulate : Color = enemy_sprite.modulate
+	enemy_sprite.modulate=Color(0.4,0.4,0.4,1)
+	await get_tree().create_timer(0.1).timeout
+	enemy_sprite.modulate= Color(1,1,1,1)
 
 ## Override this to provide different contact damage for each enemy.
 func _get_contact_damage() -> int:
