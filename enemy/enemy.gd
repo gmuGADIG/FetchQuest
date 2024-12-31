@@ -170,8 +170,10 @@ func _process_agressive(delta: float) -> void:
 	#When the enemy is inside of the valid target region
 	
 	if (enemy_distance < agressive_target_distance_min) || (enemy_distance > agressive_target_distance_max):
+		
 		target_direction = player_location.direction_to(self.global_position)
 		target = player_location+target_direction*target_distance
+		approach(target)
 	#else:
 		##print(self.global_position.distance_squared_to(navigation_target))
 		#if(self.global_position.distance_squared_to(navigation_target)>100):
@@ -180,7 +182,7 @@ func _process_agressive(delta: float) -> void:
 		#target_direction = player_location.direction_to(self.global_position).rotated(randf_range(-1, 1) * angle_variance)
 		#target = player_location+target_direction*target_distance
 		
-	approach(target)
+	
 		
 func _process_stunned(_delta: float) -> void:
 	pass
