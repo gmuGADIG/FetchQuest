@@ -3,16 +3,14 @@ class_name KingIdleState extends KingState
 var desired_state:KingState = null
 
 func enter() -> void:
-	await get_tree().create_timer(king.idle_state_duration).timeout
-	if state_machine.current_state != self:
-		return
+	# Wait a bit to choose an attack
+	await get_tree().create_timer(king.time_between_attacks).timeout
+	# Choose a state and switch to it
 	desired_state = get_random_attack()
 	state_machine.change_state(self, desired_state.name)
 
-func update(_delta:float) -> void:
-	pass
-
 func exit() -> void:
+	# Save previous state and reset
 	king.previous_attack_state = desired_state
 	desired_state = null
 

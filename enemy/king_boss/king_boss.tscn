@@ -16,14 +16,11 @@ size = Vector2(86, 152)
 [node name="KingBoss" type="CharacterBody2D" node_paths=PackedStringArray("mushroom_state", "throw_state", "whistle_state") groups=["Hittable"]]
 collision_layer = 4
 script = ExtResource("1_e7hx1")
-time_between_teleports = 3.0
 mushroom_state = NodePath("KingStateMachine/Mushroom")
 throw_state = NodePath("KingStateMachine/Throw")
 whistle_state = NodePath("KingStateMachine/Whistle")
-throw_state_weight = 100.0
 total_shockwaves = 3
 total_scepter_throws = 4
-whistle_state_duration = 9.0
 
 [node name="KingStateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("2_gts2v")

@@ -1,18 +1,16 @@
 class_name KingMushroomState extends KingState
 
-@onready var mushroom_explode_time:float = king.mushroom_state_duration * .75
-
+## The mushrooms that currently exist in the scene
 var mushrooms_spawned:Array[Node2D] = []
-func enter() -> void:
-	summon_shrooms()
-	await get_tree().create_timer(king.mushroom_state_duration).timeout
-	if state_machine.current_state == self:
-		state_machine.change_state(self, "Idle")
 
-func update(_delta:float) -> void:
-	pass
+func enter() -> void:
+	# Summon the mushrooms, wait until they have exploded, switch to idle
+	summon_shrooms()
+	await get_tree().create_timer(king.mushroom_lifetime * 1.25).timeout
+	state_machine.change_state(self, "Idle")
 
 func exit() -> void:
+	# Remove all mushrooms and reset the array
 	for shroom in mushrooms_spawned:
 		if is_instance_valid(shroom):
 			shroom.queue_free()
@@ -22,7 +20,7 @@ func spawn_mushroom(location:Vector2) -> Node2D:
 	# Summon a mushroom at the requested location
 	var mushroom:Node2D = king.mushroom_scene.instantiate()
 	mushroom.global_position = location
-	mushroom.time_until_explosion = mushroom_explode_time
+	mushroom.time_until_explosion = king.mushroom_lifetime
 	king.add_sibling(mushroom)
 	
 	# Return the mushroom for tracking purposes

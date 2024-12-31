@@ -12,7 +12,6 @@ func _ready() -> void:
 func change_speed(intensity: float) -> void:
 	speed = max(min_angular_speed, intensity * max_angular_speed)
 
-## Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	# Rotate the sprite based on the angular speed and the time passed
 	rotation += delta * speed

@@ -1,32 +1,33 @@
 class_name KingThrowState extends KingState
 
+## The currently thrown scepter
 var current_scepter:KingThrownScepter = null
+
 func enter() -> void:
+	# Throw all scepters, waiting until it returns to throw the next one
 	for i in range(king.total_scepter_throws):
 		if state_machine.current_state != self:
 			return
 		throw()
 		await current_scepter.scepter_returned
+	# Switch to idle if king hasnt been forced into vulnerable state
 	if state_machine.current_state != self:
 		return
 	state_machine.change_state(self, "Idle")
 
-func update(_delta:float) -> void:
-	pass
-
-func exit() -> void:
-	pass
-
 func throw() -> void:
+	# Instantiate scepter and set parameters
 	current_scepter = king.thrown_scepter_scene.instantiate()
 	current_scepter.thrower = king
 	current_scepter.global_position = king.global_position
+	# Throw scepter at player
 	current_scepter.throw((Player.instance.global_position - king.global_position).normalized())
 	current_scepter.scepter_barked.connect(_on_scepter_barked)
+	# Add scepter to the scene
 	king.add_sibling(current_scepter)
 
 func create_lost_scepter(pos:Vector2) -> void:
-	var lost_scepter:KingDroppedScepter = king.lost_scepter_scene.instantiate()
+	var lost_scepter:Node2D = king.lost_scepter_scene.instantiate()
 	lost_scepter.global_position = pos
 	king.add_sibling(lost_scepter)
 	king.current_lost_scepter = lost_scepter
