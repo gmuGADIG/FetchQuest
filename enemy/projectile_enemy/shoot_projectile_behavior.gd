@@ -66,7 +66,7 @@ func animateShooting() -> void:
 		#VERTICAL SHOOTING
 		#if i'm below the player, fire "up" (animation tbd). otherwise, fire down
 		if self.global_position.y>=playerPos.y:
-			sprite.animation="fire_right"
+			sprite.animation="fire_up"
 		else:
 			sprite.animation="fire_down"
 	sprite.play()
