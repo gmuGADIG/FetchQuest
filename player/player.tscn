@@ -1,4 +1,4 @@
-[gd_scene load_steps=113 format=3 uid="uid://c7ck7ril2jix2"]
+[gd_scene load_steps=114 format=3 uid="uid://c7ck7ril2jix2"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_x43mx"]
 [ext_resource type="Script" path="res://player/x_ray.gd" id="3_f3hsb"]
@@ -30,6 +30,7 @@
 [ext_resource type="Texture2D" uid="uid://bu43rimfp3dcg" path="res://player/sprites/margarita/Margarita_RollRight_Spritesheet.png" id="23_3dfgs"]
 [ext_resource type="Texture2D" uid="uid://f6oohtm5b6x0" path="res://player/sprites/margarita/Margarita_RunLeft_Spritesheet.png" id="24_0ukfm"]
 [ext_resource type="Texture2D" uid="uid://cv7to2pfrgt3m" path="res://player/sprites/margarita/Margarita_RunRight_Spritesheet.png" id="25_73gv5"]
+[ext_resource type="PackedScene" uid="uid://c5k5rgonv1752" path="res://ui/mouse_cursor/cursor.tscn" id="29_60imv"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yvtba"]
 atlas = ExtResource("10_7q0er")
@@ -788,6 +789,11 @@ one_shot = true
 
 [node name="HoleDetector" parent="." instance=ExtResource("6_eb6gp")]
 scale = Vector2(3.3, 3.3)
+
+[node name="Cursor" parent="." instance=ExtResource("29_60imv")]
+before_fade = 0.4
+fade_time = 0.3
+fade_ease = 4.28709
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 unique_name_in_owner = true
