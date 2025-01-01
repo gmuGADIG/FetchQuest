@@ -739,11 +739,12 @@ script = ExtResource("9_de2wb")
 
 [node name="Skin1" type="AnimatedSprite2D" parent="SkinChooser"]
 unique_name_in_owner = true
+visible = false
 position = Vector2(13, 15)
 scale = Vector2(0.21, 0.21)
 sprite_frames = SubResource("SpriteFrames_r4o7u")
 animation = &"idle_left"
-frame_progress = 0.050815
+frame_progress = 0.815333
 
 [node name="XRay" type="Node" parent="SkinChooser/Skin1"]
 script = ExtResource("3_f3hsb")
@@ -764,7 +765,6 @@ x_ray_opacity = 0.4
 
 [node name="Skin3" type="AnimatedSprite2D" parent="SkinChooser"]
 unique_name_in_owner = true
-visible = false
 position = Vector2(13, 14)
 scale = Vector2(0.23, 0.23)
 sprite_frames = SubResource("SpriteFrames_80kpl")
@@ -785,6 +785,9 @@ speak_time = 0.5
 
 [node name="RollTimer" type="Timer" parent="."]
 wait_time = 0.75
+one_shot = true
+
+[node name="FallTimer" type="Timer" parent="."]
 one_shot = true
 
 [node name="HoleDetector" parent="." instance=ExtResource("6_eb6gp")]
@@ -808,4 +811,5 @@ volume_db = -7.0
 bus = &"SFX"
 
 [connection signal="timeout" from="RollTimer" to="." method="stop_roll"]
+[connection signal="timeout" from="FallTimer" to="." method="end_fall"]
 [connection signal="fall_in_hole" from="HoleDetector" to="." method="fall_in_hole"]

@@ -39,6 +39,12 @@ var last_aim_direction := Vector2.RIGHT
 
 var invincible: bool = false
 
+#Whether the players input is locked. Used when the falling animation is playing
+var input_locked : bool = false
+#The angle the player should spin as they fall
+var fall_angle : int = 360
+var fall_timer : float = 1.0
+
 var facing_right: bool = true;
 var rolling: bool = false
 var roll_vector: Vector2 = Vector2(0, 0)
@@ -135,6 +141,11 @@ func throw_sword() -> void:
 	sword.tree_exited.connect(sword_caught.emit)
 
 func _process(delta: float) -> void:
+	
+	#State where the player is falling
+	if input_locked:
+		return
+	
 	if Input.is_action_just_pressed("speak"):
 		if !$Speak.on_cooldown():
 			$Speak.speak()
@@ -251,9 +262,32 @@ func pickup_item(item: Item) -> void:
 	item.consume(self)
 
 func fall_in_hole() -> void:
-	hurt(DamageEvent.new(1))
-	# todo: play animation
+	hole_detector.enabled = false
+	
+	if(facing_right):
+		play_animation("idle_right")
+	else:
+		play_animation("idle_left")
+	
+	input_locked = true
+	var tween : Tween = create_tween()
+	
+	tween.tween_property($SkinChooser, "scale", Vector2.ZERO, fall_timer)
+	tween.parallel().tween_property($SkinChooser, "rotation_degrees", fall_angle if facing_right else -fall_angle, fall_timer)
+	
+	$FallTimer.start(fall_timer)
+
+func end_fall() -> void:
 	position = hole_detector.last_safe_position
+	$SkinChooser.rotation_degrees = 0
+	$SkinChooser.scale = Vector2(1,1)
+	input_locked = false
+	hurt(DamageEvent.new(1))
+	
+	#Ok. I have no idea why, but falling retriggers even if the hole is enabled with 1 frame of delay
+	await get_tree().process_frame
+	await get_tree().process_frame
+	hole_detector.enabled = true
 
 func activate_iframes() -> void:
 	invincible = true
