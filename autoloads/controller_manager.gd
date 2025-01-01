@@ -32,8 +32,6 @@ func _process(_delta: float) -> void:
 	var current_aim := Input.get_vector("look_left", "look_right", "look_up", "look_down").normalized()
 	if current_aim != Vector2.ZERO:
 		_last_nonzero_joystick_aim = current_aim
-		if Cursor.instance != null:
-			Cursor.instance.changed_aim();
 
 ## Only used for controllers. Returns the normalized aim direction.
 ## If no direction is held, returns the last direction that was held previously.
