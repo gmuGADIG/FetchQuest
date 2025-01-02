@@ -1,0 +1,58 @@
+# IF RETURN BOOK SIDE QUEST IS NOT COMPLETE...
+# Dialogue for initial interaction...
+set {firstTime} = 0
+if {firstTime} == 0:
+	Librarian: Welcome "young lad" to our humble Library.
+	Librarian: Have you arrived here to check out a book?
+	Librarian: Well, if you have come with this intention, I have to kindly refuse you as we cannot allow any more check outs for books.
+	# Can I help out?
+	- Give player the quest...
+		set {firstTime} = 1
+		Librarian: Ah so you find interest in aiding our library? Good good. Please fetch us [3] books from around the townfolk and return them to me!\
+Thank you and good luck on your endeavour.
+		# Quit dialogue...
+		# Add dialogue options for: The Alchemist, The Doctor, and The Gossipy Elder
+		- Player interacts with The Alchemist...
+			"The Alchemist": Ah hello [player name]! You need that book?\
+Sure sure, I needed to return it anyway.
+			set {bookCounter} += 1
+			# Remove this dialogue option from menu for The Alchemist.
+		- Player interacts with The Doctor...
+			"The Doctor": Hello [player name]! Did you need that old book over there?\
+You can have it, I needed to return it, but I never had the time.
+			set {bookCounter} += 1
+			# Remove this dialogue option from menu for The Doctor.
+		- Player interacts with The Doctor...
+			"The Gossipy Elder": Oh hello there [player name]! Hm?\
+You want this book?\
+Perhaps, I don't really need it.\
+Here you are!
+			set {bookCounter} += 1
+			# Remove this dialogue option from menu for The Gossipy Elder.
+	# Leave.
+	- Quit dialogue...
+		Librarian: Come visit again once we have all our books back in decent stock!
+# ONCE DONE WITH RETURN BOOK SIDE QUEST...
+if {bookCounter} == 3:
+	# End quest dialogue option opens...
+	Librarian: Ah I see you have retrieved all the books that were missing!\
+Thank you so much for you aid, here is a little something for you.
+	# The player could receive a decent amount of XP (~200?) and currency/points (~200) *These numbers can be rescaled appropriately alike to other side quests.
+	# End Side quest dialogue option from The Librarian...
+	[end_timeline]
+# Openning dialogue afterward...
+elif {firstTime} == 1:
+	Librarian: What may I do for you today?
+	jump 
+# RARE Dialogue after first interaction...
+else:
+	Librarian: What may I do for you today, you adorable pup?
+	jump 
+# Prompt for post quest choices:
+- Check out a book?
+	Librarian: One book just for you good lad!
+	# Book item is added (increase count of book item in inventory; can scrap idea)
+- Leave.
+	# Quit dialogue...
+	Librarian: Come visit us again, we will be right where we always are, at the Library!
+	"The Player": Woof!
