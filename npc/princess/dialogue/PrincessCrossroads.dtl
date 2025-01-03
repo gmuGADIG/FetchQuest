@@ -1,0 +1,33 @@
+if {princess.crossroads.talk_count} == 0:
+	if {princess.princess_talk} == true:
+		if {church_complete} == false:
+			if {talk_count} == "0":
+				Princess: Arthur please help, the road to the Forest is blocked by fungal overgrowth. 
+				Princess: Travel and trade have become almost impossible for the villagers. 
+				Princess: We have tried everything to remove the fungus, but nothing seems to be working.
+				Princess:  The fungus continues to regrow as if heads of a hydra. We have yet to find the heart of this growth. 
+				Princess: I’ve heard tell of bombs near the church. They may be our last hope to clear the path and restore this route.
+				Princess:  These bombs may also be helpful in other aspects of your journey.
+			elif {talk_count} == 1:
+				Princess: Go to the church to collect the bombs, the village needs the forest resources and trade.
+			else:
+				Princess: Go Fetch the bomb, whose a good boy, get the bomb!
+		elif {church_complete} == true:
+			if {talk_count} == 0:
+				Princess: I see that you have obtained bombs from the church, please use them to help clear our path. 
+				Princess: You only have a limited amount so be sure not to use too many. It may be beneficial to find its heart.
+			elif {talk_count} == 1:
+				Princess: Like I said the tendrils keep regrowing, so you have to destroy the center.
+			else:
+				Princess: Arthur want to blow up mushrooms? Good boy Arthur go blow up the mushrooms!
+		else:
+			Princess: Oh my goodness, you are adorable, such a good boy you are.
+			Princess: Your name is Arthur?
+			Princess: My goodness is that the sword of the hero? It is said that only the he who will save the kingdom will wield the sword.
+			Princess: I never thought the hero would be so CUTE.
+			Princess: Well, if you are the hero I have a quest for you.
+			Princess: Please meet me in the nearby village down the road so I can give you your quest.
+	elif {princess.crossroads.talk_count} == 1:
+		Princess: Please remember to meet me at the village.
+	else:
+		Princess: Awww I can’t be mad at you you’re such a good boy, meet me at the village and I’ll give you a treat! Arthur want a treat?

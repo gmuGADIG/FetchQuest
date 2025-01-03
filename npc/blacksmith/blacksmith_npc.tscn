@@ -1,0 +1,94 @@
+[gd_scene load_steps=16 format=3 uid="uid://cyvppko06hjoq"]
+
+[ext_resource type="PackedScene" uid="uid://dvhfibvbfhnnv" path="res://npc/base_npc.tscn" id="1_xvqhr"]
+[ext_resource type="Script" path="res://addons/dialogic/Resources/timeline.gd" id="2_40cdn"]
+[ext_resource type="Texture2D" uid="uid://7ldga43487y0" path="res://npc/blacksmith/Blacksmith_SpriteSheet.png" id="2_fbd5k"]
+[ext_resource type="Resource" path="res://npc/blacksmith/blacksmith_timeline.dtl" id="3_hiflv"]
+[ext_resource type="Resource" path="res://npc/blacksmith/Gary Smith.dch" id="4_s6rfu"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_acxht"]
+radius = 44.0
+height = 154.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rs1rc"]
+radius = 200.09
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7umi1"]
+atlas = ExtResource("2_fbd5k")
+region = Rect2(0, 0, 1024, 1024)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_amwq7"]
+atlas = ExtResource("2_fbd5k")
+region = Rect2(1024, 0, 1024, 1024)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p4543"]
+atlas = ExtResource("2_fbd5k")
+region = Rect2(2048, 0, 1024, 1024)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_23qui"]
+atlas = ExtResource("2_fbd5k")
+region = Rect2(3072, 0, 1024, 1024)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0hp7h"]
+atlas = ExtResource("2_fbd5k")
+region = Rect2(4096, 0, 1024, 1024)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cq31y"]
+atlas = ExtResource("2_fbd5k")
+region = Rect2(0, 1024, 1024, 1024)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6pcgv"]
+atlas = ExtResource("2_fbd5k")
+region = Rect2(1024, 1024, 1024, 1024)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_nk5au"]
+animations = [{
+"frames": [{
+"duration": 5.0,
+"texture": SubResource("AtlasTexture_7umi1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_amwq7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p4543")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_23qui")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0hp7h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cq31y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6pcgv")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="BlacksmithNPC" instance=ExtResource("1_xvqhr")]
+scale = Vector2(3, 3)
+
+[node name="CollisionShape2D" parent="." index="0"]
+position = Vector2(12, 0.517078)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_acxht")
+
+[node name="TalkingInteractable" parent="." index="1"]
+position = Vector2(0, -60.4829)
+timeline = Array[ExtResource("2_40cdn")]([ExtResource("3_hiflv")])
+character = ExtResource("4_s6rfu")
+
+[node name="CollisionShape2D" parent="TalkingInteractable" index="0"]
+shape = SubResource("CircleShape2D_rs1rc")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="2"]
+position = Vector2(0, -60.4829)
+scale = Vector2(0.221062, 0.221062)
+sprite_frames = SubResource("SpriteFrames_nk5au")
+autoplay = "default"
+frame_progress = 0.782538

@@ -1,19 +1,23 @@
-extends Node2D
-
-
+extends CanvasLayer
 
 func _skin1_pressed() -> void:
-	ChosenSkin.chosen_skin= 1
+	ChosenSkin.chosen_skin = 1
+	SFXManager.bonk_sound.play()
 	load_game()
-
 
 func _skin2_pressed() -> void:
 	ChosenSkin.chosen_skin = 2
+	SFXManager.bonk_sound.play()
 	load_game()
 
 func _skin3_pressed() -> void:
 	ChosenSkin.chosen_skin = 3
+	SFXManager.bonk_sound.play()
 	load_game()
 	
 func load_game() -> void:
-	get_tree().change_scene_to_file("res://world/latest_demo_2.tscn")
+	EntryPoints.current_entry_point = "Entrance"
+	SceneTransition.change_scene(preload("res://world/levels/overworld/overworld.tscn"))
+
+func _on_menu_major_button_pressed() -> void:
+	SFXManager.bonk_sound.play()

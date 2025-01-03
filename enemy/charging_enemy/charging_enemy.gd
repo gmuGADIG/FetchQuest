@@ -46,7 +46,7 @@ func set_own_state(state: EnemyState) -> void:
 			# Re-enable detection
 			# NOTE: If the player detection component changes behavior this
 			# could be problematic.
-			#$PlayerDetectionComponent.detecting = true
+			$PlayerDetectionComponent.detecting = true
 			
 		EnemyState.AGRESSIVE:
 			_set_charge_animation()
@@ -101,6 +101,7 @@ func _player_detected() -> void:
 	
 	# Grab our target position when we start the charge animation.
 	charge_direction = global_position.direction_to(Player.instance.global_position)
+	print("[charging_enemy] charge_direction set to ", charge_direction)
 
 func _ready() -> void:
 	super()
@@ -141,6 +142,7 @@ func _process_stunned(delta: float) -> void:
 # using navigation. So, we have to override physics process.
 func _physics_process(delta: float) -> void:
 	if enemy_state == EnemyState.AGRESSIVE:
+		print("[charging_enemy] charge_direction = ", charge_direction)
 		velocity = charge_direction * charging_speed
 		move_and_slide()
 		

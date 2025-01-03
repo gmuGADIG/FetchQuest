@@ -24,7 +24,7 @@ var rng: RandomNumberGenerator
 @export_range(0, 1) var secondary_fence_odds := 0.0
 
 ## Determines how much space is between each fence. Higher values means sparser fences.
-@export_range(50, 500) var fence_spacing := 150.0
+@export_range(0, 500) var fence_spacing := 50.0
 
 ## How much to randomize each fence's position. A value of 0 means the fences generate in a perfect line with equal spacing.
 #@export_range(0, 1) var randomness := 0.3
@@ -79,9 +79,38 @@ func get_fence_scene() -> PackedScene:
 
 func get_points_in_line() -> Array[Vector2]:
 	
+	
+	##The locations where fences will be instantiated. Will be returned
 	var fence_points: Array[Vector2] = []
+	
+	if(points.size() == 0):
+		return []
+		
+	##iterates over the positions in space to calculate fence points
 	var current_location : Vector2 = points[0]
 	
+	##The point that the current_location is iterating towards
+	var travel_to_index : int = 1
+	
+	var done : bool  = false
+	while(travel_to_index<points.size()):
+		fence_points.append(current_location)
+		var distance_until_next_point : float = current_location.distance_to(points[travel_to_index])
+		#var next_location : Vector2
+		if(distance_until_next_point>fence_spacing):#
+			current_location = current_location.move_toward(points[travel_to_index],fence_spacing)
+		else:#Edge case for when going around a bend
+			#Change which point is being traced
+			travel_to_index+=1
+			#Terminating case
+			if travel_to_index>=points.size():
+				break
+					
+			var remaining_distance : float = fence_spacing-distance_until_next_point
+			
+			current_location = points[travel_to_index-1].move_toward(points[travel_to_index],remaining_distance)
+			
+		
 		
 			
 	return fence_points

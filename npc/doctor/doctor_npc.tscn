@@ -1,0 +1,62 @@
+[gd_scene load_steps=11 format=3 uid="uid://cwp0q1v7qa62f"]
+
+[ext_resource type="PackedScene" uid="uid://dvhfibvbfhnnv" path="res://npc/base_npc.tscn" id="1_bfctd"]
+[ext_resource type="Texture2D" uid="uid://ccgsk3cykr5l3" path="res://npc/doctor/doctor_spritesheet.png" id="2_123q6"]
+[ext_resource type="Script" path="res://addons/dialogic/Resources/timeline.gd" id="2_214x7"]
+[ext_resource type="Resource" path="res://npc/doctor/dialogue/Doctor_timeline.dtl" id="3_u35wp"]
+[ext_resource type="Resource" path="res://npc/doctor/dialogue/Doctor.dch" id="4_bby6e"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7jnig"]
+atlas = ExtResource("2_123q6")
+region = Rect2(1536, 0, 512, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xmk5y"]
+atlas = ExtResource("2_123q6")
+region = Rect2(2048, 0, 512, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wuyoe"]
+atlas = ExtResource("2_123q6")
+region = Rect2(0, 512, 512, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_itj2y"]
+atlas = ExtResource("2_123q6")
+region = Rect2(512, 512, 512, 512)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_768xs"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7jnig")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xmk5y")
+}, {
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_wuyoe")
+}, {
+"duration": 5.0,
+"texture": SubResource("AtlasTexture_itj2y")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="DoctorNPC" instance=ExtResource("1_bfctd")]
+
+[node name="CollisionShape2D" parent="." index="0"]
+position = Vector2(-6, -5)
+scale = Vector2(1.38415, 1.38415)
+
+[node name="TalkingInteractable" parent="." index="1"]
+position = Vector2(0, -39)
+scale = Vector2(1.44292, 1.44292)
+timeline = Array[ExtResource("2_214x7")]([ExtResource("3_u35wp")])
+character = ExtResource("4_bby6e")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="2"]
+position = Vector2(-24, -105)
+scale = Vector2(0.659163, 0.659163)
+sprite_frames = SubResource("SpriteFrames_768xs")
+autoplay = "default"
+frame_progress = 0.944194

@@ -1,39 +1,152 @@
-[gd_scene load_steps=7 format=3 uid="uid://dutetduietx8r"]
+[gd_scene load_steps=21 format=3 uid="uid://dutetduietx8r"]
 
 [ext_resource type="Script" path="res://enemy/shield_enemy/shield_enemy.gd" id="1_35cbv"]
 [ext_resource type="PackedScene" uid="uid://blpi4x6if673v" path="res://enemy/base_enemy.tscn" id="2_k6ptp"]
 [ext_resource type="Texture2D" uid="uid://deern6512fesn" path="res://demo_art/test_enemy.svg" id="2_n1066"]
-[ext_resource type="Texture2D" uid="uid://dymucenpxmluo" path="res://icon.svg" id="2_yu8al"]
+[ext_resource type="Texture2D" uid="uid://bp1vww4oato5g" path="res://enemy/shield_enemy/bioluminescent/walk.png" id="4_766at"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_6ymve"]
-size = Vector2(195, 195)
+[sub_resource type="Gradient" id="Gradient_xjefh"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_5of5q"]
+gradient = SubResource("Gradient_xjefh")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1xywq"]
+size = Vector2(20, 92)
+
+[sub_resource type="Gradient" id="Gradient_vs0po"]
+offsets = PackedFloat32Array(0, 0.221698, 0.693396, 1)
+colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 0.34902, 0, 0.39, 0.169, 0.807843, 0.1862, 0.49, 0.317847, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_i3n5l"]
+gradient = SubResource("Gradient_vs0po")
+width = 128
+height = 128
+fill_from = Vector2(0, 1)
+fill_to = Vector2(0, 0)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rnx4b"]
-size = Vector2(118, 106)
+size = Vector2(135, 122)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o3r4f"]
+atlas = ExtResource("4_766at")
+region = Rect2(0, 0, 716, 550)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6ixru"]
+atlas = ExtResource("4_766at")
+region = Rect2(716, 0, 716, 550)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qk3l6"]
+atlas = ExtResource("4_766at")
+region = Rect2(1432, 0, 716, 550)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jat05"]
+atlas = ExtResource("4_766at")
+region = Rect2(2148, 0, 716, 550)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fjktv"]
+atlas = ExtResource("4_766at")
+region = Rect2(2864, 0, 716, 550)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jcji7"]
+atlas = ExtResource("4_766at")
+region = Rect2(0, 550, 716, 550)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ex5nc"]
+atlas = ExtResource("4_766at")
+region = Rect2(716, 550, 716, 550)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_780pm"]
+atlas = ExtResource("4_766at")
+region = Rect2(1432, 550, 716, 550)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bh2xh"]
+atlas = ExtResource("4_766at")
+region = Rect2(2148, 550, 716, 550)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_24r2b"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o3r4f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6ixru")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qk3l6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jat05")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fjktv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jcji7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ex5nc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_780pm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bh2xh")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [node name="ShieldEnemy" node_paths=PackedStringArray("enemy_sprite") instance=ExtResource("2_k6ptp")]
 position = Vector2(0, -1)
+scale = Vector2(2, 2)
 script = ExtResource("1_35cbv")
-shield_size = 60.0
-enemy_sprite = NodePath("EnemySprite")
+movement_speed = 96.0
+enemy_sprite = NodePath("AnimatedSprite2D")
+agressive_target_distance_max = 1
 
-[node name="Shield" type="Area2D" parent="." index="0"]
-collision_layer = 0
-collision_mask = 2
+[node name="Shield" type="Node2D" parent="." index="0"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Shield" index="0"]
-shape = SubResource("RectangleShape2D_6ymve")
+[node name="StaticBody2D" type="StaticBody2D" parent="Shield" index="0"]
+position = Vector2(88, 1)
+collision_layer = 512
+collision_mask = 0
 
-[node name="Sprite2D" type="Sprite2D" parent="Shield" index="1"]
-position = Vector2(89, 2)
-scale = Vector2(0.16, 0.720001)
-texture = ExtResource("2_yu8al")
+[node name="Sprite2D" type="Sprite2D" parent="Shield/StaticBody2D" index="0"]
+visible = false
+position = Vector2(-6.85453e-07, 4.64916e-06)
+scale = Vector2(0.3125, 1.4375)
+texture = SubResource("GradientTexture2D_5of5q")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Shield/StaticBody2D" index="1"]
+shape = SubResource("RectangleShape2D_1xywq")
+
+[node name="Line2D" type="Line2D" parent="Shield/StaticBody2D" index="2"]
+position = Vector2(-10.5, 0)
+points = PackedVector2Array(0.5, -45.5, 14.5, -15, 16.5, -8, 17, -2, 17.5, 3.5, 17, 9.5, 16, 15.5, 13.5, 22.5, 0.5, 46.5)
+width = 15.0
+texture = SubResource("GradientTexture2D_i3n5l")
+texture_mode = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
+position = Vector2(-0.5, -1)
 shape = SubResource("RectangleShape2D_rnx4b")
 
-[node name="EnemySprite" type="Sprite2D" parent="." index="2"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="2"]
+position = Vector2(0, -10)
+scale = Vector2(0.179011, 0.179011)
+sprite_frames = SubResource("SpriteFrames_24r2b")
+autoplay = "default"
+frame_progress = 0.786022
+
+[node name="EnemySprite" type="Sprite2D" parent="." index="3"]
+visible = false
 self_modulate = Color(0.473481, 0.00278523, 0.831244, 1)
 texture = ExtResource("2_n1066")
 
-[connection signal="body_entered" from="Shield" to="." method="_on_shield_body_entered"]
+[node name="Reloadable" parent="." index="6"]
+position = Vector2(-1.43051e-06, -9.53674e-07)
+scale = Vector2(6.4, 6)

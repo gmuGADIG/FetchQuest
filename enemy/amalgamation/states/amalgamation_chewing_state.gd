@@ -13,7 +13,9 @@ func enter() -> void:
 	
 	# Hide the player while chewing
 	Player.instance.modulate.a = 0
-	
+	# Turn off Player input
+	Player.instance.set_process_input(false)
+	Player.instance.set_process(false)
 	# Chew for 'duration' seconds, then idle
 	await get_tree().create_timer(duration).timeout
 	if amalgamation.state_machine.current_state != self:
@@ -26,6 +28,9 @@ func update(_delta:float) -> void:
 
 func exit() -> void:
 	# Spit the player out
+	#turn on Player input
+	Player.instance.set_process_input(true)
+	Player.instance.set_process(true)
 	var tween:Tween = create_tween()
 	tween.tween_property(Player.instance,"global_position",%MouthArea.global_position + Vector2(0, spitting_distance), .25)
 	Player.instance.modulate.a = 1

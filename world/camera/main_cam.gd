@@ -10,10 +10,6 @@ var _shake_strength := 0.0
 func _init() -> void:
 	instance = self
 
-func _ready() -> void:
-	global_position = Player.instance.global_position
-	reset_smoothing.call_deferred()
-
 func _process(delta: float) -> void:
 	global_position = Player.instance.global_position
 	

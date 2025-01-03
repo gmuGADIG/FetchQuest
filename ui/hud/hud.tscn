@@ -1,69 +1,191 @@
-[gd_scene load_steps=7 format=3 uid="uid://70lp7kfk3yw6"]
+[gd_scene load_steps=12 format=3 uid="uid://70lp7kfk3yw6"]
 
-[ext_resource type="Script" path="res://ui/hud/heart_display.gd" id="1_k7sf5"]
-[ext_resource type="PackedScene" uid="uid://crx66rsu01asx" path="res://ui/hud/heart.tscn" id="2_b3c5i"]
-[ext_resource type="Texture2D" uid="uid://cp22ef7xmnuv5" path="res://ui/hud/Stamina Holder.png" id="3_im5ei"]
-[ext_resource type="Texture2D" uid="uid://bw5l4c55f1nje" path="res://ui/hud/Stamina Bar.png" id="4_7lir6"]
-[ext_resource type="Texture2D" uid="uid://deern6512fesn" path="res://demo_art/test_enemy.svg" id="4_78gs1"]
-[ext_resource type="Script" path="res://ui/hud/stamina_bar.gd" id="4_bod0y"]
+[ext_resource type="Texture2D" uid="uid://coei1l71s6ee5" path="res://ui/hud/Health-Stamina-Item-Points Bar/Background.png" id="3_khs8t"]
+[ext_resource type="Texture2D" uid="uid://bntgxqb00qldt" path="res://ui/hud/Health-Stamina-Item-Points Bar/Circle.png" id="4_gkpdi"]
+[ext_resource type="Texture2D" uid="uid://b41yd4g17d23i" path="res://ui/hud/Health-Stamina-Item-Points Bar/Heart Holder.png" id="8_vopoe"]
+[ext_resource type="Theme" uid="uid://hft8rbf0e22b" path="res://ui/main_ui_theme.tres" id="14_c6cuy"]
+[ext_resource type="Script" path="res://ui/hud/life_meter.gd" id="14_xgug3"]
+[ext_resource type="Texture2D" uid="uid://ct7ni5e6ke6j3" path="res://ui/hud/Health-Stamina-Item-Points Bar/Stamina Bar.png" id="15_j4tyb"]
+[ext_resource type="Texture2D" uid="uid://b7r2giesc6i34" path="res://ui/hud/Health-Stamina-Item-Points Bar/Stamina Holder.png" id="16_dyhul"]
+[ext_resource type="Texture2D" uid="uid://nbmmljw4ts6j" path="res://ui/hud/Health-Stamina-Item-Points Bar/UI_Sword.png" id="16_klhy4"]
+[ext_resource type="Texture2D" uid="uid://cqnafwnilxdb3" path="res://ui/hud/Health-Stamina-Item-Points Bar/Bone.png" id="18_t7eg7"]
+[ext_resource type="Texture2D" uid="uid://dpk27dowi5dyd" path="res://ui/hud/Health-Stamina-Item-Points Bar/Point Counter.png" id="18_tq501"]
+[ext_resource type="Texture2D" uid="uid://c2jpowrkxuguq" path="res://ui/hud/Health-Stamina-Item-Points Bar/Tennis Bomb.png" id="19_qcj6b"]
 
 [node name="HUD" type="CanvasLayer"]
 
-[node name="ContainerContainer" type="HBoxContainer" parent="."]
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -1139.0
-offset_right = 1139.0
-offset_bottom = 172.0
-grow_horizontal = 2
-scale = Vector2(0.5, 0.5)
-pivot_offset = Vector2(1139, 0)
-alignment = 1
-
-[node name="HeartAndStaminaContainer" type="VBoxContainer" parent="ContainerContainer"]
-layout_mode = 2
-size_flags_horizontal = 2
-
-[node name="HeartContainer" type="HBoxContainer" parent="ContainerContainer/HeartAndStaminaContainer"]
-z_index = 100
-layout_mode = 2
-size_flags_horizontal = 2
-size_flags_vertical = 4
-script = ExtResource("1_k7sf5")
-
-[node name="Heart" parent="ContainerContainer/HeartAndStaminaContainer/HeartContainer" instance=ExtResource("2_b3c5i")]
-layout_mode = 2
-
-[node name="Heart2" parent="ContainerContainer/HeartAndStaminaContainer/HeartContainer" instance=ExtResource("2_b3c5i")]
-layout_mode = 2
-
-[node name="Heart3" parent="ContainerContainer/HeartAndStaminaContainer/HeartContainer" instance=ExtResource("2_b3c5i")]
-layout_mode = 2
-
-[node name="StaminaBar" type="TextureProgressBar" parent="ContainerContainer/HeartAndStaminaContainer"]
-layout_mode = 2
+[node name="LifeMeter" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 12.0
+offset_top = 484.0
+offset_right = 12.0
+offset_bottom = 484.0
+scale = Vector2(0.65, 0.65)
 size_flags_horizontal = 0
-value = 100.0
-texture_over = ExtResource("3_im5ei")
-texture_progress = ExtResource("4_7lir6")
-texture_progress_offset = Vector2(20, -2.75)
-script = ExtResource("4_bod0y")
+theme = ExtResource("14_c6cuy")
+script = ExtResource("14_xgug3")
+metadata/_edit_group_ = true
 
-[node name="GBPContainer" type="CenterContainer" parent="ContainerContainer"]
-layout_mode = 2
+[node name="Sword" type="TextureRect" parent="LifeMeter"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 187.692
+offset_top = -81.5385
+offset_right = 327.692
+offset_bottom = 417.461
+rotation = 0.693524
+scale = Vector2(0.634562, 0.634562)
+texture = ExtResource("16_klhy4")
 
-[node name="GoodBoyIcon" type="TextureRect" parent="ContainerContainer/GBPContainer"]
-z_index = 100
-layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 4
-texture = ExtResource("4_78gs1")
+[node name="Stamina" type="NinePatchRect" parent="LifeMeter"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 131.0
+offset_top = 152.0
+offset_right = 403.0
+offset_bottom = 192.0
+texture = ExtResource("15_j4tyb")
+patch_margin_left = 35
+patch_margin_top = 36
 
-[node name="Counter" type="Label" parent="ContainerContainer/GBPContainer"]
-z_index = 101
+[node name="StaminaContainer" type="NinePatchRect" parent="LifeMeter"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 107.0
+offset_top = 135.0
+offset_right = 421.0
+offset_bottom = 204.0
+texture = ExtResource("16_dyhul")
+patch_margin_left = 65
+patch_margin_top = 69
+patch_margin_right = 17
+
+[node name="HeartBackgrounds" type="Control" parent="LifeMeter"]
+unique_name_in_owner = true
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Background" type="TextureRect" parent="LifeMeter"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 4.0
+offset_right = 427.0
+offset_bottom = 186.0
+texture = ExtResource("3_khs8t")
+
+[node name="HeartContainer" type="NinePatchRect" parent="LifeMeter"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 444.0
+offset_bottom = 201.0
+texture = ExtResource("8_vopoe")
+patch_margin_left = 204
+patch_margin_top = 201
+patch_margin_right = 19
+
+[node name="Circle" type="TextureRect" parent="LifeMeter"]
+layout_mode = 0
+offset_right = 201.0
+offset_bottom = 201.0
+texture = ExtResource("4_gkpdi")
+
+[node name="HeartBackgroundSpawn" type="Marker2D" parent="LifeMeter"]
+unique_name_in_owner = true
+position = Vector2(344, 76)
+
+[node name="Hearts" type="Control" parent="LifeMeter"]
+unique_name_in_owner = true
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Heart1" type="TextureRect" parent="LifeMeter/Hearts"]
+layout_mode = 0
+offset_left = 198.0
+offset_top = 93.0
+offset_right = 259.0
+offset_bottom = 146.0
+texture = ExtResource("18_t7eg7")
+
+[node name="Heart2" type="TextureRect" parent="LifeMeter/Hearts"]
+layout_mode = 0
+offset_left = 281.0
+offset_top = 93.0
+offset_right = 342.0
+offset_bottom = 146.0
+texture = ExtResource("18_t7eg7")
+
+[node name="Heart3" type="TextureRect" parent="LifeMeter/Hearts"]
+layout_mode = 0
+offset_left = 364.0
+offset_top = 93.0
+offset_right = 425.0
+offset_bottom = 146.0
+texture = ExtResource("18_t7eg7")
+
+[node name="Bomb" type="TextureRect" parent="LifeMeter"]
+layout_mode = 0
+offset_left = 32.0
+offset_top = 26.0
+offset_right = 217.0
+offset_bottom = 248.0
+scale = Vector2(0.583377, 0.583377)
+texture = ExtResource("19_qcj6b")
+
+[node name="BombCounter" type="Label" parent="LifeMeter"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = 144.0
+offset_top = 134.0
+offset_right = 145.0
+offset_bottom = 171.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 32
+text = "314159"
+
+[node name="GoodBoyPointsCounter" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_left = 1123.0
+offset_top = 556.0
+offset_right = 1123.0
+offset_bottom = 556.0
+scale = Vector2(0.5, 0.5)
+size_flags_horizontal = 10
+metadata/_edit_group_ = true
+
+[node name="Container" type="MarginContainer" parent="GoodBoyPointsCounter"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 53.0
+grow_horizontal = 0
+
+[node name="NinePatchRect" type="NinePatchRect" parent="GoodBoyPointsCounter/Container"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 58
+texture = ExtResource("18_tq501")
+patch_margin_left = 13
+patch_margin_top = 15
+patch_margin_right = 15
+patch_margin_bottom = 13
+
+[node name="MarginContainer" type="MarginContainer" parent="GoodBoyPointsCounter/Container"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="Label" type="Label" parent="GoodBoyPointsCounter/Container/MarginContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
 text = "128"
 horizontal_alignment = 1
-vertical_alignment = 1
