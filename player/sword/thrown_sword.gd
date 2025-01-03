@@ -51,7 +51,7 @@ func throw(throw_direction: Vector2) -> void:
 	
 ## Initiates the sword's return to the player
 func return_sword() -> void:
-	set_collision_mask_value(1, false)  # Disable collision with terrain
+	collision_mask = 0 # Disable collision with terrain
 	returning = true                    # Mark the sword as returning
 	local_acceleration = abs(acceleration)  # Adjust acceleration for return phase
 
@@ -106,10 +106,17 @@ func sword_bounce() -> void:
 func _on_collision(collision: KinematicCollision2D) -> void:
 	if collision.get_collider().has_method("hurt"):
 		collision.get_collider().hurt(DamageEvent.new(0, velocity.normalized()))
+
 	var collision_normal: Vector2 = collision.get_normal()  # Get the normal of the surface hit
 	velocity = velocity.bounce(collision_normal)
+
 	direction = velocity  # Update direction after bounce
 	sword_bounce()        # Handle ricochet logic
+
+	var collider := collision.get_collider()
+	if collider is CollisionObject2D and collider.get_collision_layer_value(10):
+		return_sword()
+	
 
 ## Called by item.gd. Grabs the item and makes it follow the sword.
 func pickup_item(item: Item) -> void:

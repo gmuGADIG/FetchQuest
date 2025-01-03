@@ -1,0 +1,604 @@
+[gd_scene load_steps=39 format=4 uid="uid://c0b860627rcs5"]
+
+[ext_resource type="PackedScene" uid="uid://cnd06dpkgufe4" path="res://world/levels/level_base.tscn" id="1_2iy6g"]
+[ext_resource type="Script" path="res://world/decoration/trees/tree_gen.gd" id="2_n44bl"]
+[ext_resource type="PackedScene" uid="uid://gkyoiixhetyn" path="res://world/decoration/bushes/bush_big.tscn" id="3_a0yt1"]
+[ext_resource type="PackedScene" uid="uid://7rwwk775fptb" path="res://world/decoration/bushes/bush_small.tscn" id="4_qjjla"]
+[ext_resource type="PackedScene" uid="uid://dsm5cibmw7k8f" path="res://world/decoration/buildings/house_tudor_a.tscn" id="7_angr6"]
+[ext_resource type="Script" path="res://reloader/reloader.gd" id="8_gqbog"]
+[ext_resource type="PackedScene" uid="uid://1mnsgb10h43t" path="res://world/fast_travel/toilet_travel_station.tscn" id="8_qhp37"]
+[ext_resource type="PackedScene" uid="uid://bgujmor7r2ari" path="res://world/decoration/buildings/house_tudor_b.tscn" id="8_xsw5j"]
+[ext_resource type="Script" path="res://world/tilemap/fences/fence_gen.gd" id="9_1vsr4"]
+[ext_resource type="PackedScene" uid="uid://cnveqoba0t7tx" path="res://world/decoration/trees/evergreen_tree_with_fireflies.tscn" id="10_3x3mv"]
+[ext_resource type="PackedScene" uid="uid://chljqqgo8mvxg" path="res://world/tilemap/fences/fence1.tscn" id="10_f4dcs"]
+[ext_resource type="PackedScene" uid="uid://b8ogwotn6nsdk" path="res://world/interactable/sinking-wall/sinking_wall.tscn" id="11_ch02a"]
+[ext_resource type="PackedScene" uid="uid://dt3m30r5dehup" path="res://world/interactable/pickups/pickup_key.tscn" id="12_joquo"]
+[ext_resource type="PackedScene" uid="uid://bs6o5glcfe2as" path="res://enemy/projectile_enemy/projectile_enemy.tscn" id="12_t5ow0"]
+[ext_resource type="Script" path="res://world/interactable/activatable/moving_objects/platform_mover.gd" id="13_glw2f"]
+[ext_resource type="PackedScene" uid="uid://deo11h81nnpyw" path="res://world/interactable/pickups/pickup_bomb.tscn" id="13_meh4f"]
+[ext_resource type="PackedScene" uid="uid://bxaar1hpspnom" path="res://world/interactable/activatable/moving_objects/movable_platform.tscn" id="14_hyg0y"]
+[ext_resource type="PackedScene" uid="uid://bm05x1jwytuuc" path="res://world/tilemap/main_tile_layer.tscn" id="15_nkduh"]
+[ext_resource type="PackedScene" uid="uid://blh1fs712dql8" path="res://world/interactable/activatable/locked_door/locked_door.tscn" id="16_be0xc"]
+[ext_resource type="PackedScene" uid="uid://cl1lr3ddw0s8j" path="res://world/decoration/trees/evergreen_tree.tscn" id="17_0qa0k"]
+[ext_resource type="Texture2D" uid="uid://dc4pcxr2lfkka" path="res://demo_art/dungeon_entrance.png" id="17_o8ma7"]
+[ext_resource type="PackedScene" uid="uid://bom8mopkckp5y" path="res://world/interactable/chest/chest.tscn" id="18_ricm7"]
+[ext_resource type="Script" path="res://world/interactable/transition_trigger/transition_trigger.gd" id="18_u8qny"]
+[ext_resource type="PackedScene" uid="uid://cg2jt0166hik8" path="res://world/interactable/activators/red_coin/red_coin_manager.tscn" id="20_cbi4s"]
+[ext_resource type="PackedScene" uid="uid://gp1o7iklljk2" path="res://world/interactable/activators/red_coin/red_coin.tscn" id="21_7gu4x"]
+[ext_resource type="PackedScene" uid="uid://5x8wo3lcwigq" path="res://world/objects/breakable_object/breakable_object.tscn" id="24_xolg5"]
+[ext_resource type="PackedScene" uid="uid://mpm2bfwj3tbw" path="res://world/interactable/activatable/activatable_spawner/activatable_spawner.tscn" id="26_cl53y"]
+[ext_resource type="PackedScene" uid="uid://yllbcpq24cl0" path="res://enemy/creep_enemy/creep_enemy.tscn" id="26_hg8qn"]
+[ext_resource type="PackedScene" uid="uid://dovs54pxe1oba" path="res://generic/particle_fixer/particle_fixer.tscn" id="27_h03p2"]
+[ext_resource type="PackedScene" uid="uid://bimerg4hcbya2" path="res://enemy/charging_enemy/charging_enemy.tscn" id="27_kqj6m"]
+[ext_resource type="PackedScene" uid="uid://c4q0hmrfl5yh2" path="res://enemy/frog_boss/frog_boss.tscn" id="31_1tm5l"]
+[ext_resource type="PackedScene" uid="uid://rap0uso4fckx" path="res://dj_music_man/music_players/instant_music_player.tscn" id="32_tlxi0"]
+
+[sub_resource type="Curve2D" id="Curve2D_j10fm"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 116, -369, 0, 0, 0, 0, -392, -377)
+}
+point_count = 2
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c0qo5"]
+size = Vector2(158, 146)
+
+[sub_resource type="Gradient" id="Gradient_qlg4y"]
+offsets = PackedFloat32Array(0, 0.301775, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_yqoe1"]
+gradient = SubResource("Gradient_qlg4y")
+width = 32
+height = 32
+fill = 1
+fill_from = Vector2(0.504274, 0.581197)
+fill_to = Vector2(0.82906, 0.260684)
+
+[sub_resource type="Gradient" id="Gradient_j0x6n"]
+offsets = PackedFloat32Array(0.33815, 0.520231)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="Gradient" id="Gradient_5edvf"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.517341, 0.846821)
+colors = PackedColorArray(1, 1, 0, 1, 1, 0.643137, 0, 1, 1, 1, 1, 1)
+
+[node name="LatestDemo2" instance=ExtResource("1_2iy6g")]
+
+[node name="FakeGrass" type="ColorRect" parent="." index="0"]
+z_index = -10
+offset_left = -10901.0
+offset_top = -7032.0
+offset_right = 16415.0
+offset_bottom = 10220.0
+color = Color(0.0902, 0.22, 0.0988533, 1)
+
+[node name="HouseArea" type="Node2D" parent="." index="1"]
+y_sort_enabled = true
+
+[node name="TreeGen" type="StaticBody2D" parent="HouseArea" index="0"]
+y_sort_enabled = true
+script = ExtResource("2_n44bl")
+tree_scene = ExtResource("17_0qa0k")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="HouseArea/TreeGen" index="0"]
+polygon = PackedVector2Array(-769, 1351, 459, 1370, 499, 1330, 510, 1260, 456, 1186, 326, 1189, 190, 1195, 15, 1180, -78, 1144, -144, 980, -180, 637, -133, 365, -76, 249, 5, 90, 86, 12, 239, -45, 353, -72, 518, -90, 671, -93, 802, -78, 895, -36, 1030, -9, 1174, -39, 1240, -27, 1324, 57, 1387, 207, 1420, 368, 1432, 491, 1411, 638, 1372, 791, 1318, 896, 1228, 995, 1090, 1070, 1012, 1115, 965, 1175, 950, 1247, 955, 1308, 1428, 1507, 1689, 1645, 2016, 1907, 2434, 1916, 2370, 1295, 2336, -672, -778, -625)
+
+[node name="BushesOutside" type="Node2D" parent="HouseArea" index="1"]
+y_sort_enabled = true
+
+[node name="BigBush" parent="HouseArea/BushesOutside" index="0" instance=ExtResource("3_a0yt1")]
+position = Vector2(222, -72)
+
+[node name="BigBush18" parent="HouseArea/BushesOutside" index="1" instance=ExtResource("3_a0yt1")]
+position = Vector2(1202, 571)
+
+[node name="BigBush2" parent="HouseArea/BushesOutside" index="2" instance=ExtResource("3_a0yt1")]
+position = Vector2(518, -106)
+
+[node name="BigBush3" parent="HouseArea/BushesOutside" index="3" instance=ExtResource("3_a0yt1")]
+position = Vector2(-2.99994, 19)
+
+[node name="BigBush4" parent="HouseArea/BushesOutside" index="4" instance=ExtResource("3_a0yt1")]
+position = Vector2(831, -140)
+
+[node name="BigBush5" parent="HouseArea/BushesOutside" index="5" instance=ExtResource("3_a0yt1")]
+position = Vector2(767, -348)
+
+[node name="BigBush6" parent="HouseArea/BushesOutside" index="6" instance=ExtResource("3_a0yt1")]
+position = Vector2(148, -265)
+
+[node name="BigBush7" parent="HouseArea/BushesOutside" index="7" instance=ExtResource("3_a0yt1")]
+position = Vector2(-86, -197)
+
+[node name="BigBush8" parent="HouseArea/BushesOutside" index="8" instance=ExtResource("3_a0yt1")]
+position = Vector2(1186, -72)
+
+[node name="BigBush9" parent="HouseArea/BushesOutside" index="9" instance=ExtResource("3_a0yt1")]
+position = Vector2(1443, 117)
+
+[node name="BigBush10" parent="HouseArea/BushesOutside" index="10" instance=ExtResource("3_a0yt1")]
+position = Vector2(1574, 319)
+
+[node name="BigBush17" parent="HouseArea/BushesOutside" index="11" instance=ExtResource("3_a0yt1")]
+position = Vector2(1065, -119)
+
+[node name="BigBush11" parent="HouseArea/BushesOutside" index="12" instance=ExtResource("3_a0yt1")]
+position = Vector2(1544, 642)
+
+[node name="BigBush12" parent="HouseArea/BushesOutside" index="13" instance=ExtResource("3_a0yt1")]
+position = Vector2(1432, 1000)
+
+[node name="BigBush13" parent="HouseArea/BushesOutside" index="14" instance=ExtResource("3_a0yt1")]
+position = Vector2(1135, 1263)
+
+[node name="BigBush14" parent="HouseArea/BushesOutside" index="15" instance=ExtResource("3_a0yt1")]
+position = Vector2(-17.9999, 1242)
+
+[node name="BigBush15" parent="HouseArea/BushesOutside" index="16" instance=ExtResource("3_a0yt1")]
+position = Vector2(-226, 1043)
+
+[node name="BigBush16" parent="HouseArea/BushesOutside" index="17" instance=ExtResource("3_a0yt1")]
+position = Vector2(-231, 290)
+
+[node name="SmallBush" parent="HouseArea/BushesOutside" index="18" instance=ExtResource("4_qjjla")]
+position = Vector2(163, -51)
+
+[node name="SmallBush2" parent="HouseArea/BushesOutside" index="19" instance=ExtResource("4_qjjla")]
+position = Vector2(68, -8)
+
+[node name="SmallBush3" parent="HouseArea/BushesOutside" index="20" instance=ExtResource("4_qjjla")]
+position = Vector2(436, -98)
+
+[node name="SmallBush4" parent="HouseArea/BushesOutside" index="21" instance=ExtResource("4_qjjla")]
+position = Vector2(288, -91)
+
+[node name="SmallBush5" parent="HouseArea/BushesOutside" index="22" instance=ExtResource("4_qjjla")]
+position = Vector2(735, -118)
+
+[node name="SmallBush6" parent="HouseArea/BushesOutside" index="23" instance=ExtResource("4_qjjla")]
+position = Vector2(906, -131)
+
+[node name="SmallBush7" parent="HouseArea/BushesOutside" index="24" instance=ExtResource("4_qjjla")]
+position = Vector2(1061, -64)
+
+[node name="SmallBush8" parent="HouseArea/BushesOutside" index="25" instance=ExtResource("4_qjjla")]
+position = Vector2(976, -80)
+
+[node name="SmallBush9" parent="HouseArea/BushesOutside" index="26" instance=ExtResource("4_qjjla")]
+position = Vector2(938, -120)
+
+[node name="SmallBush10" parent="HouseArea/BushesOutside" index="27" instance=ExtResource("4_qjjla")]
+position = Vector2(1504, 507)
+
+[node name="SmallBush11" parent="HouseArea/BushesOutside" index="28" instance=ExtResource("4_qjjla")]
+position = Vector2(1225, 1226)
+
+[node name="SmallBush12" parent="HouseArea/BushesOutside" index="29" instance=ExtResource("4_qjjla")]
+position = Vector2(1108, 1280)
+
+[node name="SmallBush13" parent="HouseArea/BushesOutside" index="30" instance=ExtResource("4_qjjla")]
+position = Vector2(44, 1264)
+
+[node name="SmallBush14" parent="HouseArea/BushesOutside" index="31" instance=ExtResource("4_qjjla")]
+position = Vector2(-99, 1274)
+
+[node name="BushesInside" type="Node2D" parent="HouseArea" index="2"]
+y_sort_enabled = true
+
+[node name="SmallBush" parent="HouseArea/BushesInside" index="0" instance=ExtResource("4_qjjla")]
+position = Vector2(696, 593)
+
+[node name="SmallBush5" parent="HouseArea/BushesInside" index="1" instance=ExtResource("4_qjjla")]
+position = Vector2(557, 153)
+
+[node name="SmallBush6" parent="HouseArea/BushesInside" index="2" instance=ExtResource("4_qjjla")]
+position = Vector2(1313, 371)
+
+[node name="SmallBush7" parent="HouseArea/BushesInside" index="3" instance=ExtResource("4_qjjla")]
+position = Vector2(393, 575)
+
+[node name="SmallBush2" parent="HouseArea/BushesInside" index="4" instance=ExtResource("4_qjjla")]
+position = Vector2(258, 191)
+
+[node name="SmallBush3" parent="HouseArea/BushesInside" index="5" instance=ExtResource("4_qjjla")]
+position = Vector2(128, 767)
+
+[node name="SmallBush4" parent="HouseArea/BushesInside" index="6" instance=ExtResource("4_qjjla")]
+position = Vector2(879, 784)
+
+[node name="HouseTudorA" parent="HouseArea" index="3" instance=ExtResource("7_angr6")]
+position = Vector2(231, 347)
+
+[node name="HouseTudorB" parent="HouseArea" index="4" instance=ExtResource("8_xsw5j")]
+position = Vector2(948, 269)
+
+[node name="ToiletTravelStation" parent="HouseArea" index="5" instance=ExtResource("8_qhp37")]
+position = Vector2(306, 695)
+entry_point = "Main"
+
+[node name="FenceGen" type="Line2D" parent="HouseArea" index="6"]
+y_sort_enabled = true
+position = Vector2(15, 2)
+points = PackedVector2Array(374, 69, 561, 282, 606, 541, 775, 852)
+default_color = Color(1, 1, 1, 0)
+script = ExtResource("9_1vsr4")
+fence_scene = ExtResource("10_f4dcs")
+fence_spacing = 80.0
+
+[node name="FirstEnemyArea" type="Node2D" parent="." index="2"]
+y_sort_enabled = true
+
+[node name="TreeGenBottomRight" type="StaticBody2D" parent="FirstEnemyArea" index="0"]
+y_sort_enabled = true
+script = ExtResource("2_n44bl")
+tree_scene = ExtResource("17_0qa0k")
+secondary_tree_scene = ExtResource("10_3x3mv")
+secondary_tree_odds = 0.165
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="FirstEnemyArea/TreeGenBottomRight" index="0"]
+polygon = PackedVector2Array(-301, 2318, -157, 2428, -50, 2553, 49, 2655, 134, 2801, 354, 2882, 642, 2869, 1002, 2860, 1502, 2844, 1858, 2801, 2100, 2666, 2201, 2600, 2284, 2543, 2613, 2623, 2645, 3081, -757, 3177, -758, 2356, -630, 2278, -445, 2260)
+
+[node name="TreeGenTopLeft" type="StaticBody2D" parent="FirstEnemyArea" index="1"]
+y_sort_enabled = true
+script = ExtResource("2_n44bl")
+tree_scene = ExtResource("17_0qa0k")
+secondary_tree_scene = ExtResource("10_3x3mv")
+secondary_tree_odds = 0.165
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="FirstEnemyArea/TreeGenTopLeft" index="0"]
+polygon = PackedVector2Array(483, 1342, 395, 1450, 245, 1511, 9, 1533, -197, 1590, -352, 1683, -419, 1768, -535, 1806, -733, 1804, -778, 1795, -773, 1322)
+
+[node name="Enemies" type="Node2D" parent="FirstEnemyArea" index="2"]
+
+[node name="BushedOutside" type="Node2D" parent="FirstEnemyArea" index="3"]
+y_sort_enabled = true
+
+[node name="BigBush" parent="FirstEnemyArea/BushedOutside" index="0" instance=ExtResource("3_a0yt1")]
+position = Vector2(222, 1412)
+
+[node name="BigBush2" parent="FirstEnemyArea/BushedOutside" index="1" instance=ExtResource("3_a0yt1")]
+position = Vector2(-281, 1577)
+
+[node name="BigBush3" parent="FirstEnemyArea/BushedOutside" index="2" instance=ExtResource("3_a0yt1")]
+position = Vector2(1554, 1424)
+
+[node name="BigBush4" parent="FirstEnemyArea/BushedOutside" index="3" instance=ExtResource("3_a0yt1")]
+position = Vector2(2012, 1589)
+
+[node name="BigBush5" parent="FirstEnemyArea/BushedOutside" index="4" instance=ExtResource("3_a0yt1")]
+position = Vector2(791, 2945)
+
+[node name="BigBush6" parent="FirstEnemyArea/BushedOutside" index="5" instance=ExtResource("3_a0yt1")]
+position = Vector2(416, 2974)
+
+[node name="BigBush7" parent="FirstEnemyArea/BushedOutside" index="6" instance=ExtResource("3_a0yt1")]
+position = Vector2(1222, 1381)
+
+[node name="SmallBush" parent="FirstEnemyArea/BushedOutside" index="7" instance=ExtResource("4_qjjla")]
+position = Vector2(145, 1427)
+
+[node name="SmallBush2" parent="FirstEnemyArea/BushedOutside" index="8" instance=ExtResource("4_qjjla")]
+position = Vector2(-210, 1543)
+
+[node name="SmallBush3" parent="FirstEnemyArea/BushedOutside" index="9" instance=ExtResource("4_qjjla")]
+position = Vector2(1292, 1396)
+
+[node name="SmallBush4" parent="FirstEnemyArea/BushedOutside" index="10" instance=ExtResource("4_qjjla")]
+position = Vector2(1142, 1364)
+
+[node name="SmallBush5" parent="FirstEnemyArea/BushedOutside" index="11" instance=ExtResource("4_qjjla")]
+position = Vector2(1568, 1428)
+
+[node name="SmallBush6" parent="FirstEnemyArea/BushedOutside" index="12" instance=ExtResource("4_qjjla")]
+position = Vector2(2049, 1598)
+
+[node name="SmallBush7" parent="FirstEnemyArea/BushedOutside" index="13" instance=ExtResource("4_qjjla")]
+position = Vector2(2218, 1810)
+
+[node name="BushesInside" type="Node2D" parent="FirstEnemyArea" index="4"]
+y_sort_enabled = true
+position = Vector2(216, 1562)
+
+[node name="SmallBush" parent="FirstEnemyArea/BushesInside" index="0" instance=ExtResource("4_qjjla")]
+position = Vector2(907, 566)
+
+[node name="SmallBush5" parent="FirstEnemyArea/BushesInside" index="1" instance=ExtResource("4_qjjla")]
+position = Vector2(557, 153)
+
+[node name="SmallBush6" parent="FirstEnemyArea/BushesInside" index="2" instance=ExtResource("4_qjjla")]
+position = Vector2(1500, 366)
+
+[node name="SmallBush7" parent="FirstEnemyArea/BushesInside" index="3" instance=ExtResource("4_qjjla")]
+position = Vector2(393, 575)
+
+[node name="SmallBush2" parent="FirstEnemyArea/BushesInside" index="4" instance=ExtResource("4_qjjla")]
+position = Vector2(23, 223)
+
+[node name="SmallBush3" parent="FirstEnemyArea/BushesInside" index="5" instance=ExtResource("4_qjjla")]
+position = Vector2(128, 767)
+
+[node name="SmallBush4" parent="FirstEnemyArea/BushesInside" index="6" instance=ExtResource("4_qjjla")]
+position = Vector2(1178, 832)
+
+[node name="SmallBush8" parent="FirstEnemyArea/BushesInside" index="7" instance=ExtResource("4_qjjla")]
+position = Vector2(1287, 95)
+
+[node name="SmallBush9" parent="FirstEnemyArea/BushesInside" index="8" instance=ExtResource("4_qjjla")]
+position = Vector2(430, -180)
+
+[node name="SmallBush10" parent="FirstEnemyArea/BushesInside" index="9" instance=ExtResource("4_qjjla")]
+position = Vector2(-390, 434)
+
+[node name="sinkingWall" parent="FirstEnemyArea" index="5" instance=ExtResource("11_ch02a")]
+position = Vector2(2127, 1961)
+
+[node name="sinkingWall2" parent="FirstEnemyArea" index="6" instance=ExtResource("11_ch02a")]
+position = Vector2(2124, 2058)
+
+[node name="sinkingWall3" parent="FirstEnemyArea" index="7" instance=ExtResource("11_ch02a")]
+position = Vector2(2124, 2175)
+
+[node name="sinkingWall4" parent="FirstEnemyArea" index="8" instance=ExtResource("11_ch02a")]
+position = Vector2(2124, 2272)
+
+[node name="sinkingWall5" parent="FirstEnemyArea" index="9" instance=ExtResource("11_ch02a")]
+position = Vector2(2125, 2367)
+
+[node name="sinkingWall6" parent="FirstEnemyArea" index="10" instance=ExtResource("11_ch02a")]
+position = Vector2(2125, 2459)
+
+[node name="sinkingWall7" parent="FirstEnemyArea" index="11" instance=ExtResource("11_ch02a")]
+position = Vector2(2126, 2564)
+
+[node name="PuzzleArea" type="Node2D" parent="." index="3"]
+y_sort_enabled = true
+position = Vector2(-1814, 1967)
+
+[node name="TreeGen" type="StaticBody2D" parent="PuzzleArea" index="0"]
+y_sort_enabled = true
+script = ExtResource("2_n44bl")
+tree_scene = ExtResource("17_0qa0k")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="PuzzleArea/TreeGen" index="0"]
+polygon = PackedVector2Array(1047, -173, 908, -178, 756, -378, 592, -510, 266, -616, 29, -633, -340, -612, -836, -591, -929, -557, -997, -455, -1065, -146, -1086, 147, -1090, 448, -1073, 711, -1025, 833, -928, 888, -640, 930, 378, 960, 666, 922, 827, 858, 899, 735, 890, 545, 962, 363, 1089, 312, 1133, 1305, -1621, 1347, -1605, -1035, 1057, -1018)
+
+[node name="Hole" type="StaticBody2D" parent="PuzzleArea" index="1"]
+z_index = -5
+position = Vector2(-774, -294)
+collision_layer = 8
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="PuzzleArea/Hole" index="0"]
+polygon = PackedVector2Array(224, 140, 218, 99, 216, 33, 213, -122, 211, -275, 220, -292, 230, -308, 256, -315, 933, -312, 946, -284, 954, -196, 954, -55, 960, 102, 954, 136, 932, 146, 599, 158, 256, 165)
+
+[node name="Polygon2D" type="Polygon2D" parent="PuzzleArea/Hole" index="1"]
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(224, 140, 218, 99, 216, 33, 213, -122, 211, -275, 220, -292, 230, -308, 256, -315, 933, -312, 946, -284, 954, -196, 954, -55, 960, 102, 954, 136, 932, 146, 599, 158, 256, 165)
+
+[node name="Bushes" type="Node2D" parent="PuzzleArea" index="2"]
+y_sort_enabled = true
+
+[node name="SmallBush" parent="PuzzleArea/Bushes" index="0" instance=ExtResource("4_qjjla")]
+position = Vector2(580, -274)
+
+[node name="SmallBush2" parent="PuzzleArea/Bushes" index="1" instance=ExtResource("4_qjjla")]
+position = Vector2(644, 214)
+
+[node name="SmallBush3" parent="PuzzleArea/Bushes" index="2" instance=ExtResource("4_qjjla")]
+position = Vector2(67, -71)
+
+[node name="SmallBush4" parent="PuzzleArea/Bushes" index="3" instance=ExtResource("4_qjjla")]
+position = Vector2(-282, -82)
+
+[node name="SmallBush5" parent="PuzzleArea/Bushes" index="4" instance=ExtResource("4_qjjla")]
+position = Vector2(-817, -61)
+
+[node name="SmallBush6" parent="PuzzleArea/Bushes" index="5" instance=ExtResource("4_qjjla")]
+position = Vector2(-1052, -40)
+
+[node name="SmallBush7" parent="PuzzleArea/Bushes" index="6" instance=ExtResource("4_qjjla")]
+position = Vector2(-728, 341)
+
+[node name="SmallBush8" parent="PuzzleArea/Bushes" index="7" instance=ExtResource("4_qjjla")]
+position = Vector2(-471, 323)
+
+[node name="SmallBush9" parent="PuzzleArea/Bushes" index="8" instance=ExtResource("4_qjjla")]
+position = Vector2(227, 537)
+
+[node name="SmallBush10" parent="PuzzleArea/Bushes" index="9" instance=ExtResource("4_qjjla")]
+position = Vector2(-190, 95)
+
+[node name="BigBush" parent="PuzzleArea/Bushes" index="10" instance=ExtResource("3_a0yt1")]
+position = Vector2(-641, -68)
+
+[node name="BigBush2" parent="PuzzleArea/Bushes" index="11" instance=ExtResource("3_a0yt1")]
+position = Vector2(-968, -60)
+
+[node name="BigBush3" parent="PuzzleArea/Bushes" index="12" instance=ExtResource("3_a0yt1")]
+position = Vector2(-785, 318)
+
+[node name="pickup_key" parent="PuzzleArea" index="3" instance=ExtResource("12_joquo")]
+position = Vector2(-786, -345)
+
+[node name="PlatformMover" type="Path2D" parent="PuzzleArea" index="4"]
+z_index = -1
+curve = SubResource("Curve2D_j10fm")
+script = ExtResource("13_glw2f")
+repeat_type = 1
+speed = 300.0
+repeat_delay = 1.0
+
+[node name="PathFollow2D" type="PathFollow2D" parent="PuzzleArea/PlatformMover" index="0"]
+position = Vector2(116, -369)
+rotates = false
+
+[node name="MovablePlatform" parent="PuzzleArea/PlatformMover/PathFollow2D" index="0" instance=ExtResource("14_hyg0y")]
+process_physics_priority = -1000
+scale = Vector2(1.18696, 1.18696)
+
+[node name="FenceTiles" parent="PuzzleArea" index="5" instance=ExtResource("15_nkduh")]
+position = Vector2(-25, -42)
+tile_map_data = PackedByteArray("AAABAP//BgAAAAAAAAAAAP//BgAAAAAAAAD/////BgAAAAAAAAD+////BgAAAAAAAAD9////BgAAAAAAAAD8////BgAAAAAAAAD7////BgAAAAAAAAD6////BgAAAAAAAAD5////BgAAAAAAAAD4////BgAAAAAAAAA=")
+
+[node name="LockedDoor" parent="PuzzleArea" index="6" instance=ExtResource("16_be0xc")]
+position = Vector2(-595.45, 245.161)
+scale = Vector2(0.670196, 0.721556)
+
+[node name="DungeonEntrance" type="Sprite2D" parent="PuzzleArea" index="7"]
+position = Vector2(-591.45, 189.161)
+scale = Vector2(2.33037, 2.33037)
+texture = ExtResource("17_o8ma7")
+
+[node name="TransitionScene" type="Area2D" parent="PuzzleArea/DungeonEntrance" index="0"]
+position = Vector2(-6.00761, 27.8925)
+scale = Vector2(0.429116, 0.429116)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("18_u8qny")
+scene_name = "demo_dungeon"
+entry_point = "Main"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PuzzleArea/DungeonEntrance/TransitionScene" index="0"]
+position = Vector2(6, -13)
+shape = SubResource("RectangleShape2D_c0qo5")
+
+[node name="Chest" parent="PuzzleArea" index="8" instance=ExtResource("18_ricm7")]
+position = Vector2(29, 260)
+loot_table = Array[PackedScene]([ExtResource("13_meh4f")])
+
+[node name="RedCoinManager" parent="PuzzleArea" index="9" instance=ExtResource("20_cbi4s")]
+y_sort_enabled = true
+metadata/Activatables = [NodePath("../../EntitySpawner")]
+
+[node name="RedCoin4" parent="PuzzleArea/RedCoinManager" index="0" instance=ExtResource("21_7gu4x")]
+position = Vector2(-158, -374)
+
+[node name="RedCoin2" parent="PuzzleArea/RedCoinManager" index="1" instance=ExtResource("21_7gu4x")]
+position = Vector2(-1019, -145)
+
+[node name="RedCoin3" parent="PuzzleArea/RedCoinManager" index="2" instance=ExtResource("21_7gu4x")]
+position = Vector2(-842, 241)
+
+[node name="RedCoin5" parent="PuzzleArea/RedCoinManager" index="3" instance=ExtResource("21_7gu4x")]
+position = Vector2(751, 531)
+
+[node name="ToiletTravelStation" parent="PuzzleArea" index="10" instance=ExtResource("8_qhp37")]
+position = Vector2(465, -19)
+entry_point = "Dungeon"
+
+[node name="BossArea" type="Node2D" parent="." index="4"]
+
+[node name="TreeGen" type="StaticBody2D" parent="BossArea" index="0"]
+y_sort_enabled = true
+script = ExtResource("2_n44bl")
+tree_scene = ExtResource("17_0qa0k")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="BossArea/TreeGen" index="0"]
+polygon = PackedVector2Array(2352, 1037, 2428, 1865, 2808, 1793, 3332, 1433, 4196, 1445, 4500, 1785, 4604, 2589, 4412, 2973, 3652, 3025, 3108, 2809, 2592, 2617, 2684, 3665, 5399, 3533, 5063, 824)
+
+[node name="DungeonEntrance" type="Sprite2D" parent="BossArea" index="1"]
+position = Vector2(3774, 1965)
+scale = Vector2(2.33037, 2.33037)
+texture = ExtResource("17_o8ma7")
+
+[node name="TransitionScene" type="Area2D" parent="BossArea/DungeonEntrance" index="0"]
+position = Vector2(-6.00761, 27.8925)
+scale = Vector2(0.429116, 0.429116)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("18_u8qny")
+scene_name = "amalgamation_test_room"
+entry_point = "Main"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BossArea/DungeonEntrance/TransitionScene" index="0"]
+position = Vector2(6, -13)
+shape = SubResource("RectangleShape2D_c0qo5")
+
+[node name="Enemies" type="Node2D" parent="BossArea" index="2"]
+
+[node name="ProjectileEnemy" parent="BossArea/Enemies" index="0" instance=ExtResource("12_t5ow0")]
+position = Vector2(4078, 2323)
+
+[node name="ProjectileEnemy2" parent="BossArea/Enemies" index="1" instance=ExtResource("12_t5ow0")]
+position = Vector2(3345, 1700)
+
+[node name="CreepEnemy" parent="BossArea/Enemies" index="2" instance=ExtResource("26_hg8qn")]
+position = Vector2(3426, 2351)
+
+[node name="ChargingEnemy" parent="BossArea/Enemies" index="3" instance=ExtResource("27_kqj6m")]
+position = Vector2(3036, 2232)
+
+[node name="ToiletTravelStation2" parent="BossArea" index="3" instance=ExtResource("8_qhp37")]
+position = Vector2(3476, 2189)
+entry_point = "Boss"
+
+[node name="MainCam" parent="." index="5"]
+position = Vector2(1815, -250)
+
+[node name="Reloader" type="Node" parent="." index="8"]
+script = ExtResource("8_gqbog")
+despawn_margin = 650.0
+
+[node name="BreakableObject" parent="." index="10" instance=ExtResource("24_xolg5")]
+position = Vector2(885, 1214)
+
+[node name="BreakableObject2" parent="." index="11" instance=ExtResource("24_xolg5")]
+position = Vector2(760, 1214)
+
+[node name="BreakableObject3" parent="." index="12" instance=ExtResource("24_xolg5")]
+position = Vector2(633, 1216)
+
+[node name="BreakableObject4" parent="." index="13" instance=ExtResource("24_xolg5")]
+position = Vector2(560, 1052)
+
+[node name="BreakableObject5" parent="." index="14" instance=ExtResource("24_xolg5")]
+position = Vector2(915, 1043)
+
+[node name="EntitySpawner" parent="." index="15" instance=ExtResource("26_cl53y")]
+position = Vector2(-1286, 2227)
+
+[node name="Chest" parent="EntitySpawner" index="0" instance=ExtResource("18_ricm7")]
+loot_table = Array[PackedScene]([ExtResource("13_meh4f")])
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="EntitySpawner" index="1"]
+emitting = false
+amount = 10
+lifetime = 1.5
+one_shot = true
+explosiveness = 1.0
+texture = SubResource("GradientTexture2D_yqoe1")
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 300.0
+initial_velocity_max = 400.0
+damping_min = 400.0
+damping_max = 400.0
+color_ramp = SubResource("Gradient_j0x6n")
+color_initial_ramp = SubResource("Gradient_5edvf")
+
+[node name="ParticleFixer" parent="EntitySpawner/CPUParticles2D" index="0" instance=ExtResource("27_h03p2")]
+
+[node name="Main" type="Node2D" parent="EntryPoints" index="0"]
+position = Vector2(617, 702)
+
+[node name="Dungeon" type="Node2D" parent="EntryPoints" index="1"]
+position = Vector2(-2330, 2364)
+
+[node name="Boss" type="Node2D" parent="EntryPoints" index="2"]
+position = Vector2(3719, 2207)
+
+[node name="Player" parent="." index="17"]
+position = Vector2(534, 628)
+knockback_friction = 3.0
+
+[node name="TileMapLayer" parent="." index="18" instance=ExtResource("15_nkduh")]
+position = Vector2(783, 1805)
+
+[node name="Frog Boss" parent="." index="20" instance=ExtResource("31_1tm5l")]
+position = Vector2(868, 1867)
+
+[node name="MusicPlayer" parent="." index="21" instance=ExtResource("32_tlxi0")]
+
+[connection signal="body_entered" from="PuzzleArea/DungeonEntrance/TransitionScene" to="PuzzleArea/DungeonEntrance/TransitionScene" method="_on_body_entered"]
+[connection signal="body_entered" from="BossArea/DungeonEntrance/TransitionScene" to="BossArea/DungeonEntrance/TransitionScene" method="_on_body_entered"]

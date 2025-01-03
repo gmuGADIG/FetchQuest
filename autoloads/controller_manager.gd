@@ -17,9 +17,15 @@ var _last_nonzero_joystick_aim := Vector2.RIGHT
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventKey || event is InputEventMouse:
+		#Run once when switching modes
+		if is_controller && Cursor.instance != null:
+			Cursor.instance.mouse_mode();
 		is_controller = false
 		return
 	if event is InputEventJoypadButton || event is InputEventJoypadMotion:
+		#Run once when switching modes
+		if not is_controller && Cursor.instance != null:
+			Cursor.instance.controller_mode();
 		is_controller = true
 
 func _process(_delta: float) -> void:

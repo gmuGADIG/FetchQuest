@@ -76,8 +76,6 @@ func actor_setup() -> void:
 	approach(self.global_position)
 
 func _process(delta: float) -> void:
-	
-	
 	decide_state(delta)
 	
 	match enemy_state:
@@ -115,7 +113,7 @@ func on_death() -> void:
 	
 	# add bombs, health, and stamina to the list of possible drops, after checking if they're eligible
 	var eligible_pickup_paths: Array[String]
-	if (Player.instance.health < Player.instance.max_health):
+	if (Player.instance.health < PlayerInventory.max_health):
 		eligible_pickup_paths.append("res://world/interactable/pickups/pickup_health.tscn") # health
 	if (PlayerInventory.bombs < PlayerInventory.max_bombs):
 		eligible_pickup_paths.append("res://world/interactable/pickups/pickup_bomb.tscn") # bomb
@@ -170,7 +168,6 @@ func _process_agressive(delta: float) -> void:
 	
 	var target : Vector2
 	#When the enemy is inside of the valid target region
-	
 	
 	if (enemy_distance > agressive_target_distance_min) && (enemy_distance < agressive_target_distance_max):
 		if(self.position.distance_squared_to(navigation_target)>10):
@@ -227,10 +224,11 @@ func _on_hitting_area_body_entered(body: Node2D) -> void:
 		player.hurt(DamageEvent.new(_get_contact_damage(), knockback))
 
 func hitFlicker() -> void:
-		var enemy_normal_modulate : Color = enemy_sprite.modulate
-		enemy_sprite.modulate=Color(0.4,0.4,0.4,1)
-		await get_tree().create_timer(0.1).timeout
-		enemy_sprite.modulate= enemy_normal_modulate
+	#print("Flicker")
+	#var enemy_normal_modulate : Color = enemy_sprite.modulate
+	enemy_sprite.modulate=Color(0.4,0.4,0.4,1)
+	await get_tree().create_timer(0.1).timeout
+	enemy_sprite.modulate= Color(1,1,1,1)
 
 ## Override this to provide different contact damage for each enemy.
 func _get_contact_damage() -> int:

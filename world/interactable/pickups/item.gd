@@ -3,7 +3,8 @@ class_name Item
 
 enum ItemPhysicsState {
 	FOLLOWING,
-	IDLE
+	IDLE,
+	INTANGIBLE
 }
 
 var physics_state: ItemPhysicsState = ItemPhysicsState.IDLE;
@@ -18,6 +19,11 @@ func _on_pickup_area_body_entered(other: Node2D) -> void:
 		other.pickup_item(self)
 		
 func follow(other: Node2D, follow_speed: float) -> void:
+	
+	#When an item is something that should not be movable by the sword.
+	if physics_state == ItemPhysicsState.INTANGIBLE:
+		return
+		
 	target = other
 	speed = follow_speed
 	physics_state = ItemPhysicsState.FOLLOWING
@@ -35,6 +41,8 @@ func _process(_delta: float) -> void:
 			var cur_speed: float = velocity.length()
 			cur_speed = max(cur_speed - acceleration, 0)
 			velocity = velocity.normalized() * cur_speed
+		ItemPhysicsState.INTANGIBLE:
+			velocity = Vector2.ZERO
 	move_and_slide()
 			
 func consume(_consumer: Node2D) -> void:

@@ -1,0 +1,53 @@
+[gd_scene load_steps=5 format=3 uid="uid://vcmatpkejbw8"]
+
+[sub_resource type="Gradient" id="Gradient_64p0s"]
+offsets = PackedFloat32Array(0, 0.834667, 0.872, 0.898667, 1)
+colors = PackedColorArray(1, 1, 1, 0.419608, 1, 1, 1, 0.494118, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_02woi"]
+gradient = SubResource("Gradient_64p0s")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="Curve" id="Curve_lkcna"]
+_data = [Vector2(0, 0.795181), 0.0, 0.0, 0, 0, Vector2(0.498783, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.86747), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_ekgf7"]
+offsets = PackedFloat32Array(0, 0.501305, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[node name="Dungeon2Particles" type="Node2D"]
+z_index = 5
+
+[node name="SmallerParticles" type="CPUParticles2D" parent="."]
+modulate = Color(0.764706, 1, 1, 0.227451)
+position = Vector2(584, 319)
+lifetime = 5.0
+texture = SubResource("GradientTexture2D_02woi")
+emission_shape = 3
+emission_rect_extents = Vector2(800, 500)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_max = 60.0
+scale_amount_min = 0.8
+scale_amount_max = 1.5
+scale_amount_curve = SubResource("Curve_lkcna")
+color_ramp = SubResource("Gradient_ekgf7")
+
+[node name="BiggerParticles" type="CPUParticles2D" parent="."]
+modulate = Color(0.76, 1, 1, 0.113725)
+position = Vector2(584, 319)
+amount = 3
+lifetime = 5.0
+texture = SubResource("GradientTexture2D_02woi")
+emission_shape = 3
+emission_rect_extents = Vector2(800, 500)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_max = 40.0
+scale_amount_min = 1.5
+scale_amount_max = 4.0
+scale_amount_curve = SubResource("Curve_lkcna")
+color_ramp = SubResource("Gradient_ekgf7")

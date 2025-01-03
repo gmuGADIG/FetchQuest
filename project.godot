@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Fetch Quest"
-run/main_scene="res://world/latest_demo_2.tscn"
+run/main_scene="res://world/levels/test_levels/latest_demo_2.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://dialogic_example/player/player_art_final.png"
 run/main_scene.release_build="res://ui/title/title_screen.tscn"
@@ -28,9 +28,7 @@ ChestBetweenScenes="*res://autoloads/chest_between_scenes/chest_between_scenes.t
 FastTravelPoints="*res://autoloads/fast_travel_points/fast_travel_points.tscn"
 FullscreenManager="*res://autoloads/fullscreen_manager.gd"
 SFXManager="*res://autoloads/sfx_manager.tscn"
-ChosenSkin="*res://autoloads/chosen_skin.gd"
-ActivatorManager="*res://autoloads/activator_manager.gd"
-target_practice_signals="*res://autoloads/target_practice_signals/target_practice_signals.gd"
+DJMusicMan="*res://dj_music_man/dj_music_man.tscn"
 
 [debug]
 
@@ -39,27 +37,88 @@ gdscript/warnings/untyped_declaration=2
 [dialogic]
 
 directories/dch_directory={
+"Bertram the Alchemist": "res://npc/doctor/dialogue/Bertram the Alchemist.dch",
+"Doctor": "res://npc/doctor/dialogue/Doctor.dch",
+"FluffleBrownNPC": "res://npc/minor characters/FluffleBrownNPC.dch",
+"FluffleGreenNPC": "res://npc/minor characters/FluffleGreenNPC.dch",
+"FlufflePinkNPC": "res://npc/minor characters/FlufflePinkNPC.dch",
 "Franklin": "res://dialogic_example/example_characters/Franklin.dch",
+"Gary Smith": "res://npc/blacksmith/Gary Smith.dch",
+"GossipyElder": "res://npc/gossiping_elder/GossipyElder.dch",
+"LilGreenGuyNPC": "res://npc/minor characters/LilGreenGuyNPC.dch",
 "Michael": "res://dialogic_example/example_characters/Michael.dch",
+"MothDarkNPC": "res://npc/minor characters/MothDarkNPC.dch",
+"MothLightNPC": "res://npc/minor characters/MothLightNPC.dch",
+"MothPinkNPC": "res://npc/minor characters/MothPinkNPC.dch",
 "Mr SignPost": "res://dialogic_example/example_characters/Mr SignPost.dch",
+"MrHandsNPC": "res://npc/minor characters/MrHandsNPC.dch",
+"Princess": "res://npc/princess/dialogue/Princess.dch",
 "Rupert": "res://dialogic_example/example_characters/Rupert.dch",
-"blue_brian": "res://npc/test_npc/blue_brian.dch"
+"blue_brian": "res://npc/test_npc/blue_brian.dch",
+"farmer": "res://npc/minor_characters/farmer/farmer.dch",
+"farmer_alt": "res://npc/minor_characters/farmer_alt/farmer_alt.dch",
+"fluffle_brown": "res://npc/minor_characters/fluffle_brown/fluffle_brown.dch",
+"fluffle_green": "res://npc/minor_characters/fluffle_green/fluffle_green.dch",
+"fluffle_pink": "res://npc/minor_characters/fluffle_pink/fluffle_pink.dch",
+"green_guy": "res://npc/minor_characters/lil_green_guy/green_guy.dch",
+"guard": "res://npc/guard/guard.dch",
+"huntress": "res://npc/huntress/huntress.dch",
+"librarian": "res://npc/librarian/librarian.dch",
+"moth_dark": "res://npc/minor_characters/moth_dark/moth_dark.dch",
+"moth_light": "res://npc/minor_characters/moth_light/moth_light.dch",
+"moth_pink": "res://npc/minor_characters/moth_pink/moth_pink.dch",
+"mr_hands": "res://npc/minor_characters/mr_hands/mr_hands.dch",
+"purple_guy": "res://npc/minor_characters/purple_guy/purple_guy.dch",
+"shopkeeper": "res://npc/shopkeeper/shopkeeper.dch"
 }
 directories/dtl_directory={
+"Alchemist First Enounter Timeline": "res://npc/doctor/dialogue/Alchemist First Enounter Timeline.dtl",
+"Bertram Timeline": "res://npc/doctor/dialogue/Alchemist General DialogueTimeline.dtl",
+"Doctor_timeline": "res://npc/doctor/dialogue/Doctor_timeline.dtl",
+"FluffleBrownNPC_timeline": "res://npc/minor characters/FluffleBrownNPC_timeline.dtl",
+"FluffleGreenNPC_Timeline": "res://npc/minor characters/FluffleGreenNPC_Timeline.dtl",
+"FlufflePinkNPC_timeline": "res://npc/minor characters/FlufflePinkNPC_timeline.dtl",
+"GossipingElderMainTimeline": "res://npc/gossiping_elder/GossipingElderMainTimeline.dtl",
+"LilGreenGuyNPC__Timeline": "res://npc/minor characters/LilGreenGuyNPC__Timeline.dtl",
+"MothDarkNPC_timeline": "res://npc/minor characters/MothDarkNPC_timeline.dtl",
+"Princess Bridge ": "res://npc/princess/dialogue/Princess Bridge .dtl",
+"PrincessCrossroads": "res://npc/princess/dialogue/PrincessCrossroads.dtl",
+"PrincessTown": "res://npc/princess/dialogue/PrincessTown.dtl",
+"Shopkeeper": "res://npc/shopkeeper/Shopkeeper.dtl",
+"Townsperson 1": "res://npc/minor characters/Townsperson 1.dtl",
+"Townsperson 2 MothPinkNPC": "res://npc/minor characters/Townsperson 2 MothPinkNPC.dtl",
+"Townsperson 3 MrHandsNPC": "res://npc/minor characters/Townsperson 3 MrHandsNPC.dtl",
+"alchemist_quest_mushroom_timeline": "res://npc/doctor/dialogue/Alchemist Mushroom Quest.dtl",
+"blacksmith_timeline": "res://npc/blacksmith/blacksmith_timeline.dtl",
 "blue_brian_hello": "res://npc/test_npc/blue_brian_hello.dtl",
 "demo3Cats": "res://dialogic_example/example_timelines/demo3Cats.dtl",
 "demoTimeline": "res://dialogic_example/example_timelines/demoTimeline.dtl",
 "demoTimeline2": "res://dialogic_example/example_timelines/demoTimeline2.dtl",
-"demoTimeline3": "res://dialogic_example/example_timelines/demoTimeline3.dtl"
+"demoTimeline3": "res://dialogic_example/example_timelines/demoTimeline3.dtl",
+"guard_timeline": "res://npc/guard/guard_timeline.dtl",
+"huntress_timeline": "res://npc/huntress/huntress_timeline.dtl",
+"librarian_timeline": "res://npc/librarian/librarian_timeline.dtl",
+"timeline": "res://npc/minor_characters/farmer/timeline.dtl"
 }
 glossary/default_case_sensitive=true
 layout/style_list=["res://dialogic_example/NarratorStyle.tres", "res://dialogic_example/ExampleDialogueStyleVN.tres", "res://dialogic_example/ExampleDialogueStyleBubble.tres", "res://dialogic_example/ExampleDialogueStyleBox.tres"]
 layout/default_style="res://dialogic_example/ExampleDialogueStyleBubble.tres"
 glossary/glossary_files=[]
 variables={
-"ExampleSceneVars": {
-"name": "0"
-}
+"Shopkeeper": {
+"talk_shop": false
+},
+"church_complete": false,
+"dungeons_completed": 0,
+"forest_complete": false,
+"king_complete": "",
+"princess": {
+"crossroads": {
+"talk_count": 0
+},
+"princess_talk": ""
+},
+"talk_count": ""
 }
 text/letter_speed=0.01
 text/initial_text_reveal_skippable=true
@@ -80,10 +139,19 @@ save/encryption_on_exports_only=true
 text/autopauses={}
 extensions_folder="res://addons/dialogic_additions"
 animations/cross_fade_default_length=0.5
+translation/enabled=false
+translation/original_locale="en"
+translation/file_mode=1
+translation/translation_folder=""
+translation/save_mode=0
+translation/add_separator=false
+history/simple_history_enabled=true
 
 [display]
 
 window/stretch/mode="canvas_items"
+mouse_cursor/custom_image="res://ui/mouse_cursor/BoneCursorSmall.png"
+mouse_cursor/custom_image_hotspot=Vector2(5, 5)
 
 [editor_plugins]
 
@@ -98,6 +166,7 @@ folder_colors={
 "res://enemy/": "red",
 "res://npc/": "purple",
 "res://player/": "blue",
+"res://quest/": "yellow",
 "res://test_scenes/": "gray",
 "res://ui/": "orange",
 "res://world/": "green",
@@ -116,6 +185,10 @@ Activatable="Nodes that can be activated by switches/etc."
 Activator="Something that can be activated by the player."
 HoleOccluder="For platforms which can overlap holes, preventing the player from falling into them."
 Hole="For platforms which can overlap holes, preventing the player from falling into them."
+
+[gui]
+
+theme/custom_font="res://ui/fonts/Chewy-Regular.ttf"
 
 [input]
 
@@ -266,6 +339,11 @@ fullscreen={
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194342,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
 ]
 }
+open_quest_book={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":81,"key_label":0,"unicode":113,"location":0,"echo":false,"script":null)
+]
+}
 
 [layer_names]
 
@@ -278,6 +356,7 @@ fullscreen={
 2d_physics/layer_7="Switch"
 2d_physics/layer_8="Bomb"
 2d_physics/layer_9="Barkable"
+2d_physics/layer_10="SwordBlocking"
 
 [physics]
 

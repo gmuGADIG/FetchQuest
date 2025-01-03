@@ -1,26 +1,23 @@
-extends Node2D
-
-@onready var button_major_sound: AudioStream = preload("res://ui/sounds/SFX UI Bonk 1.wav")
-@onready var audio_player: AudioStreamPlayer = $SkinSelectorAudioPlayer
+extends CanvasLayer
 
 func _skin1_pressed() -> void:
-	ChosenSkin.chosen_skin= 1
-	await audio_player.finished
+	ChosenSkin.chosen_skin = 1
+	SFXManager.bonk_sound.play()
 	load_game()
 
 func _skin2_pressed() -> void:
 	ChosenSkin.chosen_skin = 2
-	await audio_player.finished
+	SFXManager.bonk_sound.play()
 	load_game()
 
 func _skin3_pressed() -> void:
 	ChosenSkin.chosen_skin = 3
-	await audio_player.finished
+	SFXManager.bonk_sound.play()
 	load_game()
 	
 func load_game() -> void:
-	get_tree().change_scene_to_file("res://world/latest_demo_2.tscn")
+	EntryPoints.current_entry_point = "Entrance"
+	SceneTransition.change_scene(preload("res://world/levels/overworld/overworld.tscn"))
 
 func _on_menu_major_button_pressed() -> void:
-	audio_player.stream = button_major_sound
-	audio_player.play(0.0)
+	SFXManager.bonk_sound.play()

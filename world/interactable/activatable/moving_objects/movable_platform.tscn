@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://bxaar1hpspnom"]
 
 [ext_resource type="Script" path="res://world/interactable/activatable/moving_objects/movable_platform.gd" id="1_bv0y4"]
-[ext_resource type="Texture2D" uid="uid://dymucenpxmluo" path="res://icon.svg" id="2_t8s1e"]
+[ext_resource type="Texture2D" uid="uid://bnk77hbwg8kwn" path="res://world/interactable/activatable/moving_objects/LilyPadRaft.png" id="2_fqtn3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u6oxc"]
 size = Vector2(147.358, 145.493)
@@ -16,21 +16,24 @@ script = ExtResource("1_bv0y4")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 process_priority = 100
-modulate = Color(0.4, 0.4, 0.4, 1)
-texture = ExtResource("2_t8s1e")
+modulate = Color(0.713726, 0.72549, 0.717647, 1)
+scale = Vector2(0.148225, 0.148225)
+texture = ExtResource("2_fqtn3")
 
 [node name="HoleOccluder" type="StaticBody2D" parent="." groups=["HoleOccluder"]]
+scale = Vector2(1.28893, 0.646753)
 collision_layer = 8
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HoleOccluder" groups=["HoleOccluder"]]
 shape = SubResource("RectangleShape2D_u6oxc")
-debug_color = Color(0.05, 0.05, 0.05, 0.164706)
+debug_color = Color(0.05, 0.05, 0.05, 0)
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 150
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+scale = Vector2(1.59329, 0.774289)
 shape = SubResource("RectangleShape2D_qmhv6")
-debug_color = Color(0.524696, 0.573005, 3.85046e-07, 0.42)
+debug_color = Color(0.5225, 0.57, 0, 0)

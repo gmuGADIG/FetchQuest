@@ -5,5 +5,5 @@ extends Item
 func consume(consumer: Node2D) -> void:
 	if (consumer is Player):
 		var player: Player = consumer as Player
-		player.stamina = move_toward(player.stamina, player.max_stamina, stamina_amount)
+		player.stamina = move_toward(player.stamina, PlayerInventory.max_stamina, stamina_amount)
 		queue_free()

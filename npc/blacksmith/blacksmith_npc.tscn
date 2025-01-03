@@ -1,7 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://cyvppko06hjoq"]
+[gd_scene load_steps=16 format=3 uid="uid://cyvppko06hjoq"]
 
 [ext_resource type="PackedScene" uid="uid://dvhfibvbfhnnv" path="res://npc/base_npc.tscn" id="1_xvqhr"]
+[ext_resource type="Script" path="res://addons/dialogic/Resources/timeline.gd" id="2_40cdn"]
 [ext_resource type="Texture2D" uid="uid://7ldga43487y0" path="res://npc/blacksmith/Blacksmith_SpriteSheet.png" id="2_fbd5k"]
+[ext_resource type="Resource" path="res://npc/blacksmith/blacksmith_timeline.dtl" id="3_hiflv"]
+[ext_resource type="Resource" path="res://npc/blacksmith/Gary Smith.dch" id="4_s6rfu"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_acxht"]
 radius = 44.0
@@ -77,6 +80,8 @@ shape = SubResource("CapsuleShape2D_acxht")
 
 [node name="TalkingInteractable" parent="." index="1"]
 position = Vector2(0, -60.4829)
+timeline = Array[ExtResource("2_40cdn")]([ExtResource("3_hiflv")])
+character = ExtResource("4_s6rfu")
 
 [node name="CollisionShape2D" parent="TalkingInteractable" index="0"]
 shape = SubResource("CircleShape2D_rs1rc")
