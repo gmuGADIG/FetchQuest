@@ -72,6 +72,8 @@ signal item_updated(key: String)
 ##The amount of keys to unlock a door that the player has at any time
 @export var door_keys: int = 0
 
+@export var boss_door_keys: int = 0
+
 ## The various items the player can have
 @export var items: Array[InventoryItem]
 
