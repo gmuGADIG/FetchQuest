@@ -4,20 +4,22 @@ class_name KingVulnerableState extends KingState
 var target_position:Vector2
 ## The amount of panic positions reached
 var panic_count:int = 0
+## Area2D for checking if the king is touching the terrain
+@onready var terrain_checker:Area2D = $"../../TerrainChecker"
 
 func enter() -> void:
 	# Get a new target and remove the unhittable aura
-	target_position = random_move_point(20)
+	target_position = get_random_move_point(king.panic_distance)
 	king.bubble_sprite.visible = false
 
 func update(_delta:float) -> void:
 	# Switch to idle if the scepter is found
 	if abs(king.global_position.distance_to(king.current_lost_scepter.global_position)) < 10:
 		state_machine.change_state(self, "Idle")
-	# Get new target when necessary and always move towards
+	
+	# Get new target when necessary and always move towards it
 	handle_target_choices()
 	move_towards_target()
-
 
 func exit() -> void:
 	# Remove the dropped scepter, reset variables, enable unhittable aura
@@ -31,17 +33,29 @@ func handle_target_choices() -> void:
 	# (without it theres a crash and idk how to fix it other than this)
 	if king.current_lost_scepter == null:
 		return
-	# If we have reached the target, get a new point
+	
+	# If we have reached the target, get a new random point
 	if abs(king.global_position.distance_to(target_position)) < 10:
-		target_position = random_move_point(king.panic_distance)
+		target_position = get_random_move_point(king.panic_distance)
 		panic_count += 1
+	
+	# Move towards the center if king gets too close to a wall
+	if terrain_checker.has_overlapping_bodies():
+		var direction_to_center:Vector2 = king.global_position.direction_to(king.room_center.global_position)
+		target_position = king.global_position + (direction_to_center * king.panic_distance)
+		panic_count += 1
+	
 	# Move towards the scepter if the king has panicked enough
 	if panic_count > king.total_panic_points:
 		target_position = king.current_lost_scepter.global_position
 
-func random_move_point(distance:float) -> Vector2:
+func get_random_move_point(distance:float) -> Vector2:
 	# Get a random move point
-	return king.global_position + Vector2(randf_range(-1,1), randf_range(-1,1)).normalized() * distance
+	return king.global_position + random_direction() * distance
+
+func random_direction() -> Vector2:
+	# Get a random direction
+	return Vector2(randf_range(-1,1), randf_range(-1,1)).normalized()
 
 func move_towards_target() -> void:
 	# Set the velocity to be towards the target

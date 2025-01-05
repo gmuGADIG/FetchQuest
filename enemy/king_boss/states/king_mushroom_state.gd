@@ -4,6 +4,9 @@ class_name KingMushroomState extends KingState
 var mushrooms_spawned:Array[Node2D] = []
 
 func enter() -> void:
+	# Pause the teleport timer (for when animations exist)
+	king.teleport_timer.stop()
+	
 	# Summon the mushrooms, wait until they have exploded, switch to idle
 	summon_shrooms()
 	await get_tree().create_timer(king.mushroom_lifetime * 1.25).timeout
@@ -15,6 +18,9 @@ func exit() -> void:
 		if is_instance_valid(shroom):
 			shroom.queue_free()
 	mushrooms_spawned = []
+	
+	# Resume the timer
+	king.teleport_timer.start()
 
 func spawn_mushroom(location:Vector2) -> Node2D:
 	# Summon a mushroom at the requested location

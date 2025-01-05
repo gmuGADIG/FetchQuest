@@ -3,6 +3,8 @@ class_name KingWhistleState extends KingState
 ## The shockwave that is spawned by the king
 var shockwave_scene:PackedScene = preload("res://enemy/king_boss/king_shockwave.tscn")
 func enter() -> void:
+	# Wait until the king teleports to start shockwaves
+	await king.teleport_timer.timeout
 	# Spawn the shockwaves with a delay between them
 	for i in range(king.total_shockwaves):
 		spawn_shockwave(king.global_position)

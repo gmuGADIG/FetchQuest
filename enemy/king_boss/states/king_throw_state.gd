@@ -4,6 +4,9 @@ class_name KingThrowState extends KingState
 var current_scepter:KingThrownScepter = null
 
 func enter() -> void:
+	# Wait until king teleports
+	await king.teleport_timer.timeout
+	
 	# Throw all scepters, waiting until it returns to throw the next one
 	for i in range(king.total_scepter_throws):
 		if state_machine.current_state != self:

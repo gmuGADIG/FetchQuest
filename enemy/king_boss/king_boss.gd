@@ -14,12 +14,16 @@ signal health_changed
 
 
 @export_group("Movement (Teleporting)")
+## The parent of the positions that the king can randomly teleport to
+@export var movement_points_parent:Node2D
 ## The positions that the king can randomly teleport to
-@export var movement_points:Array[Node2D]
+@onready var movement_points:Array = movement_points_parent.get_children()
 ## The time between randomly teleporting between points
 @export var time_between_teleports:float = 3
 ## Place most recently teleported to 
 @onready var previous_teleport_position:Vector2 = global_position
+## The timer that handles teleportation
+@onready var teleport_timer:Timer = $RandomTeleportTimer
 
 @export_group("Attack Selection")
 ## The exploding mushrooms attack
@@ -86,15 +90,14 @@ var current_lost_scepter:Node2D = null
 
 func _ready() -> void:
 	# Set up the teleportation timer
-	$RandomTeleportTimer.wait_time = time_between_teleports
-	$RandomTeleportTimer.start()
+	teleport_timer.wait_time = time_between_teleports
+	teleport_timer.start()
 
 func randomly_teleport() -> void:
 	# Pick a random position and teleport to it
 	while global_position == previous_teleport_position:
 		global_position = movement_points.pick_random().global_position
 	previous_teleport_position = global_position
-
 
 func _on_random_teleport_timer_timeout() -> void:
 	# Randomly teleport if not panicking
@@ -107,3 +110,10 @@ func hurt(damage_event:DamageEvent) -> void:
 		return
 	health -= damage_event.damage
 	print("king_boss.gd: Health lowered to %s/%s" % [health, max_health])
+	damage_flicker()
+	
+func damage_flicker() -> void:
+	var enemy_normal_modulate: Color = $BossSprite.modulate
+	$BossSprite.modulate = Color(0.4, 0.4, 0.4, 1)
+	await get_tree().create_timer(0.1).timeout
+	$BossSprite.modulate = enemy_normal_modulate
