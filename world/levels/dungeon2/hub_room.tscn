@@ -16,7 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://dv2sjq4bbxtxq" path="res://world/interactable/water_toggler/water_toggle_switch.tscn" id="14_wra53"]
 [ext_resource type="PackedScene" uid="uid://bwo5q4wroaigc" path="res://world/interactable/transition_trigger/transition_trigger.tscn" id="15_i1j1v"]
 
-[sub_resource type="Resource" id="Resource_n1oov"]
+[sub_resource type="Resource" id="Resource_wcn7k"]
 script = ExtResource("3_lktlt")
 texture_idx = 0
 flip = false
@@ -27,9 +27,9 @@ script = ExtResource("4_u0btn")
 position = Vector2(-672, -128)
 point_in = Vector2(0, 0)
 point_out = Vector2(0, 0)
-properties = SubResource("Resource_n1oov")
+properties = SubResource("Resource_wcn7k")
 
-[sub_resource type="Resource" id="Resource_432bb"]
+[sub_resource type="Resource" id="Resource_mtaxc"]
 script = ExtResource("3_lktlt")
 texture_idx = 0
 flip = false
@@ -40,9 +40,9 @@ script = ExtResource("4_u0btn")
 position = Vector2(-680, 1232)
 point_in = Vector2(0, 0)
 point_out = Vector2(0, 0)
-properties = SubResource("Resource_432bb")
+properties = SubResource("Resource_mtaxc")
 
-[sub_resource type="Resource" id="Resource_jcf5o"]
+[sub_resource type="Resource" id="Resource_1x0to"]
 script = ExtResource("3_lktlt")
 texture_idx = 0
 flip = false
@@ -53,9 +53,9 @@ script = ExtResource("4_u0btn")
 position = Vector2(2000, 1216)
 point_in = Vector2(0, 0)
 point_out = Vector2(0, 0)
-properties = SubResource("Resource_jcf5o")
+properties = SubResource("Resource_1x0to")
 
-[sub_resource type="Resource" id="Resource_8khi1"]
+[sub_resource type="Resource" id="Resource_vjiny"]
 script = ExtResource("3_lktlt")
 texture_idx = 0
 flip = false
@@ -66,9 +66,9 @@ script = ExtResource("4_u0btn")
 position = Vector2(1976, -144)
 point_in = Vector2(0, 0)
 point_out = Vector2(0, 0)
-properties = SubResource("Resource_8khi1")
+properties = SubResource("Resource_vjiny")
 
-[sub_resource type="Resource" id="Resource_5wx3a"]
+[sub_resource type="Resource" id="Resource_gtp5c"]
 script = ExtResource("3_lktlt")
 texture_idx = 0
 flip = false
@@ -79,7 +79,7 @@ script = ExtResource("4_u0btn")
 position = Vector2(-672, -128)
 point_in = Vector2(0, 0)
 point_out = Vector2(0, 0)
-properties = SubResource("Resource_5wx3a")
+properties = SubResource("Resource_gtp5c")
 
 [sub_resource type="Resource" id="Resource_q8b8v"]
 script = ExtResource("5_un5oq")
@@ -153,6 +153,9 @@ position = Vector2(611, 1115)
 [node name="Bottom_Right_River" type="Node2D" parent="EntryPoints" index="1"]
 position = Vector2(1869, 962)
 
+[node name="Boss_Room" type="Node2D" parent="EntryPoints" index="2"]
+position = Vector2(659, 89)
+
 [node name="Player" parent="." index="5"]
 position = Vector2(648, 780)
 
@@ -171,18 +174,42 @@ shape_material = SubResource("Resource_e73dw")
 position = Vector2(621, 1218)
 texture = ExtResource("12_ibq6i")
 
+[node name="TransitionScene" parent="Doors/DungeonEntrance" index="0" instance=ExtResource("15_i1j1v")]
+position = Vector2(-1, -1)
+scale = Vector2(6.28545, -6.35518)
+scene_name = "dog_roll_room"
+entry_point = "Hub_Room"
+
 [node name="DungeonEntrance7" type="Sprite2D" parent="Doors" index="1"]
 position = Vector2(-678, -78)
 texture = ExtResource("12_ibq6i")
+
+[node name="TransitionScene3" parent="Doors/DungeonEntrance7" index="0" instance=ExtResource("15_i1j1v")]
+position = Vector2(-19, 2)
+scale = Vector2(4.06785, -4.27996)
+scene_name = "top_left_river"
+entry_point = "Hub_Room"
 
 [node name="DungeonEntrance9" type="Sprite2D" parent="Doors" index="2"]
 position = Vector2(-717, 942)
 texture = ExtResource("12_ibq6i")
 
+[node name="TransitionScene2" parent="Doors/DungeonEntrance9" index="0" instance=ExtResource("15_i1j1v")]
+position = Vector2(-19, 11)
+scale = Vector2(3.84417, 3.67295)
+scene_name = "bottom_left_river"
+entry_point = "Hub_Room"
+
 [node name="DungeonEntrance4" type="Sprite2D" parent="Doors" index="3"]
 position = Vector2(1930, -7)
 scale = Vector2(1.65052, 2.17241)
 texture = ExtResource("12_ibq6i")
+
+[node name="TransitionScene4" parent="Doors/DungeonEntrance4" index="0" instance=ExtResource("15_i1j1v")]
+position = Vector2(-1.81758, 1.38095)
+scale = Vector2(-4.99118, -5.50358)
+scene_name = "top_right_river"
+entry_point = "Hub_Room"
 
 [node name="DungeonEntrance5" type="Sprite2D" parent="Doors" index="4"]
 position = Vector2(1874, 1128)
@@ -195,14 +222,19 @@ scale = Vector2(8.35666, 5.38988)
 scene_name = "bottom_right_river"
 entry_point = "Hub_Room"
 
+[node name="DungeonEntrance2" type="Sprite2D" parent="Doors" index="5"]
+position = Vector2(653, -96)
+texture = ExtResource("12_ibq6i")
+
+[node name="TransitionScene5" parent="Doors/DungeonEntrance2" index="0" instance=ExtResource("15_i1j1v")]
+position = Vector2(-2, 12)
+scale = Vector2(5.4, 4.52)
+scene_name = "boss_room"
+entry_point = "Hub_Room"
+
 [node name="LockedDoor" parent="." index="9" instance=ExtResource("13_28qb5")]
-position = Vector2(644, -237)
+z_index = 2
+position = Vector2(657, -31)
 
 [node name="WaterToggler" parent="." index="10" instance=ExtResource("14_wra53")]
 position = Vector2(672, 462)
-
-[node name="TransitionScene" parent="." index="11" instance=ExtResource("15_i1j1v")]
-position = Vector2(620, 1217)
-scale = Vector2(6.28545, -6.35518)
-scene_name = "dog_roll_room"
-entry_point = "Hub_Room"
