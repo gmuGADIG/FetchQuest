@@ -101,19 +101,16 @@ func remove_quantity(key: String, amount: int) -> bool:
 	item_updated.emit(key)
 	_key_to_item[key].quantity_held -= amount
 	return true
-	
-## Adds 1 to [code]door_keys[/code]
-func add_door_key() -> void:
-	door_keys += 1
-	
 
-## Attemps to remove a key from the players inventory.[br][br]
-## If the player has more than 0 [code]door_keys[/code],
-## returns [code]true[/code] and decreases [code]door_keys[/code] by 1. [br][br]
-## Otherwise, [code]false[/code] will be returned, and [code]door_keys[/code]
-## will not be changed.
-func use_door_key() -> bool:
-	if (door_keys > 0):
+## Attemps to remove a key from the players inventory
+## If the player has a key, removes one and returns true.
+## Otherwise, does nothing.
+## Can be either normal keys ([code]door_keys[/code]), or boss keys ([code]boss_door_keys[/code])
+func use_door_key(is_boss_door: bool) -> bool:
+	if is_boss_door and boss_door_keys > 0:
+		boss_door_keys -= 1
+		return true
+	elif not is_boss_door and door_keys > 0:
 		door_keys -= 1
 		return true
 	else:
