@@ -37,7 +37,6 @@ func alpha_from_time(t: float) -> float:
 func _process(delta: float) -> void:
 	var input := Input.get_vector("look_left", "look_right", "look_up", "look_down").normalized()
 	var is_moving := ControllerManager.is_controller and input != Vector2.ZERO
-	print("input = ", input, " is_moving = ", is_moving, " t = ", time_since_controller_input, " alpha = ", modulate.a)
 
 	if is_moving:
 		rotation = ControllerManager.get_joystick_aim().angle()
