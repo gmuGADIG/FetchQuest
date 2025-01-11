@@ -2,6 +2,9 @@ class_name Skins extends CanvasLayer
 
 static var chosen_skin := 1
 
+func _ready() -> void:
+	$Control/Skin2.grab_focus()
+
 func _skin1_pressed() -> void:
 	chosen_skin = 1
 	SFXManager.bonk_sound.play()

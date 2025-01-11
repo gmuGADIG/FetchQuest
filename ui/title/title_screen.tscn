@@ -42,7 +42,6 @@ corner_radius_bottom_left = 18
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bhrwc"]
 bg_color = Color(0.592157, 0.00392157, 0.945098, 1)
-border_width_bottom = 10
 border_color = Color(0.592157, 0.00392157, 0.945098, 1)
 corner_radius_top_left = 18
 corner_radius_top_right = 18
@@ -91,7 +90,6 @@ corner_radius_bottom_left = 18
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3odas"]
 bg_color = Color(0.878431, 0.501961, 0, 1)
-border_width_bottom = 10
 border_color = Color(0.878431, 0.501961, 0, 1)
 corner_radius_top_left = 18
 corner_radius_top_right = 18
@@ -140,7 +138,6 @@ corner_radius_bottom_left = 18
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tcd6i"]
 bg_color = Color(0, 0.87451, 0.141176, 1)
-border_width_bottom = 10
 border_color = Color(0, 0.87451, 0.141176, 1)
 corner_radius_top_left = 18
 corner_radius_top_right = 18
@@ -160,9 +157,11 @@ Button/styles/pressed = SubResource("StyleBoxFlat_tcd6i")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_n84vt"]
 texture = ExtResource("5_524n4")
+modulate_color = Color(0.521569, 0.521569, 0.521569, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_res17"]
 texture = ExtResource("5_524n4")
+modulate_color = Color(0.521141, 0.521141, 0.521141, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wlt6e"]
 texture = ExtResource("5_524n4")
@@ -176,9 +175,7 @@ Button/styles/hover = SubResource("StyleBoxTexture_res17")
 Button/styles/normal = SubResource("StyleBoxTexture_wlt6e")
 Button/styles/pressed = SubResource("StyleBoxTexture_3j6ho")
 
-[node name="TitleScreen" type="Control"]
-layout_mode = 3
-anchors_preset = 0
+[node name="TitleScreen" type="CanvasLayer"]
 script = ExtResource("6_ogkp4")
 
 [node name="Background" type="Sprite2D" parent="."]
@@ -194,27 +191,34 @@ texture = ExtResource("3_dkgup")
 position = Vector2(1073, 798)
 texture = ExtResource("3_dkgup")
 
-[node name="ContinueGame" type="Button" parent="."]
+[node name="Panel" type="Control" parent="."]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ContinueGame" type="Button" parent="Panel"]
 layout_mode = 0
 offset_left = 429.0
 offset_top = 430.0
 offset_right = 693.0
-offset_bottom = 508.0
+offset_bottom = 512.0
 theme = SubResource("Theme_bvbs3")
 theme_type_variation = &"FlatButton"
 text = "CONTINUE"
 
-[node name="Quit" type="Button" parent="."]
+[node name="Quit" type="Button" parent="Panel"]
 layout_mode = 0
 offset_left = 430.0
 offset_top = 526.0
 offset_right = 694.0
-offset_bottom = 606.0
+offset_bottom = 608.0
 theme = SubResource("Theme_8gjr8")
 theme_type_variation = &"FlatButton"
 text = "QUIT"
 
-[node name="NewGame" type="Button" parent="."]
+[node name="NewGame" type="Button" parent="Panel"]
 layout_mode = 0
 offset_left = 430.0
 offset_top = 334.0
@@ -223,7 +227,7 @@ offset_bottom = 420.0
 theme = SubResource("Theme_4oxyf")
 text = "NEW GAME"
 
-[node name="Options" type="Button" parent="." node_paths=PackedStringArray("options_menu")]
+[node name="Options" type="Button" parent="Panel" node_paths=PackedStringArray("options_menu")]
 layout_mode = 0
 offset_left = 980.0
 offset_top = 523.0
@@ -231,16 +235,17 @@ offset_right = 1085.0
 offset_bottom = 612.0
 theme = SubResource("Theme_gydnp")
 script = ExtResource("7_s51k4")
-options_menu = NodePath("../OptionsMenu")
+options_menu = NodePath("../../OptionsMenu")
 
 [node name="OptionsMenu" parent="." instance=ExtResource("1_5n5k7")]
 visible = false
 
 [node name="MusicPlayer" parent="." instance=ExtResource("8_dxujq")]
 
-[connection signal="pressed" from="ContinueGame" to="." method="_on_menu_major_button_pressed"]
-[connection signal="pressed" from="ContinueGame" to="." method="_on_continue_game_pressed"]
-[connection signal="pressed" from="Quit" to="." method="_on_menu_major_button_pressed"]
-[connection signal="pressed" from="NewGame" to="." method="_on_new_game_pressed"]
-[connection signal="pressed" from="NewGame" to="." method="_on_menu_major_button_pressed"]
-[connection signal="pressed" from="Options" to="." method="_on_menu_major_button_pressed"]
+[connection signal="pressed" from="Panel/ContinueGame" to="." method="_on_continue_game_pressed"]
+[connection signal="pressed" from="Panel/ContinueGame" to="." method="_on_menu_major_button_pressed"]
+[connection signal="pressed" from="Panel/Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="Panel/Quit" to="." method="_on_menu_major_button_pressed"]
+[connection signal="pressed" from="Panel/NewGame" to="." method="_on_new_game_pressed"]
+[connection signal="pressed" from="Panel/NewGame" to="." method="_on_menu_major_button_pressed"]
+[connection signal="pressed" from="Panel/Options" to="." method="_on_menu_major_button_pressed"]
