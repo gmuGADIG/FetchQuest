@@ -4,7 +4,7 @@ class_name BreakableObject extends StaticBody2D
 @onready var broken := get_node("BrokenWall")
 @onready var hitbox := get_node("Hitbox")
 @export_range(0, 1) var pickup_drop_chance: float = 0.5 ## Chance of dropping a pick-up 
-@export_flags("Undefined", "Bomb") var breakable_by: int = DamageEvent.DamageType.Undefined
+@export_flags("Enemy Attack", "Bomb", "Sword") var breakable_by: int = DamageEvent.DamageType.Sword
 func hurt(_damage_event: DamageEvent) -> void:
 	#If no shared damage type, skip
 	if _damage_event.damage_type & breakable_by == 0:
