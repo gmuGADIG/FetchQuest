@@ -4,4 +4,4 @@ extends Node2D
 
 func _ready() -> void:
 	for idx in skins.size():
-		skins[idx].visible = ChosenSkin.chosen_skin - 1 == idx
+		skins[idx].visible = Skins.chosen_skin - 1 == idx
