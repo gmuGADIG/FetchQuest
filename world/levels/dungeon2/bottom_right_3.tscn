@@ -1,6 +1,6 @@
 [gd_scene load_steps=28 format=3 uid="uid://brxievi5daqgb"]
 
-[ext_resource type="PackedScene" uid="uid://cnd06dpkgufe4" path="res://world/level_base.tscn" id="1_flc7w"]
+[ext_resource type="PackedScene" uid="uid://cnd06dpkgufe4" path="res://world/levels/level_base.tscn" id="1_flc7w"]
 [ext_resource type="Script" path="res://addons/rmsmartshape/shapes/shape_closed.gd" id="2_lt1y3"]
 [ext_resource type="Script" path="res://addons/rmsmartshape/vertex_properties.gd" id="3_2j388"]
 [ext_resource type="Script" path="res://addons/rmsmartshape/shapes/point.gd" id="4_enoqq"]
@@ -13,7 +13,7 @@
 [ext_resource type="Script" path="res://addons/rmsmartshape/materials/shape_material.gd" id="11_beosy"]
 [ext_resource type="PackedScene" uid="uid://b60qs6jc07tbj" path="res://world/interactable/activators/switch/switch.tscn" id="12_jxkxi"]
 
-[sub_resource type="Resource" id="Resource_rqmx2"]
+[sub_resource type="Resource" id="Resource_ug4xh"]
 script = ExtResource("3_2j388")
 texture_idx = 0
 flip = false
@@ -24,9 +24,9 @@ script = ExtResource("4_enoqq")
 position = Vector2(-224, -120)
 point_in = Vector2(0, 0)
 point_out = Vector2(0, 0)
-properties = SubResource("Resource_rqmx2")
+properties = SubResource("Resource_ug4xh")
 
-[sub_resource type="Resource" id="Resource_65um2"]
+[sub_resource type="Resource" id="Resource_vlwhj"]
 script = ExtResource("3_2j388")
 texture_idx = 0
 flip = false
@@ -37,9 +37,9 @@ script = ExtResource("4_enoqq")
 position = Vector2(-232, 808)
 point_in = Vector2(0, 0)
 point_out = Vector2(0, 0)
-properties = SubResource("Resource_65um2")
+properties = SubResource("Resource_vlwhj")
 
-[sub_resource type="Resource" id="Resource_icpx8"]
+[sub_resource type="Resource" id="Resource_kmawa"]
 script = ExtResource("3_2j388")
 texture_idx = 0
 flip = false
@@ -50,9 +50,9 @@ script = ExtResource("4_enoqq")
 position = Vector2(1416, 808)
 point_in = Vector2(0, 0)
 point_out = Vector2(0, 0)
-properties = SubResource("Resource_icpx8")
+properties = SubResource("Resource_kmawa")
 
-[sub_resource type="Resource" id="Resource_5up0n"]
+[sub_resource type="Resource" id="Resource_or1xo"]
 script = ExtResource("3_2j388")
 texture_idx = 0
 flip = false
@@ -63,9 +63,9 @@ script = ExtResource("4_enoqq")
 position = Vector2(1416, -120)
 point_in = Vector2(0, 0)
 point_out = Vector2(0, 0)
-properties = SubResource("Resource_5up0n")
+properties = SubResource("Resource_or1xo")
 
-[sub_resource type="Resource" id="Resource_jjg0d"]
+[sub_resource type="Resource" id="Resource_kcq0u"]
 script = ExtResource("3_2j388")
 texture_idx = 0
 flip = false
@@ -76,7 +76,7 @@ script = ExtResource("4_enoqq")
 position = Vector2(-224, -120)
 point_in = Vector2(0, 0)
 point_out = Vector2(0, 0)
-properties = SubResource("Resource_jjg0d")
+properties = SubResource("Resource_kcq0u")
 
 [sub_resource type="Resource" id="Resource_ohkuv"]
 script = ExtResource("5_y7cjt")
@@ -87,12 +87,15 @@ _points = {
 3: SubResource("Resource_tnm2q"),
 4: SubResource("Resource_opdkq")
 }
-_point_order = Array[int]([4, 3, 2, 1, 0])
+_point_order = PackedInt32Array(4, 3, 2, 1, 0)
 _constraints = {
-Array[int]([0, 4]): 15
+Vector2i(0, 4): 15
 }
 _next_key = 16
 _material_overrides = {}
+tessellation_stages = 3
+tessellation_tolerance = 6.0
+curve_bake_interval = 20.0
 
 [sub_resource type="Resource" id="Resource_vtnh8"]
 script = ExtResource("7_n4p26")
@@ -101,6 +104,8 @@ textures_corner_outer = Array[Texture2D]([])
 textures_corner_inner = Array[Texture2D]([])
 textures_taper_left = Array[Texture2D]([])
 textures_taper_right = Array[Texture2D]([])
+textures_taper_corner_left = Array[Texture2D]([])
+textures_taper_corner_right = Array[Texture2D]([])
 randomize_texture = false
 use_corner_texture = false
 use_taper_texture = true
@@ -117,6 +122,7 @@ script = ExtResource("6_xbecp")
 edge_material = SubResource("Resource_vtnh8")
 normal_range = SubResource("Resource_en2qp")
 weld = true
+taper_sharp_corners = false
 render = true
 z_index = 0
 z_as_relative = true
