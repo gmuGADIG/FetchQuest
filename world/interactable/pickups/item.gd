@@ -12,7 +12,19 @@ var physics_state: ItemPhysicsState = ItemPhysicsState.IDLE;
 @export var acceleration: float = 50.0
 @export var speed: float = 20.0
 
+## By default, collected items respawn when the scene is loaded.
+## If true, this is prevented, making this item only able to be picked up one time.
+@export var single_use := false
+
 var target: Node2D
+
+## Array of node paths, each corresponding to the path of a single-use item that's been collected already
+static var collected_single_use_items: Array[NodePath] = []
+
+func _ready() -> void:
+	if single_use and collected_single_use_items.has(get_path()):
+		queue_free()
+		return
 
 func _on_pickup_area_body_entered(other: Node2D) -> void:
 	if (other.has_method("pickup_item")):
@@ -46,4 +58,4 @@ func _process(_delta: float) -> void:
 	move_and_slide()
 			
 func consume(_consumer: Node2D) -> void:
-	pass
+	if single_use: collected_single_use_items.append(get_path())

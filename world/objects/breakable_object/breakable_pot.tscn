@@ -1,24 +1,27 @@
 [gd_scene load_steps=5 format=3 uid="uid://5x8wo3lcwigq"]
 
 [ext_resource type="Script" path="res://world/objects/breakable_object/breakable_object.gd" id="1_mxvme"]
-[ext_resource type="Texture2D" uid="uid://3naefi41avvd" path="res://demo_art/breakable_wall.png" id="1_yr7md"]
-[ext_resource type="Texture2D" uid="uid://c5jeu6or6o6t" path="res://demo_art/broken_wall.png" id="3_8c25k"]
+[ext_resource type="Texture2D" uid="uid://cpmc5lm6oxd4r" path="res://world/objects/breakable_object/pot.png" id="2_tgvxh"]
+[ext_resource type="Texture2D" uid="uid://ccggv5dxclaws" path="res://world/objects/breakable_object/pot_broken.png" id="3_g10f3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tuitc"]
-size = Vector2(112, 154)
+size = Vector2(112, 88)
 
-[node name="BreakableObject" type="StaticBody2D" groups=["Hittable"]]
+[node name="BreakablePot" type="StaticBody2D" groups=["Hittable"]]
 collision_layer = 5
 collision_mask = 5
 script = ExtResource("1_mxvme")
+breakable_by = 7
 
 [node name="Hitbox" type="CollisionShape2D" parent="."]
-position = Vector2(2, 32)
+position = Vector2(2, 10)
 shape = SubResource("RectangleShape2D_tuitc")
 
 [node name="BreakableWall" type="Sprite2D" parent="."]
-texture = ExtResource("1_yr7md")
+scale = Vector2(0.497782, 0.497782)
+texture = ExtResource("2_tgvxh")
 
 [node name="BrokenWall" type="Sprite2D" parent="."]
 visible = false
-texture = ExtResource("3_8c25k")
+scale = Vector2(0.497782, 0.497782)
+texture = ExtResource("3_g10f3")
