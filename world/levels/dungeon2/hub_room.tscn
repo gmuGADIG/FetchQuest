@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://sequd0p5a1o1"]
+[gd_scene load_steps=34 format=3 uid="uid://sequd0p5a1o1"]
 
 [ext_resource type="PackedScene" uid="uid://cnd06dpkgufe4" path="res://world/levels/level_base.tscn" id="1_fah3u"]
 [ext_resource type="Script" path="res://addons/rmsmartshape/shapes/shape_closed.gd" id="2_ye76r"]
@@ -15,10 +15,11 @@
 [ext_resource type="PackedScene" uid="uid://dv2sjq4bbxtxq" path="res://world/interactable/water_toggler/water_toggle_switch.tscn" id="14_wra53"]
 [ext_resource type="PackedScene" uid="uid://bs6o5glcfe2as" path="res://enemy/projectile_enemy/projectile_enemy.tscn" id="15_2n3vm"]
 [ext_resource type="PackedScene" uid="uid://bwo5q4wroaigc" path="res://world/interactable/transition_trigger/transition_trigger.tscn" id="15_i1j1v"]
+[ext_resource type="PackedScene" uid="uid://yllbcpq24cl0" path="res://enemy/creep_enemy/creep_enemy.tscn" id="15_sgndn"]
 [ext_resource type="PackedScene" uid="uid://bimerg4hcbya2" path="res://enemy/charging_enemy/charging_enemy.tscn" id="16_0v2hw"]
 [ext_resource type="PackedScene" uid="uid://uj2rytnj1h4" path="res://enemy/test_enemy/test_enemy.tscn" id="17_n26v6"]
 
-[sub_resource type="Resource" id="Resource_usb48"]
+[sub_resource type="Resource" id="Resource_kl1ss"]
 script = ExtResource("3_lktlt")
 texture_idx = 0
 flip = false
@@ -29,9 +30,9 @@ script = ExtResource("4_u0btn")
 position = Vector2(-240, -128)
 point_in = Vector2(0, 0)
 point_out = Vector2(0, 0)
-properties = SubResource("Resource_usb48")
+properties = SubResource("Resource_kl1ss")
 
-[sub_resource type="Resource" id="Resource_k42qq"]
+[sub_resource type="Resource" id="Resource_hafse"]
 script = ExtResource("3_lktlt")
 texture_idx = 0
 flip = false
@@ -42,9 +43,9 @@ script = ExtResource("4_u0btn")
 position = Vector2(-240, 808)
 point_in = Vector2(0, 0)
 point_out = Vector2(0, 0)
-properties = SubResource("Resource_k42qq")
+properties = SubResource("Resource_hafse")
 
-[sub_resource type="Resource" id="Resource_sjmux"]
+[sub_resource type="Resource" id="Resource_v80f2"]
 script = ExtResource("3_lktlt")
 texture_idx = 0
 flip = false
@@ -55,9 +56,9 @@ script = ExtResource("4_u0btn")
 position = Vector2(1416, 816)
 point_in = Vector2(0, 0)
 point_out = Vector2(0, 0)
-properties = SubResource("Resource_sjmux")
+properties = SubResource("Resource_v80f2")
 
-[sub_resource type="Resource" id="Resource_va8au"]
+[sub_resource type="Resource" id="Resource_r8eva"]
 script = ExtResource("3_lktlt")
 texture_idx = 0
 flip = false
@@ -68,9 +69,9 @@ script = ExtResource("4_u0btn")
 position = Vector2(1408, -128)
 point_in = Vector2(0, 0)
 point_out = Vector2(0, 0)
-properties = SubResource("Resource_va8au")
+properties = SubResource("Resource_r8eva")
 
-[sub_resource type="Resource" id="Resource_xscc1"]
+[sub_resource type="Resource" id="Resource_n6161"]
 script = ExtResource("3_lktlt")
 texture_idx = 0
 flip = false
@@ -81,7 +82,7 @@ script = ExtResource("4_u0btn")
 position = Vector2(-240, -128)
 point_in = Vector2(0, 0)
 point_out = Vector2(0, 0)
-properties = SubResource("Resource_xscc1")
+properties = SubResource("Resource_n6161")
 
 [sub_resource type="Resource" id="Resource_q8b8v"]
 script = ExtResource("5_un5oq")
@@ -150,16 +151,16 @@ render_offset = 0.0
 [node name="LevelBase2" instance=ExtResource("1_fah3u")]
 
 [node name="Entrance" type="Node2D" parent="EntryPoints" index="0"]
-position = Vector2(611, 1115)
+position = Vector2(627, 707)
 
 [node name="Bottom_Right_River" type="Node2D" parent="EntryPoints" index="1"]
-position = Vector2(1869, 962)
+position = Vector2(1234, 635)
 
 [node name="Boss_Room" type="Node2D" parent="EntryPoints" index="2"]
 position = Vector2(659, 89)
 
 [node name="Player" parent="." index="5"]
-position = Vector2(648, 780)
+position = Vector2(590, 458)
 
 [node name="Walls" type="Node" parent="." index="6"]
 
@@ -178,7 +179,7 @@ scale = Vector2(0.798412, 0.964295)
 texture = ExtResource("12_ibq6i")
 
 [node name="TransitionScene" parent="Doors/DungeonEntrance" index="0" instance=ExtResource("15_i1j1v")]
-position = Vector2(-1, -1)
+position = Vector2(11.2723, 2.07405)
 scale = Vector2(6.28545, -6.35518)
 scene_name = "dog_roll_room"
 entry_point = "Hub_Room"
@@ -228,14 +229,18 @@ entry_point = "Hub_Room"
 [node name="WaterToggler" parent="." index="9" instance=ExtResource("14_wra53")]
 position = Vector2(588, 340)
 
-[node name="ProjectileEnemy" parent="." index="11" instance=ExtResource("15_2n3vm")]
+[node name="CreepEnemy" parent="." index="10" instance=ExtResource("15_sgndn")]
+position = Vector2(610, 183)
+scale = Vector2(0.692415, 0.76782)
+
+[node name="ProjectileEnemy" parent="." index="12" instance=ExtResource("15_2n3vm")]
 position = Vector2(230, 45)
 
-[node name="ChargingEnemy" parent="." index="12" instance=ExtResource("16_0v2hw")]
+[node name="ChargingEnemy" parent="." index="13" instance=ExtResource("16_0v2hw")]
 position = Vector2(962, 53)
 
-[node name="TestEnemy" parent="." index="13" instance=ExtResource("17_n26v6")]
+[node name="TestEnemy" parent="." index="14" instance=ExtResource("17_n26v6")]
 position = Vector2(792, 448)
 
-[node name="TestEnemy2" parent="." index="14" instance=ExtResource("17_n26v6")]
+[node name="TestEnemy2" parent="." index="15" instance=ExtResource("17_n26v6")]
 position = Vector2(353, 469)
