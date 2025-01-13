@@ -1,14 +1,14 @@
 [gd_scene load_steps=6 format=3 uid="uid://muo2slv6dqvy"]
 
 [ext_resource type="Script" path="res://enemy/king_boss/king_thrown_scepter.gd" id="1_86ulj"]
-[ext_resource type="Texture2D" uid="uid://bpivhp0yswnq3" path="res://enemy/king_boss/temp_art/nail.png" id="1_ymojj"]
 [ext_resource type="Script" path="res://enemy/king_boss/king_scepter_rotate.gd" id="2_ixxmt"]
+[ext_resource type="Texture2D" uid="uid://d4bomni3pfdyx" path="res://enemy/king_boss/KingSpriteSheet.png" id="3_gxoo5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_375pt"]
-size = Vector2(26, 30)
+size = Vector2(12, 70)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_100ge"]
-size = Vector2(26, 30)
+size = Vector2(14, 72)
 
 [node name="KingThrownScepter" type="CharacterBody2D"]
 collision_layer = 4
@@ -27,14 +27,6 @@ shape = SubResource("RectangleShape2D_375pt")
 one_shot = true
 autostart = true
 
-[node name="DamageArea" type="Area2D" parent="."]
-collision_layer = 4
-collision_mask = 130
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageArea"]
-shape = SubResource("RectangleShape2D_100ge")
-debug_color = Color(0.980349, 0, 0.380419, 0.42)
-
 [node name="SpriteHolder" type="Node2D" parent="." node_paths=PackedStringArray("scepter")]
 script = ExtResource("2_ixxmt")
 max_angular_speed = 15.0
@@ -42,11 +34,18 @@ min_angular_speed = 5.0
 scepter = NodePath("..")
 
 [node name="Sprite2D" type="Sprite2D" parent="SpriteHolder"]
-position = Vector2(0, -25)
-rotation = 3.14159
-scale = Vector2(0.625383, 0.625383)
-texture = ExtResource("1_ymojj")
+rotation = -0.684113
+scale = Vector2(0.36225, 0.36225)
+texture = ExtResource("3_gxoo5")
 region_enabled = true
-region_rect = Rect2(0, 32.8533, 36, 129.147)
+region_rect = Rect2(1682, 175, 172, 195)
 
-[connection signal="body_entered" from="DamageArea" to="." method="_on_damage_area_body_entered"]
+[node name="DamageArea" type="Area2D" parent="SpriteHolder"]
+collision_layer = 4
+collision_mask = 130
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SpriteHolder/DamageArea"]
+shape = SubResource("RectangleShape2D_100ge")
+debug_color = Color(0.980349, 0, 0.380419, 0.42)
+
+[connection signal="body_entered" from="SpriteHolder/DamageArea" to="." method="_on_damage_area_body_entered"]

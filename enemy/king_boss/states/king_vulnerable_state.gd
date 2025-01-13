@@ -8,24 +8,34 @@ var panic_count:int = 0
 @onready var terrain_checker:Area2D = $"../../TerrainChecker"
 
 func enter() -> void:
-	# Get a new target and remove the unhittable aura
+	# Get a new target 
 	target_position = get_random_move_point(king.panic_distance)
-	king.bubble_sprite.visible = false
 
 func update(_delta:float) -> void:
+	# Play the correct panic animation
+	if king.velocity.x > 0:
+		king.animated_sprite.play("panic_left")
+	else:
+		king.animated_sprite.play("panic_right")
+
 	# Switch to idle if the scepter is found
 	if abs(king.global_position.distance_to(king.current_lost_scepter.global_position)) < 10:
 		state_machine.change_state(self, "Idle")
+	
+	# Die if health drops to 0
+	if king.health <= 0:
+		state_machine.change_state(self, "Dead")
 	
 	# Get new target when necessary and always move towards it
 	handle_target_choices()
 	move_towards_target()
 
+
 func exit() -> void:
-	# Remove the dropped scepter, reset variables, enable unhittable aura
+	# Remove the dropped scepter and reset variables
 	king.current_lost_scepter.queue_free()
 	king.current_lost_scepter = null
-	king.bubble_sprite.visible = true
+	#king.bubble_sprite.visible = true
 	panic_count = 0
 
 func handle_target_choices() -> void:
@@ -55,7 +65,7 @@ func get_random_move_point(distance:float) -> Vector2:
 
 func random_direction() -> Vector2:
 	# Get a random direction
-	return Vector2(randf_range(-1,1), randf_range(-1,1)).normalized()
+	return Vector2(randf_range(-1,1), randf_range(-.25,.25)).normalized()
 
 func move_towards_target() -> void:
 	# Set the velocity to be towards the target

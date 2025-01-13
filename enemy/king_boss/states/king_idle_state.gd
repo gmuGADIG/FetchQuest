@@ -3,6 +3,7 @@ class_name KingIdleState extends KingState
 var desired_state:KingState = null
 
 func enter() -> void:
+	king.animated_sprite.play("idle")
 	# Wait a bit to choose an attack
 	await get_tree().create_timer(king.time_between_attacks).timeout
 	# Choose a state and switch to it

@@ -11,8 +11,12 @@ func enter() -> void:
 	for i in range(king.total_scepter_throws):
 		if state_machine.current_state != self:
 			return
+		king.animated_sprite.play("scepter_throw")
+		await king.animated_sprite.animation_finished
 		throw()
 		await current_scepter.scepter_returned
+		king.animated_sprite.play("scepter_catch")
+		await king.animated_sprite.animation_finished
 	# Switch to idle if king hasnt been forced into vulnerable state
 	if state_machine.current_state != self:
 		return

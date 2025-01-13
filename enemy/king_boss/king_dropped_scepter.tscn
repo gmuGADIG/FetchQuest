@@ -1,17 +1,18 @@
-[gd_scene load_steps=4 format=3 uid="uid://typy1fb3b4y3"]
+[gd_scene load_steps=3 format=3 uid="uid://typy1fb3b4y3"]
 
-[ext_resource type="Script" path="res://enemy/king_boss/king_dropped_scepter.gd" id="1_v23h8"]
-[ext_resource type="Texture2D" uid="uid://bpivhp0yswnq3" path="res://enemy/king_boss/temp_art/nail.png" id="2_ms627"]
+[ext_resource type="Texture2D" uid="uid://d4bomni3pfdyx" path="res://enemy/king_boss/KingSpriteSheet.png" id="1_obgk6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_506pp"]
-size = Vector2(12, 38)
+size = Vector2(12, 78)
 
 [node name="KingDroppedScepter" type="Area2D"]
-script = ExtResource("1_v23h8")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_ms627")
+rotation = -0.618032
+scale = Vector2(0.372, 0.372)
+texture = ExtResource("1_obgk6")
+region_enabled = true
+region_rect = Rect2(1682, 175, 172, 195)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_506pp")

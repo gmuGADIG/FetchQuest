@@ -1,5 +1,7 @@
 class_name King extends CharacterBody2D
 
+@onready var animated_sprite:AnimatedSprite2D = $AnimatedSprite2D
+
 @export_group("Stats")
 ## Amount of hits the boss can take
 @export var max_health:int = 10
@@ -84,8 +86,6 @@ var current_lost_scepter:Node2D = null
 @export var panic_duration:float = 4
 ## How many panic points to create
 @onready var total_panic_points:int = floori(panic_distance / panic_speed * panic_duration)
-## The sprite that contains the unhittable aura
-@onready var bubble_sprite:Sprite2D = $BubbleSprite
 
 
 func _ready() -> void:
@@ -113,7 +113,7 @@ func hurt(damage_event:DamageEvent) -> void:
 	damage_flicker()
 	
 func damage_flicker() -> void:
-	var enemy_normal_modulate: Color = $BossSprite.modulate
-	$BossSprite.modulate = Color(0.4, 0.4, 0.4, 1)
+	var enemy_normal_modulate: Color = animated_sprite.modulate
+	animated_sprite.modulate = Color(0.4, 0.4, 0.4, 1)
 	await get_tree().create_timer(0.1).timeout
-	$BossSprite.modulate = enemy_normal_modulate
+	animated_sprite.modulate = enemy_normal_modulate

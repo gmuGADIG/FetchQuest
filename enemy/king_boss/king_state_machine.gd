@@ -11,6 +11,9 @@ var states:Dictionary = {}
 var current_state:KingState
 
 func _ready() -> void:
+	# Wait until king has called its ready function
+	await get_tree().process_frame
+	
 	# Get the states (they are children of the statemachine)
 	for state in get_children():
 		if state is KingState:
@@ -22,7 +25,8 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	# Update the state
-	current_state.update(delta)
+	if current_state:
+		current_state.update(delta)
 
 func change_state(source_state: KingState, desired_state_name: String) -> void:
 	# Ensure the current state is what we are trying to switch from

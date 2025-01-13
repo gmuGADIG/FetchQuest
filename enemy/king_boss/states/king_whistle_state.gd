@@ -7,6 +7,7 @@ func enter() -> void:
 	await king.teleport_timer.timeout
 	# Spawn the shockwaves with a delay between them
 	for i in range(king.total_shockwaves):
+		king.animated_sprite.play("shockwave")
 		spawn_shockwave(king.global_position)
 		await get_tree().create_timer(king.time_between_shockwaves).timeout
 	

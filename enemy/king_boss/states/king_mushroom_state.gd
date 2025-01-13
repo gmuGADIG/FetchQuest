@@ -4,6 +4,7 @@ class_name KingMushroomState extends KingState
 var mushrooms_spawned:Array[Node2D] = []
 
 func enter() -> void:
+	king.animated_sprite.play("mushroom_attack")
 	# Pause the teleport timer (for when animations exist)
 	king.teleport_timer.stop()
 	
