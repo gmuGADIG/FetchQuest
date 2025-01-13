@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://sequd0p5a1o1"]
+[gd_scene load_steps=33 format=3 uid="uid://sequd0p5a1o1"]
 
 [ext_resource type="PackedScene" uid="uid://cnd06dpkgufe4" path="res://world/levels/level_base.tscn" id="1_fah3u"]
 [ext_resource type="Script" path="res://addons/rmsmartshape/shapes/shape_closed.gd" id="2_ye76r"]
@@ -12,11 +12,13 @@
 [ext_resource type="Texture2D" uid="uid://vm33ci7bxmfx" path="res://dialogic_example/level_example_textures/grass_fill.png" id="10_j7wb5"]
 [ext_resource type="Script" path="res://addons/rmsmartshape/materials/shape_material.gd" id="11_aqi58"]
 [ext_resource type="Texture2D" uid="uid://dc4pcxr2lfkka" path="res://demo_art/dungeon_entrance.png" id="12_ibq6i"]
-[ext_resource type="PackedScene" uid="uid://blh1fs712dql8" path="res://world/interactable/activatable/locked_door/locked_door.tscn" id="13_28qb5"]
 [ext_resource type="PackedScene" uid="uid://dv2sjq4bbxtxq" path="res://world/interactable/water_toggler/water_toggle_switch.tscn" id="14_wra53"]
+[ext_resource type="PackedScene" uid="uid://bs6o5glcfe2as" path="res://enemy/projectile_enemy/projectile_enemy.tscn" id="15_2n3vm"]
 [ext_resource type="PackedScene" uid="uid://bwo5q4wroaigc" path="res://world/interactable/transition_trigger/transition_trigger.tscn" id="15_i1j1v"]
+[ext_resource type="PackedScene" uid="uid://bimerg4hcbya2" path="res://enemy/charging_enemy/charging_enemy.tscn" id="16_0v2hw"]
+[ext_resource type="PackedScene" uid="uid://uj2rytnj1h4" path="res://enemy/test_enemy/test_enemy.tscn" id="17_n26v6"]
 
-[sub_resource type="Resource" id="Resource_wcn7k"]
+[sub_resource type="Resource" id="Resource_usb48"]
 script = ExtResource("3_lktlt")
 texture_idx = 0
 flip = false
@@ -24,12 +26,12 @@ width = 1.0
 
 [sub_resource type="Resource" id="Resource_fg5d2"]
 script = ExtResource("4_u0btn")
-position = Vector2(-672, -128)
+position = Vector2(-240, -128)
 point_in = Vector2(0, 0)
 point_out = Vector2(0, 0)
-properties = SubResource("Resource_wcn7k")
+properties = SubResource("Resource_usb48")
 
-[sub_resource type="Resource" id="Resource_mtaxc"]
+[sub_resource type="Resource" id="Resource_k42qq"]
 script = ExtResource("3_lktlt")
 texture_idx = 0
 flip = false
@@ -37,12 +39,12 @@ width = 1.0
 
 [sub_resource type="Resource" id="Resource_57yie"]
 script = ExtResource("4_u0btn")
-position = Vector2(-680, 1232)
+position = Vector2(-240, 808)
 point_in = Vector2(0, 0)
 point_out = Vector2(0, 0)
-properties = SubResource("Resource_mtaxc")
+properties = SubResource("Resource_k42qq")
 
-[sub_resource type="Resource" id="Resource_1x0to"]
+[sub_resource type="Resource" id="Resource_sjmux"]
 script = ExtResource("3_lktlt")
 texture_idx = 0
 flip = false
@@ -50,12 +52,12 @@ width = 1.0
 
 [sub_resource type="Resource" id="Resource_6wfej"]
 script = ExtResource("4_u0btn")
-position = Vector2(2000, 1216)
+position = Vector2(1416, 816)
 point_in = Vector2(0, 0)
 point_out = Vector2(0, 0)
-properties = SubResource("Resource_1x0to")
+properties = SubResource("Resource_sjmux")
 
-[sub_resource type="Resource" id="Resource_vjiny"]
+[sub_resource type="Resource" id="Resource_va8au"]
 script = ExtResource("3_lktlt")
 texture_idx = 0
 flip = false
@@ -63,12 +65,12 @@ width = 1.0
 
 [sub_resource type="Resource" id="Resource_tnm2q"]
 script = ExtResource("4_u0btn")
-position = Vector2(1976, -144)
+position = Vector2(1408, -128)
 point_in = Vector2(0, 0)
 point_out = Vector2(0, 0)
-properties = SubResource("Resource_vjiny")
+properties = SubResource("Resource_va8au")
 
-[sub_resource type="Resource" id="Resource_gtp5c"]
+[sub_resource type="Resource" id="Resource_xscc1"]
 script = ExtResource("3_lktlt")
 texture_idx = 0
 flip = false
@@ -76,10 +78,10 @@ width = 1.0
 
 [sub_resource type="Resource" id="Resource_opdkq"]
 script = ExtResource("4_u0btn")
-position = Vector2(-672, -128)
+position = Vector2(-240, -128)
 point_in = Vector2(0, 0)
 point_out = Vector2(0, 0)
-properties = SubResource("Resource_gtp5c")
+properties = SubResource("Resource_xscc1")
 
 [sub_resource type="Resource" id="Resource_q8b8v"]
 script = ExtResource("5_un5oq")
@@ -171,7 +173,8 @@ shape_material = SubResource("Resource_e73dw")
 [node name="Doors" type="Node" parent="." index="8"]
 
 [node name="DungeonEntrance" type="Sprite2D" parent="Doors" index="0"]
-position = Vector2(621, 1218)
+position = Vector2(640, 783)
+scale = Vector2(0.798412, 0.964295)
 texture = ExtResource("12_ibq6i")
 
 [node name="TransitionScene" parent="Doors/DungeonEntrance" index="0" instance=ExtResource("15_i1j1v")]
@@ -181,7 +184,7 @@ scene_name = "dog_roll_room"
 entry_point = "Hub_Room"
 
 [node name="DungeonEntrance7" type="Sprite2D" parent="Doors" index="1"]
-position = Vector2(-678, -78)
+position = Vector2(-203, -68)
 texture = ExtResource("12_ibq6i")
 
 [node name="TransitionScene3" parent="Doors/DungeonEntrance7" index="0" instance=ExtResource("15_i1j1v")]
@@ -191,7 +194,7 @@ scene_name = "top_left_river"
 entry_point = "Hub_Room"
 
 [node name="DungeonEntrance9" type="Sprite2D" parent="Doors" index="2"]
-position = Vector2(-717, 942)
+position = Vector2(-206, 683)
 texture = ExtResource("12_ibq6i")
 
 [node name="TransitionScene2" parent="Doors/DungeonEntrance9" index="0" instance=ExtResource("15_i1j1v")]
@@ -201,8 +204,8 @@ scene_name = "bottom_left_river"
 entry_point = "Hub_Room"
 
 [node name="DungeonEntrance4" type="Sprite2D" parent="Doors" index="3"]
-position = Vector2(1930, -7)
-scale = Vector2(1.65052, 2.17241)
+position = Vector2(1351, -73)
+scale = Vector2(1.05535, 1.21978)
 texture = ExtResource("12_ibq6i")
 
 [node name="TransitionScene4" parent="Doors/DungeonEntrance4" index="0" instance=ExtResource("15_i1j1v")]
@@ -212,36 +215,27 @@ scene_name = "top_right_river"
 entry_point = "Hub_Room"
 
 [node name="DungeonEntrance5" type="Sprite2D" parent="Doors" index="4"]
-position = Vector2(1874, 1128)
-scale = Vector2(1.47906, 1.7069)
+position = Vector2(1263, 752)
+scale = Vector2(0.92322, 1.02376)
 texture = ExtResource("12_ibq6i")
 
 [node name="TransitionScene" parent="Doors/DungeonEntrance5" index="0" instance=ExtResource("15_i1j1v")]
-position = Vector2(-0.676147, -1.17175)
+position = Vector2(10.1416, -4.10104)
 scale = Vector2(8.35666, 5.38988)
 scene_name = "bottom_right_river"
 entry_point = "Hub_Room"
 
-[node name="DungeonEntrance2" type="Sprite2D" parent="Doors" index="5"]
-position = Vector2(653, -96)
-texture = ExtResource("12_ibq6i")
+[node name="WaterToggler" parent="." index="9" instance=ExtResource("14_wra53")]
+position = Vector2(588, 340)
 
-<<<<<<< Updated upstream
-[node name="TransitionScene5" parent="Doors/DungeonEntrance2" index="0" instance=ExtResource("15_i1j1v")]
-position = Vector2(-2, 12)
-scale = Vector2(5.4, 4.52)
-scene_name = "boss_room"
-entry_point = "Hub_Room"
-=======
 [node name="ProjectileEnemy" parent="." index="11" instance=ExtResource("15_2n3vm")]
 position = Vector2(230, 45)
-standstill_time = 0.5
-attack_range = 1.3
->>>>>>> Stashed changes
 
-[node name="LockedDoor" parent="." index="9" instance=ExtResource("13_28qb5")]
-z_index = 2
-position = Vector2(657, -31)
+[node name="ChargingEnemy" parent="." index="12" instance=ExtResource("16_0v2hw")]
+position = Vector2(962, 53)
 
-[node name="WaterToggler" parent="." index="10" instance=ExtResource("14_wra53")]
-position = Vector2(672, 462)
+[node name="TestEnemy" parent="." index="13" instance=ExtResource("17_n26v6")]
+position = Vector2(792, 448)
+
+[node name="TestEnemy2" parent="." index="14" instance=ExtResource("17_n26v6")]
+position = Vector2(353, 469)

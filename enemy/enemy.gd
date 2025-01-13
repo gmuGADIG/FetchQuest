@@ -51,7 +51,7 @@ var time_since_last_seen_player : float = 0.0
 @export var agressive_target_distance_max: int = 300
 
 @export var enemy_state : EnemyState = EnemyState.ROAMING
-var navigation_target: Vector2 = self.position
+var navigation_target: Vector2 = self.global_position
 
 @onready var original_position : Vector2 = position
 @onready var target_position: Vector2 = _get_roaming_target()
@@ -127,7 +127,7 @@ func on_death() -> void:
 	# pick an eligible item and get the scene path
 	var chosen: String = eligible_pickup_paths.pick_random()
 	var dropped_item: Node2D = load(chosen).instantiate()
-	dropped_item.position = position
+	dropped_item.global_position = global_position
 	add_sibling.call_deferred(dropped_item)
 	print("Item '", dropped_item.name, "' was dropped by ", get_path())
 
@@ -160,25 +160,29 @@ func _get_roaming_target() -> Vector2:
 	
 func _process_agressive(delta: float) -> void:
 	#Note that these variables are the square distance
-	var enemy_distance: float = self.position.distance_to(Player.instance.position)
-	var navigation_target_distance: float = navigation_target.distance_to(Player.instance.position)
-	var player_location: Vector2 = Player.instance.position
+	var enemy_distance: float = self.global_position.distance_to(Player.instance.global_position)
+	var player_location: Vector2 = Player.instance.global_position
+	var navigation_target_distance: float = navigation_target.distance_to(player_location)
 	var target_distance: float = agressive_target_distance_min+(agressive_target_distance_max-agressive_target_distance_min)/2
 	var target_direction: Vector2
 	
 	var target : Vector2
 	#When the enemy is inside of the valid target region
 	
-	if (enemy_distance > agressive_target_distance_min) && (enemy_distance < agressive_target_distance_max):
-		if(self.position.distance_squared_to(navigation_target)>10):
-			pass
-		const angle_variance := deg_to_rad(10)
-		target_direction = player_location.direction_to(self.position).rotated(randf_range(-1, 1) * angle_variance)
-		target = player_location+target_direction*target_distance;
-	else:
-		target_direction = player_location.direction_to(self.position)
-		target = player_location+target_direction*target_distance;
-	approach(target)
+	if (enemy_distance < agressive_target_distance_min) || (enemy_distance > agressive_target_distance_max):
+		
+		target_direction = player_location.direction_to(self.global_position)
+		target = player_location+target_direction*target_distance
+		approach(target)
+	#else:
+		##print(self.global_position.distance_squared_to(navigation_target))
+		#if(self.global_position.distance_squared_to(navigation_target)>100):
+			#return
+		#const angle_variance := deg_to_rad(90)
+		#target_direction = player_location.direction_to(self.global_position).rotated(randf_range(-1, 1) * angle_variance)
+		#target = player_location+target_direction*target_distance
+		
+	
 		
 func _process_stunned(_delta: float) -> void:
 	pass
@@ -189,6 +193,7 @@ func barked() -> void:
 
 func approach(target: Vector2) -> void:
 	if navigation_agent:
+		navigation_target = target
 		navigation_agent.set_target_position(target)
 
 ## Helper function for derived Enemy types to check whether or not they have
