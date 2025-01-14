@@ -51,8 +51,11 @@ func _create_save_dictionary() -> Dictionary:
 		quests = quests,
 		fast_travel_points = fast_travel_points,
 		chosen_skin = Skins.chosen_skin,
+		dialogic = Dialogic.get_full_state(),
+		talking_interactable = TalkingInteractable.save_data
 	}
 
+	# print("[save_system] save.dialogic = ", save.dialogic)
 	return save
 
 func _handle_save_dictionary(save: Dictionary) -> void:
@@ -75,6 +78,10 @@ func _handle_save_dictionary(save: Dictionary) -> void:
 
 	PlayerInventory.deserialize(save.inventory)
 
+	Dialogic.load_full_state(save.dialogic)
+
+	TalkingInteractable.save_data = save.talking_interactable
+
 func save_game() -> void:
 	print("[save_system] saving game")
 	store_dictionary(save_path, _create_save_dictionary())
@@ -96,4 +103,3 @@ func new_game() -> void:
 ## returns true if a valid save exists
 func save_valid() -> bool:
 	return FileAccess.file_exists(save_path)
-
