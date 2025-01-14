@@ -3,6 +3,8 @@ extends CanvasLayer
 func _ready() -> void:
 	$Panel/NewGame.grab_focus()
 	$OptionsMenu.option_menu_hidden.connect(self._on_option_menu_hidden)
+
+	%ContinueGame.disabled = not SaveSystem.save_valid()
 	
 func _on_quit_pressed() -> void:
 	get_tree().quit()

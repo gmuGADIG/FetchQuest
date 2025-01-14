@@ -2,13 +2,6 @@ extends Node
 
 const save_path := "user://save.dat"
 
-const inventory_path := "user://inventory.dat"
-const location_path := "user://location.dat"
-const chest_state_path := "user://chests.dat"
-const quests_path := "user://quests.dat"
-const fast_travel_path := "user://fast_travel.dat"
-const stats_path := "user://stats.dat"
-
 @onready var default_save := _create_save_dictionary()
 
 ## store data to the filesystem.
@@ -99,3 +92,8 @@ func load_game() -> void:
 func new_game() -> void:
 	print("[save_system] creating new game")
 	_handle_save_dictionary(default_save)
+
+## returns true if a valid save exists
+func save_valid() -> bool:
+	return FileAccess.file_exists(save_path)
+
