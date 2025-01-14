@@ -1,0 +1,77 @@
+[gd_scene load_steps=7 format=3 uid="uid://bmf3yf7vc0ia5"]
+
+[ext_resource type="Theme" uid="uid://hft8rbf0e22b" path="res://ui/main_ui_theme.tres" id="1_v58pj"]
+[ext_resource type="Script" path="res://ui/quest_book/quest_entry/quest_entry.gd" id="2_hj17c"]
+[ext_resource type="Texture2D" uid="uid://dd3eyhkdykg38" path="res://ui/quest_book/PawprintStamp.png" id="3_d8110"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wnmd2"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.758192, 0.758192, 0.758191, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q1ojl"]
+bg_color = Color(0.728822, 0.728822, 0.728822, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.509287, 0.509286, 0.509285, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m54oo"]
+bg_color = Color(0.955963, 0.955963, 0.955963, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.758192, 0.758192, 0.758191, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="QuestEntry" type="HBoxContainer"]
+modulate = Color(0.77084, 0.770839, 0.770839, 1)
+offset_left = 2.0
+offset_right = 430.0
+offset_bottom = 70.0
+theme = ExtResource("1_v58pj")
+script = ExtResource("2_hj17c")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+texture = ExtResource("3_d8110")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Button" type="Button" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 28
+theme_override_styles/focus = SubResource("StyleBoxFlat_wnmd2")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_q1ojl")
+theme_override_styles/hover = SubResource("StyleBoxFlat_wnmd2")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_wnmd2")
+theme_override_styles/normal = SubResource("StyleBoxFlat_m54oo")
+text = "QUEST TITLE GOES HERE :D"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

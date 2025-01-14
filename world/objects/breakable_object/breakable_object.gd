@@ -4,7 +4,7 @@ class_name BreakableObject extends StaticBody2D
 @onready var broken := get_node("BrokenWall")
 @onready var hitbox := get_node("Hitbox")
 @export_range(0, 1) var pickup_drop_chance: float = 0.5 ## Chance of dropping a pick-up 
-@export_flags("Undefined", "Bomb") var breakable_by: int = DamageEvent.DamageType.Undefined
+@export_flags("Enemy Attack", "Bomb", "Sword") var breakable_by: int = DamageEvent.DamageType.Sword
 func hurt(_damage_event: DamageEvent) -> void:
 	#If no shared damage type, skip
 	if _damage_event.damage_type & breakable_by == 0:
@@ -22,7 +22,7 @@ func hurt(_damage_event: DamageEvent) -> void:
 func drop_item() -> void:
 		# add bombs, health, and stamina to the list of possible drops, after checking if they're eligible
 		var eligible_pickup_paths: Array[String]
-		if (Player.instance.health < Player.instance.max_health):
+		if (Player.instance.health < PlayerInventory.max_health):
 			eligible_pickup_paths.append("res://world/interactable/pickups/pickup_health.tscn") # health
 		if (PlayerInventory.bombs < PlayerInventory.max_bombs):
 			eligible_pickup_paths.append("res://world/interactable/pickups/pickup_bomb.tscn") # bomb

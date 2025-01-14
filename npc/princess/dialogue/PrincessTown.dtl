@@ -1,0 +1,45 @@
+set {princess_talk} = true
+if {church_complete} == false:
+	if {forest_complete} == false:
+		if {talk_count} == 0:
+			Princess: Hello there Arthur, good to see you again, our kingdom has been in peril as of late from my father the King.
+			Princess: He’s really not a bad guy he hasn’t been himself lately and I don’t know why.
+			Princess: It got so bad that all the villagers left the kingdom and settled here.
+			Princess: I have been leading them since then, but we need a proper ruler.
+			Princess: Unfortunately, we blocked the road to the castle so we cannot reach the king.
+			Princess: However, other parts of our kingdom are in peril and we need your help.
+			Princess: People who have gone to the northern church recently have not come back.
+			Princess: And I have heard tell that the forest to the east has been flooded and taken over by frogs!!
+			Princess: Will the brave hero please help us save our kingdom?
+			do QuestSystem.assign_quest("main")
+		elif {talk_count} == 1:
+			Princess: Follow the road to the north and reach the crossroads, there you can choose your path.
+		else:
+			Princess: You’re just too cute for this world aren’t you, be a good boy for me and save the kingdom.
+	else:
+		Princess: A giant frog?
+		Princess: A flooded forest?
+		Princess: What has happened to our kingdom?
+		Princess: We are running out of time you must save us please!
+elif {king_complete} == true:
+	if {talk_count} == 0:
+		Princess: YOU DID IT!!! You’re such a good boy!
+		Princess: Thank you so much you are truly the hero of legend.
+		Princess: I have news as well, my father has decided to step down and make me Queen.
+		Princess: After recovering from the fungus he blames himself for what he did under it’s control and he worries the people won’t trust him anymore.
+		Princess: As the new queen you are welcome any time to my castle.
+		Princess: But you have an important mission to finish.
+		Princess: Go home to your master with that stick and complete your fetch quest.
+else:
+	if {forest_complete} == false:
+		if {talk_count} == 0:
+			Princess: Oh my goodness the church was overtaken by fungus!!!
+			Princess: All those poor priests, I am sure they are thankful that you released them from the fungus’s control.
+			Princess: Thank you so much for saving the church we are forever grateful.
+			Princess: Please keep saving our kingdom we need you.
+		elif {talk_count} == 1:
+			Princess: I never thought my father would go this far, he needs your help to bring him back to sanity.
+		else:
+			Princess: Aren’t you just the cutest little hero. If you save the kingdom I have a treat for you!
+	else:
+		Princess: I think there is a way I can get you to the castle. Meet me at the broken bridge.

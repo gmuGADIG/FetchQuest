@@ -9,7 +9,7 @@ var queue: Array = []  # Queue to store positions for the trail
 # Called every frame to update the trail
 func _process(_delta: float) -> void:
 	# Add the current position of the parent node to the front of the queue
-	queue.push_front(sword.position)
+	queue.push_front(to_local(sword.global_position))
 	
 	# If the queue exceeds the defined trail size, remove the oldest point
 	if queue.size() > trail_size:

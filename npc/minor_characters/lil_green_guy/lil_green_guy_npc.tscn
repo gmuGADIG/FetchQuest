@@ -1,0 +1,27 @@
+[gd_scene load_steps=7 format=3 uid="uid://daxq42sxfesx4"]
+
+[ext_resource type="PackedScene" uid="uid://dvhfibvbfhnnv" path="res://npc/base_npc.tscn" id="1_atrox"]
+[ext_resource type="Texture2D" uid="uid://bwur66tnumoix" path="res://npc/minor_characters/SmallMFnpcs_SpriteSheet.png" id="2_6opkq"]
+[ext_resource type="Script" path="res://addons/dialogic/Resources/timeline.gd" id="3_8yk81"]
+[ext_resource type="Resource" path="res://npc/minor characters/LilGreenGuyNPC__Timeline.dtl" id="4_51u3v"]
+[ext_resource type="Resource" path="res://npc/minor characters/LilGreenGuyNPC.dch" id="5_25dmh"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3i5vl"]
+atlas = ExtResource("2_6opkq")
+region = Rect2(3072, 1024, 1024, 1024)
+
+[node name="LilGreenGuyNPC" instance=ExtResource("1_atrox")]
+scale = Vector2(0.186, 0.186)
+
+[node name="Sprite2D" type="Sprite2D" parent="." index="0"]
+position = Vector2(0, -432)
+texture = SubResource("AtlasTexture_3i5vl")
+
+[node name="CollisionShape2D" parent="." index="1"]
+scale = Vector2(4.11215, 4.11215)
+
+[node name="TalkingInteractable" parent="." index="2"]
+position = Vector2(5, -166)
+scale = Vector2(-5.40517, -5.40517)
+timeline = Array[ExtResource("3_8yk81")]([ExtResource("4_51u3v")])
+character = ExtResource("5_25dmh")

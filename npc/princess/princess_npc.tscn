@@ -1,0 +1,59 @@
+[gd_scene load_steps=11 format=3 uid="uid://dtb2drup31cwr"]
+
+[ext_resource type="PackedScene" uid="uid://dvhfibvbfhnnv" path="res://npc/base_npc.tscn" id="1_6u00e"]
+[ext_resource type="Script" path="res://addons/dialogic/Resources/timeline.gd" id="2_fy4kp"]
+[ext_resource type="Texture2D" uid="uid://cb7cneq0xgqsk" path="res://npc/princess/DaPwinces_SpriteSheet.png" id="2_uniyc"]
+[ext_resource type="Resource" path="res://npc/princess/dialogue/PrincessTown.dtl" id="3_oya0v"]
+[ext_resource type="Resource" path="res://npc/princess/dialogue/Princess.dch" id="4_3peqi"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nq2fy"]
+atlas = ExtResource("2_uniyc")
+region = Rect2(0, 0, 1024, 1024)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wydph"]
+atlas = ExtResource("2_uniyc")
+region = Rect2(1024, 0, 1024, 1024)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ospps"]
+atlas = ExtResource("2_uniyc")
+region = Rect2(2048, 0, 1024, 1024)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_06wqq"]
+atlas = ExtResource("2_uniyc")
+region = Rect2(3072, 0, 1024, 1024)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_foevc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nq2fy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wydph")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ospps")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_06wqq")
+}],
+"loop": true,
+"name": &"default",
+"speed": 3.0
+}]
+
+[node name="PrincessNPC" instance=ExtResource("1_6u00e")]
+
+[node name="CollisionShape2D" parent="." index="0"]
+scale = Vector2(4.30067, 4.30067)
+
+[node name="TalkingInteractable" parent="." index="1"]
+scale = Vector2(5.17823, 5.17823)
+timeline = Array[ExtResource("2_fy4kp")]([ExtResource("3_oya0v")])
+character = ExtResource("4_3peqi")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="2"]
+position = Vector2(0, -429)
+sprite_frames = SubResource("SpriteFrames_foevc")
+autoplay = "default"
+frame_progress = 0.79192

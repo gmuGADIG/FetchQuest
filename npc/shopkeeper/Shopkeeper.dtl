@@ -1,0 +1,19 @@
+shopkeeper: Hi! Would you like to buy anything?
+- Wof (open shop)
+	shopkeeper: Alas! Our humble shop is closed for the time being.
+- Woof (quest)
+	if QuestSystem.is_quest_unassigned("camera"):
+		# give quest
+		shopkeeper: If you feel like doing some work for big old me, I would be willing to part with some of my Good boy points.
+		shopkeeper: I knew you had a nose for profit, and hopefully Suspicion Mushrooms. Some of my kind, caring, and thoughtful customers have been talking about some Suspicion Mushrooms that are spread throughout town and how they feel like there watching them.
+		shopkeeper: Now I don’t know about you, but customers who are scared of leaving their homes are not go for business, especially from my more reserved customers. Find these Suspicion Mushrooms and bring them back to and I’ll give you a cut of the profit.
+		shopkeeper: They're located south west of Questbrooke, now hurry!
+		do QuestSystem.assign_quest("camera")
+	elif not QuestSystem.is_quest_turned_in("camera"):
+		if QuestSystem.is_quest_completed("camera"):
+			# turn in quest
+			shopkeeper: Well, haven’t you been busy! Thank you so much for your hard work, the people will sleep soundly. Which means more profits!
+			do QuestSystem.finish_quest("camera")
+		else:
+			# quest in progress dialogue
+			shopkeeper: AEEK! The shrooms must still be found, please!

@@ -1,0 +1,39 @@
+[gd_scene load_steps=5 format=3 uid="uid://coef3wudsai3m"]
+
+[ext_resource type="Script" path="res://world/interactable/weak_floor/weak_floor.gd" id="1_4rfy8"]
+[ext_resource type="Texture2D" uid="uid://d33nq5rcuuku1" path="res://world/interactable/weak_floor/weak_floor.svg" id="2_ketmn"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u6oxc"]
+size = Vector2(147.358, 145.493)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qmhv6"]
+size = Vector2(114.715, 113.783)
+
+[node name="WeakFloor" type="Node2D"]
+process_priority = -100
+scale = Vector2(2.14444, 2.14444)
+script = ExtResource("1_4rfy8")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+process_priority = 100
+position = Vector2(0, 64)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_ketmn")
+
+[node name="HoleOccluder" type="StaticBody2D" parent="." groups=["HoleOccluder"]]
+position = Vector2(0, 64)
+collision_layer = 8
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HoleOccluder" groups=["HoleOccluder"]]
+shape = SubResource("RectangleShape2D_u6oxc")
+debug_color = Color(0.05, 0.05, 0.05, 0.164706)
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(0, 64)
+collision_layer = 0
+collision_mask = 150
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_qmhv6")
+debug_color = Color(0.762739, 0.40743, 0.515465, 0.42)

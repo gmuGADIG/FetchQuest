@@ -37,6 +37,7 @@ func _process(delta: float) -> void:
 	if visible and not was_visible:
 		$OptionsMenu.hide()
 		$Panel/Resume.grab_focus()
+		
 	
 func _on_resume_pressed() -> void:
 	# When resume is pressed, we simply unpause.
@@ -46,8 +47,13 @@ func _on_quit_pressed() -> void:
 	# Unpause so that everything will work
 	get_tree().paused = false
 	# Go to main menu.
-	SceneTransition.change_scene(preload("res://ui/title/title_screen.tscn"))
+	SceneTransition.change_scene(load("res://ui/title/title_screen.tscn"))
 	
 # When the option menu is hidden, we grab focus of the options button.
 func _on_option_menu_hidden() -> void:
 	$Panel/OptionsMenuButton.grab_focus()
+
+#When a "major" button is pressed (the options, resume, and quit buttons in the pause menu), play their respective sounds!
+#Called when a signal is recieved from the respective buttons
+func _on_menu_major_button_pressed() -> void:
+	SFXManager.bonk_sound.play()

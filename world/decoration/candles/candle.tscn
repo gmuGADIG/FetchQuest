@@ -1,0 +1,77 @@
+[gd_scene load_steps=9 format=3 uid="uid://bb3lkqfjeh0du"]
+
+[ext_resource type="Texture2D" uid="uid://cp6ct0kyd7wb4" path="res://world/decoration/candles/Green Yellow Candle.png" id="1_m3eba"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6s5p6"]
+atlas = ExtResource("1_m3eba")
+region = Rect2(0, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xm5vn"]
+atlas = ExtResource("1_m3eba")
+region = Rect2(256, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v0km0"]
+atlas = ExtResource("1_m3eba")
+region = Rect2(0, 256, 256, 256)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_28ik8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6s5p6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xm5vn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v0km0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xm5vn")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="Gradient" id="Gradient_1vymu"]
+offsets = PackedFloat32Array(0, 0.707763)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ekgr5"]
+gradient = SubResource("Gradient_1vymu")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_melw2"]
+radius = 19.0
+height = 72.0
+
+[node name="Candle" type="Node2D"]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="StaticBody2D"]
+y_sort_enabled = true
+scale = Vector2(0.7, 0.7)
+sprite_frames = SubResource("SpriteFrames_28ik8")
+autoplay = "default"
+frame_progress = 0.894596
+
+[node name="PointLight2D" type="PointLight2D" parent="StaticBody2D"]
+z_index = -5
+y_sort_enabled = true
+position = Vector2(-5, 22)
+scale = Vector2(5.8125, 5.45313)
+energy = 1.38
+shadow_enabled = true
+shadow_color = Color(0.0431373, 0.0431373, 0.0431373, 0)
+shadow_filter = 1
+shadow_filter_smooth = 10.0
+texture = SubResource("GradientTexture2D_ekgr5")
+texture_scale = 2.15
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(1, 69)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_melw2")

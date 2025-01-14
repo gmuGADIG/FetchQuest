@@ -1,19 +1,28 @@
-extends Node2D
+class_name Skins extends CanvasLayer
 
+static var chosen_skin := 1
 
+func _ready() -> void:
+	$Control/Skin2.grab_focus()
 
 func _skin1_pressed() -> void:
-	ChosenSkin.chosen_skin= 1
+	chosen_skin = 1
+	SFXManager.bonk_sound.play()
 	load_game()
 
-
 func _skin2_pressed() -> void:
-	ChosenSkin.chosen_skin = 2
+	chosen_skin = 2
+	SFXManager.bonk_sound.play()
 	load_game()
 
 func _skin3_pressed() -> void:
-	ChosenSkin.chosen_skin = 3
+	chosen_skin = 3
+	SFXManager.bonk_sound.play()
 	load_game()
 	
 func load_game() -> void:
-	get_tree().change_scene_to_file("res://world/latest_demo_2.tscn")
+	EntryPoints.current_entry_point = "Entrance"
+	SceneTransition.change_scene(SceneManager.get_packed_scene("overworld"))
+
+func _on_menu_major_button_pressed() -> void:
+	SFXManager.bonk_sound.play()

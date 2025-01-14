@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://deo11h81nnpyw"]
 
+[ext_resource type="Script" path="res://world/interactable/pickups/property_item_pickup.gd" id="1_wxklj"]
 [ext_resource type="Texture2D" uid="uid://dymucenpxmluo" path="res://icon.svg" id="2_44yxa"]
-[ext_resource type="Script" path="res://world/interactable/pickups/bomb_pickup.gd" id="3_yslbk"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_my72a"]
 radius = 22.0
@@ -11,7 +11,8 @@ radius = 111.803
 
 [node name="pickup_bomb" type="CharacterBody2D" groups=["Item"]]
 collision_layer = 16
-script = ExtResource("3_yslbk")
+script = ExtResource("1_wxklj")
+item_property = &"bombs"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_my72a")

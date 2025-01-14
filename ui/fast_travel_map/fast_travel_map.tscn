@@ -1,0 +1,105 @@
+[gd_scene load_steps=6 format=3 uid="uid://ptoqylfawyy7"]
+
+[ext_resource type="Script" path="res://ui/fast_travel_map/fast_travel_map.gd" id="1_pm886"]
+[ext_resource type="PackedScene" uid="uid://cxth4eim2l47t" path="res://ui/fast_travel_map/toilet_travel_icon.tscn" id="2_hcnld"]
+[ext_resource type="Texture2D" uid="uid://d4gsyqpla4cjv" path="res://ui/fast_travel_map/FQ-Map_1-work-in-progress.png" id="2_ivg83"]
+[ext_resource type="FontFile" uid="uid://dxaeux1wbk5l1" path="res://ui/fonts/Chewy-Regular.ttf" id="3_quct4"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_dbpao"]
+font = ExtResource("3_quct4")
+font_size = 60
+shadow_size = 2
+shadow_color = Color(0, 0, 0, 0.443137)
+shadow_offset = Vector2(4, 4)
+
+[node name="FastTravelMap" type="CanvasLayer"]
+process_mode = 3
+script = ExtResource("1_pm886")
+
+[node name="Background" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.458824)
+
+[node name="Map" type="Sprite2D" parent="."]
+position = Vector2(594, 322)
+scale = Vector2(0.413727, 0.391128)
+texture = ExtResource("2_ivg83")
+
+[node name="Label" type="Label" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -213.0
+offset_top = 21.0
+offset_right = 213.0
+offset_bottom = 99.0
+grow_horizontal = 2
+text = "Fast  Travel  Toilet"
+label_settings = SubResource("LabelSettings_dbpao")
+
+[node name="Buttons" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Locations" type="Control" parent="Buttons"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Questbrook" parent="Buttons/Locations" instance=ExtResource("2_hcnld")]
+layout_mode = 1
+offset_left = 445.12
+offset_top = 372.36
+offset_right = 476.12
+offset_bottom = 409.36
+focus_neighbor_right = NodePath("../Grove")
+focus_neighbor_bottom = NodePath("../../Resume")
+scene_name = "town_town"
+entry_point = "fast_travel"
+
+[node name="Thicket" parent="Buttons/Locations" instance=ExtResource("2_hcnld")]
+layout_mode = 1
+offset_left = 394.12
+offset_top = 127.36
+offset_right = 425.12
+offset_bottom = 164.36
+focus_neighbor_right = NodePath("../Grove")
+focus_neighbor_bottom = NodePath("../Questbrook")
+scene_name = "overworld"
+entry_point = "FastTravelThicket"
+
+[node name="Grove" parent="Buttons/Locations" instance=ExtResource("2_hcnld")]
+layout_mode = 1
+offset_left = 721.12
+offset_top = 298.36
+offset_right = 752.12
+offset_bottom = 335.36
+focus_neighbor_left = NodePath("../Questbrook")
+focus_neighbor_bottom = NodePath("../../Resume")
+scene_name = "overworld"
+entry_point = "FastTravelGrove"
+
+[node name="Resume" type="Button" parent="Buttons"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 418.0
+offset_top = 501.0
+offset_right = 694.0
+offset_bottom = 576.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 48
+text = "Resume"
+
+[connection signal="tree_exited" from="." to="." method="_on_tree_exited"]
+[connection signal="pressed" from="Buttons/Resume" to="." method="_on_resume_pressed"]

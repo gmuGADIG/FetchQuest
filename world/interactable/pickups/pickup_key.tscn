@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://dt3m30r5dehup"]
 
-[ext_resource type="Script" path="res://world/interactable/pickups/key_pickup.gd" id="1_tc4wd"]
+[ext_resource type="Script" path="res://world/interactable/pickups/property_item_pickup.gd" id="1_034u0"]
 [ext_resource type="Texture2D" uid="uid://bh3mmsiuru6v4" path="res://demo_art/key.png" id="2_ab00u"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_my72a"]
@@ -11,7 +11,9 @@ radius = 111.803
 
 [node name="pickup_key" type="CharacterBody2D" groups=["Item"]]
 collision_layer = 16
-script = ExtResource("1_tc4wd")
+script = ExtResource("1_034u0")
+item_property = &"door_keys"
+single_use = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_my72a")

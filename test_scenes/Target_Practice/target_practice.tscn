@@ -1,0 +1,57 @@
+[gd_scene load_steps=5 format=3 uid="uid://dfbqv7ega0qp6"]
+
+[ext_resource type="PackedScene" uid="uid://c7ck7ril2jix2" path="res://player/player.tscn" id="1_vlfk2"]
+[ext_resource type="PackedScene" uid="uid://ckwgnwm6j4enf" path="res://test_scenes/Target_Practice/target.tscn" id="2_d742b"]
+[ext_resource type="PackedScene" uid="uid://b5bscusffqp5h" path="res://world/interactable/activators/pressure_plate/pressure_plate.tscn" id="3_fqwga"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hl2a3"]
+radius = 103.233
+
+[node name="Target_Practice" type="Node2D"]
+
+[node name="Target" parent="." node_paths=PackedStringArray("collisionZone") instance=ExtResource("2_d742b")]
+speed = 250
+targetGroup = "B"
+collisionZone = NodePath("../TargetAreaStart")
+
+[node name="Target2" parent="." node_paths=PackedStringArray("pressurePlate") instance=ExtResource("2_d742b")]
+position = Vector2(498, 231)
+targetGroup = "A"
+pressurePlate = NodePath("../PressurePlate")
+
+[node name="Target3" parent="." node_paths=PackedStringArray("pressurePlate") instance=ExtResource("2_d742b")]
+position = Vector2(385, 126)
+speed = 250
+targetGroup = "A"
+pressurePlate = NodePath("../PressurePlate")
+
+[node name="TargetAreaStart" type="Area2D" parent="."]
+collision_layer = 17
+collision_mask = 17
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TargetAreaStart"]
+light_mask = 17
+visibility_layer = 17
+position = Vector2(262, 352)
+shape = SubResource("CircleShape2D_hl2a3")
+
+[node name="TargetAreaStart2" type="Area2D" parent="."]
+position = Vector2(967, 368)
+collision_layer = 17
+collision_mask = 17
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TargetAreaStart2"]
+light_mask = 17
+visibility_layer = 17
+position = Vector2(-2, -1)
+shape = SubResource("CircleShape2D_hl2a3")
+
+[node name="PressurePlate" parent="." instance=ExtResource("3_fqwga")]
+position = Vector2(573, 360)
+
+[node name="Player" parent="." instance=ExtResource("1_vlfk2")]
+light_mask = 17
+visibility_layer = 17
+position = Vector2(456, 377)
+collision_layer = 18
+collision_mask = 57

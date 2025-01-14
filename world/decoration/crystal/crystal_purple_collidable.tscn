@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://yknhn4wogf5i"]
+
+[ext_resource type="PackedScene" uid="uid://bb35rafs3qvx8" path="res://world/decoration/crystal/crystal_purple.tscn" id="1_m4k7j"]
+[ext_resource type="Texture2D" uid="uid://b350jwt2tgchl" path="res://addons/rmsmartshape/assets/light1-1.png" id="2_8o4xg"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_j37ru"]
+radius = 66.0076
+
+[node name="CrystalCollidable" type="StaticBody2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -8)
+shape = SubResource("CircleShape2D_j37ru")
+
+[node name="CrystalPurple" parent="." instance=ExtResource("1_m4k7j")]
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+y_sort_enabled = true
+position = Vector2(0, -66)
+color = Color(0.74, 0.4, 1, 1)
+energy = 0.5
+texture = ExtResource("2_8o4xg")

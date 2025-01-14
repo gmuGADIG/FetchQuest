@@ -58,7 +58,7 @@ signal item_updated(key: String)
 		max_bombs_updated.emit()
 
 ## The maximum health the player can have 
-@export var max_health: int = 3:
+@export var max_health: int = 6:
 	set(v):
 		max_health = v
 		max_health_updated.emit()
@@ -71,6 +71,8 @@ signal item_updated(key: String)
 		
 ##The amount of keys to unlock a door that the player has at any time
 @export var door_keys: int = 0
+
+@export var boss_door_keys: int = 0
 
 ## The various items the player can have
 @export var items: Array[InventoryItem]
@@ -87,8 +89,8 @@ func get_quantity(key: String) -> int:
 
 ## Gives the player [param amount] of the item referred to by [param key]
 func add_quantity(key: String, amount: int) -> void:
-	item_updated.emit(key)
 	_key_to_item[key].quantity_held += amount
+	item_updated.emit(key)
 
 ## Takes [param amount] of an item referred to by [param key] from the player. 
 ## [br][br]
@@ -99,19 +101,16 @@ func remove_quantity(key: String, amount: int) -> bool:
 	item_updated.emit(key)
 	_key_to_item[key].quantity_held -= amount
 	return true
-	
-## Adds 1 to [code]door_keys[/code]
-func add_door_key() -> void:
-	door_keys += 1
-	
 
-## Attemps to remove a key from the players inventory.[br][br]
-## If the player has more than 0 [code]door_keys[/code],
-## returns [code]true[/code] and decreases [code]door_keys[/code] by 1. [br][br]
-## Otherwise, [code]false[/code] will be returned, and [code]door_keys[/code]
-## will not be changed.
-func use_door_key() -> bool:
-	if (door_keys > 0):
+## Attemps to remove a key from the players inventory
+## If the player has a key, removes one and returns true.
+## Otherwise, does nothing.
+## Can be either normal keys ([code]door_keys[/code]), or boss keys ([code]boss_door_keys[/code])
+func use_door_key(is_boss_door: bool) -> bool:
+	if is_boss_door and boss_door_keys > 0:
+		boss_door_keys -= 1
+		return true
+	elif not is_boss_door and door_keys > 0:
 		door_keys -= 1
 		return true
 	else:
