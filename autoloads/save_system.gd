@@ -1,11 +1,15 @@
 extends Node
 
+const save_path := "user://save.dat"
+
 const inventory_path := "user://inventory.dat"
 const location_path := "user://location.dat"
 const chest_state_path := "user://chests.dat"
 const quests_path := "user://quests.dat"
 const fast_travel_path := "user://fast_travel.dat"
 const stats_path := "user://stats.dat"
+
+@onready var default_save := _create_save_dictionary()
 
 ## store data to the filesystem.
 ## returns true if successful
@@ -29,10 +33,7 @@ func get_dictionary(path: String) -> Dictionary:
 
 	return f.get_var(true)
 
-func save_game() -> void:
-	print("[save_system] saving game")
-
-
+func _create_save_dictionary() -> Dictionary:
 	var location := {
 		last_scene_path = get_tree().current_scene.scene_file_path,
 		last_entry_point = EntryPoints.last_entry_point
@@ -50,43 +51,51 @@ func save_game() -> void:
 			entry_point = tp.entry_point_name
 		})
 
-	var stats := {
-		player_skin = Skins.chosen_skin
+	var save := {
+		location = location,
+		inventory = PlayerInventory.serialize(),
+		chests = ChestBetweenScenes.opened_chest,
+		quests = quests,
+		fast_travel_points = fast_travel_points,
+		chosen_skin = Skins.chosen_skin,
 	}
+
+	return save
+
+func _handle_save_dictionary(save: Dictionary) -> void:
+	Skins.chosen_skin = save.chosen_skin
+
+	for tp: Dictionary in save.fast_travel_points:
+		var travel_point := TravelPoint.new(tp.scene, tp.entry_point)
+		if not FastTravelPoints.point_unlocked(travel_point):
+			FastTravelPoints.add_to_travel_points(travel_point)
 	
-	store_dictionary(location_path, location)
-	store_dictionary(inventory_path, PlayerInventory.serialize())
-	store_dictionary(chest_state_path, { chests = ChestBetweenScenes.opened_chest })
-	store_dictionary(quests_path, quests)
-	store_dictionary(fast_travel_path, { fast_travel_points = fast_travel_points })
-	store_dictionary(stats_path, stats)
+	for quest_id: String in save.quests.keys():
+		var state: Quest.State = save.quests[quest_id]
+		var quest := QuestSystem._find_quest_by_id(quest_id)
+
+		quest.state = state
+		if state == Quest.State.ASSIGNED:
+			quest._assign_hook()
+	
+	ChestBetweenScenes.opened_chest = save.chests
+
+	PlayerInventory.deserialize(save.inventory)
+
+func save_game() -> void:
+	print("[save_system] saving game")
+	store_dictionary(save_path, _create_save_dictionary())
 
 func load_game() -> void:
 	# TODO: handle no save
 	print("[save_system] loading game")
 	
-	var stats := get_dictionary(stats_path)
-	Skins.chosen_skin = stats.player_skin
+	var save := get_dictionary(save_path)
+	_handle_save_dictionary(save)
 
-	var fast_travel_points: Array[Dictionary] = get_dictionary(fast_travel_path).fast_travel_points
-	for tp in fast_travel_points:
-		var travel_point := TravelPoint.new(tp.scene, tp.entry_point)
-		if not FastTravelPoints.point_unlocked(travel_point):
-			FastTravelPoints.add_to_travel_points(travel_point)
+	EntryPoints.current_entry_point = save.location.last_entry_point
+	SceneTransition.change_scene(load(save.location.last_scene_path))
 
-	var quests := get_dictionary(quests_path)
-	for quest_id: String in quests.keys():
-		var state: Quest.State = quests[quest_id]
-		var quest := QuestSystem._find_quest_by_id(quest_id)
-		quest.state = state
-
-		if state == Quest.State.ASSIGNED:
-			quest._assign_hook()
-
-	ChestBetweenScenes.opened_chest = get_dictionary(chest_state_path).chests
-
-	PlayerInventory.deserialize(get_dictionary(inventory_path))
-
-	var location := get_dictionary(location_path)
-	EntryPoints.current_entry_point = location.last_entry_point
-	SceneTransition.change_scene(load(location.last_scene_path))
+func new_game() -> void:
+	print("[save_system] creating new game")
+	_handle_save_dictionary(default_save)
