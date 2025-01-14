@@ -115,3 +115,31 @@ func use_door_key(is_boss_door: bool) -> bool:
 		return true
 	else:
 		return false
+
+func serialize() -> Dictionary:
+	var _items := {}
+	for key: String in _key_to_item.keys():
+		_items[key] = get_quantity(key) 
+
+	return {
+		good_boy_points = good_boy_points,
+		bombs = bombs,
+		max_bombs = max_bombs,
+		max_health = max_health,
+		max_stamina = max_stamina,
+		door_keys = door_keys,
+		boss_door_keys = boss_door_keys,
+		items = _items
+	}
+
+func deserialize(data: Dictionary) -> void:
+	good_boy_points = data.good_boy_points
+	bombs = data.bombs
+	max_bombs = data.max_bombs
+	max_health = data.max_health
+	max_stamina = data.max_stamina
+	door_keys = data.door_keys
+	boss_door_keys = data.boss_door_keys
+
+	for key: String in data.items:
+		_key_to_item[key].quantity_held = data.items[key]
