@@ -16,5 +16,5 @@ func _on_creep_spawn_timer_timeout() -> void:
 	# Spawn creep when the timer runs outsda
 	print("creep_enemy.gd: Spawned creep") 
 	var creep := creep_prefab.instantiate()
-	creep.position = get_parent().to_local(self.global_position)
+s	creep.position = get_parent().to_local(self.global_position)
 	add_sibling(creep)
