@@ -1,6 +1,8 @@
 extends Area2D
 class_name TalkingInteractable
 
+static var save_data := {}
+
 ##The Dialogic Timeline to play when interacting
 @export var timeline: Array[DialogicTimeline]
 
@@ -12,10 +14,32 @@ class_name TalkingInteractable
 ## Otherwise, the dialogue will repeat on continual interactions.
 @export var one_time: bool = false
 
-var curr_timeline_index: int = 0
-var times_played: int = 0
+# true after the state has been set from `save_data`
+var _hydrated := false
+
+var curr_timeline_index: int = 0:
+	set(v):
+		curr_timeline_index = v
+		if _hydrated:
+			save_data[get_path()] = {
+				curr_timeline_index = curr_timeline_index,
+				times_played = times_played
+			}
+var times_played: int = 0:
+	set(v):
+		times_played = v
+		if _hydrated:
+			save_data[get_path()] = {
+				curr_timeline_index = curr_timeline_index,
+				times_played = times_played
+			}
 
 func _ready() -> void:
+	if get_path() in save_data:
+		curr_timeline_index = save_data[get_path()].curr_timeline_index
+		times_played = save_data[get_path()].times_played
+	_hydrated = true
+
 	Dialogic.timeline_started.connect(_on_timeline_started)
 	Dialogic.timeline_ended.connect(_on_timeline_ended)
 	for t in timeline:
@@ -36,6 +60,9 @@ func _input(event: InputEvent) -> void:
 		DialogueManager.layout = Dialogic.start(timeline[curr_timeline_index])
 		get_viewport().set_input_as_handled()
 
+		# dont let the player move while talking to an NPC
+		Player.instance.input_locked = true
+
 func _player_in_range() -> bool:
 	return not self.get_overlapping_bodies().is_empty()
 
@@ -48,6 +75,9 @@ func _on_timeline_started() -> void:
 		DialogueManager.layout.register_character(character, self)
 
 func _on_timeline_ended() -> void:
+	# let the player move again, since they're done talking to an NPC
+	Player.instance.input_locked = false
+
 	if DialogueManager.curr_interactable == self:
 		curr_timeline_index += 1
 		curr_timeline_index %= timeline.size()

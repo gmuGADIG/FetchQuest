@@ -72,6 +72,8 @@ signal item_updated(key: String)
 ##The amount of keys to unlock a door that the player has at any time
 @export var door_keys: int = 0
 
+@export var boss_door_keys: int = 0
+
 ## The various items the player can have
 @export var items: Array[InventoryItem]
 
@@ -99,20 +101,45 @@ func remove_quantity(key: String, amount: int) -> bool:
 	item_updated.emit(key)
 	_key_to_item[key].quantity_held -= amount
 	return true
-	
-## Adds 1 to [code]door_keys[/code]
-func add_door_key() -> void:
-	door_keys += 1
-	
 
-## Attemps to remove a key from the players inventory.[br][br]
-## If the player has more than 0 [code]door_keys[/code],
-## returns [code]true[/code] and decreases [code]door_keys[/code] by 1. [br][br]
-## Otherwise, [code]false[/code] will be returned, and [code]door_keys[/code]
-## will not be changed.
-func use_door_key() -> bool:
-	if (door_keys > 0):
+## Attemps to remove a key from the players inventory
+## If the player has a key, removes one and returns true.
+## Otherwise, does nothing.
+## Can be either normal keys ([code]door_keys[/code]), or boss keys ([code]boss_door_keys[/code])
+func use_door_key(is_boss_door: bool) -> bool:
+	if is_boss_door and boss_door_keys > 0:
+		boss_door_keys -= 1
+		return true
+	elif not is_boss_door and door_keys > 0:
 		door_keys -= 1
 		return true
 	else:
 		return false
+
+func serialize() -> Dictionary:
+	var _items := {}
+	for key: String in _key_to_item.keys():
+		_items[key] = get_quantity(key) 
+
+	return {
+		good_boy_points = good_boy_points,
+		bombs = bombs,
+		max_bombs = max_bombs,
+		max_health = max_health,
+		max_stamina = max_stamina,
+		door_keys = door_keys,
+		boss_door_keys = boss_door_keys,
+		items = _items
+	}
+
+func deserialize(data: Dictionary) -> void:
+	good_boy_points = data.good_boy_points
+	bombs = data.bombs
+	max_bombs = data.max_bombs
+	max_health = data.max_health
+	max_stamina = data.max_stamina
+	door_keys = data.door_keys
+	boss_door_keys = data.boss_door_keys
+
+	for key: String in data.items:
+		_key_to_item[key].quantity_held = data.items[key]

@@ -1,0 +1,60 @@
+[gd_resource type="Resource" script_class="SS2D_Material_Shape" load_steps=11 format=3 uid="uid://dcnotctyk6cfo"]
+
+[ext_resource type="Script" path="res://addons/rmsmartshape/materials/edge_material_metadata.gd" id="1_566ef"]
+[ext_resource type="Script" path="res://addons/rmsmartshape/materials/edge_material.gd" id="2_2omm4"]
+[ext_resource type="Texture2D" uid="uid://bqkvjc6468jwf" path="res://world/smart_shapes/dungeon3_wall/cobblestone_wall.png" id="3_ipqi3"]
+[ext_resource type="Script" path="res://addons/rmsmartshape/normal_range.gd" id="4_7hjvn"]
+[ext_resource type="Script" path="res://addons/rmsmartshape/materials/shape_material.gd" id="5_s5lu0"]
+
+[sub_resource type="Resource" id="Resource_d6lhq"]
+script = ExtResource("2_2omm4")
+textures = Array[Texture2D]([ExtResource("3_ipqi3")])
+textures_corner_outer = Array[Texture2D]([])
+textures_corner_inner = Array[Texture2D]([])
+textures_taper_left = Array[Texture2D]([])
+textures_taper_right = Array[Texture2D]([])
+textures_taper_corner_left = Array[Texture2D]([])
+textures_taper_corner_right = Array[Texture2D]([])
+randomize_texture = false
+use_corner_texture = false
+use_taper_texture = false
+fit_mode = 0
+
+[sub_resource type="Resource" id="Resource_hl0oy"]
+script = ExtResource("4_7hjvn")
+begin = 0.0
+distance = 360.0
+edgeRendering = Vector2(0, 0)
+
+[sub_resource type="Resource" id="Resource_fv76m"]
+script = ExtResource("1_566ef")
+edge_material = SubResource("Resource_d6lhq")
+normal_range = SubResource("Resource_hl0oy")
+weld = true
+taper_sharp_corners = false
+render = true
+z_index = 0
+z_as_relative = true
+offset = -1.4
+
+[sub_resource type="Gradient" id="Gradient_ugh6i"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_jpkse"]
+gradient = SubResource("Gradient_ugh6i")
+width = 1
+
+[resource]
+script = ExtResource("5_s5lu0")
+_edge_meta_materials = Array[ExtResource("1_566ef")]([SubResource("Resource_fv76m")])
+fill_textures = Array[Texture2D]([SubResource("GradientTexture1D_jpkse")])
+fill_texture_z_index = -1
+fill_texture_show_behind_parent = false
+fill_texture_scale = 1.0
+fill_texture_absolute_position = false
+fill_texture_absolute_rotation = false
+fill_texture_offset = Vector2(0, 0)
+fill_texture_angle_offset = 0.0
+fill_mesh_offset = 0.0
+render_offset = 0.0

@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://doilpvge0y7f5"]
+
+[ext_resource type="PackedScene" uid="uid://cy3ubw4jghdvi" path="res://world/decoration/crystal/crystal_blue.tscn" id="1_sgb86"]
+[ext_resource type="Texture2D" uid="uid://b350jwt2tgchl" path="res://addons/rmsmartshape/assets/light1-1.png" id="3_s55gh"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ps0o0"]
+radius = 66.0076
+
+[node name="CrystalCollidable" type="StaticBody2D"]
+
+[node name="CrystalBlue" parent="." instance=ExtResource("1_sgb86")]
+position = Vector2(-4, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -8)
+shape = SubResource("CircleShape2D_ps0o0")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(3, -74)
+color = Color(0.168627, 0.698039, 1, 1)
+energy = 0.4
+texture = ExtResource("3_s55gh")

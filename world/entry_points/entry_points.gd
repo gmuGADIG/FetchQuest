@@ -1,12 +1,18 @@
 class_name EntryPoints extends Node2D
 #Written by Samuel Parker (github: samrparker, discord: @samrparker12), contact me if there are any issues!
 
+static var instance: EntryPoints
+
 ## When loading a new scene, the player is placed at the entry point with this name.
 ## This must be the name of a child of this node.
 static var current_entry_point: String = ""
+static var last_entry_point: String = ""
 
 static func set_entry_point(entry_point_name: String) -> void:
 	current_entry_point = entry_point_name
+
+func _init() -> void:
+	instance = self
 
 # On ready, sets the players position to the current entry point
 func _ready() -> void:
@@ -25,6 +31,7 @@ func _ready() -> void:
 		Player.instance.global_position = entry_node.global_position
 	
 	# reset the entry point. this makes sure it's being set each time the scene changes
+	last_entry_point = current_entry_point
 	current_entry_point = ""
 
 	MainCam.instance.global_position = Player.instance.global_position

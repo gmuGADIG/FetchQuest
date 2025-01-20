@@ -1,4 +1,5 @@
 extends BaseButton
+class_name ToiletTravelIcon
 
 #Stolen from transition Trigger
 ## Name of the scene to transition to, without the file path or extension.[br]
