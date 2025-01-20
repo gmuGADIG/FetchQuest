@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://cbwb62ehju17j"]
+[gd_scene load_steps=9 format=3 uid="uid://cbwb62ehju17j"]
 
 [ext_resource type="Script" path="res://enemy/king_boss/king_exploding_mushroom.gd" id="1_oojmw"]
 [ext_resource type="Texture2D" uid="uid://c5x6sdlonwdol" path="res://enemy/king_boss/programmer_art/mushroom.png" id="2_phgn7"]
@@ -26,11 +26,63 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_ej0iv"]
 radius = 65.0
 
+[sub_resource type="Animation" id="Animation_3urnl"]
+resource_name = "grow_then_explode"
+length = 3.25
+step = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(2.21913, 1),
+"update": 0,
+"values": [Vector2(0.1, 0.1), Vector2(0.56, 0.56)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(3),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"explode"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_l6d77"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.01, 0.01)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_eaxv7"]
+_data = {
+"RESET": SubResource("Animation_l6d77"),
+"grow_then_explode": SubResource("Animation_3urnl")
+}
+
 [node name="KingExplodingMushroom" type="Node2D"]
 script = ExtResource("1_oojmw")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-scale = Vector2(0.560386, 0.560386)
+scale = Vector2(0.01, 0.01)
 sprite_frames = SubResource("SpriteFrames_762us")
 
 [node name="PlayerDetector" type="Area2D" parent="."]
@@ -39,3 +91,9 @@ collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetector"]
 shape = SubResource("CircleShape2D_ej0iv")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_eaxv7")
+}
+autoplay = "grow_then_explode"

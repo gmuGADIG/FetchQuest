@@ -4,11 +4,10 @@ class_name KingThrowState extends KingState
 var current_scepter:KingThrownScepter = null
 
 func enter() -> void:
-	# Wait until king teleports
-	await king.teleport_timer.timeout
-	
 	# Throw all scepters, waiting until it returns to throw the next one
 	for i in range(king.total_scepter_throws):
+		await king.randomly_teleport()
+
 		if state_machine.current_state != self:
 			return
 		king.animated_sprite.play("scepter_throw")
@@ -17,9 +16,11 @@ func enter() -> void:
 		await current_scepter.scepter_returned
 		king.animated_sprite.play("scepter_catch")
 		await king.animated_sprite.animation_finished
+
 	# Switch to idle if king hasnt been forced into vulnerable state
 	if state_machine.current_state != self:
 		return
+
 	state_machine.change_state(self, "Idle")
 
 func throw() -> void:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://bkog04m58p8yr"]
+[gd_scene load_steps=25 format=3 uid="uid://bkog04m58p8yr"]
 
 [ext_resource type="Script" path="res://enemy/king_boss/king_boss.gd" id="1_e7hx1"]
 [ext_resource type="Script" path="res://enemy/king_boss/king_state_machine.gd" id="2_gts2v"]
@@ -32,13 +32,21 @@ region = Rect2(503, 1987, 503, 493)
 atlas = ExtResource("8_x56dh")
 region = Rect2(503, 1494, 503, 493)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_oj3hh"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_8c8lo"]
 atlas = ExtResource("8_x56dh")
-region = Rect2(503, 2977, 503, 490)
+region = Rect2(0, 2970, 503, 495)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_t3tgc"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_r6lh3"]
 atlas = ExtResource("8_x56dh")
-region = Rect2(0, 2977, 503, 490)
+region = Rect2(503, 2970, 503, 495)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_edxff"]
+atlas = ExtResource("8_x56dh")
+region = Rect2(0, 2970, 503, 495)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aw04f"]
+atlas = ExtResource("8_x56dh")
+region = Rect2(503, 2970, 503, 495)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lfjfr"]
 atlas = ExtResource("8_x56dh")
@@ -92,19 +100,25 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_oj3hh")
+"texture": SubResource("AtlasTexture_8c8lo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r6lh3")
 }],
-"loop": false,
+"loop": true,
 "name": &"panic_left",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_t3tgc")
+"texture": SubResource("AtlasTexture_edxff")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aw04f")
 }],
-"loop": false,
+"loop": true,
 "name": &"panic_right",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -166,8 +180,6 @@ script = ExtResource("7_n47v0")
 [node name="Dead" type="Node" parent="KingStateMachine"]
 script = ExtResource("9_nh0c5")
 
-[node name="RandomTeleportTimer" type="Timer" parent="."]
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_qfw8x")
 debug_color = Color(1, 0.463754, 0.566218, 0.42)
@@ -181,6 +193,5 @@ shape = SubResource("RectangleShape2D_cdc4e")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(0.346939, 0.346939)
 sprite_frames = SubResource("SpriteFrames_wdn5q")
-animation = &"panic_right"
-
-[connection signal="timeout" from="RandomTeleportTimer" to="." method="_on_random_teleport_timer_timeout"]
+animation = &"panic_left"
+frame_progress = 0.59984

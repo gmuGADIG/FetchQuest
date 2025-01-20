@@ -5,12 +5,20 @@ var mushrooms_spawned:Array[Node2D] = []
 
 func enter() -> void:
 	king.animated_sprite.play("mushroom_attack")
-	# Pause the teleport timer (for when animations exist)
-	king.teleport_timer.stop()
-	
+
 	# Summon the mushrooms, wait until they have exploded, switch to idle
 	summon_shrooms()
-	await get_tree().create_timer(king.mushroom_lifetime * 1.25).timeout
+
+	var flag := true
+	while flag:
+		await get_tree().process_frame
+
+		flag = false
+		for mushroom in mushrooms_spawned:
+			if is_instance_valid(mushroom):
+				flag = true
+				break
+	
 	state_machine.change_state(self, "Idle")
 
 func exit() -> void:
@@ -19,15 +27,11 @@ func exit() -> void:
 		if is_instance_valid(shroom):
 			shroom.queue_free()
 	mushrooms_spawned = []
-	
-	# Resume the timer
-	king.teleport_timer.start()
 
 func spawn_mushroom(location:Vector2) -> Node2D:
 	# Summon a mushroom at the requested location
 	var mushroom:Node2D = king.mushroom_scene.instantiate()
 	mushroom.global_position = location
-	mushroom.time_until_explosion = king.mushroom_lifetime
 	king.add_sibling(mushroom)
 	
 	# Return the mushroom for tracking purposes

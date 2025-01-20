@@ -22,10 +22,6 @@ signal health_changed
 @onready var movement_points:Array = movement_points_parent.get_children()
 ## The time between randomly teleporting between points
 @export var time_between_teleports:float = 3
-## Place most recently teleported to 
-@onready var previous_teleport_position:Vector2 = global_position
-## The timer that handles teleportation
-@onready var teleport_timer:Timer = $RandomTeleportTimer
 
 @export_group("Attack Selection")
 ## The exploding mushrooms attack
@@ -88,22 +84,14 @@ var current_lost_scepter:Node2D = null
 @onready var total_panic_points:int = floori(panic_distance / panic_speed * panic_duration)
 
 
-func _ready() -> void:
-	# Set up the teleportation timer
-	teleport_timer.wait_time = time_between_teleports
-	teleport_timer.start()
-
 func randomly_teleport() -> void:
 	# Pick a random position and teleport to it
-	while global_position == previous_teleport_position:
-		global_position = movement_points.pick_random().global_position
-	previous_teleport_position = global_position
+	var points := movement_points.filter(func(p: Node2D) -> bool: return p.global_position != global_position)
+	var target_pos: Vector2 = points.pick_random().global_position
 
-func _on_random_teleport_timer_timeout() -> void:
-	# Randomly teleport if not panicking
-	if $KingStateMachine.current_state is KingVulnerableState:
-		return
-	randomly_teleport()
+	var tween := create_tween()
+	tween.tween_property(self, "global_position", target_pos, 0.1)
+	await tween.finished
 
 func hurt(damage_event:DamageEvent) -> void:
 	if $KingStateMachine.current_state is not KingVulnerableState:
