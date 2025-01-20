@@ -1,0 +1,131 @@
+[gd_scene load_steps=9 format=3 uid="uid://dljawlc2rmrvo"]
+
+[ext_resource type="PackedScene" uid="uid://ch344rluh4xbs" path="res://world/camera/main_cam.tscn" id="1_5etk4"]
+[ext_resource type="PackedScene" uid="uid://70lp7kfk3yw6" path="res://ui/hud/hud.tscn" id="2_4lc4o"]
+[ext_resource type="PackedScene" uid="uid://bkog04m58p8yr" path="res://enemy/king_boss/king_boss.tscn" id="2_ddp3g"]
+[ext_resource type="PackedScene" uid="uid://be0wx1bwh443q" path="res://ui/pause_menu/pause_menu.tscn" id="3_h41co"]
+[ext_resource type="PackedScene" uid="uid://c7ck7ril2jix2" path="res://player/player.tscn" id="6_atiiu"]
+[ext_resource type="PackedScene" uid="uid://dwbcxlxofsw8k" path="res://ui/quest_book/quest_book.tscn" id="7_56dib"]
+[ext_resource type="Texture2D" uid="uid://dymucenpxmluo" path="res://icon.svg" id="7_u5nsw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_j8d3d"]
+size = Vector2(20, 200)
+
+[node name="KingBossTestScene" type="Node2D" groups=["World"]]
+y_sort_enabled = true
+
+[node name="MainCam" parent="." instance=ExtResource("1_5etk4")]
+
+[node name="HUD" parent="." instance=ExtResource("2_4lc4o")]
+
+[node name="PauseMenu" parent="." instance=ExtResource("3_h41co")]
+visible = false
+
+[node name="Player" parent="." instance=ExtResource("6_atiiu")]
+
+[node name="QuestBook" parent="." instance=ExtResource("7_56dib")]
+visible = false
+
+[node name="KingBoss" parent="." node_paths=PackedStringArray("movement_points_parent", "room_center") instance=ExtResource("2_ddp3g")]
+position = Vector2(208, -13)
+movement_points_parent = NodePath("../KingPossiblePositions")
+room_center = NodePath("../RoomCenter")
+room_size = Vector2(1370, 1370)
+
+[node name="KingPossiblePositions" type="Node2D" parent="."]
+
+[node name="Marker2D" type="Marker2D" parent="KingPossiblePositions"]
+position = Vector2(-562, 91)
+gizmo_extents = 50.0
+
+[node name="Marker2D2" type="Marker2D" parent="KingPossiblePositions"]
+position = Vector2(-482, -441)
+gizmo_extents = 50.0
+
+[node name="Marker2D3" type="Marker2D" parent="KingPossiblePositions"]
+position = Vector2(285, -528)
+gizmo_extents = 50.0
+
+[node name="Marker2D4" type="Marker2D" parent="KingPossiblePositions"]
+position = Vector2(-459, 410)
+gizmo_extents = 50.0
+
+[node name="Marker2D5" type="Marker2D" parent="KingPossiblePositions"]
+position = Vector2(418, 210)
+gizmo_extents = 50.0
+
+[node name="Marker2D6" type="Marker2D" parent="KingPossiblePositions"]
+position = Vector2(-199, 4)
+gizmo_extents = 50.0
+
+[node name="Marker2D7" type="Marker2D" parent="KingPossiblePositions"]
+position = Vector2(365, -248)
+gizmo_extents = 50.0
+
+[node name="Marker2D8" type="Marker2D" parent="KingPossiblePositions"]
+position = Vector2(-442, -165)
+gizmo_extents = 50.0
+
+[node name="Marker2D9" type="Marker2D" parent="KingPossiblePositions"]
+position = Vector2(270, 11)
+gizmo_extents = 50.0
+
+[node name="Marker2D10" type="Marker2D" parent="KingPossiblePositions"]
+position = Vector2(-51, 343)
+gizmo_extents = 50.0
+
+[node name="Marker2D11" type="Marker2D" parent="KingPossiblePositions"]
+position = Vector2(342, 419)
+gizmo_extents = 50.0
+
+[node name="Marker2D12" type="Marker2D" parent="KingPossiblePositions"]
+position = Vector2(-213, 517)
+gizmo_extents = 50.0
+
+[node name="RoomCenter" type="Marker2D" parent="."]
+position = Vector2(-8, -7)
+
+[node name="Walls" type="Node2D" parent="."]
+scale = Vector2(7.5, 7.5)
+
+[node name="Wall" type="StaticBody2D" parent="Walls"]
+position = Vector2(100, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Wall"]
+shape = SubResource("RectangleShape2D_j8d3d")
+
+[node name="Sprite2D" type="Sprite2D" parent="Walls/Wall"]
+scale = Vector2(0.15625, 1.73438)
+texture = ExtResource("7_u5nsw")
+
+[node name="Wall2" type="StaticBody2D" parent="Walls"]
+position = Vector2(-100, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Wall2"]
+shape = SubResource("RectangleShape2D_j8d3d")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Walls/Wall2"]
+scale = Vector2(0.15625, 1.73438)
+texture = ExtResource("7_u5nsw")
+
+[node name="Wall3" type="StaticBody2D" parent="Walls"]
+position = Vector2(0, 100)
+rotation = 1.5708
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Wall3"]
+shape = SubResource("RectangleShape2D_j8d3d")
+
+[node name="Sprite2D3" type="Sprite2D" parent="Walls/Wall3"]
+scale = Vector2(0.15625, 1.73438)
+texture = ExtResource("7_u5nsw")
+
+[node name="Wall4" type="StaticBody2D" parent="Walls"]
+position = Vector2(0, -100)
+rotation = 1.5708
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Wall4"]
+shape = SubResource("RectangleShape2D_j8d3d")
+
+[node name="Sprite2D4" type="Sprite2D" parent="Walls/Wall4"]
+scale = Vector2(0.15625, 1.73438)
+texture = ExtResource("7_u5nsw")
