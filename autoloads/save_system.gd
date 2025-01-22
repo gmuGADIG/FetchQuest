@@ -52,13 +52,16 @@ func _create_save_dictionary() -> Dictionary:
 		fast_travel_points = fast_travel_points,
 		chosen_skin = Skins.chosen_skin,
 		dialogic = Dialogic.get_full_state(),
-		talking_interactable = TalkingInteractable.save_data
+		talking_interactable = TalkingInteractable.save_data,
+		collected_single_use_items = Item.collected_single_use_items
 	}
 
 	# print("[save_system] save.dialogic = ", save.dialogic)
 	return save
 
 func _handle_save_dictionary(save: Dictionary) -> void:
+	Item.collected_single_use_items = save.collected_single_use_items
+
 	Skins.chosen_skin = save.chosen_skin
 
 	for tp: Dictionary in save.fast_travel_points:
