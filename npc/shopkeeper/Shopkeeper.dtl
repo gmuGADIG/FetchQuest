@@ -1,6 +1,25 @@
 shopkeeper: Hi! Would you like to buy anything?
 - Wof (open shop)
-	shopkeeper: Alas! Our humble shop is closed for the time being.
+	do GBPManager.reveal()
+	shopkeeper: What would you like to buy? Everything costs 8 Good Boy Points.
+	label BuyLoop
+	if PlayerInventory.good_boy_points >= 8:
+		- Bark (damage upgrade)
+			set {PlayerInventory.sword_damage_multiplier} *= 1.5
+		- Ruff (stamina upgrade)
+			set {PlayerInventory.max_stamina} += 1
+		- Woof (health upgrade)
+			set {PlayerInventory.max_health} += 2
+		- bork (speed upgrade)
+			set {PlayerInventory.speed_multiplier} *= 2
+		- *shake head*
+			shopkeeper: Pleasure doing buisness with you!
+			jump EndOfDialog
+		set {PlayerInventory.good_boy_points} -= 8
+		shopkeeper: What else would you like to buy? Everything costs 8 Good Boy Points.
+		jump BuyLoop
+	else:
+		shopkeeper: Looks like you don't have enough good boy points. You can become a gooder boy if you help the townspeople!
 - Woof (quest)
 	if QuestSystem.is_quest_unassigned("camera"):
 		# give quest
@@ -17,3 +36,5 @@ shopkeeper: Hi! Would you like to buy anything?
 		else:
 			# quest in progress dialogue
 			shopkeeper: AEEK! The shrooms must still be found, please!
+label EndOfDialog
+do GBPManager.unreveal()

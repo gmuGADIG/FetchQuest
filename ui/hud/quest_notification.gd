@@ -26,7 +26,7 @@ func _on_quest_completed(quest: Quest) -> void:
 	description_label.text = description_format % quest.good_boy_reward
 
 	await reveal()
-	await get_tree().create_timer(quest.good_boy_reward / 50. + .5).timeout
+	await get_tree().create_timer(quest.good_boy_reward / 15. + .5).timeout
 	await unreveal()
 
 func _ready() -> void:

@@ -40,7 +40,7 @@ func _animate_counter(target: int) -> void:
 	
 	var starting_value := int(label.text)
 	var delta := absi(starting_value - target)
-	animate_tween.tween_method(func(v: int) -> void: label.text = str(v), starting_value, target, delta / 50.)
+	animate_tween.tween_method(func(v: int) -> void: label.text = str(v), starting_value, target, delta / 15.)
 
 	await animate_tween.finished
 

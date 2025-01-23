@@ -45,22 +45,22 @@ func _create_save_dictionary() -> Dictionary:
 		})
 
 	var save := {
-		location = location,
-		inventory = PlayerInventory.serialize(),
-		chests = ChestBetweenScenes.opened_chest,
-		quests = quests,
-		fast_travel_points = fast_travel_points,
+		location = location.duplicate(true),
+		inventory = PlayerInventory.serialize().duplicate(true),
+		chests = ChestBetweenScenes.opened_chest.duplicate(true),
+		quests = quests.duplicate(true),
+		fast_travel_points = fast_travel_points.duplicate(true),
 		chosen_skin = Skins.chosen_skin,
 		dialogic = Dialogic.get_full_state(),
-		talking_interactable = TalkingInteractable.save_data,
-		collected_single_use_items = Item.collected_single_use_items
+		talking_interactable = TalkingInteractable.save_data.duplicate(true),
+		collected_single_use_items = Item.collected_single_use_items.duplicate(true)
 	}
 
 	# print("[save_system] save.dialogic = ", save.dialogic)
 	return save
 
 func _handle_save_dictionary(save: Dictionary) -> void:
-	Item.collected_single_use_items = save.collected_single_use_items
+	Item.collected_single_use_items = save.collected_single_use_items.duplicate(true)
 
 	Skins.chosen_skin = save.chosen_skin
 
@@ -77,13 +77,13 @@ func _handle_save_dictionary(save: Dictionary) -> void:
 		if state == Quest.State.ASSIGNED:
 			quest._assign_hook()
 	
-	ChestBetweenScenes.opened_chest = save.chests
+	ChestBetweenScenes.opened_chest = save.chests.duplicate(true)
 
-	PlayerInventory.deserialize(save.inventory)
+	PlayerInventory.deserialize(save.inventory.duplicate(true))
 
 	Dialogic.load_full_state(save.dialogic)
 
-	TalkingInteractable.save_data = save.talking_interactable
+	TalkingInteractable.save_data = save.talking_interactable.duplicate(true)
 
 func save_game() -> void:
 	print("[save_system] saving game")
@@ -102,6 +102,8 @@ func load_game() -> void:
 func new_game() -> void:
 	print("[save_system] creating new game")
 	_handle_save_dictionary(default_save)
+	print("[save_system] default_save.collected_single_use_items = ", default_save.collected_single_use_items)
+	print("[save_system] Item.collected_single_use_items = ", Item.collected_single_use_items)
 
 ## returns true if a valid save exists
 func save_valid() -> bool:

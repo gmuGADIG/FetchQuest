@@ -158,7 +158,7 @@ func _process(delta: float) -> void:
 		if active_sword == null:
 			throw_sword()
 
-	velocity = Input.get_vector("move_left", "move_right", "move_up", "move_down") * move_speed
+	velocity = Input.get_vector("move_left", "move_right", "move_up", "move_down") * move_speed * PlayerInventory.speed_multiplier
 	if(velocity != Vector2.ZERO):
 		if(velocity.x < 0):
 			facing_right = false
@@ -294,3 +294,13 @@ func activate_iframes() -> void:
 	animation_player.play("hurt_flash")
 	await animation_player.animation_finished
 	invincible = false
+
+func _on_max_stamina_updated() -> void:
+	stamina = PlayerInventory.max_stamina
+
+func _on_max_health_updated() -> void:
+	health = PlayerInventory.max_health
+
+func _ready() -> void:
+	PlayerInventory.max_stamina_updated.connect(_on_max_stamina_updated)
+	PlayerInventory.max_health_updated.connect(_on_max_health_updated)
