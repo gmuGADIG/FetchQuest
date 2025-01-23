@@ -68,6 +68,9 @@ signal item_updated(key: String)
 	set(v):
 		max_stamina = v
 		max_stamina_updated.emit()
+
+@export var speed_multiplier: float = 1
+@export var sword_damage_multiplier: float = 1
 		
 ##The amount of keys to unlock a door that the player has at any time
 @export var door_keys: int = 0
@@ -129,7 +132,9 @@ func serialize() -> Dictionary:
 		max_stamina = max_stamina,
 		door_keys = door_keys,
 		boss_door_keys = boss_door_keys,
-		items = _items
+		items = _items,
+		speed_multiplier = speed_multiplier,
+		sword_damage_multiplier = sword_damage_multiplier
 	}
 
 func deserialize(data: Dictionary) -> void:
@@ -140,6 +145,8 @@ func deserialize(data: Dictionary) -> void:
 	max_stamina = data.max_stamina
 	door_keys = data.door_keys
 	boss_door_keys = data.boss_door_keys
+	speed_multiplier = data.speed_multiplier
+	sword_damage_multiplier = data.sword_damage_multiplier
 
 	for key: String in data.items:
 		_key_to_item[key].quantity_held = data.items[key]

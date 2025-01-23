@@ -8,7 +8,7 @@ func _items_collected() -> bool:
 			return false
 	return true
 
-func _on_item_updated(key: String) -> void:
+func _on_item_updated(_key: String) -> void:
 	if _items_collected():
 		state = State.COMPLETED
 		PlayerInventory.item_updated.disconnect(_on_item_updated)
@@ -21,3 +21,4 @@ func turn_in() -> void:
 
 func _assign_hook() -> void:
 	PlayerInventory.item_updated.connect(_on_item_updated)
+	_on_item_updated("bababooey")
