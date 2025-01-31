@@ -1,18 +1,36 @@
-[gd_scene load_steps=14 format=3 uid="uid://70lp7kfk3yw6"]
+[gd_scene load_steps=20 format=3 uid="uid://70lp7kfk3yw6"]
 
 [ext_resource type="Texture2D" uid="uid://coei1l71s6ee5" path="res://ui/hud/Health-Stamina-Item-Points Bar/Background.png" id="3_khs8t"]
 [ext_resource type="Texture2D" uid="uid://bntgxqb00qldt" path="res://ui/hud/Health-Stamina-Item-Points Bar/Circle.png" id="4_gkpdi"]
 [ext_resource type="Texture2D" uid="uid://b41yd4g17d23i" path="res://ui/hud/Health-Stamina-Item-Points Bar/Heart Holder.png" id="8_vopoe"]
+[ext_resource type="Script" path="res://ui/hud/bombs.gd" id="10_od5o4"]
 [ext_resource type="Script" path="res://ui/hud/good_boy_points_counter.gd" id="11_qn7dg"]
 [ext_resource type="Script" path="res://ui/hud/quest_notification.gd" id="13_wm53l"]
 [ext_resource type="Theme" uid="uid://drqtpgod2pibc" path="res://ui/main_ui_theme.tres" id="14_c6cuy"]
 [ext_resource type="Script" path="res://ui/hud/life_meter.gd" id="14_xgug3"]
 [ext_resource type="Texture2D" uid="uid://ct7ni5e6ke6j3" path="res://ui/hud/Health-Stamina-Item-Points Bar/Stamina Bar.png" id="15_j4tyb"]
+[ext_resource type="Script" path="res://ui/hud/unlock_notification.gd" id="15_whcjy"]
 [ext_resource type="Texture2D" uid="uid://b7r2giesc6i34" path="res://ui/hud/Health-Stamina-Item-Points Bar/Stamina Holder.png" id="16_dyhul"]
 [ext_resource type="Texture2D" uid="uid://nbmmljw4ts6j" path="res://ui/hud/Health-Stamina-Item-Points Bar/UI_Sword.png" id="16_klhy4"]
 [ext_resource type="Texture2D" uid="uid://cqnafwnilxdb3" path="res://ui/hud/Health-Stamina-Item-Points Bar/Bone.png" id="18_t7eg7"]
 [ext_resource type="Texture2D" uid="uid://dpk27dowi5dyd" path="res://ui/hud/Health-Stamina-Item-Points Bar/Point Counter.png" id="18_tq501"]
 [ext_resource type="Texture2D" uid="uid://c2jpowrkxuguq" path="res://ui/hud/Health-Stamina-Item-Points Bar/Tennis Bomb.png" id="19_qcj6b"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_ofcrd"]
+blend_mode = 1
+
+[sub_resource type="Gradient" id="Gradient_k3s56"]
+offsets = PackedFloat32Array(0.236979, 0.760417)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_shc8t"]
+gradient = SubResource("Gradient_k3s56")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="Gradient" id="Gradient_yvoc6"]
+offsets = PackedFloat32Array(0.242347, 0.454082)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
 
 [node name="HUD" type="CanvasLayer"]
 
@@ -127,7 +145,13 @@ offset_right = 425.0
 offset_bottom = 146.0
 texture = ExtResource("18_t7eg7")
 
-[node name="Bomb" type="TextureRect" parent="LifeMeter"]
+[node name="Bombs" type="Control" parent="LifeMeter"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("10_od5o4")
+
+[node name="Bomb" type="TextureRect" parent="LifeMeter/Bombs"]
 layout_mode = 0
 offset_left = 32.0
 offset_top = 26.0
@@ -136,16 +160,16 @@ offset_bottom = 248.0
 scale = Vector2(0.583377, 0.583377)
 texture = ExtResource("19_qcj6b")
 
-[node name="BombCounter" type="Label" parent="LifeMeter"]
+[node name="BombCounter" type="Label" parent="LifeMeter/Bombs"]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = 144.0
+offset_left = 22.0
 offset_top = 134.0
-offset_right = 145.0
-offset_bottom = 171.0
+offset_right = 105.0
+offset_bottom = 176.0
 grow_horizontal = 0
 theme_override_font_sizes/font_size = 32
 text = "314159"
@@ -243,6 +267,86 @@ theme_override_font_sizes/font_size = 48
 text = "%s completed!"
 
 [node name="Description" type="Label" parent="QuestNotification/Container/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "You have earned %s good boy points!"
+horizontal_alignment = 1
+
+[node name="UnlockNotification" type="Control" parent="."]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 0
+offset_left = 985.0
+offset_top = -118.0
+offset_right = 985.0
+offset_bottom = -118.0
+scale = Vector2(0.5, 0.5)
+size_flags_horizontal = 10
+script = ExtResource("15_whcjy")
+metadata/_edit_group_ = true
+
+[node name="Container" type="MarginContainer" parent="UnlockNotification"]
+custom_minimum_size = Vector2(125, 0)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 53.0
+grow_horizontal = 0
+
+[node name="NinePatchRect" type="NinePatchRect" parent="UnlockNotification/Container"]
+layout_mode = 2
+texture = ExtResource("18_tq501")
+patch_margin_left = 13
+patch_margin_top = 15
+patch_margin_right = 15
+patch_margin_bottom = 13
+
+[node name="MarginContainer" type="MarginContainer" parent="UnlockNotification/Container"]
+layout_mode = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 30
+
+[node name="Control" type="Control" parent="UnlockNotification/Container/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="UnlockParticles" type="CPUParticles2D" parent="UnlockNotification/Container/MarginContainer/Control"]
+unique_name_in_owner = true
+modulate = Color(1, 0.766667, 0, 1)
+z_index = -1
+material = SubResource("CanvasItemMaterial_ofcrd")
+position = Vector2(9, -11)
+emitting = false
+amount = 16
+one_shot = true
+explosiveness = 1.0
+texture = SubResource("GradientTexture2D_shc8t")
+emission_shape = 3
+emission_rect_extents = Vector2(150, 2)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 1000.0
+initial_velocity_max = 1000.0
+scale_amount_min = 0.25
+scale_amount_max = 0.8
+color_ramp = SubResource("Gradient_yvoc6")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UnlockNotification/Container/MarginContainer"]
+layout_mode = 2
+
+[node name="UnlockTitle" type="Label" parent="UnlockNotification/Container/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "%s completed!"
+
+[node name="UnlockDesc" type="Label" parent="UnlockNotification/Container/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 48

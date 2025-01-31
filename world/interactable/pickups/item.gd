@@ -12,10 +12,17 @@ enum ItemPhysicsState {
 	FOLLOW_PLAYER
 }
 
-var physics_state: ItemPhysicsState = ItemPhysicsState.IDLE
+var physics_state: ItemPhysicsState = ItemPhysicsState.IDLE:
+	set(v):
+		physics_state = v
+
+		$PickupArea.monitoring = v != ItemPhysicsState.INTANGIBLE
+		$PickupArea.monitorable = v != ItemPhysicsState.INTANGIBLE
 
 @export var acceleration: float = 50.0
 @export var speed: float = 20.0
+## How high the item will rise when being revealed from a chest
+@export var animation_height := 100.0
 
 const actual_follow_player_speed := 1800.0
 var follow_player_speed := actual_follow_player_speed
@@ -69,7 +76,6 @@ func _process(delta: float) -> void:
 		ItemPhysicsState.INTANGIBLE:
 			velocity = Vector2.ZERO
 		ItemPhysicsState.FOLLOW_PLAYER:
-			print("[item] follow_player_speed = ", follow_player_speed)
 			var dir := global_position.direction_to(Player.instance.global_position)
 			velocity = dir * follow_player_speed 
 		_:
@@ -84,7 +90,6 @@ func animate() -> void:
 	print("[item] animate()")
 	physics_state = ItemPhysicsState.INTANGIBLE
 	
-	const animation_height := 100.0
 	var tween := create_tween()
 	tween.set_trans(Tween.TRANS_SINE)
 	tween.tween_property(self, "position:y", position.y - animation_height, 0.5)
