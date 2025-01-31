@@ -42,6 +42,9 @@ func open_chest() -> void:
 	var spawned := item.instantiate()
 	spawned.position = position
 	add_sibling(spawned)
+
+	if spawned is Item:
+		spawned.animate()
 	
 func pre_opened_chest() -> void: #will dispaly chest as being open is already opened.
 	print("This chest has already been opened")
