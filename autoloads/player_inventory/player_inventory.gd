@@ -82,6 +82,15 @@ signal item_updated(key: String)
 
 var _key_to_item: Dictionary = {}
 
+func dog_roll_unlocked() -> bool:
+	return _key_to_item.dog_roll_ability.quantity_held != 0
+
+func bomb_unlocked() -> bool:
+	return _key_to_item.bomb_ability.quantity_held != 0
+
+func bark_unlocked() -> bool:
+	return _key_to_item.bark_ability.quantity_held != 0
+
 func _ready() -> void:
 	for item in items:
 		_key_to_item[item.key] = item
