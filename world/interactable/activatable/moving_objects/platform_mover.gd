@@ -45,14 +45,23 @@ enum RepeatType {
 		notify_property_list_changed()
 
 ## How fast the platform moves in pixels per second.
-@export_custom(PROPERTY_HINT_NONE, "suffix:px/s") var speed := 100.0
+@export_custom(PROPERTY_HINT_NONE, "suffix:px/s") var speed := 100.0:
+	set(value):
+		speed = value
+		var new_duration := curve.get_baked_length() / speed
+		if duration != new_duration: duration = new_duration
 ## How many seconds the platform waits before repeating its path. [br][br]
 ## Has no effect if [member repeat_type] is [code]RepeatType.ONE_SHOT[/code] or
 ## [member activate_type] is not [code]ActivateType.AUTOMATIC[/code] 
 ## or [code]ActivateType.SEMI_AUTOMATIC[/code].
 var repeat_delay := 0.0 
 
-@onready var duration := curve.get_baked_length() / speed
+@export var duration := curve.get_baked_length() / speed:
+	set(value):
+		duration = value
+		var new_speed := curve.get_baked_length() / duration
+		if speed != new_speed: speed = new_speed
+
 @onready var path_follow: PathFollow2D = $PathFollow2D
 
 var tween: Tween
