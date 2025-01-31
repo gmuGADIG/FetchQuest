@@ -33,11 +33,11 @@ func deactivate() -> void:
 func lock() -> void:
 	if not relockable: return
 	visible = true
-	collision_shape.disabled = false
+	process_mode = PROCESS_MODE_INHERIT
 
 func unlock() -> void:
 	visible = false
-	collision_shape.disabled = true
+	process_mode = PROCESS_MODE_DISABLED
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if open_method == OpenMethod.NO_KEY: return
