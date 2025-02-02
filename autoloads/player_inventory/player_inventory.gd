@@ -68,6 +68,9 @@ signal item_updated(key: String)
 	set(v):
 		max_stamina = v
 		max_stamina_updated.emit()
+
+@export var speed_multiplier: float = 1
+@export var sword_damage_multiplier: float = 1
 		
 ##The amount of keys to unlock a door that the player has at any time
 @export var door_keys: int = 0
@@ -78,6 +81,15 @@ signal item_updated(key: String)
 @export var items: Array[InventoryItem]
 
 var _key_to_item: Dictionary = {}
+
+func dog_roll_unlocked() -> bool:
+	return _key_to_item.dog_roll_ability.quantity_held != 0
+
+func bomb_unlocked() -> bool:
+	return _key_to_item.bomb_ability.quantity_held != 0
+
+func bark_unlocked() -> bool:
+	return _key_to_item.bark_ability.quantity_held != 0
 
 func _ready() -> void:
 	for item in items:
@@ -115,3 +127,35 @@ func use_door_key(is_boss_door: bool) -> bool:
 		return true
 	else:
 		return false
+
+func serialize() -> Dictionary:
+	var _items := {}
+	for key: String in _key_to_item.keys():
+		_items[key] = get_quantity(key) 
+
+	return {
+		good_boy_points = good_boy_points,
+		bombs = bombs,
+		max_bombs = max_bombs,
+		max_health = max_health,
+		max_stamina = max_stamina,
+		door_keys = door_keys,
+		boss_door_keys = boss_door_keys,
+		items = _items,
+		speed_multiplier = speed_multiplier,
+		sword_damage_multiplier = sword_damage_multiplier
+	}
+
+func deserialize(data: Dictionary) -> void:
+	good_boy_points = data.good_boy_points
+	bombs = data.bombs
+	max_bombs = data.max_bombs
+	max_health = data.max_health
+	max_stamina = data.max_stamina
+	door_keys = data.door_keys
+	boss_door_keys = data.boss_door_keys
+	speed_multiplier = data.speed_multiplier
+	sword_damage_multiplier = data.sword_damage_multiplier
+
+	for key: String in data.items:
+		_key_to_item[key].quantity_held = data.items[key]

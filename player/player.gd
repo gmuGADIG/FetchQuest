@@ -146,7 +146,7 @@ func _process(delta: float) -> void:
 	if input_locked:
 		return
 	
-	if Input.is_action_just_pressed("speak"):
+	if Input.is_action_just_pressed("speak") and PlayerInventory.bark_unlocked():
 		if !$Speak.on_cooldown():
 			$Speak.speak()
 			if(not facing_right):
@@ -158,7 +158,7 @@ func _process(delta: float) -> void:
 		if active_sword == null:
 			throw_sword()
 
-	velocity = Input.get_vector("move_left", "move_right", "move_up", "move_down") * move_speed
+	velocity = Input.get_vector("move_left", "move_right", "move_up", "move_down") * move_speed * PlayerInventory.speed_multiplier
 	if(velocity != Vector2.ZERO):
 		if(velocity.x < 0):
 			facing_right = false
@@ -174,7 +174,7 @@ func _process(delta: float) -> void:
 
 	recover_stamina(delta)
 
-	if (Input.is_action_just_pressed("dog_roll")):
+	if (Input.is_action_just_pressed("dog_roll") and PlayerInventory.dog_roll_unlocked()):
 		# _animated_sprite.stop()
 		start_roll()
 		
@@ -198,7 +198,7 @@ func _process(delta: float) -> void:
 	handle_one_ways()
 
 func _input(event: InputEvent) -> void:
-	if(event.is_action_pressed("throw_bomb")):
+	if(event.is_action_pressed("throw_bomb") and PlayerInventory.bomb_unlocked()):
 		if PlayerInventory.bombs > 0:
 			var bomb_instance := bomb_scene.instantiate()
 			bomb_instance.position = position
@@ -294,3 +294,13 @@ func activate_iframes() -> void:
 	animation_player.play("hurt_flash")
 	await animation_player.animation_finished
 	invincible = false
+
+func _on_max_stamina_updated() -> void:
+	stamina = PlayerInventory.max_stamina
+
+func _on_max_health_updated() -> void:
+	health = PlayerInventory.max_health
+
+func _ready() -> void:
+	PlayerInventory.max_stamina_updated.connect(_on_max_stamina_updated)
+	PlayerInventory.max_health_updated.connect(_on_max_health_updated)

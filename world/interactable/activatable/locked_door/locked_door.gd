@@ -1,3 +1,4 @@
+@tool
 class_name LockedDoor extends Node2D
 
 enum OpenMethod {
@@ -6,21 +7,39 @@ enum OpenMethod {
 	NO_KEY, ## No key will open this door. An activator must open it.
 }
 
+@export var relockable := false
 @export var open_method := OpenMethod.KEY
+@export var default_sprite_used := true:
+	set(v):
+		default_sprite_used = v
+		default_sprite.visible = v
+
+@onready var default_sprite := %DefaultSprite as Sprite2D
 
 static var doors_opened: Array[NodePath]
 
 func _ready() -> void:
+	default_sprite.visible = default_sprite_used
 	if doors_opened.has(get_path()):
 		unlock()
 
 func activate() -> void:
 	unlock()
 
+func deactivate() -> void:
+	lock()
+
+func lock() -> void:
+	if not relockable: return
+	visible = true
+	process_mode = PROCESS_MODE_INHERIT
+
 func unlock() -> void:
-	queue_free()
+	visible = false
+	process_mode = PROCESS_MODE_DISABLED
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
+	if process_mode == PROCESS_MODE_DISABLED: return # for some reason, the Area2D still processes when it shouldn't
 	if open_method == OpenMethod.NO_KEY: return
 	if not body is Player: return
 

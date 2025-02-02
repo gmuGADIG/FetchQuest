@@ -1,0 +1,40 @@
+[gd_scene load_steps=5 format=3 uid="uid://ckgyculy78xqe"]
+
+[ext_resource type="PackedScene" uid="uid://utcn5cca00yv" path="res://world/interactable/pickups/inventory_item_pickup_base.tscn" id="1_jntns"]
+[ext_resource type="Texture2D" uid="uid://cqnafwnilxdb3" path="res://ui/hud/Health-Stamina-Item-Points Bar/Bone.png" id="2_ylqnv"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_38y05"]
+blend_mode = 1
+
+[sub_resource type="Gradient" id="Gradient_q1t2q"]
+offsets = PackedFloat32Array(0, 0.709184)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[node name="AbilityPickup" instance=ExtResource("1_jntns")]
+animation_height = 250.0
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="." index="0"]
+material = SubResource("CanvasItemMaterial_38y05")
+amount = 6
+explosiveness = 0.13
+texture = ExtResource("2_ylqnv")
+emission_shape = 4
+emission_points = PackedVector2Array(40, -40, -40, 40, 0, 0)
+emission_colors = PackedColorArray()
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 140.0
+initial_velocity_max = 280.0
+angular_velocity_min = -100.0
+angular_velocity_max = 200.0
+angle_min = -720.0
+scale_amount_min = 0.5
+scale_amount_max = 0.8
+color = Color(1, 0.816667, 0, 1)
+color_ramp = SubResource("Gradient_q1t2q")
+
+[node name="Sprite2D" parent="." index="2"]
+modulate = Color(1, 0.85, 0, 1)
+position = Vector2(1.19209e-07, -1.19209e-07)
+scale = Vector2(2, 2)
+texture = ExtResource("2_ylqnv")

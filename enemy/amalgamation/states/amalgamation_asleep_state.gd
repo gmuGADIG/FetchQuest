@@ -32,4 +32,5 @@ func _on_mouth_area_body_entered(body: Node2D) -> void:
 	
 	# Switch to idle
 	if amalgamation.state_machine.current_state == self:
+		%SleepingParticles.emitting = false
 		amalgamation.state_machine.change_state(self, "Idle")

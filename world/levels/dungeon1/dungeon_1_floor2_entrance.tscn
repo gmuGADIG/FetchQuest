@@ -1,7 +1,7 @@
-[gd_scene load_steps=70 format=4 uid="uid://cyq8hxsw5y82a"]
+[gd_scene load_steps=62 format=4 uid="uid://cyq8hxsw5y82a"]
 
 [ext_resource type="PackedScene" uid="uid://cnd06dpkgufe4" path="res://world/levels/level_base.tscn" id="1_3oodm"]
-[ext_resource type="Texture2D" uid="uid://dc4pcxr2lfkka" path="res://demo_art/dungeon_entrance.png" id="2_4tf8t"]
+[ext_resource type="PackedScene" uid="uid://bb3lkqfjeh0du" path="res://world/decoration/candles/candle.tscn" id="2_80vrp"]
 [ext_resource type="TileSet" uid="uid://nu1j5yl35lda" path="res://world/tilemap/church_tilemap.tres" id="2_f0q7p"]
 [ext_resource type="Script" path="res://addons/rmsmartshape/shapes/shape.gd" id="2_heehg"]
 [ext_resource type="PackedScene" uid="uid://bwo5q4wroaigc" path="res://world/interactable/transition_trigger/transition_trigger.tscn" id="3_sy00c"]
@@ -9,9 +9,122 @@
 [ext_resource type="Script" path="res://addons/rmsmartshape/shapes/point.gd" id="4_tyfqe"]
 [ext_resource type="Script" path="res://addons/rmsmartshape/shapes/point_array.gd" id="5_0qflf"]
 [ext_resource type="Resource" uid="uid://bkg45degwie00" path="res://world/smart_shapes/church_wall/church_wall.tres" id="6_h0vu3"]
-[ext_resource type="PackedScene" uid="uid://blh1fs712dql8" path="res://world/interactable/activatable/locked_door/locked_door.tscn" id="11_fqb18"]
+[ext_resource type="Resource" uid="uid://c7fgg0kcdqit0" path="res://world/smart_shapes/shadow/shadow.tres" id="7_fb4mo"]
+[ext_resource type="PackedScene" uid="uid://5x8wo3lcwigq" path="res://world/objects/breakable_object/breakable_pot.tscn" id="11_ldrdo"]
 
-[sub_resource type="Resource" id="Resource_qp42h"]
+[sub_resource type="Resource" id="Resource_d325j"]
+script = ExtResource("3_wdteq")
+texture_idx = 0
+flip = false
+width = 1.0
+
+[sub_resource type="Resource" id="Resource_ni4gg"]
+script = ExtResource("4_tyfqe")
+position = Vector2(1064, -132)
+point_in = Vector2(0, 0)
+point_out = Vector2(0, 0)
+properties = SubResource("Resource_d325j")
+
+[sub_resource type="Resource" id="Resource_pmqp2"]
+script = ExtResource("3_wdteq")
+texture_idx = 0
+flip = false
+width = 1.0
+
+[sub_resource type="Resource" id="Resource_ssm27"]
+script = ExtResource("4_tyfqe")
+position = Vector2(872, 60.0001)
+point_in = Vector2(0, 0)
+point_out = Vector2(0, 0)
+properties = SubResource("Resource_pmqp2")
+
+[sub_resource type="Resource" id="Resource_qbt2l"]
+script = ExtResource("3_wdteq")
+texture_idx = 0
+flip = false
+width = 1.0
+
+[sub_resource type="Resource" id="Resource_mtrvp"]
+script = ExtResource("4_tyfqe")
+position = Vector2(360, 60)
+point_in = Vector2(0, 0)
+point_out = Vector2(0, 0)
+properties = SubResource("Resource_qbt2l")
+
+[sub_resource type="Resource" id="Resource_yde7b"]
+script = ExtResource("3_wdteq")
+texture_idx = -4
+flip = false
+width = 1.0
+
+[sub_resource type="Resource" id="Resource_ysywv"]
+script = ExtResource("4_tyfqe")
+position = Vector2(168, -132)
+point_in = Vector2(0, 0)
+point_out = Vector2(0, 0)
+properties = SubResource("Resource_yde7b")
+
+[sub_resource type="Resource" id="Resource_3fnpx"]
+script = ExtResource("3_wdteq")
+texture_idx = 0
+flip = false
+width = 1.0
+
+[sub_resource type="Resource" id="Resource_j5amr"]
+script = ExtResource("4_tyfqe")
+position = Vector2(168, -772)
+point_in = Vector2(0, 0)
+point_out = Vector2(0, 0)
+properties = SubResource("Resource_3fnpx")
+
+[sub_resource type="Resource" id="Resource_wryx7"]
+script = ExtResource("3_wdteq")
+texture_idx = 0
+flip = false
+width = 1.0
+
+[sub_resource type="Resource" id="Resource_pwb2e"]
+script = ExtResource("4_tyfqe")
+position = Vector2(1064, -772)
+point_in = Vector2(0, 0)
+point_out = Vector2(0, 0)
+properties = SubResource("Resource_wryx7")
+
+[sub_resource type="Resource" id="Resource_busqh"]
+script = ExtResource("3_wdteq")
+texture_idx = 0
+flip = false
+width = 1.0
+
+[sub_resource type="Resource" id="Resource_kvahw"]
+script = ExtResource("4_tyfqe")
+position = Vector2(1064, -132)
+point_in = Vector2(0, 0)
+point_out = Vector2(0, 0)
+properties = SubResource("Resource_busqh")
+
+[sub_resource type="Resource" id="Resource_h1mh3"]
+script = ExtResource("5_0qflf")
+_points = {
+0: SubResource("Resource_ni4gg"),
+1: SubResource("Resource_ssm27"),
+2: SubResource("Resource_mtrvp"),
+3: SubResource("Resource_ysywv"),
+4: SubResource("Resource_j5amr"),
+5: SubResource("Resource_pwb2e"),
+6: SubResource("Resource_kvahw")
+}
+_point_order = PackedInt32Array(0, 1, 2, 3, 4, 5, 6)
+_constraints = {
+Vector2i(0, 6): 15
+}
+_next_key = 7
+_material_overrides = {}
+tessellation_stages = 3
+tessellation_tolerance = 6.0
+curve_bake_interval = 20.0
+
+[sub_resource type="Resource" id="Resource_8x4fu"]
 script = ExtResource("3_wdteq")
 texture_idx = 0
 flip = false
@@ -19,12 +132,12 @@ width = 1.0
 
 [sub_resource type="Resource" id="Resource_c5k5l"]
 script = ExtResource("4_tyfqe")
-position = Vector2(-72, -48)
+position = Vector2(-64, 0)
 point_in = Vector2(0, 0)
 point_out = Vector2(0, 0)
-properties = SubResource("Resource_qp42h")
+properties = SubResource("Resource_8x4fu")
 
-[sub_resource type="Resource" id="Resource_sy51d"]
+[sub_resource type="Resource" id="Resource_7pyhi"]
 script = ExtResource("3_wdteq")
 texture_idx = 0
 flip = false
@@ -32,12 +145,12 @@ width = 1.0
 
 [sub_resource type="Resource" id="Resource_8316b"]
 script = ExtResource("4_tyfqe")
-position = Vector2(1224, -48)
+position = Vector2(1224, 0)
 point_in = Vector2(0, 0)
 point_out = Vector2(0, 0)
-properties = SubResource("Resource_sy51d")
+properties = SubResource("Resource_7pyhi")
 
-[sub_resource type="Resource" id="Resource_t082s"]
+[sub_resource type="Resource" id="Resource_5rkj5"]
 script = ExtResource("3_wdteq")
 texture_idx = 0
 flip = false
@@ -45,12 +158,12 @@ width = 1.0
 
 [sub_resource type="Resource" id="Resource_vobju"]
 script = ExtResource("4_tyfqe")
-position = Vector2(1208, 704)
+position = Vector2(1216, 704)
 point_in = Vector2(0, 0)
 point_out = Vector2(0, 0)
-properties = SubResource("Resource_t082s")
+properties = SubResource("Resource_5rkj5")
 
-[sub_resource type="Resource" id="Resource_en5un"]
+[sub_resource type="Resource" id="Resource_ip7qq"]
 script = ExtResource("3_wdteq")
 texture_idx = 0
 flip = false
@@ -58,12 +171,12 @@ width = 1.0
 
 [sub_resource type="Resource" id="Resource_4fubb"]
 script = ExtResource("4_tyfqe")
-position = Vector2(-80, 688)
+position = Vector2(-64, 704)
 point_in = Vector2(0, 0)
 point_out = Vector2(0, 0)
-properties = SubResource("Resource_en5un")
+properties = SubResource("Resource_ip7qq")
 
-[sub_resource type="Resource" id="Resource_sptvw"]
+[sub_resource type="Resource" id="Resource_lryyr"]
 script = ExtResource("3_wdteq")
 texture_idx = 0
 flip = false
@@ -71,168 +184,38 @@ width = 1.0
 
 [sub_resource type="Resource" id="Resource_n884t"]
 script = ExtResource("4_tyfqe")
-position = Vector2(-72, -48)
+position = Vector2(-64, 0)
 point_in = Vector2(0, 0)
 point_out = Vector2(0, 0)
-properties = SubResource("Resource_sptvw")
+properties = SubResource("Resource_lryyr")
 
-[sub_resource type="Resource" id="Resource_522cn"]
+[sub_resource type="Resource" id="Resource_ugfp2"]
 script = ExtResource("3_wdteq")
-texture_idx = 0
+texture_idx = -5
 flip = false
 width = 1.0
 
 [sub_resource type="Resource" id="Resource_4h2jd"]
 script = ExtResource("4_tyfqe")
-position = Vector2(352, -56)
+position = Vector2(384, 0)
 point_in = Vector2(0, 0)
 point_out = Vector2(0, 0)
-properties = SubResource("Resource_522cn")
+properties = SubResource("Resource_ugfp2")
 
-[sub_resource type="Resource" id="Resource_rsc5r"]
+[sub_resource type="Resource" id="Resource_pqj78"]
 script = ExtResource("3_wdteq")
-texture_idx = 0
-flip = false
-width = 1.0
-
-[sub_resource type="Resource" id="Resource_hvhya"]
-script = ExtResource("4_tyfqe")
-position = Vector2(-439.723, -1178.71)
-point_in = Vector2(0, 0)
-point_out = Vector2(0, 0)
-properties = SubResource("Resource_rsc5r")
-
-[sub_resource type="Resource" id="Resource_kitjf"]
-script = ExtResource("3_wdteq")
-texture_idx = 0
-flip = false
-width = 1.0
-
-[sub_resource type="Resource" id="Resource_ox0af"]
-script = ExtResource("4_tyfqe")
-position = Vector2(1457.9, -1220.39)
-point_in = Vector2(0, 0)
-point_out = Vector2(0, 0)
-properties = SubResource("Resource_kitjf")
-
-[sub_resource type="Resource" id="Resource_u5b0p"]
-script = ExtResource("3_wdteq")
-texture_idx = 0
+texture_idx = 1
 flip = false
 width = 1.0
 
 [sub_resource type="Resource" id="Resource_5fi5q"]
 script = ExtResource("4_tyfqe")
-position = Vector2(688, -56)
+position = Vector2(768, 0)
 point_in = Vector2(0, 0)
 point_out = Vector2(0, 0)
-properties = SubResource("Resource_u5b0p")
+properties = SubResource("Resource_pqj78")
 
-[sub_resource type="Resource" id="Resource_a2rk2"]
-script = ExtResource("3_wdteq")
-texture_idx = 0
-flip = false
-width = 1.0
-
-[sub_resource type="Resource" id="Resource_8ksjh"]
-script = ExtResource("4_tyfqe")
-position = Vector2(355.101, -845.722)
-point_in = Vector2(0, 0)
-point_out = Vector2(0, 0)
-properties = SubResource("Resource_a2rk2")
-
-[sub_resource type="Resource" id="Resource_2c05u"]
-script = ExtResource("3_wdteq")
-texture_idx = 0
-flip = false
-width = 1.0
-
-[sub_resource type="Resource" id="Resource_0fxlp"]
-script = ExtResource("4_tyfqe")
-position = Vector2(702.447, -857.049)
-point_in = Vector2(0, 0)
-point_out = Vector2(0, 0)
-properties = SubResource("Resource_2c05u")
-
-[sub_resource type="Resource" id="Resource_p1j7o"]
-script = ExtResource("3_wdteq")
-texture_idx = 0
-flip = false
-width = 1.0
-
-[sub_resource type="Resource" id="Resource_1rvjs"]
-script = ExtResource("4_tyfqe")
-position = Vector2(-420.157, -841.947)
-point_in = Vector2(0, 0)
-point_out = Vector2(0, 0)
-properties = SubResource("Resource_p1j7o")
-
-[sub_resource type="Resource" id="Resource_baloe"]
-script = ExtResource("3_wdteq")
-texture_idx = 0
-flip = false
-width = 1.0
-
-[sub_resource type="Resource" id="Resource_b8avt"]
-script = ExtResource("4_tyfqe")
-position = Vector2(1501.34, -845.722)
-point_in = Vector2(0, 0)
-point_out = Vector2(0, 0)
-properties = SubResource("Resource_baloe")
-
-[sub_resource type="Resource" id="Resource_tb2nt"]
-script = ExtResource("3_wdteq")
-texture_idx = 0
-flip = false
-width = 1.0
-
-[sub_resource type="Resource" id="Resource_h7cud"]
-script = ExtResource("4_tyfqe")
-position = Vector2(381.53, -1200.62)
-point_in = Vector2(0, 0)
-point_out = Vector2(0, 0)
-properties = SubResource("Resource_tb2nt")
-
-[sub_resource type="Resource" id="Resource_3xa5b"]
-script = ExtResource("3_wdteq")
-texture_idx = 0
-flip = false
-width = 1.0
-
-[sub_resource type="Resource" id="Resource_fdfms"]
-script = ExtResource("4_tyfqe")
-position = Vector2(385.306, -1816.02)
-point_in = Vector2(0, 0)
-point_out = Vector2(0, 0)
-properties = SubResource("Resource_3xa5b")
-
-[sub_resource type="Resource" id="Resource_sup55"]
-script = ExtResource("3_wdteq")
-texture_idx = 0
-flip = false
-width = 1.0
-
-[sub_resource type="Resource" id="Resource_tf0ga"]
-script = ExtResource("4_tyfqe")
-position = Vector2(702.447, -1827.35)
-point_in = Vector2(0, 0)
-point_out = Vector2(0, 0)
-properties = SubResource("Resource_sup55")
-
-[sub_resource type="Resource" id="Resource_qgyvk"]
-script = ExtResource("3_wdteq")
-texture_idx = 0
-flip = false
-width = 1.0
-
-[sub_resource type="Resource" id="Resource_gba5x"]
-script = ExtResource("4_tyfqe")
-position = Vector2(706.223, -1193.07)
-point_in = Vector2(0, 0)
-point_out = Vector2(0, 0)
-properties = SubResource("Resource_qgyvk")
-
-[sub_resource type="Resource" id="Resource_gu6tu"]
+[sub_resource type="Resource" id="Resource_opq8h"]
 script = ExtResource("3_wdteq")
 texture_idx = 0
 flip = false
@@ -240,12 +223,12 @@ width = 1.0
 
 [sub_resource type="Resource" id="Resource_32euh"]
 script = ExtResource("4_tyfqe")
-position = Vector2(-244.941, -2627.83)
+position = Vector2(392, -2752)
 point_in = Vector2(0, 0)
 point_out = Vector2(0, 0)
-properties = SubResource("Resource_gu6tu")
+properties = SubResource("Resource_opq8h")
 
-[sub_resource type="Resource" id="Resource_7m8tq"]
+[sub_resource type="Resource" id="Resource_3jebl"]
 script = ExtResource("3_wdteq")
 texture_idx = 0
 flip = false
@@ -253,36 +236,10 @@ width = 1.0
 
 [sub_resource type="Resource" id="Resource_mkm0f"]
 script = ExtResource("4_tyfqe")
-position = Vector2(1191.62, -2627.83)
+position = Vector2(776, -2752)
 point_in = Vector2(0, 0)
 point_out = Vector2(0, 0)
-properties = SubResource("Resource_7m8tq")
-
-[sub_resource type="Resource" id="Resource_ta5l6"]
-script = ExtResource("3_wdteq")
-texture_idx = 0
-flip = false
-width = 1.0
-
-[sub_resource type="Resource" id="Resource_x8p10"]
-script = ExtResource("4_tyfqe")
-position = Vector2(-235.427, -1828.68)
-point_in = Vector2(0, 0)
-point_out = Vector2(0, 0)
-properties = SubResource("Resource_ta5l6")
-
-[sub_resource type="Resource" id="Resource_q8lq8"]
-script = ExtResource("3_wdteq")
-texture_idx = 0
-flip = false
-width = 1.0
-
-[sub_resource type="Resource" id="Resource_xnnxs"]
-script = ExtResource("4_tyfqe")
-position = Vector2(1229.68, -1814.41)
-point_in = Vector2(0, 0)
-point_out = Vector2(0, 0)
-properties = SubResource("Resource_q8lq8")
+properties = SubResource("Resource_3jebl")
 
 [sub_resource type="Resource" id="Resource_dw3sq"]
 script = ExtResource("3_wdteq")
@@ -292,12 +249,12 @@ width = 1.0
 
 [sub_resource type="Resource" id="Resource_ycoyu"]
 script = ExtResource("4_tyfqe")
-position = Vector2(431.83, 695.589)
+position = Vector2(448, 704)
 point_in = Vector2(0, 0)
 point_out = Vector2(0, 0)
 properties = SubResource("Resource_dw3sq")
 
-[sub_resource type="Resource" id="Resource_rjwnh"]
+[sub_resource type="Resource" id="Resource_m5byj"]
 script = ExtResource("3_wdteq")
 texture_idx = 0
 flip = false
@@ -305,12 +262,12 @@ width = 1.0
 
 [sub_resource type="Resource" id="Resource_e8sdq"]
 script = ExtResource("4_tyfqe")
-position = Vector2(708.038, 692.414)
+position = Vector2(704, 704)
 point_in = Vector2(0, 0)
 point_out = Vector2(0, 0)
-properties = SubResource("Resource_rjwnh")
+properties = SubResource("Resource_m5byj")
 
-[sub_resource type="Resource" id="Resource_x11tj"]
+[sub_resource type="Resource" id="Resource_o1eac"]
 script = ExtResource("3_wdteq")
 texture_idx = 0
 flip = false
@@ -318,10 +275,10 @@ width = 1.0
 
 [sub_resource type="Resource" id="Resource_d4xha"]
 script = ExtResource("4_tyfqe")
-position = Vector2(384, 1344)
+position = Vector2(440, 2288)
 point_in = Vector2(0, 0)
 point_out = Vector2(0, 0)
-properties = SubResource("Resource_x11tj")
+properties = SubResource("Resource_o1eac")
 
 [sub_resource type="Resource" id="Resource_arddf"]
 script = ExtResource("3_wdteq")
@@ -331,12 +288,12 @@ width = 1.0
 
 [sub_resource type="Resource" id="Resource_5eu53"]
 script = ExtResource("4_tyfqe")
-position = Vector2(768, 1408)
+position = Vector2(712, 2288)
 point_in = Vector2(0, 0)
 point_out = Vector2(0, 0)
 properties = SubResource("Resource_arddf")
 
-[sub_resource type="Resource" id="Resource_nj4mw"]
+[sub_resource type="Resource" id="Resource_onc25"]
 script = ExtResource("3_wdteq")
 texture_idx = 0
 flip = false
@@ -344,12 +301,12 @@ width = 1.0
 
 [sub_resource type="Resource" id="Resource_hwcj1"]
 script = ExtResource("4_tyfqe")
-position = Vector2(-3008, 1344)
+position = Vector2(-3904, 2304)
 point_in = Vector2(0, 0)
 point_out = Vector2(0, 0)
-properties = SubResource("Resource_nj4mw")
+properties = SubResource("Resource_onc25")
 
-[sub_resource type="Resource" id="Resource_gllbh"]
+[sub_resource type="Resource" id="Resource_n4rke"]
 script = ExtResource("3_wdteq")
 texture_idx = 0
 flip = false
@@ -357,12 +314,12 @@ width = 1.0
 
 [sub_resource type="Resource" id="Resource_olljo"]
 script = ExtResource("4_tyfqe")
-position = Vector2(-2752, -3584)
+position = Vector2(-3960, -4896)
 point_in = Vector2(0, 0)
 point_out = Vector2(0, 0)
-properties = SubResource("Resource_gllbh")
+properties = SubResource("Resource_n4rke")
 
-[sub_resource type="Resource" id="Resource_j3ry7"]
+[sub_resource type="Resource" id="Resource_dyv46"]
 script = ExtResource("3_wdteq")
 texture_idx = 0
 flip = false
@@ -370,12 +327,12 @@ width = 1.0
 
 [sub_resource type="Resource" id="Resource_4qear"]
 script = ExtResource("4_tyfqe")
-position = Vector2(3584, -3584)
+position = Vector2(4824, -4880)
 point_in = Vector2(0, 0)
 point_out = Vector2(0, 0)
-properties = SubResource("Resource_j3ry7")
+properties = SubResource("Resource_dyv46")
 
-[sub_resource type="Resource" id="Resource_m5o75"]
+[sub_resource type="Resource" id="Resource_3o2bg"]
 script = ExtResource("3_wdteq")
 texture_idx = 0
 flip = false
@@ -383,10 +340,10 @@ width = 1.0
 
 [sub_resource type="Resource" id="Resource_7bpnt"]
 script = ExtResource("4_tyfqe")
-position = Vector2(3520, 1344)
+position = Vector2(4864, 2296)
 point_in = Vector2(0, 0)
 point_out = Vector2(0, 0)
-properties = SubResource("Resource_m5o75")
+properties = SubResource("Resource_3o2bg")
 
 [sub_resource type="Resource" id="Resource_nmmxe"]
 script = ExtResource("5_0qflf")
@@ -397,21 +354,9 @@ _points = {
 3: SubResource("Resource_4fubb"),
 4: SubResource("Resource_n884t"),
 7: SubResource("Resource_4h2jd"),
-8: SubResource("Resource_hvhya"),
-9: SubResource("Resource_ox0af"),
 10: SubResource("Resource_5fi5q"),
-12: SubResource("Resource_8ksjh"),
-13: SubResource("Resource_0fxlp"),
-14: SubResource("Resource_1rvjs"),
-15: SubResource("Resource_b8avt"),
-16: SubResource("Resource_h7cud"),
-17: SubResource("Resource_fdfms"),
-18: SubResource("Resource_tf0ga"),
-19: SubResource("Resource_gba5x"),
 20: SubResource("Resource_32euh"),
 21: SubResource("Resource_mkm0f"),
-22: SubResource("Resource_x8p10"),
-23: SubResource("Resource_xnnxs"),
 24: SubResource("Resource_ycoyu"),
 25: SubResource("Resource_e8sdq"),
 26: SubResource("Resource_d4xha"),
@@ -421,11 +366,11 @@ _points = {
 30: SubResource("Resource_4qear"),
 31: SubResource("Resource_7bpnt")
 }
-_point_order = PackedInt32Array(4, 3, 24, 26, 28, 29, 30, 31, 27, 25, 2, 1, 10, 13, 15, 9, 19, 18, 23, 21, 20, 22, 17, 16, 8, 14, 12, 7, 0)
+_point_order = PackedInt32Array(4, 3, 24, 26, 28, 29, 30, 31, 27, 25, 2, 1, 10, 21, 20, 7, 0)
 _constraints = {
 Vector2i(0, 4): 15
 }
-_next_key = 32
+_next_key = 33
 _material_overrides = {}
 tessellation_stages = 3
 tessellation_tolerance = 6.0
@@ -433,44 +378,236 @@ curve_bake_interval = 20.0
 
 [node name="LevelBase2" instance=ExtResource("1_3oodm")]
 
-[node name="Floor2Entrance" type="Node2D" parent="EntryPoints" index="0"]
-position = Vector2(589, 512)
+[node name="Floor2" type="Node2D" parent="EntryPoints" index="0"]
+position = Vector2(576, 736)
 
-[node name="CanvasModulate" type="CanvasModulate" parent="." index="7"]
+[node name="Floor2Left" type="Node2D" parent="EntryPoints" index="1"]
+position = Vector2(194, -1020)
+
+[node name="Floor2Right" type="Node2D" parent="EntryPoints" index="2"]
+position = Vector2(950, -1025)
+
+[node name="Lighting" type="Node" parent="." index="8"]
+
+[node name="CanvasModulate" type="CanvasModulate" parent="Lighting" index="0"]
 color = Color(0.569921, 0.557911, 0.512175, 1)
 
-[node name="TileMapLayer" type="TileMapLayer" parent="." index="8"]
-z_index = -10
-scale = Vector2(0.5, 0.5)
-tile_map_data = PackedByteArray("AAD4/+r/AAACAAIAAAD4/+v/AAABAAAAAAD4/+z/AAACAAAAAAD4/+3/AAABAAIAAAD4/+7/AAAEAAAAAAD4/+//AAACAAEAAAD4//D/AAADAAIAAAD4//H/AAAAAAEAAAD4//L/AAAAAAEAAAD4//P/AAADAAIAAAD4//T/AAADAAIAAAD4//X/AAAEAAAAAAD4//b/AAAEAAAAAAD4//f/AAABAAIAAAD4//j/AAAAAAEAAAD4//n/AAAAAAAAAAD4//r/AAADAAEAAAD4//v/AAAAAAIAAAD4//z/AAADAAIAAAD4//3/AAADAAEAAAD4//7/AAABAAEAAAD4////AAABAAEAAAD4/wAAAAADAAIAAAD4/wEAAAABAAAAAAD4/wIAAAACAAEAAAD4/wMAAAACAAEAAAD4/wQAAAACAAIAAAD4/wUAAAADAAIAAAD4/wYAAAAAAAEAAAD4/wcAAAADAAIAAAD4/wgAAAAAAAIAAAD4/wkAAAABAAIAAAD5/+r/AAACAAIAAAD5/+v/AAABAAEAAAD5/+z/AAAAAAIAAAD5/+3/AAABAAAAAAD5/+7/AAADAAIAAAD5/+//AAABAAEAAAD5//D/AAAAAAEAAAD5//H/AAACAAIAAAD5//L/AAABAAAAAAD5//P/AAABAAIAAAD5//T/AAACAAAAAAD5//X/AAACAAAAAAD5//b/AAACAAAAAAD5//f/AAABAAEAAAD5//j/AAADAAAAAAD5//n/AAADAAIAAAD5//r/AAACAAAAAAD5//v/AAAEAAAAAAD5//z/AAADAAEAAAD5//3/AAAAAAAAAAD5//7/AAACAAAAAAD5////AAABAAEAAAD5/wAAAAACAAIAAAD5/wEAAAAAAAEAAAD5/wIAAAABAAIAAAD5/wMAAAAEAAAAAAD5/wQAAAADAAEAAAD5/wUAAAADAAAAAAD5/wYAAAACAAAAAAD5/wcAAAACAAEAAAD5/wgAAAACAAAAAAD5/wkAAAABAAAAAAD6/+r/AAABAAIAAAD6/+v/AAAAAAIAAAD6/+z/AAACAAIAAAD6/+3/AAABAAAAAAD6/+7/AAAAAAEAAAD6/+//AAAAAAEAAAD6//D/AAADAAEAAAD6//H/AAAEAAAAAAD6//L/AAADAAAAAAD6//P/AAABAAIAAAD6//T/AAAAAAAAAAD6//X/AAAAAAAAAAD6//b/AAADAAEAAAD6//f/AAACAAAAAAD6//j/AAABAAEAAAD6//n/AAADAAAAAAD6//r/AAABAAIAAAD6//v/AAABAAAAAAD6//z/AAAAAAEAAAD6//3/AAACAAAAAAD6//7/AAAAAAAAAAD6////AAADAAAAAAD6/wAAAAADAAAAAAD6/wEAAAACAAEAAAD6/wIAAAAAAAEAAAD6/wMAAAACAAEAAAD6/wQAAAADAAIAAAD6/wUAAAAEAAAAAAD6/wYAAAAEAAAAAAD6/wcAAAACAAAAAAD6/wgAAAACAAAAAAD6/wkAAAADAAAAAAD7/+r/AAABAAIAAAD7/+v/AAAEAAAAAAD7/+z/AAACAAIAAAD7/+3/AAABAAAAAAD7/+7/AAAEAAAAAAD7/+//AAAEAAAAAAD7//D/AAAAAAEAAAD7//H/AAABAAAAAAD7//L/AAACAAIAAAD7//P/AAAEAAAAAAD7//T/AAAAAAEAAAD7//X/AAAAAAEAAAD7//b/AAABAAAAAAD7//f/AAADAAEAAAD7//j/AAACAAIAAAD7//n/AAADAAEAAAD7//r/AAADAAAAAAD7//v/AAAAAAEAAAD7//z/AAAEAAAAAAD7//3/AAACAAAAAAD7//7/AAADAAEAAAD7////AAABAAIAAAD7/wAAAAAAAAAAAAD7/wEAAAAEAAAAAAD7/wIAAAADAAIAAAD7/wMAAAADAAAAAAD7/wQAAAAAAAEAAAD7/wUAAAAAAAEAAAD7/wYAAAABAAAAAAD7/wcAAAABAAIAAAD7/wgAAAAAAAAAAAD7/wkAAAADAAIAAAD8/+r/AAAEAAAAAAD8/+v/AAACAAIAAAD8/+z/AAABAAEAAAD8/+3/AAABAAAAAAD8/+7/AAADAAIAAAD8/+//AAAAAAAAAAD8//D/AAABAAIAAAD8//H/AAACAAIAAAD8//L/AAADAAIAAAD8//P/AAABAAAAAAD8//T/AAACAAAAAAD8//X/AAABAAEAAAD8//b/AAAAAAIAAAD8//f/AAABAAAAAAD8//j/AAABAAAAAAD8//n/AAADAAIAAAD8//r/AAAAAAEAAAD8//v/AAAAAAEAAAD8//z/AAACAAAAAAD8//3/AAACAAIAAAD8//7/AAABAAAAAAD8////AAABAAAAAAD8/wAAAAAAAAEAAAD8/wEAAAACAAIAAAD8/wIAAAACAAAAAAD8/wMAAAADAAIAAAD8/wQAAAAAAAIAAAD8/wUAAAABAAEAAAD8/wYAAAADAAIAAAD8/wcAAAAAAAAAAAD8/wgAAAAAAAAAAAD8/wkAAAADAAEAAAD9/+r/AAADAAEAAAD9/+v/AAADAAEAAAD9/+z/AAADAAIAAAD9/+3/AAAEAAAAAAD9/+7/AAAAAAAAAAD9/+//AAAAAAEAAAD9//D/AAADAAAAAAD9//H/AAABAAEAAAD9//L/AAAAAAAAAAD9//P/AAADAAEAAAD9//T/AAAAAAIAAAD9//X/AAACAAIAAAD9//b/AAAEAAAAAAD9//f/AAACAAAAAAD9//j/AAADAAEAAAD9//n/AAACAAAAAAD9//r/AAAEAAAAAAD9//v/AAABAAAAAAD9//z/AAADAAIAAAD9//3/AAABAAIAAAD9//7/AAABAAEAAAD9////AAACAAAAAAD9/wAAAAACAAEAAAD9/wEAAAADAAEAAAD9/wIAAAAAAAIAAAD9/wMAAAACAAAAAAD9/wQAAAABAAIAAAD9/wUAAAADAAAAAAD9/wYAAAAAAAEAAAD9/wcAAAAAAAAAAAD9/wgAAAABAAEAAAD9/wkAAAACAAEAAAD+/+r/AAABAAEAAAD+/+v/AAACAAIAAAD+/+z/AAACAAAAAAD+/+3/AAABAAIAAAD+/+7/AAAEAAAAAAD+/+//AAACAAEAAAD+//D/AAACAAEAAAD+//H/AAABAAAAAAD+//L/AAACAAAAAAD+//P/AAACAAEAAAD+//T/AAACAAAAAAD+//X/AAAEAAAAAAD+//b/AAACAAEAAAD+//f/AAAAAAIAAAD+//j/AAACAAEAAAD+//n/AAADAAEAAAD+//r/AAAEAAAAAAD+//v/AAAAAAEAAAD+//z/AAADAAAAAAD+//3/AAAAAAEAAAD+//7/AAADAAAAAAD+////AAAAAAIAAAD+/wAAAAABAAAAAAD+/wEAAAADAAIAAAD+/wIAAAAAAAIAAAD+/wMAAAACAAEAAAD+/wQAAAACAAAAAAD+/wUAAAADAAAAAAD+/wYAAAAAAAIAAAD+/wcAAAACAAIAAAD+/wgAAAABAAIAAAD+/wkAAAACAAEAAAD//+r/AAADAAEAAAD//+v/AAADAAEAAAD//+z/AAAAAAAAAAD//+3/AAADAAAAAAD//+7/AAABAAAAAAD//+//AAAAAAAAAAD///D/AAABAAAAAAD///H/AAAEAAAAAAD///L/AAABAAEAAAD///P/AAABAAEAAAD///T/AAABAAAAAAD///X/AAAEAAAAAAD///b/AAACAAEAAAD///f/AAADAAEAAAD///j/AAABAAAAAAD///n/AAABAAAAAAD///r/AAADAAAAAAD///v/AAABAAEAAAD///z/AAAAAAEAAAD///3/AAABAAEAAAD///7/AAABAAEAAAD/////AAADAAAAAAD//wAAAAADAAIAAAD//wEAAAAAAAIAAAD//wIAAAAEAAAAAAD//wMAAAAEAAAAAAD//wQAAAACAAAAAAD//wUAAAADAAIAAAD//wYAAAACAAAAAAD//wcAAAACAAIAAAD//wgAAAAAAAEAAAD//wkAAAAAAAEAAAAAAOr/AAACAAIAAAAAAOv/AAAEAAAAAAAAAOz/AAAAAAAAAAAAAO3/AAADAAAAAAAAAO7/AAACAAAAAAAAAO//AAAAAAIAAAAAAPD/AAABAAEAAAAAAPH/AAADAAIAAAAAAPL/AAABAAIAAAAAAPP/AAABAAIAAAAAAPT/AAAAAAIAAAAAAPX/AAACAAAAAAAAAPb/AAAAAAAAAAAAAPf/AAACAAEAAAAAAPj/AAADAAIAAAAAAPn/AAABAAAAAAAAAPr/AAABAAIAAAAAAPv/AAABAAEAAAAAAPz/AAADAAEAAAAAAP3/AAABAAEAAAAAAP7/AAABAAIAAAAAAP//AAADAAAAAAAAAAAAAAAAAAEAAAAAAAEAAAAAAAEAAAAAAAIAAAAAAAIAAAAAAAMAAAADAAIAAAAAAAQAAAABAAEAAAAAAAUAAAABAAIAAAAAAAYAAAAAAAEAAAAAAAcAAAAAAAAAAAAAAAgAAAACAAAAAAAAAAkAAAACAAAAAAABAOr/AAAEAAAAAAABAOv/AAAAAAEAAAABAOz/AAAEAAAAAAABAO3/AAABAAEAAAABAO7/AAACAAEAAAABAO//AAADAAIAAAABAPD/AAAEAAAAAAABAPH/AAABAAAAAAABAPL/AAACAAEAAAABAPP/AAACAAEAAAABAPT/AAABAAIAAAABAPX/AAADAAIAAAABAPb/AAACAAAAAAABAPf/AAADAAEAAAABAPj/AAAAAAEAAAABAPn/AAADAAIAAAABAPr/AAAAAAIAAAABAPv/AAABAAAAAAABAPz/AAAAAAAAAAABAP3/AAAAAAEAAAABAP7/AAADAAIAAAABAP//AAAEAAAAAAABAAAAAAADAAEAAAABAAEAAAABAAIAAAABAAIAAAABAAAAAAABAAMAAAADAAEAAAABAAQAAAABAAEAAAABAAUAAAACAAIAAAABAAYAAAACAAIAAAABAAcAAAAAAAAAAAABAAgAAAADAAAAAAABAAkAAAAAAAIAAAACAOr/AAABAAAAAAACAOv/AAABAAIAAAACAOz/AAABAAEAAAACAO3/AAABAAIAAAACAO7/AAACAAAAAAACAO//AAACAAAAAAACAPD/AAABAAAAAAACAPH/AAAAAAIAAAACAPL/AAACAAIAAAACAPP/AAACAAAAAAACAPT/AAAEAAAAAAACAPX/AAADAAAAAAACAPb/AAABAAIAAAACAPf/AAAEAAAAAAACAPj/AAABAAAAAAACAPn/AAABAAIAAAACAPr/AAABAAAAAAACAPv/AAACAAAAAAACAPz/AAAAAAEAAAACAP3/AAABAAIAAAACAP7/AAADAAAAAAACAP//AAADAAEAAAACAAAAAAABAAEAAAACAAEAAAABAAEAAAACAAIAAAAEAAAAAAACAAMAAAACAAIAAAACAAQAAAAEAAAAAAACAAUAAAABAAIAAAACAAYAAAAAAAIAAAACAAcAAAABAAEAAAACAAgAAAAAAAAAAAACAAkAAAADAAEAAAADAOr/AAADAAAAAAADAOv/AAABAAEAAAADAOz/AAAAAAIAAAADAO3/AAADAAEAAAADAO7/AAADAAIAAAADAO//AAAAAAEAAAADAPD/AAAEAAAAAAADAPH/AAAAAAEAAAADAPL/AAABAAEAAAADAPP/AAAAAAIAAAADAPT/AAAAAAIAAAADAPX/AAADAAEAAAADAPb/AAADAAEAAAADAPf/AAACAAIAAAADAPj/AAAEAAAAAAADAPn/AAABAAEAAAADAPr/AAAAAAIAAAADAPv/AAADAAEAAAADAPz/AAACAAEAAAADAP3/AAAAAAAAAAADAP7/AAAEAAAAAAADAP//AAABAAEAAAADAAAAAAAAAAAAAAADAAEAAAABAAEAAAADAAIAAAAAAAAAAAADAAMAAAAEAAAAAAADAAQAAAACAAAAAAADAAUAAAACAAIAAAADAAYAAAADAAIAAAADAAcAAAAAAAAAAAADAAgAAAAAAAAAAAADAAkAAAAAAAAAAAAEAOr/AAABAAEAAAAEAOv/AAACAAAAAAAEAOz/AAABAAAAAAAEAO3/AAAAAAEAAAAEAO7/AAADAAEAAAAEAO//AAADAAIAAAAEAPD/AAABAAEAAAAEAPH/AAAEAAAAAAAEAPL/AAADAAIAAAAEAPP/AAABAAIAAAAEAPT/AAABAAIAAAAEAPX/AAABAAIAAAAEAPb/AAADAAEAAAAEAPf/AAADAAEAAAAEAPj/AAACAAAAAAAEAPn/AAACAAIAAAAEAPr/AAADAAAAAAAEAPv/AAACAAAAAAAEAPz/AAAEAAAAAAAEAP3/AAAEAAAAAAAEAP7/AAACAAEAAAAEAP//AAACAAAAAAAEAAAAAAADAAEAAAAEAAEAAAACAAIAAAAEAAIAAAABAAEAAAAEAAMAAAADAAEAAAAEAAQAAAABAAIAAAAEAAUAAAADAAEAAAAEAAYAAAADAAEAAAAEAAcAAAACAAAAAAAEAAgAAAADAAIAAAAEAAkAAAABAAAAAAAFAOr/AAACAAIAAAAFAOv/AAACAAAAAAAFAOz/AAABAAEAAAAFAO3/AAACAAIAAAAFAO7/AAADAAAAAAAFAO//AAACAAAAAAAFAPD/AAAAAAIAAAAFAPH/AAAEAAAAAAAFAPL/AAADAAAAAAAFAPP/AAACAAAAAAAFAPT/AAACAAIAAAAFAPX/AAADAAEAAAAFAPb/AAACAAAAAAAFAPf/AAABAAAAAAAFAPj/AAADAAEAAAAFAPn/AAACAAAAAAAFAPr/AAACAAIAAAAFAPv/AAADAAEAAAAFAPz/AAAAAAEAAAAFAP3/AAABAAEAAAAFAP7/AAAEAAAAAAAFAP//AAAAAAAAAAAFAAAAAAABAAIAAAAFAAEAAAACAAAAAAAFAAIAAAACAAIAAAAFAAMAAAACAAAAAAAFAAQAAAAAAAIAAAAFAAUAAAACAAAAAAAFAAYAAAAAAAAAAAAFAAcAAAADAAEAAAAFAAgAAAACAAIAAAAFAAkAAAABAAIAAAAGAOr/AAABAAEAAAAGAOv/AAAAAAIAAAAGAOz/AAACAAIAAAAGAO3/AAAAAAAAAAAGAO7/AAAAAAIAAAAGAO//AAAEAAAAAAAGAPD/AAABAAIAAAAGAPH/AAAEAAAAAAAGAPL/AAADAAAAAAAGAPP/AAAAAAIAAAAGAPT/AAACAAAAAAAGAPX/AAAAAAIAAAAGAPb/AAADAAEAAAAGAPf/AAABAAEAAAAGAPj/AAACAAAAAAAGAPn/AAACAAEAAAAGAPr/AAAEAAAAAAAGAPv/AAACAAEAAAAGAPz/AAAAAAEAAAAGAP3/AAAAAAIAAAAGAP7/AAADAAAAAAAGAP//AAACAAAAAAAGAAAAAAACAAAAAAAGAAEAAAADAAIAAAAGAAIAAAADAAAAAAAGAAMAAAAAAAAAAAAGAAQAAAAAAAIAAAAGAAUAAAACAAIAAAAGAAYAAAACAAAAAAAGAAcAAAADAAAAAAAGAAgAAAABAAAAAAAGAAkAAAAAAAEAAAAHAOr/AAAAAAAAAAAHAOv/AAACAAIAAAAHAOz/AAACAAEAAAAHAO3/AAABAAEAAAAHAO7/AAADAAAAAAAHAO//AAABAAAAAAAHAPD/AAABAAIAAAAHAPH/AAACAAAAAAAHAPL/AAADAAIAAAAHAPP/AAADAAAAAAAHAPT/AAACAAIAAAAHAPX/AAADAAEAAAAHAPb/AAAAAAEAAAAHAPf/AAAAAAIAAAAHAPj/AAABAAEAAAAHAPn/AAADAAIAAAAHAPr/AAACAAAAAAAHAPv/AAACAAAAAAAHAPz/AAAAAAEAAAAHAP3/AAAEAAAAAAAHAP7/AAADAAEAAAAHAP//AAAAAAAAAAAHAAAAAAAEAAAAAAAHAAEAAAABAAEAAAAHAAIAAAABAAAAAAAHAAMAAAACAAIAAAAHAAQAAAACAAIAAAAHAAUAAAAAAAEAAAAHAAYAAAABAAEAAAAHAAcAAAAAAAIAAAAHAAgAAAAAAAEAAAAHAAkAAAABAAEAAAAIAOr/AAADAAIAAAAIAOv/AAACAAIAAAAIAOz/AAADAAIAAAAIAO3/AAACAAAAAAAIAO7/AAADAAEAAAAIAO//AAADAAEAAAAIAPD/AAABAAAAAAAIAPH/AAABAAAAAAAIAPL/AAACAAAAAAAIAPP/AAACAAEAAAAIAPT/AAAEAAAAAAAIAPX/AAADAAAAAAAIAPb/AAAAAAIAAAAIAPf/AAADAAAAAAAIAPj/AAADAAAAAAAIAPn/AAADAAAAAAAIAPr/AAAAAAAAAAAIAPv/AAABAAIAAAAIAPz/AAADAAAAAAAIAP3/AAABAAIAAAAIAP7/AAABAAAAAAAIAP//AAABAAEAAAAIAAAAAAAAAAAAAAAIAAEAAAAEAAAAAAAIAAIAAAACAAEAAAAIAAMAAAABAAEAAAAIAAQAAAABAAAAAAAIAAUAAAADAAIAAAAIAAYAAAAEAAAAAAAIAAcAAAACAAIAAAAIAAgAAAABAAEAAAAIAAkAAAADAAEAAAAJAOr/AAABAAAAAAAJAOv/AAAAAAEAAAAJAOz/AAABAAEAAAAJAO3/AAAAAAIAAAAJAO7/AAABAAAAAAAJAO//AAACAAIAAAAJAPD/AAAAAAAAAAAJAPH/AAADAAAAAAAJAPL/AAADAAAAAAAJAPP/AAADAAIAAAAJAPT/AAADAAEAAAAJAPX/AAABAAIAAAAJAPb/AAAAAAEAAAAJAPf/AAABAAEAAAAJAPj/AAACAAIAAAAJAPn/AAAAAAIAAAAJAPr/AAACAAAAAAAJAPv/AAADAAIAAAAJAPz/AAACAAEAAAAJAP3/AAABAAAAAAAJAP7/AAABAAAAAAAJAP//AAAAAAIAAAAJAAAAAAADAAIAAAAJAAEAAAABAAIAAAAJAAIAAAADAAAAAAAJAAMAAAACAAAAAAAJAAQAAAABAAEAAAAJAAUAAAADAAEAAAAJAAYAAAACAAEAAAAJAAcAAAABAAAAAAAJAAgAAAADAAIAAAAJAAkAAAACAAAAAAAKAOr/AAADAAEAAAAKAOv/AAAAAAEAAAAKAOz/AAABAAAAAAAKAO3/AAACAAEAAAAKAO7/AAACAAEAAAAKAO//AAABAAIAAAAKAPD/AAABAAAAAAAKAPH/AAABAAAAAAAKAPL/AAAEAAAAAAAKAPP/AAACAAIAAAAKAPT/AAADAAAAAAAKAPX/AAAAAAAAAAAKAPb/AAADAAEAAAAKAPf/AAACAAAAAAAKAPj/AAADAAAAAAAKAPn/AAABAAAAAAAKAPr/AAAAAAAAAAAKAPv/AAAEAAAAAAAKAPz/AAADAAEAAAAKAP3/AAACAAIAAAAKAP7/AAAEAAAAAAAKAP//AAAAAAAAAAAKAAAAAAAEAAAAAAAKAAEAAAABAAAAAAAKAAIAAAABAAAAAAAKAAMAAAAAAAEAAAAKAAQAAAABAAAAAAAKAAUAAAABAAAAAAAKAAYAAAABAAAAAAAKAAcAAAADAAEAAAAKAAgAAAACAAIAAAAKAAkAAAADAAIAAAALAOr/AAADAAIAAAALAOv/AAAAAAIAAAALAOz/AAACAAEAAAALAO3/AAACAAAAAAALAO7/AAABAAIAAAALAO//AAACAAAAAAALAPD/AAAAAAIAAAALAPH/AAAEAAAAAAALAPL/AAABAAAAAAALAPP/AAADAAIAAAALAPT/AAACAAEAAAALAPX/AAACAAAAAAALAPb/AAABAAIAAAALAPf/AAACAAEAAAALAPj/AAACAAAAAAALAPn/AAADAAEAAAALAPr/AAAAAAAAAAALAPv/AAAAAAAAAAALAPz/AAABAAAAAAALAP3/AAAAAAEAAAALAP7/AAACAAIAAAALAP//AAADAAEAAAALAAAAAAAAAAEAAAALAAEAAAAAAAIAAAALAAIAAAABAAIAAAALAAMAAAAAAAEAAAALAAQAAAAEAAAAAAALAAUAAAAEAAAAAAALAAYAAAADAAEAAAALAAcAAAAEAAAAAAALAAgAAAADAAIAAAALAAkAAAAEAAAAAAAMAOr/AAADAAAAAAAMAOv/AAAEAAAAAAAMAOz/AAACAAAAAAAMAO3/AAACAAIAAAAMAO7/AAABAAAAAAAMAO//AAAAAAIAAAAMAPD/AAAAAAAAAAAMAPH/AAABAAAAAAAMAPL/AAABAAIAAAAMAPP/AAABAAIAAAAMAPT/AAACAAEAAAAMAPX/AAABAAAAAAAMAPb/AAACAAEAAAAMAPf/AAADAAEAAAAMAPj/AAACAAEAAAAMAPn/AAACAAEAAAAMAPr/AAABAAAAAAAMAPv/AAACAAIAAAAMAPz/AAAAAAEAAAAMAP3/AAACAAEAAAAMAP7/AAABAAIAAAAMAP//AAADAAEAAAAMAAAAAAACAAIAAAAMAAEAAAAAAAAAAAAMAAIAAAADAAAAAAAMAAMAAAACAAIAAAAMAAQAAAAAAAIAAAAMAAUAAAADAAIAAAAMAAYAAAAEAAAAAAAMAAcAAAABAAEAAAAMAAgAAAADAAAAAAAMAAkAAAAAAAAAAAANAOr/AAAAAAIAAAANAOv/AAAAAAIAAAANAOz/AAAAAAAAAAANAO3/AAADAAEAAAANAO7/AAAAAAEAAAANAO//AAABAAAAAAANAPD/AAAEAAAAAAANAPH/AAAAAAIAAAANAPL/AAAEAAAAAAANAPP/AAAEAAAAAAANAPT/AAAEAAAAAAANAPX/AAAAAAIAAAANAPb/AAABAAIAAAANAPf/AAAAAAAAAAANAPj/AAACAAEAAAANAPn/AAAAAAAAAAANAPr/AAACAAEAAAANAPv/AAABAAIAAAANAPz/AAACAAIAAAANAP3/AAADAAAAAAANAP7/AAADAAIAAAANAP//AAAEAAAAAAANAAAAAAADAAAAAAANAAEAAAAAAAEAAAANAAIAAAACAAIAAAANAAMAAAADAAEAAAANAAQAAAADAAEAAAANAAUAAAABAAEAAAANAAYAAAAAAAIAAAANAAcAAAACAAIAAAANAAgAAAAAAAEAAAANAAkAAAADAAIAAAAOAOr/AAACAAEAAAAOAOv/AAAAAAAAAAAOAOz/AAAAAAEAAAAOAO3/AAADAAIAAAAOAO7/AAAAAAAAAAAOAO//AAAAAAEAAAAOAPD/AAACAAIAAAAOAPH/AAABAAAAAAAOAPL/AAACAAEAAAAOAPP/AAACAAEAAAAOAPT/AAABAAEAAAAOAPX/AAADAAIAAAAOAPb/AAADAAIAAAAOAPf/AAAEAAAAAAAOAPj/AAAEAAAAAAAOAPn/AAADAAEAAAAOAPr/AAAEAAAAAAAOAPv/AAAAAAIAAAAOAPz/AAAAAAEAAAAOAP3/AAACAAIAAAAOAP7/AAABAAAAAAAOAP//AAAAAAAAAAAOAAAAAAAEAAAAAAAOAAEAAAAAAAAAAAAOAAIAAAABAAAAAAAOAAMAAAAAAAEAAAAOAAQAAAADAAEAAAAOAAUAAAACAAEAAAAOAAYAAAABAAEAAAAOAAcAAAABAAIAAAAOAAgAAAACAAIAAAAOAAkAAAABAAEAAAAPAOr/AAACAAEAAAAPAOv/AAAAAAAAAAAPAOz/AAADAAEAAAAPAO3/AAABAAIAAAAPAO7/AAABAAEAAAAPAO//AAACAAEAAAAPAPD/AAAAAAAAAAAPAPH/AAADAAEAAAAPAPL/AAABAAEAAAAPAPP/AAABAAAAAAAPAPT/AAAAAAAAAAAPAPX/AAABAAEAAAAPAPb/AAAAAAAAAAAPAPf/AAAAAAIAAAAPAPj/AAADAAIAAAAPAPn/AAAEAAAAAAAPAPr/AAADAAEAAAAPAPv/AAABAAIAAAAPAPz/AAACAAEAAAAPAP3/AAADAAAAAAAPAP7/AAADAAIAAAAPAP//AAAAAAEAAAAPAAAAAAADAAIAAAAPAAEAAAADAAIAAAAPAAIAAAADAAIAAAAPAAMAAAABAAAAAAAPAAQAAAABAAIAAAAPAAUAAAACAAIAAAAPAAYAAAAAAAIAAAAPAAcAAAACAAEAAAAPAAgAAAACAAAAAAAPAAkAAAACAAIAAAAQAOr/AAAAAAEAAAAQAOv/AAAAAAAAAAAQAOz/AAAEAAAAAAAQAO3/AAAAAAAAAAAQAO7/AAABAAIAAAAQAO//AAABAAIAAAAQAPD/AAAAAAIAAAAQAPH/AAAAAAIAAAAQAPL/AAACAAAAAAAQAPP/AAADAAIAAAAQAPT/AAAAAAIAAAAQAPX/AAAAAAAAAAAQAPb/AAABAAEAAAAQAPf/AAAAAAIAAAAQAPj/AAACAAAAAAAQAPn/AAAAAAEAAAAQAPr/AAADAAIAAAAQAPv/AAACAAAAAAAQAPz/AAABAAEAAAAQAP3/AAAAAAIAAAAQAP7/AAAAAAAAAAAQAP//AAADAAIAAAAQAAAAAAAAAAEAAAAQAAEAAAADAAAAAAAQAAIAAAADAAAAAAAQAAMAAAADAAIAAAAQAAQAAAACAAEAAAAQAAUAAAAAAAIAAAAQAAYAAAACAAEAAAAQAAcAAAACAAEAAAAQAAgAAAACAAAAAAAQAAkAAAAAAAIAAAA=")
-tile_set = ExtResource("2_f0q7p")
+[node name="Candle" parent="Lighting" index="1" instance=ExtResource("2_80vrp")]
+position = Vector2(702, -300)
 
-[node name="SS2D_Shape" type="Node2D" parent="." index="9"]
+[node name="Candle2" parent="Lighting" index="2" instance=ExtResource("2_80vrp")]
+position = Vector2(448, -746)
+
+[node name="Candle3" parent="Lighting" index="3" instance=ExtResource("2_80vrp")]
+position = Vector2(698, -1196)
+
+[node name="Walls" type="Node" parent="." index="9"]
+
+[node name="Doors" type="Node" parent="Walls" index="0"]
+
+[node name="Door Shadows" type="Node" parent="Walls/Doors" index="0"]
+
+[node name="Entrance" type="Node2D" parent="Walls/Doors/Door Shadows" index="0"]
+position = Vector2(1177, 783)
+rotation = -3.14159
+
+[node name="SS2D_Shape" type="Node2D" parent="Walls/Doors/Door Shadows/Entrance" index="0"]
+script = ExtResource("2_heehg")
+_points = SubResource("Resource_h1mh3")
+shape_material = ExtResource("7_fb4mo")
+
+[node name="SS2D_Shape2" type="Node2D" parent="Walls/Doors/Door Shadows/Entrance" index="1"]
+position = Vector2(6.64413e-06, -76)
+script = ExtResource("2_heehg")
+_points = SubResource("Resource_h1mh3")
+shape_material = ExtResource("7_fb4mo")
+
+[node name="SS2D_Shape3" type="Node2D" parent="Walls/Doors/Door Shadows/Entrance" index="2"]
+position = Vector2(1.44248e-05, -165)
+script = ExtResource("2_heehg")
+_points = SubResource("Resource_h1mh3")
+shape_material = ExtResource("7_fb4mo")
+
+[node name="SS2D_Shape4" type="Node2D" parent="Walls/Doors/Door Shadows/Entrance" index="3"]
+position = Vector2(2.36916e-05, -271)
+script = ExtResource("2_heehg")
+_points = SubResource("Resource_h1mh3")
+shape_material = ExtResource("7_fb4mo")
+
+[node name="SS2D_Shape5" type="Node2D" parent="Walls/Doors/Door Shadows/Entrance" index="4"]
+position = Vector2(3.30458e-05, -378)
+script = ExtResource("2_heehg")
+_points = SubResource("Resource_h1mh3")
+shape_material = ExtResource("7_fb4mo")
+
+[node name="Floor2Left" type="Node2D" parent="Walls/Doors/Door Shadows" index="1"]
+position = Vector2(150, -383)
+rotation = -1.57079
+
+[node name="SS2D_Shape" type="Node2D" parent="Walls/Doors/Door Shadows/Floor2Left" index="0"]
+script = ExtResource("2_heehg")
+_points = SubResource("Resource_h1mh3")
+shape_material = ExtResource("7_fb4mo")
+
+[node name="SS2D_Shape2" type="Node2D" parent="Walls/Doors/Door Shadows/Floor2Left" index="1"]
+position = Vector2(6.64413e-06, -76)
+script = ExtResource("2_heehg")
+_points = SubResource("Resource_h1mh3")
+shape_material = ExtResource("7_fb4mo")
+
+[node name="SS2D_Shape3" type="Node2D" parent="Walls/Doors/Door Shadows/Floor2Left" index="2"]
+position = Vector2(1.44248e-05, -165)
+script = ExtResource("2_heehg")
+_points = SubResource("Resource_h1mh3")
+shape_material = ExtResource("7_fb4mo")
+
+[node name="SS2D_Shape4" type="Node2D" parent="Walls/Doors/Door Shadows/Floor2Left" index="3"]
+position = Vector2(2.36916e-05, -271)
+script = ExtResource("2_heehg")
+_points = SubResource("Resource_h1mh3")
+shape_material = ExtResource("7_fb4mo")
+
+[node name="SS2D_Shape5" type="Node2D" parent="Walls/Doors/Door Shadows/Floor2Left" index="4"]
+position = Vector2(3.30458e-05, -378)
+script = ExtResource("2_heehg")
+_points = SubResource("Resource_h1mh3")
+shape_material = ExtResource("7_fb4mo")
+
+[node name="Floor2Right" type="Node2D" parent="Walls/Doors/Door Shadows" index="2"]
+position = Vector2(968, -1600)
+rotation = -4.71238
+
+[node name="SS2D_Shape" type="Node2D" parent="Walls/Doors/Door Shadows/Floor2Right" index="0"]
+script = ExtResource("2_heehg")
+_points = SubResource("Resource_h1mh3")
+shape_material = ExtResource("7_fb4mo")
+
+[node name="SS2D_Shape2" type="Node2D" parent="Walls/Doors/Door Shadows/Floor2Right" index="1"]
+position = Vector2(6.64413e-06, -76)
+script = ExtResource("2_heehg")
+_points = SubResource("Resource_h1mh3")
+shape_material = ExtResource("7_fb4mo")
+
+[node name="SS2D_Shape3" type="Node2D" parent="Walls/Doors/Door Shadows/Floor2Right" index="2"]
+position = Vector2(1.44248e-05, -165)
+script = ExtResource("2_heehg")
+_points = SubResource("Resource_h1mh3")
+shape_material = ExtResource("7_fb4mo")
+
+[node name="SS2D_Shape4" type="Node2D" parent="Walls/Doors/Door Shadows/Floor2Right" index="3"]
+position = Vector2(2.36916e-05, -271)
+script = ExtResource("2_heehg")
+_points = SubResource("Resource_h1mh3")
+shape_material = ExtResource("7_fb4mo")
+
+[node name="SS2D_Shape5" type="Node2D" parent="Walls/Doors/Door Shadows/Floor2Right" index="4"]
+position = Vector2(3.30458e-05, -378)
+script = ExtResource("2_heehg")
+_points = SubResource("Resource_h1mh3")
+shape_material = ExtResource("7_fb4mo")
+
+[node name="BossRoom" type="Node2D" parent="Walls/Doors/Door Shadows" index="3"]
+position = Vector2(-69, -1481)
+
+[node name="SS2D_Shape" type="Node2D" parent="Walls/Doors/Door Shadows/BossRoom" index="0"]
+script = ExtResource("2_heehg")
+_points = SubResource("Resource_h1mh3")
+shape_material = ExtResource("7_fb4mo")
+
+[node name="SS2D_Shape2" type="Node2D" parent="Walls/Doors/Door Shadows/BossRoom" index="1"]
+position = Vector2(6.64413e-06, -76)
+script = ExtResource("2_heehg")
+_points = SubResource("Resource_h1mh3")
+shape_material = ExtResource("7_fb4mo")
+
+[node name="SS2D_Shape3" type="Node2D" parent="Walls/Doors/Door Shadows/BossRoom" index="2"]
+position = Vector2(1.44248e-05, -165)
+script = ExtResource("2_heehg")
+_points = SubResource("Resource_h1mh3")
+shape_material = ExtResource("7_fb4mo")
+
+[node name="SS2D_Shape4" type="Node2D" parent="Walls/Doors/Door Shadows/BossRoom" index="3"]
+position = Vector2(2.36916e-05, -271)
+script = ExtResource("2_heehg")
+_points = SubResource("Resource_h1mh3")
+shape_material = ExtResource("7_fb4mo")
+
+[node name="SS2D_Shape5" type="Node2D" parent="Walls/Doors/Door Shadows/BossRoom" index="4"]
+position = Vector2(3.30458e-05, -378)
+script = ExtResource("2_heehg")
+_points = SubResource("Resource_h1mh3")
+shape_material = ExtResource("7_fb4mo")
+
+[node name="EntranceDoor" parent="Walls/Doors" index="1" instance=ExtResource("3_sy00c")]
+position = Vector2(574.154, 899.876)
+rotation = -3.13934
+scale = Vector2(10.3387, 5.84254)
+scene_name = "dungeon_1_entrance"
+entry_point = "Floor2"
+
+[node name="Foor2Left" parent="Walls/Doors" index="2" instance=ExtResource("3_sy00c")]
+position = Vector2(-18, -1026)
+rotation = -4.71238
+scale = Vector2(17.0987, 5.84254)
+scene_name = "dungeon_1_floor2_left"
+entry_point = "Floor2Left"
+
+[node name="Floor2Right" parent="Walls/Doors" index="3" instance=ExtResource("3_sy00c")]
+position = Vector2(1157, -1024)
+rotation = -4.71238
+scale = Vector2(17.5387, 5.84254)
+scene_name = "dungeon_1_floor2_right"
+entry_point = "Floor2Right"
+
+[node name="BossRoom" parent="Walls/Doors" index="4" instance=ExtResource("3_sy00c")]
+position = Vector2(576, -1614)
+scale = Vector2(17.1787, 5.84254)
+scene_name = "dungeon_1_boss"
+entry_point = "Entrance"
+
+[node name="Walls" type="StaticBody2D" parent="Walls" index="1"]
+
+[node name="Walls" type="Node2D" parent="Walls/Walls" index="0"]
 z_index = -5
 script = ExtResource("2_heehg")
 _points = SubResource("Resource_nmmxe")
 shape_material = ExtResource("6_h0vu3")
+collision_polygon_node_path = NodePath("../CollisionPolygon2D")
 
-[node name="TextEdit" type="TextEdit" parent="." index="10"]
-offset_left = 136.0
-offset_top = -2262.0
-offset_right = 964.0
-offset_bottom = -2135.0
-theme_override_font_sizes/font_size = 80
-text = "Puzzle to boss room"
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Walls/Walls" index="1"]
+visible = false
+modulate = Color(1, 1, 1, 0.3)
+polygon = PackedVector2Array(-64, 0, -64, 704, 448, 704, 440, 2288, -3904, 2304, -3960, -4896, 4824, -4880, 4864, 2296, 712, 2288, 704, 704, 1216, 704, 1224, 0, 768, 0, 776, -2752, 392, -2752, 384, 0, -64, 0)
 
-[node name="Sprite2D" type="Sprite2D" parent="." index="11"]
-position = Vector2(587, 699)
-rotation = 3.13692
-scale = Vector2(1.86682, 1.89253)
-texture = ExtResource("2_4tf8t")
+[node name="Floor" type="Node" parent="." index="10"]
 
-[node name="TransitionScene" parent="Sprite2D" index="0" instance=ExtResource("3_sy00c")]
-position = Vector2(-3, 27)
-scale = Vector2(3.54595, 3.08716)
-scene_name = "dungeon_1_entrance"
-entry_point = "Floor2"
+[node name="Floor" type="TileMapLayer" parent="Floor" index="0"]
+z_index = -10
+scale = Vector2(0.5, 0.5)
+tile_map_data = PackedByteArray("AAD4//b/AAAEAAAAAAD4//f/AAABAAIAAAD4//j/AAAAAAEAAAD4//n/AAAAAAAAAAD5//b/AAACAAAAAAD5//f/AAABAAEAAAD5//j/AAADAAAAAAD5//n/AAADAAIAAAD6//b/AAADAAEAAAD6//f/AAACAAAAAAD6//j/AAABAAEAAAD6//n/AAADAAAAAAD7//b/AAABAAAAAAD7//f/AAADAAEAAAD7//j/AAACAAIAAAD7//n/AAADAAEAAAD8//b/AAAAAAIAAAD8//f/AAABAAAAAAD8//j/AAABAAAAAAD8//n/AAADAAIAAAD9//b/AAAEAAAAAAD9//f/AAACAAAAAAD9//j/AAADAAEAAAD9//n/AAACAAAAAAD+//b/AAACAAEAAAD+//f/AAAAAAIAAAD+//j/AAACAAEAAAD+//n/AAADAAEAAAD+////AAAAAAIAAAD+/wAAAAABAAAAAAD+/wEAAAADAAIAAAD+/wIAAAAAAAIAAAD+/wMAAAACAAEAAAD+/wQAAAACAAAAAAD+/wUAAAADAAAAAAD+/wYAAAAAAAIAAAD///b/AAACAAEAAAD///f/AAADAAEAAAD///j/AAABAAAAAAD///n/AAABAAAAAAD/////AAADAAAAAAD//wAAAAADAAIAAAD//wEAAAAAAAIAAAD//wIAAAAEAAAAAAD//wMAAAAEAAAAAAD//wQAAAACAAAAAAD//wUAAAADAAIAAAD//wYAAAACAAAAAAAAAPb/AAAAAAAAAAAAAPf/AAACAAEAAAAAAPj/AAADAAIAAAAAAPn/AAABAAAAAAAAAP//AAADAAAAAAAAAAAAAAAAAAEAAAAAAAEAAAAAAAEAAAAAAAIAAAAAAAIAAAAAAAMAAAADAAIAAAAAAAQAAAABAAEAAAAAAAUAAAABAAIAAAAAAAYAAAAAAAEAAAABAPb/AAACAAAAAAABAPf/AAADAAEAAAABAPj/AAAAAAEAAAABAPn/AAADAAIAAAABAP//AAAEAAAAAAABAAAAAAADAAEAAAABAAEAAAABAAIAAAABAAIAAAABAAAAAAABAAMAAAADAAEAAAABAAQAAAABAAEAAAABAAUAAAACAAIAAAABAAYAAAACAAIAAAACAOr/AAABAAAAAAACAOv/AAABAAIAAAACAOz/AAABAAEAAAACAO3/AAABAAIAAAACAO7/AAACAAAAAAACAO//AAACAAAAAAACAPD/AAABAAAAAAACAPH/AAAAAAIAAAACAPL/AAACAAIAAAACAPP/AAACAAAAAAACAPT/AAAEAAAAAAACAPX/AAADAAAAAAACAPb/AAABAAIAAAACAPf/AAAEAAAAAAACAPj/AAABAAAAAAACAPn/AAABAAIAAAACAPr/AAABAAAAAAACAPv/AAACAAAAAAACAPz/AAAAAAEAAAACAP3/AAABAAIAAAACAP7/AAADAAAAAAACAP//AAADAAEAAAACAAAAAAABAAEAAAACAAEAAAABAAEAAAACAAIAAAAEAAAAAAACAAMAAAACAAIAAAACAAQAAAAEAAAAAAACAAUAAAABAAIAAAACAAYAAAAAAAIAAAACAAcAAAABAAEAAAACAAgAAAAAAAAAAAACAAkAAAADAAEAAAADAOr/AAADAAAAAAADAOv/AAABAAEAAAADAOz/AAAAAAIAAAADAO3/AAADAAEAAAADAO7/AAADAAIAAAADAO//AAAAAAEAAAADAPD/AAAEAAAAAAADAPH/AAAAAAEAAAADAPL/AAABAAEAAAADAPP/AAAAAAIAAAADAPT/AAAAAAIAAAADAPX/AAADAAEAAAADAPb/AAADAAEAAAADAPf/AAACAAIAAAADAPj/AAAEAAAAAAADAPn/AAABAAEAAAADAPr/AAAAAAIAAAADAPv/AAADAAEAAAADAPz/AAACAAEAAAADAP3/AAAAAAAAAAADAP7/AAAEAAAAAAADAP//AAABAAEAAAADAAAAAAAAAAAAAAADAAEAAAABAAEAAAADAAIAAAAAAAAAAAADAAQAAAACAAAAAAADAAUAAAACAAIAAAADAAYAAAADAAIAAAADAAcAAAAAAAAAAAADAAgAAAAAAAAAAAADAAkAAAAAAAAAAAAEAOr/AAABAAEAAAAEAOv/AAACAAAAAAAEAOz/AAABAAAAAAAEAO3/AAAAAAEAAAAEAO7/AAADAAEAAAAEAO//AAADAAIAAAAEAPD/AAABAAEAAAAEAPH/AAAEAAAAAAAEAPL/AAADAAIAAAAEAPP/AAABAAIAAAAEAPT/AAABAAIAAAAEAPX/AAABAAIAAAAEAPb/AAADAAEAAAAEAPf/AAADAAEAAAAEAPj/AAACAAAAAAAEAPn/AAACAAIAAAAEAPr/AAADAAAAAAAEAPv/AAACAAAAAAAEAPz/AAAEAAAAAAAEAP3/AAAEAAAAAAAEAP7/AAACAAEAAAAEAP//AAACAAAAAAAEAAAAAAADAAEAAAAEAAEAAAACAAIAAAAEAAIAAAABAAEAAAAEAAMAAAADAAEAAAAEAAUAAAADAAEAAAAEAAYAAAADAAEAAAAEAAcAAAACAAAAAAAEAAgAAAADAAIAAAAEAAkAAAABAAAAAAAFAOr/AAACAAIAAAAFAOv/AAACAAAAAAAFAOz/AAABAAEAAAAFAO3/AAACAAIAAAAFAO7/AAADAAAAAAAFAO//AAACAAAAAAAFAPD/AAAAAAIAAAAFAPH/AAAEAAAAAAAFAPL/AAADAAAAAAAFAPP/AAACAAAAAAAFAPT/AAACAAIAAAAFAPX/AAADAAEAAAAFAPb/AAACAAAAAAAFAPf/AAABAAAAAAAFAPj/AAADAAEAAAAFAPn/AAACAAAAAAAFAPr/AAACAAIAAAAFAPv/AAADAAEAAAAFAPz/AAAAAAEAAAAFAP3/AAABAAEAAAAFAP7/AAAEAAAAAAAFAP//AAAAAAAAAAAFAAAAAAABAAIAAAAFAAEAAAACAAAAAAAFAAIAAAACAAIAAAAFAAQAAAAAAAIAAAAFAAUAAAACAAAAAAAFAAYAAAAAAAAAAAAFAAcAAAADAAEAAAAFAAgAAAACAAIAAAAFAAkAAAABAAIAAAAGAOr/AAABAAEAAAAGAOv/AAAAAAIAAAAGAOz/AAACAAIAAAAGAO3/AAAAAAAAAAAGAO7/AAAAAAIAAAAGAO//AAAEAAAAAAAGAPD/AAABAAIAAAAGAPH/AAAEAAAAAAAGAPL/AAADAAAAAAAGAPP/AAAAAAIAAAAGAPT/AAACAAAAAAAGAPX/AAAAAAIAAAAGAPb/AAADAAEAAAAGAPf/AAABAAEAAAAGAPj/AAACAAAAAAAGAPn/AAACAAEAAAAGAPr/AAAEAAAAAAAGAPv/AAACAAEAAAAGAPz/AAAAAAEAAAAGAP3/AAAAAAIAAAAGAP7/AAADAAAAAAAGAP//AAACAAAAAAAGAAAAAAACAAAAAAAGAAEAAAADAAIAAAAGAAIAAAADAAAAAAAGAAMAAAAAAAAAAAAGAAQAAAAAAAIAAAAGAAUAAAACAAIAAAAGAAYAAAACAAAAAAAGAAcAAAADAAAAAAAGAAgAAAABAAAAAAAGAAkAAAAAAAEAAAAHAPb/AAAAAAEAAAAHAPf/AAAAAAIAAAAHAPj/AAABAAEAAAAHAPn/AAADAAIAAAAHAP//AAAAAAAAAAAHAAAAAAAEAAAAAAAHAAEAAAABAAEAAAAHAAIAAAABAAAAAAAHAAMAAAACAAIAAAAHAAQAAAACAAIAAAAHAAUAAAAAAAEAAAAHAAYAAAABAAEAAAAIAPb/AAAAAAIAAAAIAPf/AAADAAAAAAAIAPj/AAADAAAAAAAIAPn/AAADAAAAAAAIAP//AAABAAEAAAAIAAAAAAAAAAAAAAAIAAEAAAAEAAAAAAAIAAIAAAACAAEAAAAIAAMAAAABAAEAAAAIAAQAAAABAAAAAAAIAAUAAAADAAIAAAAIAAYAAAAEAAAAAAAJAPb/AAAAAAEAAAAJAPf/AAABAAEAAAAJAPj/AAACAAIAAAAJAPn/AAAAAAIAAAAJAP//AAAAAAIAAAAKAPb/AAADAAEAAAAKAPf/AAACAAAAAAAKAPj/AAADAAAAAAAKAPn/AAABAAAAAAAKAP//AAAAAAAAAAALAPb/AAABAAIAAAALAPf/AAACAAEAAAALAPj/AAACAAAAAAALAPn/AAADAAEAAAAMAPb/AAACAAEAAAAMAPf/AAADAAEAAAAMAPj/AAACAAEAAAAMAPn/AAACAAEAAAANAPb/AAABAAIAAAANAPf/AAAAAAAAAAANAPj/AAACAAEAAAANAPn/AAAAAAAAAAAOAPb/AAADAAIAAAAOAPf/AAAEAAAAAAAOAPj/AAAEAAAAAAAOAPn/AAADAAEAAAAPAPb/AAAAAAAAAAAPAPf/AAAAAAIAAAAPAPj/AAADAAIAAAAPAPn/AAAEAAAAAAAQAPb/AAABAAEAAAAQAPf/AAADAAEAAAAQAPj/AAACAAAAAAAQAPn/AAAAAAEAAAD3//b/AAAEAAAAAAD3//f/AAADAAIAAAD3//j/AAADAAAAAAD3//n/AAADAAIAAAD2//n/AAADAAAAAAD2//j/AAAEAAAAAAD2//f/AAADAAAAAAD2//b/AAADAAAAAAD1//b/AAADAAEAAAD0//b/AAADAAEAAADz//b/AAADAAIAAADy//b/AAADAAIAAADx//b/AAADAAAAAADw//b/AAAEAAAAAADv//b/AAAEAAAAAADv//f/AAADAAIAAADw//f/AAADAAEAAADx//f/AAADAAAAAADy//f/AAAEAAAAAADz//f/AAADAAIAAAD0//f/AAADAAEAAAD1//f/AAADAAEAAAD1//j/AAADAAIAAAD0//j/AAADAAEAAADz//j/AAADAAIAAADy//j/AAADAAIAAADx//j/AAADAAAAAADw//j/AAADAAEAAADv//j/AAADAAEAAADv//n/AAAEAAAAAADw//n/AAADAAAAAADx//n/AAAEAAAAAADy//n/AAADAAEAAADz//n/AAADAAEAAAD0//n/AAADAAEAAAD1//n/AAADAAIAAAARAPb/AAAEAAAAAAASAPb/AAAEAAAAAAATAPb/AAAEAAAAAAAUAPb/AAADAAIAAAAVAPb/AAADAAIAAAAYAPb/AAADAAAAAAAXAPb/AAADAAAAAAAWAPb/AAADAAIAAAAXAPf/AAADAAEAAAAYAPf/AAAEAAAAAAAWAPf/AAADAAEAAAAVAPf/AAADAAAAAAAUAPf/AAADAAEAAAATAPf/AAADAAAAAAASAPf/AAADAAIAAAARAPf/AAADAAEAAAARAPj/AAADAAAAAAASAPj/AAAEAAAAAAATAPj/AAAEAAAAAAAUAPj/AAADAAEAAAAVAPj/AAADAAIAAAAWAPj/AAAEAAAAAAAXAPj/AAADAAIAAAAYAPj/AAADAAIAAAASAPn/AAADAAEAAAARAPn/AAADAAEAAAATAPn/AAADAAAAAAAUAPn/AAADAAAAAAAVAPn/AAADAAEAAAAWAPn/AAAEAAAAAAAXAPn/AAADAAIAAAAYAPn/AAADAAAAAAAEAAQAAAABAAIAAAADAAMAAAAEAAAAAAAFAAMAAAACAAAAAAACAOn/AAAEAAAAAAADAOn/AAABAAEAAAAEAOn/AAACAAAAAAAFAOn/AAABAAEAAAAGAOn/AAADAAIAAAAJAAAAAAADAAIAAAAJAAEAAAABAAIAAAAJAAIAAAADAAAAAAAJAAMAAAACAAAAAAAJAAQAAAABAAEAAAAJAAUAAAADAAEAAAAJAAYAAAACAAEAAAAKAAAAAAAEAAAAAAAKAAEAAAABAAAAAAAKAAIAAAABAAAAAAAKAAMAAAAAAAEAAAAKAAQAAAABAAAAAAAKAAUAAAABAAAAAAAKAAYAAAABAAAAAAA=")
+tile_set = ExtResource("2_f0q7p")
 
-[node name="LockedDoor" parent="." index="12" instance=ExtResource("11_fqb18")]
-position = Vector2(552, -1500)
-scale = Vector2(1.3718, 0.896689)
+[node name="Notes" type="Node" parent="." index="11"]
+
+[node name="TextEdit" type="TextEdit" parent="Notes" index="0"]
+offset_left = 1826.0
+offset_top = -1082.0
+offset_right = 2139.0
+offset_bottom = -911.0
+text = "there should be two branching paths, but they're both empty, so they've been removed"
+wrap_mode = 1
+
+[node name="BreakablePot" parent="." index="12" instance=ExtResource("11_ldrdo")]
+position = Vector2(132, 55)
+
+[node name="BreakablePot2" parent="." index="13" instance=ExtResource("11_ldrdo")]
+position = Vector2(1149, 55)
+
+[node name="BreakablePot3" parent="." index="14" instance=ExtResource("11_ldrdo")]
+position = Vector2(1145, 633)
+
+[node name="BreakablePot4" parent="." index="15" instance=ExtResource("11_ldrdo")]
+position = Vector2(3, 246)
+
+[node name="BreakablePot5" parent="." index="16" instance=ExtResource("11_ldrdo")]
+position = Vector2(318, 565)

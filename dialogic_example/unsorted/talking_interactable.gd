@@ -1,6 +1,8 @@
 extends Area2D
 class_name TalkingInteractable
 
+static var save_data := {}
+
 ##The Dialogic Timeline to play when interacting
 @export var timeline: Array[DialogicTimeline]
 
@@ -12,10 +14,32 @@ class_name TalkingInteractable
 ## Otherwise, the dialogue will repeat on continual interactions.
 @export var one_time: bool = false
 
-var curr_timeline_index: int = 0
-var times_played: int = 0
+# true after the state has been set from `save_data`
+var _hydrated := false
+
+var curr_timeline_index: int = 0:
+	set(v):
+		curr_timeline_index = v
+		if _hydrated:
+			save_data[get_path()] = {
+				curr_timeline_index = curr_timeline_index,
+				times_played = times_played
+			}
+var times_played: int = 0:
+	set(v):
+		times_played = v
+		if _hydrated:
+			save_data[get_path()] = {
+				curr_timeline_index = curr_timeline_index,
+				times_played = times_played
+			}
 
 func _ready() -> void:
+	if get_path() in save_data:
+		curr_timeline_index = save_data[get_path()].curr_timeline_index
+		times_played = save_data[get_path()].times_played
+	_hydrated = true
+
 	Dialogic.timeline_started.connect(_on_timeline_started)
 	Dialogic.timeline_ended.connect(_on_timeline_ended)
 	for t in timeline:

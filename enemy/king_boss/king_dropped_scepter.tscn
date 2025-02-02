@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://typy1fb3b4y3"]
+
+[ext_resource type="Texture2D" uid="uid://d4bomni3pfdyx" path="res://enemy/king_boss/KingSpriteSheet.png" id="1_obgk6"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_506pp"]
+size = Vector2(12, 78)
+
+[node name="KingDroppedScepter" type="Area2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = -0.618032
+scale = Vector2(0.372, 0.372)
+texture = ExtResource("1_obgk6")
+region_enabled = true
+region_rect = Rect2(1682, 175, 172, 195)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_506pp")

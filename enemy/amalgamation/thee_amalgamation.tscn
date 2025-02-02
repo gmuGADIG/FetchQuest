@@ -1,6 +1,5 @@
-[gd_scene load_steps=34 format=3 uid="uid://xgwwcejvha1d"]
+[gd_scene load_steps=49 format=3 uid="uid://xgwwcejvha1d"]
 
-[ext_resource type="Texture2D" uid="uid://dkcslmk1lo8iw" path="res://enemy/amalgamation/sprites/amalgamation.png" id="1_11my7"]
 [ext_resource type="Script" path="res://enemy/amalgamation/thee_amalgamation.gd" id="1_q0tx4"]
 [ext_resource type="PackedScene" uid="uid://yllbcpq24cl0" path="res://enemy/creep_enemy/creep_enemy.tscn" id="2_kbojl"]
 [ext_resource type="Script" path="res://enemy/amalgamation/amalgamation_state_machine.gd" id="3_6vw41"]
@@ -11,13 +10,173 @@
 [ext_resource type="Script" path="res://enemy/amalgamation/states/amalgamation_spitting_state.gd" id="7_kvuo0"]
 [ext_resource type="Script" path="res://enemy/amalgamation/states/amalgamation_sucking_state.gd" id="8_1g38x"]
 [ext_resource type="Script" path="res://enemy/amalgamation/states/amalgamation_vulnerable_state.gd" id="9_0n3tp"]
-[ext_resource type="Texture2D" uid="uid://bhjjc1hun7mka" path="res://enemy/amalgamation/sprites/AmalgamationS.png" id="12_t4p4x"]
-[ext_resource type="Texture2D" uid="uid://ct7wxe3724bd4" path="res://enemy/amalgamation/sprites/AmalgamationSpit.png" id="13_qxcv8"]
-[ext_resource type="Texture2D" uid="uid://duosjvqt52nbh" path="res://enemy/amalgamation/sprites/AmalgamationL.png" id="14_vv8k2"]
-[ext_resource type="Texture2D" uid="uid://csapp2xwf1ot0" path="res://enemy/amalgamation/sprites/AmalgamationSpitV.png" id="15_e3qub"]
-[ext_resource type="Texture2D" uid="uid://dlx7k0jbtmgmk" path="res://enemy/amalgamation/sprites/AmalgamationC.png" id="16_nyk0w"]
-[ext_resource type="Texture2D" uid="uid://jp7ipf3du2cn" path="res://enemy/amalgamation/sprites/AmalgamationSpitI.png" id="17_t2nf2"]
-[ext_resource type="Texture2D" uid="uid://b8ggh1nk4063o" path="res://enemy/amalgamation/sprites/AmalgamationSpitH.png" id="18_6lgjy"]
+[ext_resource type="Texture2D" uid="uid://b4nvtusva66p4" path="res://enemy/amalgamation/sprites/amalgamation_idlesheet.png" id="11_lkvvn"]
+[ext_resource type="Texture2D" uid="uid://mwj21nxk868f" path="res://enemy/amalgamation/sprites/amalgamation_spitattacksheet.png" id="12_jtu2h"]
+[ext_resource type="Texture2D" uid="uid://ch0ffb24imgwb" path="res://enemy/amalgamation/sprites/amalgamation_pillarattacksheet.png" id="12_kvwdi"]
+[ext_resource type="Texture2D" uid="uid://h7pgcds200vs" path="res://enemy/amalgamation/sprites/amalgamation_suckattacksheet.png" id="13_11tj7"]
+[ext_resource type="Texture2D" uid="uid://boqdlxhg4nnot" path="res://enemy/amalgamation/sprites/sleeping_particle.png" id="15_ecvnk"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hk3vt"]
+atlas = ExtResource("11_lkvvn")
+region = Rect2(0, 60, 1120, 960)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xw2mr"]
+atlas = ExtResource("11_lkvvn")
+region = Rect2(1120, 60, 1120, 960)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wh27b"]
+atlas = ExtResource("11_lkvvn")
+region = Rect2(0, 1020, 1120, 960)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_enchh"]
+atlas = ExtResource("11_lkvvn")
+region = Rect2(1120, 1020, 1120, 960)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s7k6n"]
+atlas = ExtResource("11_lkvvn")
+region = Rect2(0, 1980, 1120, 960)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bfyjs"]
+atlas = ExtResource("11_lkvvn")
+region = Rect2(1120, 1980, 1120, 960)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2r51c"]
+atlas = ExtResource("12_kvwdi")
+region = Rect2(1191, 72, 1191, 963)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_17aj1"]
+atlas = ExtResource("12_jtu2h")
+region = Rect2(0, 50, 1120, 968)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mwged"]
+atlas = ExtResource("12_jtu2h")
+region = Rect2(1120, 50, 1120, 968)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xm688"]
+atlas = ExtResource("12_jtu2h")
+region = Rect2(0, 1018, 1120, 968)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uobu2"]
+atlas = ExtResource("12_jtu2h")
+region = Rect2(1120, 1018, 1120, 968)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xdkyk"]
+atlas = ExtResource("13_11tj7")
+region = Rect2(0, 72, 1191, 963)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qo4ha"]
+atlas = ExtResource("13_11tj7")
+region = Rect2(1191, 72, 1191, 963)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hv25n"]
+atlas = ExtResource("13_11tj7")
+region = Rect2(0, 1035, 1191, 963)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qta1p"]
+atlas = ExtResource("13_11tj7")
+region = Rect2(1191, 1035, 1191, 963)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g0ev6"]
+atlas = ExtResource("13_11tj7")
+region = Rect2(0, 1998, 1191, 963)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8wix2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hk3vt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xw2mr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wh27b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_enchh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s7k6n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bfyjs")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hk3vt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xw2mr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wh27b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_enchh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s7k6n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bfyjs")
+}],
+"loop": false,
+"name": &"pillar",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2r51c")
+}],
+"loop": true,
+"name": &"sleeping",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_17aj1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mwged")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xm688")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uobu2")
+}],
+"loop": false,
+"name": &"spit",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xdkyk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qo4ha")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hv25n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qta1p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g0ev6")
+}],
+"loop": false,
+"name": &"suck",
+"speed": 5.0
+}]
+
+[sub_resource type="Gradient" id="Gradient_xqh8c"]
+offsets = PackedFloat32Array(0.00502513, 0.165829, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_tq8je"]
 radius = 66.0076
@@ -39,14 +198,14 @@ resource_name = "Chewing"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("16_nyk0w")]
+"values": [&"idle"]
 }
 
 [sub_resource type="Animation" id="Animation_2kpdb"]
@@ -55,14 +214,14 @@ length = 0.25
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/path = NodePath("AnimatedSprite2D:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.05),
+"transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [ExtResource("18_6lgjy")]
+"values": [Color(10, 10, 10, 1), Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_hgvlx"]
@@ -70,14 +229,14 @@ resource_name = "Idle"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("17_t2nf2")]
+"values": [&"idle"]
 }
 
 [sub_resource type="Animation" id="Animation_ofwbp"]
@@ -85,14 +244,14 @@ resource_name = "Pillars"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("14_vv8k2")]
+"values": [&"pillar"]
 }
 
 [sub_resource type="Animation" id="Animation_41q6o"]
@@ -100,14 +259,14 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/path = NodePath("AnimatedSprite2D:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("1_11my7")]
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_ayfy6"]
@@ -115,14 +274,14 @@ resource_name = "Sleeping"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("1_11my7")]
+"values": [&"sleeping"]
 }
 
 [sub_resource type="Animation" id="Animation_5fxhe"]
@@ -130,14 +289,14 @@ resource_name = "Spitting"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("13_qxcv8")]
+"values": [&"spit"]
 }
 
 [sub_resource type="Animation" id="Animation_kqdja"]
@@ -145,14 +304,14 @@ resource_name = "Sucking"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("12_t4p4x")]
+"values": [&"suck"]
 }
 
 [sub_resource type="Animation" id="Animation_5hnde"]
@@ -160,14 +319,26 @@ resource_name = "Vulnerable"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("15_e3qub")]
+"values": [&"idle"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.482353, 0.627451, 0.678431, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_tawbk"]
@@ -184,7 +355,9 @@ _data = {
 }
 
 [node name="Amalgamation" type="Node2D" node_paths=PackedStringArray("sucking_state", "pillar_state", "spit_state")]
+scale = Vector2(18.4817, 18.4817)
 script = ExtResource("1_q0tx4")
+max_health = 20
 sucking_state = NodePath("StateMachine/Sucking")
 pillar_state = NodePath("StateMachine/Pillars")
 spit_state = NodePath("StateMachine/Spitting")
@@ -223,9 +396,24 @@ script = ExtResource("8_1g38x")
 [node name="Vulnerable" type="Node" parent="StateMachine"]
 script = ExtResource("9_0n3tp")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(0.07, 0.07)
-texture = ExtResource("1_11my7")
+sprite_frames = SubResource("SpriteFrames_8wix2")
+animation = &"sleeping"
+autoplay = "idle"
+
+[node name="SleepingParticles" type="CPUParticles2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(4.2745, -4.65325)
+amount = 3
+lifetime = 2.0
+texture = ExtResource("15_ecvnk")
+direction = Vector2(1.575, -1.07)
+spread = 12.8
+gravity = Vector2(0, 0)
+initial_velocity_min = 10.0
+initial_velocity_max = 10.0
+color_ramp = SubResource("Gradient_xqh8c")
 
 [node name="SuckingArea" type="Area2D" parent="."]
 unique_name_in_owner = true

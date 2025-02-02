@@ -10,3 +10,6 @@ func _process(_delta: float) -> void:
 		var map : FastTravelMap = preload("res://ui/fast_travel_map/fast_travel_map.tscn").instantiate()
 		add_sibling(map)
 		map.entered_at(travel_point)
+
+		EntryPoints.last_entry_point = entry_point
+		SaveSystem.save_game()

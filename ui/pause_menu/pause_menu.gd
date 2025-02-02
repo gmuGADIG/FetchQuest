@@ -44,6 +44,7 @@ func _on_resume_pressed() -> void:
 	get_tree().paused = false
 	
 func _on_quit_pressed() -> void:
+	SaveSystem.save_game()
 	# Unpause so that everything will work
 	get_tree().paused = false
 	# Go to main menu.

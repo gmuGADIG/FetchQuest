@@ -1,0 +1,197 @@
+[gd_scene load_steps=25 format=3 uid="uid://bkog04m58p8yr"]
+
+[ext_resource type="Script" path="res://enemy/king_boss/king_boss.gd" id="1_e7hx1"]
+[ext_resource type="Script" path="res://enemy/king_boss/king_state_machine.gd" id="2_gts2v"]
+[ext_resource type="Script" path="res://enemy/king_boss/states/king_mushroom_state.gd" id="3_skwkj"]
+[ext_resource type="Script" path="res://enemy/king_boss/states/king_throw_state.gd" id="4_2u2cj"]
+[ext_resource type="Script" path="res://enemy/king_boss/states/king_whistle_state.gd" id="5_wyvc1"]
+[ext_resource type="Script" path="res://enemy/king_boss/states/king_idle_state.gd" id="6_mmxgv"]
+[ext_resource type="Script" path="res://enemy/king_boss/states/king_vulnerable_state.gd" id="7_n47v0"]
+[ext_resource type="Texture2D" uid="uid://d4bomni3pfdyx" path="res://enemy/king_boss/KingSpriteSheet.png" id="8_x56dh"]
+[ext_resource type="Script" path="res://enemy/king_boss/states/king_dead_state.gd" id="9_nh0c5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qfw8x"]
+size = Vector2(86, 152)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cdc4e"]
+size = Vector2(102, 168)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q7vra"]
+atlas = ExtResource("8_x56dh")
+region = Rect2(520, 2682, 520, 290)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ik2vb"]
+atlas = ExtResource("8_x56dh")
+region = Rect2(0, 10, 503, 494)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bad52"]
+atlas = ExtResource("8_x56dh")
+region = Rect2(503, 1987, 503, 493)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bunsm"]
+atlas = ExtResource("8_x56dh")
+region = Rect2(503, 1494, 503, 493)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8c8lo"]
+atlas = ExtResource("8_x56dh")
+region = Rect2(0, 2970, 503, 495)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r6lh3"]
+atlas = ExtResource("8_x56dh")
+region = Rect2(503, 2970, 503, 495)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_edxff"]
+atlas = ExtResource("8_x56dh")
+region = Rect2(0, 2970, 503, 495)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aw04f"]
+atlas = ExtResource("8_x56dh")
+region = Rect2(503, 2970, 503, 495)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lfjfr"]
+atlas = ExtResource("8_x56dh")
+region = Rect2(503, 527, 503, 490)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iukrn"]
+atlas = ExtResource("8_x56dh")
+region = Rect2(503, 527, 503, 490)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nfjxd"]
+atlas = ExtResource("8_x56dh")
+region = Rect2(1006, 527, 503, 490)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v5c1s"]
+atlas = ExtResource("8_x56dh")
+region = Rect2(0, 2001, 503, 489)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wdn5q"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q7vra")
+}],
+"loop": true,
+"name": &"dead",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ik2vb")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bad52")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bunsm")
+}],
+"loop": true,
+"name": &"mushroom_attack",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8c8lo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r6lh3")
+}],
+"loop": true,
+"name": &"panic_left",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_edxff")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aw04f")
+}],
+"loop": true,
+"name": &"panic_right",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lfjfr")
+}],
+"loop": false,
+"name": &"scepter_catch",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iukrn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nfjxd")
+}],
+"loop": false,
+"name": &"scepter_throw",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v5c1s")
+}],
+"loop": true,
+"name": &"shockwave",
+"speed": 4.0
+}]
+
+[node name="KingBoss" type="CharacterBody2D" node_paths=PackedStringArray("mushroom_state", "throw_state", "whistle_state") groups=["Hittable"]]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("1_e7hx1")
+mushroom_state = NodePath("KingStateMachine/Mushroom")
+throw_state = NodePath("KingStateMachine/Throw")
+whistle_state = NodePath("KingStateMachine/Whistle")
+total_shockwaves = 3
+total_scepter_throws = 4
+
+[node name="KingStateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("2_gts2v")
+initial_state = NodePath("Idle")
+
+[node name="Mushroom" type="Node" parent="KingStateMachine"]
+script = ExtResource("3_skwkj")
+
+[node name="Throw" type="Node" parent="KingStateMachine"]
+script = ExtResource("4_2u2cj")
+
+[node name="Whistle" type="Node" parent="KingStateMachine"]
+script = ExtResource("5_wyvc1")
+
+[node name="Idle" type="Node" parent="KingStateMachine"]
+script = ExtResource("6_mmxgv")
+
+[node name="Vulnerable" type="Node" parent="KingStateMachine"]
+script = ExtResource("7_n47v0")
+
+[node name="Dead" type="Node" parent="KingStateMachine"]
+script = ExtResource("9_nh0c5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_qfw8x")
+debug_color = Color(1, 0.463754, 0.566218, 0.42)
+
+[node name="TerrainChecker" type="Area2D" parent="."]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TerrainChecker"]
+shape = SubResource("RectangleShape2D_cdc4e")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.346939, 0.346939)
+sprite_frames = SubResource("SpriteFrames_wdn5q")
+animation = &"panic_left"
+frame_progress = 0.59984

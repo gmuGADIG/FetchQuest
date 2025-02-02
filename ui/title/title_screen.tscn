@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://23h7uaou8f05"]
+[gd_scene load_steps=31 format=3 uid="uid://23h7uaou8f05"]
 
 [ext_resource type="PackedScene" uid="uid://bovhexq6t5u8o" path="res://ui/options/options_menu.tscn" id="1_5n5k7"]
 [ext_resource type="Texture2D" uid="uid://vf0s1yxq1yr2" path="res://ui/title/Official Fetch Quest Title Screen.png" id="2_4p1gc"]
@@ -9,6 +9,15 @@
 [ext_resource type="Script" path="res://ui/title/main_menu.gd" id="6_ogkp4"]
 [ext_resource type="Script" path="res://ui/options/open_options_menu_button.gd" id="7_s51k4"]
 [ext_resource type="PackedScene" uid="uid://rap0uso4fckx" path="res://dj_music_man/music_players/instant_music_player.tscn" id="8_dxujq"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_woi7b"]
+bg_color = Color(0.332229, 0.000861974, 0.502529, 1)
+border_width_bottom = 10
+border_color = Color(0.245061, 0.000459408, 0.375257, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qqo3l"]
 bg_color = Color(0.592157, 0.00392157, 0.945098, 1)
@@ -50,9 +59,11 @@ corner_radius_bottom_left = 18
 
 [sub_resource type="Theme" id="Theme_bvbs3"]
 Button/colors/font_color = Color(1, 1, 1, 1)
+Button/colors/font_disabled_color = Color(0.48, 0.48, 0.48, 1)
 Button/colors/font_focus_color = Color(1, 1, 1, 1)
 Button/font_sizes/font_size = 56
 Button/fonts/font = ExtResource("3_vl0qw")
+Button/styles/disabled = SubResource("StyleBoxFlat_woi7b")
 Button/styles/focus = SubResource("StyleBoxFlat_qqo3l")
 Button/styles/hover = SubResource("StyleBoxFlat_xsy3k")
 Button/styles/normal = SubResource("StyleBoxFlat_n28ui")
@@ -199,6 +210,7 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="ContinueGame" type="Button" parent="Panel"]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 429.0
 offset_top = 430.0
@@ -242,10 +254,10 @@ visible = false
 
 [node name="MusicPlayer" parent="." instance=ExtResource("8_dxujq")]
 
-[connection signal="pressed" from="Panel/ContinueGame" to="." method="_on_continue_game_pressed"]
 [connection signal="pressed" from="Panel/ContinueGame" to="." method="_on_menu_major_button_pressed"]
-[connection signal="pressed" from="Panel/Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="Panel/ContinueGame" to="." method="_on_continue_game_pressed"]
 [connection signal="pressed" from="Panel/Quit" to="." method="_on_menu_major_button_pressed"]
-[connection signal="pressed" from="Panel/NewGame" to="." method="_on_new_game_pressed"]
+[connection signal="pressed" from="Panel/Quit" to="." method="_on_quit_pressed"]
 [connection signal="pressed" from="Panel/NewGame" to="." method="_on_menu_major_button_pressed"]
+[connection signal="pressed" from="Panel/NewGame" to="." method="_on_new_game_pressed"]
 [connection signal="pressed" from="Panel/Options" to="." method="_on_menu_major_button_pressed"]
