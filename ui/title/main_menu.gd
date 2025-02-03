@@ -24,3 +24,7 @@ func _on_option_menu_hidden() -> void:
 #Called when a signal is recieved from the respective buttons
 func _on_menu_major_button_pressed() -> void:
 	SFXManager.bonk_sound.play()
+
+
+func _on_credits_pressed() -> void:
+	SceneTransition.change_scene(preload("res://ui/credits/credits_screen.tscn"))

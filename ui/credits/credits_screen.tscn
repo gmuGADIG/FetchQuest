@@ -1,0 +1,505 @@
+[gd_scene load_steps=21 format=3 uid="uid://dv8pukn8o5ij8"]
+
+[ext_resource type="Texture2D" uid="uid://ch3ynepf8eb3m" path="res://ui/credits/Sky.png" id="1_gxa3i"]
+[ext_resource type="Script" path="res://ui/credits/credits_screen.gd" id="1_vysnt"]
+[ext_resource type="Texture2D" uid="uid://dk3x4fvdb4yg7" path="res://ui/credits/Clouds.png" id="2_7lsk7"]
+[ext_resource type="Texture2D" uid="uid://fm6odypo44p8" path="res://ui/credits/Castle.png" id="3_2gjkb"]
+[ext_resource type="Script" path="res://ui/credits/clouds.gd" id="3_u5qor"]
+[ext_resource type="Texture2D" uid="uid://bvuet4knqgv2i" path="res://ui/credits/Bridge.png" id="4_0ick1"]
+[ext_resource type="Script" path="res://ui/credits/conveyor.gd" id="6_yf4r8"]
+[ext_resource type="AudioStream" uid="uid://4n7er2iokof" path="res://ui/credits/Credits Theme_Daniel.ogg" id="7_m3rni"]
+[ext_resource type="Texture2D" uid="uid://b3f54furxm0ug" path="res://ui/credits/fetch-quest-logo.png" id="8_0cmye"]
+[ext_resource type="Script" path="res://ui/credits/thanks_label.gd" id="8_admaw"]
+[ext_resource type="Texture2D" uid="uid://cynqhs7r2navf" path="res://ui/options/back_button_hover.png" id="11_0sw61"]
+[ext_resource type="Texture2D" uid="uid://nfu0xonkit07" path="res://ui/options/back_button.png" id="12_65kj8"]
+[ext_resource type="FontFile" uid="uid://dxaeux1wbk5l1" path="res://ui/fonts/Chewy-Regular.ttf" id="13_mrk0u"]
+[ext_resource type="PackedScene" uid="uid://rap0uso4fckx" path="res://dj_music_man/music_players/instant_music_player.tscn" id="15_skkl3"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xpbt2"]
+texture = ExtResource("11_0sw61")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_n8o2l"]
+texture = ExtResource("11_0sw61")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_50p7k"]
+texture = ExtResource("11_0sw61")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bdqy0"]
+texture = ExtResource("12_65kj8")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ki6uj"]
+texture = ExtResource("11_0sw61")
+
+[sub_resource type="Theme" id="Theme_cyt4l"]
+Button/font_sizes/font_size = 56
+Button/styles/focus = SubResource("StyleBoxTexture_xpbt2")
+Button/styles/hover = SubResource("StyleBoxTexture_xpbt2")
+Button/styles/hover_pressed = SubResource("StyleBoxTexture_n8o2l")
+Button/styles/hover_pressed_mirrored = SubResource("StyleBoxTexture_50p7k")
+Button/styles/normal = SubResource("StyleBoxTexture_bdqy0")
+Button/styles/pressed = SubResource("StyleBoxTexture_ki6uj")
+
+[node name="CreditsScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_vysnt")
+
+[node name="Images" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Sky" type="TextureRect" parent="Images"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_gxa3i")
+expand_mode = 1
+
+[node name="Clouds" type="TextureRect" parent="Images"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_7lsk7")
+expand_mode = 1
+script = ExtResource("3_u5qor")
+
+[node name="Clouds2" type="TextureRect" parent="Images"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1152.0
+offset_right = -1152.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_7lsk7")
+expand_mode = 1
+script = ExtResource("3_u5qor")
+
+[node name="Clouds3" type="TextureRect" parent="Images"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1152.0
+offset_right = 1152.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_7lsk7")
+expand_mode = 1
+script = ExtResource("3_u5qor")
+
+[node name="Castle" type="TextureRect" parent="Images"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_2gjkb")
+expand_mode = 1
+
+[node name="Wall" type="TextureRect" parent="Images"]
+z_index = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_0ick1")
+expand_mode = 1
+
+[node name="Conveyor" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 66.0
+offset_top = 558.0
+offset_right = 732.0
+offset_bottom = 8280.0
+script = ExtResource("6_yf4r8")
+
+[node name="CreditsText" type="RichTextLabel" parent="Conveyor"]
+custom_minimum_size = Vector2(0, 7718)
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/normal_font_size = 33
+bbcode_enabled = true
+text = "[center][font_size=75][wave amp=25.0 freq=5.0 connected=0]Art[/wave][/font_size][/center]
+	Art Director Joan Palacios
+	Assistant Art Director Jonah Kossoy
+
+[font_size=55][wave amp=25.0 freq=5.0 connected=0]	Boss[/wave][/font_size]
+				Ashley Chi
+				Jesse Park
+				John Torres
+
+[font_size=55][wave amp=25.0 freq=5.0 connected=0]	Character[/wave][/font_size]
+				Alexander Pao
+				Ally Estabilo
+				Cam Jarnell
+				Breeana Rivera
+				Hao Lin
+				Jack Pullar
+				Nedjma Ngoufan
+
+[font_size=55][wave amp=25.0 freq=5.0 connected=0]	Enemy[/wave][/font_size]
+				Adrian Rios
+				Emma Cypcar
+				Grace Crowley
+				Hao Lin
+
+[font_size=55][wave amp=25.0 freq=5.0 connected=0]	Environment[/wave][/font_size]
+				Autumn Ryan
+				Breeana Rivera
+				Diya Patel
+				Ethan Deal
+				Ethan Hayes
+				Gabriel Lea
+				Nicole Tiongson
+				Veronica Mayfield
+				Nicole Tiongson (ThermiteFe8)
+
+[font_size=55][wave amp=25.0 freq=5.0 connected=0]	UI[/wave][/font_size]
+				Ethan Deal
+				Porter Wallington
+				Ryan Cobleigh
+
+[font_size=55][wave amp=25.0 freq=5.0 connected=0]	Player[/wave][/font_size]
+				Finch Spear
+				Liam Tikoyan
+				Mira MacLennan
+				Jesse Park
+
+[center][font_size=75][wave amp=25.0 freq=5.0 connected=0]Design[/wave][/font_size][/center]
+	Design Director Douglas Hale
+	Level Design Director Andrew McGaffic
+	Writing Director Brenden Choi
+
+[font_size=55][wave amp=25.0 freq=5.0 connected=0]	Sparkle (Mechanics, UI, & QA)[/wave][/font_size]
+				Alex Xayavong
+				Evelyn Yang
+				Johnathan Seek
+				Maya Banks
+				Mira Kusel
+				Zachary Kim
+				Dylan Felt
+				John McGuire
+
+[font_size=55][wave amp=25.0 freq=5.0 connected=0]	Writing[/wave][/font_size]
+				Connor Harrison
+				Ivory Jemmott
+				Jake Eppard
+				Jacob Theobald
+				Jordan D'Andre Myers
+				Lukas Brockman
+				Mason Hale
+				Robbie Albritton
+
+[center][font_size=75][wave amp=25.0 freq=5.0 connected=0]Level Design[/wave][/font_size][/center]
+[font_size=55][wave amp=25.0 freq=5.0 connected=0]	Sub-team Leads[/wave][/font_size]
+				Jordan McGill
+				Michael Ozan Bailey
+				Siraj \"Sae\" Sabah
+				Ethan Hayes
+
+[font_size=55][wave amp=25.0 freq=5.0 connected=0]	Overworld[/wave][/font_size]
+				Andrew Sucher
+				Dylan Felt
+				Gabriel Nunez Rosso
+				Jack E Gerard
+				Isla Butts
+
+[font_size=55][wave amp=25.0 freq=5.0 connected=0]	Dungeons[/wave][/font_size]
+				Jose Semidey
+				Kshaunish Shaik
+				Michael Haile
+				Zachary Monts
+	
+[center][font_size=75][wave amp=25.0 freq=5.0 connected=0]Programming[/wave][/font_size][/center]
+	Programming Director Michael Campbell
+	Assistant Programming Director Justin Langdon
+
+[font_size=55][wave amp=25.0 freq=5.0 connected=0]	Boss[/wave][/font_size]
+				K Clarke
+				Connor Hayes
+				Tristan Napoliello
+
+[font_size=55][wave amp=25.0 freq=5.0 connected=0]	Enemy[/wave][/font_size]
+				Brendan Halstead
+				Ethan Nguyen
+				K Clarke
+				Kaiden Zamora-Soon
+				Maximilian Fowlkes
+				Mira MacLennan
+				Rayan Q.
+				Tushar Rangaswamy
+	
+[font_size=55][wave amp=25.0 freq=5.0 connected=0]	Level[/wave][/font_size]
+				Carlin (CJ) Jasper
+				Christopher Taylor
+				Tushar Rangsswamy
+				Will Owens
+				Khalid Moosa
+				Nedjma Ngoufan
+				Rayan Q.
+
+[font_size=55][wave amp=25.0 freq=5.0 connected=0]	Player[/wave][/font_size]
+				Brendan Halstead
+				Christopher Taylor
+				Ethan Nguyen
+				Kaiden Zamora-Soon
+				Khalid Moosa
+				Mira MacLennan
+				Oscar Angleberger
+				Rayan Q.
+				Will Owens
+
+[font_size=55][wave amp=25.0 freq=5.0 connected=0]	UI[/wave][/font_size]
+				Khalid Moosa
+				Rayan Q.
+				Samuel Parker
+
+[font_size=55][wave amp=25.0 freq=5.0 connected=0]	Quests[/wave][/font_size]
+				Sheldon Tran
+
+[center][font_size=75][wave amp=25.0 freq=5.0 connected=0]Sound[/wave][/font_size][/center]
+	Sound Director Miles Tison
+	Assistant Sound Director Daniel Irchai
+
+				Becca Neuman
+				Justin Lam
+				Khalid Moosa
+				Nathan Caruso
+				Nicole Tiongson (ThermiteFe8)
+				Robbie Albritton
+
+[center][font_size=75][wave amp=25.0 freq=5.0 connected=0]Admin[/wave][/font_size][/center]
+	President Matthew Neri
+	Vice President Maia Ocampo
+	Production Manager Alex James
+	Secretary John McGuire
+	Treasurer Zachary Kim
+	Webmaster Evan Kusko
+	Social Media Manager Khalid Moosa
+"
+fit_content = true
+autowrap_mode = 0
+
+[node name="ThanksLabel" type="RichTextLabel" parent="Conveyor"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+bbcode_enabled = true
+text = "[center][font_size=75][wave amp=25.0 freq=5.0 connected=0]Art[/wave][/font_size][/center]
+	Art Director Joan Palacios
+	Assistant Art Director Jonah Kossoy
+
+[font_size=55][wave amp=25.0 freq=5.0 connected=0]	Boss[/wave][/font_size]
+				Ashley Chi
+				Jesse Park
+				John Torres
+
+[font_size=55][wave amp=25.0 freq=5.0 connected=0]	Character[/wave][/font_size]
+				Alexander Pao
+				Ally Estabillo
+				Cam Jarnell
+				Breeana Rivera
+				Hao Lin
+				Jack Pullar
+				Nedjma Ngoufan
+
+[font_size=55][wave amp=25.0 freq=5.0 connected=0]	Enemy[/wave][/font_size]
+				Adrian Rios
+				Emma Cypcar
+				Grace Crowley
+				Hao Lin
+
+[font_size=55][wave amp=25.0 freq=5.0 connected=0]	Environment[/wave][/font_size]
+				Autumn Ryan
+				Breeana Rivera
+				Diya Patel
+				Ethan Deal
+				Ethan Hayes
+				Gabriel Lea
+				Nicole Tiongson
+				Veronica Mayfield
+				Nicole Tiongson (ThermiteFe8)
+
+[font_size=55][wave amp=25.0 freq=5.0 connected=0]	UI[/wave][/font_size]
+				Ethan Deal
+				Porter Wallington
+				Ryan Cobleigh
+
+[font_size=55][wave amp=25.0 freq=5.0 connected=0]	Player[/wave][/font_size]
+				Finch Spear
+				Liam Tikoyan
+				Mira MacLennan
+				Jesse Park
+
+[center][font_size=75][wave amp=25.0 freq=5.0 connected=0]Design[/wave][/font_size][/center]
+	Design Director Douglas Hale
+	Level Design Director Andrew McGaffic
+	Writing Director Brenden Choi
+
+[font_size=55][wave amp=25.0 freq=5.0 connected=0]	Sparkle (Mechanics, UI, & QA)[/wave][/font_size]
+				Alex Xayavong
+				Evelyn Yang
+				Jonathan Seek
+				Maya Banks
+				Mira Kusel
+				Zachary Kim
+				Dylan Felt
+				John McGuire
+
+[font_size=55][wave amp=25.0 freq=5.0 connected=0]	Writing[/wave][/font_size]
+				Connor Harrison
+				Ivory Jemmott
+				Jake Eppard
+				Jacob Theobald
+				Jordan D'Andre Myers
+				Lukas Brockman
+				Mason Hale
+				Robbie Albritton
+
+[center][font_size=75][wave amp=25.0 freq=5.0 connected=0]Level Design[/wave][/font_size][/center]
+[font_size=55][wave amp=25.0 freq=5.0 connected=0]	Sub-team Leads[/wave][/font_size]
+				Jordan McGill
+				Michael Ozan Bailey
+				Siraj \"Sae\" Sabah
+				Ethan Hayes
+
+[font_size=55][wave amp=25.0 freq=5.0 connected=0]	Overworld[/wave][/font_size]
+				Andrew Sucher
+				Dylan Felt
+				Gabriel Nunez Rosso
+				Jack E Gerard
+				Isla Butts
+
+[font_size=55][wave amp=25.0 freq=5.0 connected=0]	Dungeons[/wave][/font_size]
+				Jose Semidey
+				Kshaunish Shaik
+				Michael Haile
+				Zachary Monts
+	
+[center][font_size=75][wave amp=25.0 freq=5.0 connected=0]Programming[/wave][/font_size][/center]
+	Programming Director Michael Campbell
+	Assistant Programming Director Justin Langdon
+
+[font_size=55][wave amp=25.0 freq=5.0 connected=0]	Boss[/wave][/font_size]
+				K Clarke
+				Connor Hayes
+				Tristan Napoliello
+
+[font_size=55][wave amp=25.0 freq=5.0 connected=0]	Enemy[/wave][/font_size]
+				Brendan Halstead
+				Ethan Nguyen
+				K Clarke
+				Kaiden Zamora-Soon
+				Maximilian Fowlkes
+				Mira MacLennan
+				Rayan Q.
+				Tushar Rangaswamy
+	
+[font_size=55][wave amp=25.0 freq=5.0 connected=0]	Level[/wave][/font_size]
+				Carlin (CJ) Jasper
+				Christopher Taylor
+				Tushar Rangaswamy
+				Will Owens
+				Khalid Moosa
+				Nedjma Ngoufan
+				Rayan Q.
+
+[font_size=55][wave amp=25.0 freq=5.0 connected=0]	Player[/wave][/font_size]
+				Brendan Halstead
+				Christopher Taylor
+				Ethan Nguyen
+				Kaiden Zamora-Soon
+				Khalid Moosa
+				Mira MacLennan
+				Oscar Angleberger
+				Rayan Q.
+				Will Owens
+
+[font_size=55][wave amp=25.0 freq=5.0 connected=0]	UI[/wave][/font_size]
+				Khalid Moosa
+				Rayan Q.
+				Samuel Parker
+
+[font_size=55][wave amp=25.0 freq=5.0 connected=0]	Quests[/wave][/font_size]
+				Sheldon Tran
+
+[center][font_size=75][wave amp=25.0 freq=5.0 connected=0]Sound[/wave][/font_size][/center]
+	Sound Director Miles Tison
+	Assistant Sound Director Daniel Irchai
+
+				Becca Neuman
+				Justin Lam
+				Khalid Moosa
+				Nathan Caruso
+				Nicole Tiongson (ThermiteFe8)
+				Robbie Albritton
+
+[center][font_size=75][wave amp=25.0 freq=5.0 connected=0]Admin[/wave][/font_size][/center]
+	President Matthew Neri
+	Vice President Maia Ocampo
+	Production Manager Alex James
+	Secretary John McGuire
+	Treasurer Zachary Kim
+	Webmaster Evan Kusko
+	Social Media Manager Khalid Moosa
+"
+fit_content = true
+script = ExtResource("8_admaw")
+
+[node name="Control" type="Control" parent="Conveyor"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Conveyor/Control"]
+layout_mode = 2
+offset_left = 17.0
+offset_top = -8196.0
+offset_right = 24005.8
+offset_bottom = -478.0
+scale = Vector2(0.0260255, 0.0260255)
+texture = ExtResource("8_0cmye")
+expand_mode = 3
+
+[node name="BackButton" type="Button" parent="."]
+unique_name_in_owner = true
+z_index = 2
+layout_mode = 0
+offset_left = 857.0
+offset_top = 496.0
+offset_right = 1071.0
+offset_bottom = 621.0
+focus_neighbor_top = NodePath("../sfxSlider")
+theme = SubResource("Theme_cyt4l")
+theme_override_fonts/font = ExtResource("13_mrk0u")
+theme_override_font_sizes/font_size = 56
+
+[node name="InstantMusicPlayer" parent="." instance=ExtResource("15_skkl3")]
+music_to_play = 7
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_m3rni")
+autoplay = true
+bus = &"Music"
+
+[connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="finished" from="AudioStreamPlayer" to="." method="_on_audio_stream_player_finished"]

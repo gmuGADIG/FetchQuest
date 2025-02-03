@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://23h7uaou8f05"]
+[gd_scene load_steps=36 format=3 uid="uid://23h7uaou8f05"]
 
 [ext_resource type="PackedScene" uid="uid://bovhexq6t5u8o" path="res://ui/options/options_menu.tscn" id="1_5n5k7"]
 [ext_resource type="Texture2D" uid="uid://vf0s1yxq1yr2" path="res://ui/title/Official Fetch Quest Title Screen.png" id="2_4p1gc"]
@@ -117,6 +117,55 @@ Button/styles/hover = SubResource("StyleBoxFlat_ys3cp")
 Button/styles/normal = SubResource("StyleBoxFlat_l770x")
 Button/styles/pressed = SubResource("StyleBoxFlat_3odas")
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_puubt"]
+bg_color = Color(0.243137, 0.235294, 0.54902, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.941176, 0.792157, 0, 1)
+corner_radius_top_left = 18
+corner_radius_top_right = 18
+corner_radius_bottom_right = 18
+corner_radius_bottom_left = 18
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_28ap3"]
+bg_color = Color(0.243137, 0.235294, 0.54902, 1)
+border_width_bottom = 10
+border_color = Color(0.241725, 0.2365, 0.55, 1)
+corner_radius_top_left = 18
+corner_radius_top_right = 18
+corner_radius_bottom_right = 18
+corner_radius_bottom_left = 18
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lmfoh"]
+bg_color = Color(0.329625, 0.3225, 0.75, 1)
+border_width_bottom = 10
+border_color = Color(0.241725, 0.2365, 0.55, 1)
+corner_radius_top_left = 18
+corner_radius_top_right = 18
+corner_radius_bottom_right = 18
+corner_radius_bottom_left = 18
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tjao4"]
+bg_color = Color(0.243137, 0.235294, 0.54902, 1)
+border_width_bottom = 10
+border_color = Color(0.241725, 0.2365, 0.55, 1)
+corner_radius_top_left = 18
+corner_radius_top_right = 18
+corner_radius_bottom_right = 18
+corner_radius_bottom_left = 18
+
+[sub_resource type="Theme" id="Theme_cfnhm"]
+Button/colors/font_color = Color(1, 1, 1, 1)
+Button/colors/font_focus_color = Color(1, 1, 1, 1)
+Button/font_sizes/font_size = 56
+Button/fonts/font = ExtResource("3_vl0qw")
+Button/styles/focus = SubResource("StyleBoxFlat_puubt")
+Button/styles/hover = SubResource("StyleBoxFlat_28ap3")
+Button/styles/normal = SubResource("StyleBoxFlat_lmfoh")
+Button/styles/pressed = SubResource("StyleBoxFlat_tjao4")
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fvcwh"]
 bg_color = Color(0, 0.639216, 0.0901961, 1)
 border_width_left = 4
@@ -230,6 +279,18 @@ theme = SubResource("Theme_8gjr8")
 theme_type_variation = &"FlatButton"
 text = "QUIT"
 
+[node name="Credits" type="Button" parent="Panel"]
+layout_mode = 0
+offset_left = 48.0
+offset_top = 527.0
+offset_right = 191.0
+offset_bottom = 592.0
+focus_neighbor_right = NodePath("../Quit")
+theme = SubResource("Theme_cfnhm")
+theme_type_variation = &"FlatButton"
+theme_override_font_sizes/font_size = 32
+text = "CREDITS"
+
 [node name="NewGame" type="Button" parent="Panel"]
 layout_mode = 0
 offset_left = 430.0
@@ -258,6 +319,8 @@ visible = false
 [connection signal="pressed" from="Panel/ContinueGame" to="." method="_on_continue_game_pressed"]
 [connection signal="pressed" from="Panel/Quit" to="." method="_on_menu_major_button_pressed"]
 [connection signal="pressed" from="Panel/Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="Panel/Credits" to="." method="_on_menu_major_button_pressed"]
+[connection signal="pressed" from="Panel/Credits" to="." method="_on_credits_pressed"]
 [connection signal="pressed" from="Panel/NewGame" to="." method="_on_menu_major_button_pressed"]
 [connection signal="pressed" from="Panel/NewGame" to="." method="_on_new_game_pressed"]
 [connection signal="pressed" from="Panel/Options" to="." method="_on_menu_major_button_pressed"]
