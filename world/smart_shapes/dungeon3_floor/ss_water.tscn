@@ -1,0 +1,158 @@
+[gd_scene load_steps=29 format=3 uid="uid://domyo083wcaqh"]
+
+[ext_resource type="Script" path="res://addons/rmsmartshape/shapes/shape.gd" id="1_kk6e7"]
+[ext_resource type="Script" path="res://addons/rmsmartshape/vertex_properties.gd" id="2_lwnmo"]
+[ext_resource type="Script" path="res://addons/rmsmartshape/shapes/point.gd" id="3_spcev"]
+[ext_resource type="Script" path="res://addons/rmsmartshape/shapes/point_array.gd" id="4_rdqvu"]
+[ext_resource type="Script" path="res://addons/rmsmartshape/materials/edge_material_metadata.gd" id="5_mnpq0"]
+[ext_resource type="Shader" path="res://world/levels/water_edge_oscillation.gdshader" id="6_hjxhx"]
+[ext_resource type="Script" path="res://addons/rmsmartshape/materials/edge_material.gd" id="7_c67a1"]
+[ext_resource type="Texture2D" uid="uid://wd7n7415sgj0" path="res://world/smart_shapes/water/water_edge.png" id="8_kgpn1"]
+[ext_resource type="Script" path="res://addons/rmsmartshape/normal_range.gd" id="9_xievv"]
+[ext_resource type="Texture2D" uid="uid://c37h8rl461k7f" path="res://world/smart_shapes/water/water_fill.png" id="10_mckku"]
+[ext_resource type="Script" path="res://addons/rmsmartshape/materials/shape_material.gd" id="11_7app4"]
+
+[sub_resource type="Resource" id="Resource_bjm0o"]
+script = ExtResource("2_lwnmo")
+texture_idx = 0
+flip = false
+width = 1.0
+
+[sub_resource type="Resource" id="Resource_rtfre"]
+script = ExtResource("3_spcev")
+position = Vector2(-16, -184)
+point_in = Vector2(0, 0)
+point_out = Vector2(0, 0)
+properties = SubResource("Resource_bjm0o")
+
+[sub_resource type="Resource" id="Resource_l8ejr"]
+script = ExtResource("2_lwnmo")
+texture_idx = 0
+flip = false
+width = 1.0
+
+[sub_resource type="Resource" id="Resource_iegii"]
+script = ExtResource("3_spcev")
+position = Vector2(0, 88)
+point_in = Vector2(0, 0)
+point_out = Vector2(0, 0)
+properties = SubResource("Resource_l8ejr")
+
+[sub_resource type="Resource" id="Resource_04mtp"]
+script = ExtResource("2_lwnmo")
+texture_idx = 0
+flip = false
+width = 1.0
+
+[sub_resource type="Resource" id="Resource_gmnq6"]
+script = ExtResource("3_spcev")
+position = Vector2(1152, -184)
+point_in = Vector2(0, 0)
+point_out = Vector2(0, 0)
+properties = SubResource("Resource_04mtp")
+
+[sub_resource type="Resource" id="Resource_sgklx"]
+script = ExtResource("2_lwnmo")
+texture_idx = 0
+flip = false
+width = 1.0
+
+[sub_resource type="Resource" id="Resource_ctg11"]
+script = ExtResource("3_spcev")
+position = Vector2(1160, 96)
+point_in = Vector2(0, 0)
+point_out = Vector2(0, 0)
+properties = SubResource("Resource_sgklx")
+
+[sub_resource type="Resource" id="Resource_67ayr"]
+script = ExtResource("2_lwnmo")
+texture_idx = 0
+flip = false
+width = 1.0
+
+[sub_resource type="Resource" id="Resource_l8bvp"]
+script = ExtResource("3_spcev")
+position = Vector2(-16, -184)
+point_in = Vector2(0, 0)
+point_out = Vector2(0, 0)
+properties = SubResource("Resource_67ayr")
+
+[sub_resource type="Resource" id="Resource_avqlk"]
+script = ExtResource("4_rdqvu")
+_points = {
+0: SubResource("Resource_l8bvp"),
+7: SubResource("Resource_rtfre"),
+8: SubResource("Resource_iegii"),
+17: SubResource("Resource_gmnq6"),
+18: SubResource("Resource_ctg11")
+}
+_point_order = PackedInt32Array(7, 17, 18, 8, 0)
+_constraints = {
+Vector2i(7, 0): 15
+}
+_next_key = 19
+_material_overrides = {}
+tessellation_stages = 3
+tessellation_tolerance = 6.0
+curve_bake_interval = 20.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ee83b"]
+shader = ExtResource("6_hjxhx")
+
+[sub_resource type="Resource" id="Resource_2sbb4"]
+script = ExtResource("7_c67a1")
+textures = Array[Texture2D]([ExtResource("8_kgpn1")])
+textures_corner_outer = Array[Texture2D]([])
+textures_corner_inner = Array[Texture2D]([])
+textures_taper_left = Array[Texture2D]([])
+textures_taper_right = Array[Texture2D]([])
+textures_taper_corner_left = Array[Texture2D]([])
+textures_taper_corner_right = Array[Texture2D]([])
+randomize_texture = false
+use_corner_texture = false
+use_taper_texture = false
+fit_mode = 0
+material = SubResource("ShaderMaterial_ee83b")
+
+[sub_resource type="Resource" id="Resource_vn81x"]
+script = ExtResource("9_xievv")
+begin = 0.0
+distance = 360.0
+edgeRendering = Vector2(0, 0)
+
+[sub_resource type="Resource" id="Resource_285mh"]
+script = ExtResource("5_mnpq0")
+edge_material = SubResource("Resource_2sbb4")
+normal_range = SubResource("Resource_vn81x")
+weld = true
+taper_sharp_corners = false
+render = true
+z_index = -11
+z_as_relative = true
+offset = -1.1
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_t3yxu"]
+shader = ExtResource("6_hjxhx")
+
+[sub_resource type="Resource" id="Resource_c8ucn"]
+script = ExtResource("11_7app4")
+_edge_meta_materials = Array[ExtResource("5_mnpq0")]([SubResource("Resource_285mh")])
+fill_textures = Array[Texture2D]([ExtResource("10_mckku")])
+fill_texture_z_index = -13
+fill_texture_show_behind_parent = false
+fill_texture_scale = 1.0
+fill_texture_absolute_position = false
+fill_texture_absolute_rotation = false
+fill_texture_offset = Vector2(0, 0)
+fill_texture_angle_offset = 0.0
+fill_mesh_offset = 0.0
+fill_mesh_material = SubResource("ShaderMaterial_t3yxu")
+render_offset = 0.0
+
+[node name="Water" type="Node2D"]
+modulate = Color(1, 1, 1, 0.262745)
+z_index = -2
+script = ExtResource("1_kk6e7")
+_points = SubResource("Resource_avqlk")
+shape_material = SubResource("Resource_c8ucn")
+collision_polygon_node_path = NodePath("../CollisionPolygon2D")

@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://db684x4d44kw0"]
+
+[ext_resource type="Texture2D" uid="uid://ck1r2p3hjh5b7" path="res://world/decoration/pillars/Crystal_Pillar.png" id="1_k1350"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4gha0"]
+radius = 38.0526
+
+[node name="Crystal Pillar" type="StaticBody2D"]
+
+[node name="CrystalPillar" type="Sprite2D" parent="."]
+z_index = -9
+position = Vector2(0.750015, -83.6866)
+scale = Vector2(0.381836, 0.359987)
+texture = ExtResource("1_k1350")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.750015, 0.313354)
+shape = SubResource("CircleShape2D_4gha0")
