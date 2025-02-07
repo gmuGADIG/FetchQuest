@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://cskbtjh5nng7u"]
+[gd_scene load_steps=21 format=3 uid="uid://cskbtjh5nng7u"]
 
 [ext_resource type="PackedScene" uid="uid://cnd06dpkgufe4" path="res://world/levels/level_base.tscn" id="1_7hexn"]
 [ext_resource type="Script" path="res://addons/rmsmartshape/shapes/shape.gd" id="2_bfl6t"]
@@ -6,6 +6,8 @@
 [ext_resource type="Script" path="res://addons/rmsmartshape/shapes/point.gd" id="4_idg7p"]
 [ext_resource type="Script" path="res://addons/rmsmartshape/shapes/point_array.gd" id="5_gun47"]
 [ext_resource type="Resource" uid="uid://vgy02p4w5scg" path="res://world/smart_shapes/stone/stone.tres" id="6_h1qv5"]
+[ext_resource type="PackedScene" uid="uid://c3j0fehxpbbjh" path="res://world/interactable/bark_interactables/bark_switch.tscn" id="7_pep00"]
+[ext_resource type="PackedScene" uid="uid://dgjuqwgpcueea" path="res://world/interactable/bark_interactables/bark_interactable_switch_manager.tscn" id="8_un4fq"]
 
 [sub_resource type="Resource" id="Resource_lst0q"]
 script = ExtResource("3_gjlcw")
@@ -138,3 +140,10 @@ position = Vector2(128, -448)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Top_Wall" index="0"]
 position = Vector2(456, 328)
 shape = SubResource("RectangleShape2D_m8301")
+
+[node name="BarkSwitch" parent="." index="8" instance=ExtResource("7_pep00")]
+z_index = 1
+position = Vector2(588, 345)
+
+[node name="BarkInteractableSwitchManager" parent="." index="9" instance=ExtResource("8_un4fq")]
+position = Vector2(1373, 1059)

@@ -15,7 +15,6 @@ enum OpenMethod {
 		default_sprite.visible = v
 
 @onready var default_sprite := %DefaultSprite as Sprite2D
-@onready var collision_shape := %CollisionShape2D as CollisionShape2D
 
 static var doors_opened: Array[NodePath]
 
@@ -40,6 +39,7 @@ func unlock() -> void:
 	process_mode = PROCESS_MODE_DISABLED
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
+	if process_mode == PROCESS_MODE_DISABLED: return # for some reason, the Area2D still processes when it shouldn't
 	if open_method == OpenMethod.NO_KEY: return
 	if not body is Player: return
 

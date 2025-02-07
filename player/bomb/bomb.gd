@@ -44,6 +44,4 @@ func hurt(_damage_event: DamageEvent) -> void:
 func _physics_process(_delta: float) -> void:
 	velocity *= 0.9
 	
-	print("speed = ", velocity.length())
-		
 	move_and_slide()
