@@ -16,9 +16,14 @@ class_name AmalgamationPillarsState extends AmalgamationState
 ## The current pillars that exist
 var pillars_spawned: Array[Node2D] = []
 
+func _on_anim_sprite_finished() -> void:
+	if amalgamation.anim_sprite.animation == "pillar":
+		amalgamation.anim_sprite.play("pillar_loop")
+
 func enter() -> void:
 	# Play the animation
-	amalgamation.animation_player.play("Pillars")
+	amalgamation.anim_sprite.play("pillar")
+	amalgamation.anim_sprite.animation_finished.connect(_on_anim_sprite_finished)
 	
 	print("amalgamation_pillars_state.gd: final destination reference")
 	

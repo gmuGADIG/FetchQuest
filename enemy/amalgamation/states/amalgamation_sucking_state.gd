@@ -7,12 +7,17 @@ class_name AmalgamationSuckingState extends AmalgamationState
 ## The duration of this state
 @onready var duration:float = amalgamation.sucking_state_duration;
 
+func _on_anim_sprite_finished() -> void:
+	if amalgamation.anim_sprite.animation == "suck":
+		amalgamation.anim_sprite.play("suck_loop")
+
 func enter() -> void:
 	print("amalgamation_sucking_state.gd: vacuum noises")
 
 	# Turn on the particles and animation
-	amalgamation.animation_player.play("Sucking")
+	amalgamation.anim_sprite.play("suck")
 	sucking_effect.emitting = true
+	amalgamation.anim_sprite.animation_finished.connect(_on_anim_sprite_finished)
 
 	# Idle after sucking for 'duration' seconds
 	await get_tree().create_timer(duration).timeout

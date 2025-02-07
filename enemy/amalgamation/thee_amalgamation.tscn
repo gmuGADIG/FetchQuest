@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=3 uid="uid://xgwwcejvha1d"]
+[gd_scene load_steps=57 format=3 uid="uid://xgwwcejvha1d"]
 
 [ext_resource type="Script" path="res://enemy/amalgamation/thee_amalgamation.gd" id="1_q0tx4"]
 [ext_resource type="PackedScene" uid="uid://yllbcpq24cl0" path="res://enemy/creep_enemy/creep_enemy.tscn" id="2_kbojl"]
@@ -45,8 +45,36 @@ region = Rect2(0, 1980, 1120, 960)
 atlas = ExtResource("11_lkvvn")
 region = Rect2(1120, 1980, 1120, 960)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_2r51c"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_6uie0"]
 atlas = ExtResource("12_kvwdi")
+region = Rect2(0, 0, 1002, 908)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pk8g6"]
+atlas = ExtResource("12_kvwdi")
+region = Rect2(1002, 0, 1002, 908)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v5il1"]
+atlas = ExtResource("12_kvwdi")
+region = Rect2(2004, 0, 1002, 908)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cwi6e"]
+atlas = ExtResource("12_kvwdi")
+region = Rect2(0, 908, 1002, 908)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_or4bg"]
+atlas = ExtResource("12_kvwdi")
+region = Rect2(1002, 908, 1002, 908)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_usvja"]
+atlas = ExtResource("12_kvwdi")
+region = Rect2(0, 908, 1002, 908)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ofdyj"]
+atlas = ExtResource("12_kvwdi")
+region = Rect2(1002, 908, 1002, 908)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qo4ha"]
+atlas = ExtResource("13_11tj7")
 region = Rect2(1191, 72, 1191, 963)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_17aj1"]
@@ -68,10 +96,6 @@ region = Rect2(1120, 1018, 1120, 968)
 [sub_resource type="AtlasTexture" id="AtlasTexture_xdkyk"]
 atlas = ExtResource("13_11tj7")
 region = Rect2(0, 72, 1191, 963)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_qo4ha"]
-atlas = ExtResource("13_11tj7")
-region = Rect2(1191, 72, 1191, 963)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hv25n"]
 atlas = ExtResource("13_11tj7")
@@ -112,22 +136,19 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_hk3vt")
+"texture": SubResource("AtlasTexture_6uie0")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_xw2mr")
+"texture": SubResource("AtlasTexture_pk8g6")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_wh27b")
+"texture": SubResource("AtlasTexture_v5il1")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_enchh")
+"texture": SubResource("AtlasTexture_cwi6e")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_s7k6n")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_bfyjs")
+"texture": SubResource("AtlasTexture_or4bg")
 }],
 "loop": false,
 "name": &"pillar",
@@ -135,7 +156,18 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_2r51c")
+"texture": SubResource("AtlasTexture_usvja")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ofdyj")
+}],
+"loop": true,
+"name": &"pillar_loop",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qo4ha")
 }],
 "loop": true,
 "name": &"sleeping",
@@ -176,6 +208,25 @@ animations = [{
 }],
 "loop": false,
 "name": &"suck",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qta1p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g0ev6")
+}],
+"loop": true,
+"name": &"suck_loop",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hk3vt")
+}],
+"loop": true,
+"name": &"vuln",
 "speed": 5.0
 }]
 
@@ -393,8 +444,8 @@ script = ExtResource("9_0n3tp")
 material = SubResource("ShaderMaterial_vl62w")
 scale = Vector2(0.07, 0.07)
 sprite_frames = SubResource("SpriteFrames_8wix2")
-animation = &"idle"
-autoplay = "idle"
+animation = &"sleeping"
+autoplay = "sleeping"
 
 [node name="SleepingParticles" type="CPUParticles2D" parent="."]
 unique_name_in_owner = true

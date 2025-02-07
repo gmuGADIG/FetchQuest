@@ -6,7 +6,7 @@ func enter() -> void:
 	await get_tree().process_frame
 	
 	# Play animation
-	amalgamation.animation_player.play("Sleeping")
+	amalgamation.anim_sprite.play("sleeping")
 	
 	print("amalgamation_asleep_state.gd: Honk shoooooo mimimimimimimimimi")
 
