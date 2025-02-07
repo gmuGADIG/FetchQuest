@@ -12,5 +12,6 @@ func _on_other_body_exited() -> void:
 
 
 func _on_body_exited(body: Node2D) -> void:
+	await get_tree().physics_frame
 	for music_player in get_tree().get_nodes_in_group("RegionalMusicPlayer"):
 		music_player._on_other_body_exited()

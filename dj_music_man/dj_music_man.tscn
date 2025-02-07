@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://dgt3mun17ri66"]
+[gd_scene load_steps=13 format=3 uid="uid://dgt3mun17ri66"]
 
 [ext_resource type="AudioStream" uid="uid://c61suievtmffo" path="res://dj_music_man/music_files/Fetch Quest Main Theme-Connor.ogg" id="1_m7dho"]
 [ext_resource type="Script" path="res://dj_music_man/dj_music_man.gd" id="1_pxepr"]
@@ -9,11 +9,12 @@
 [ext_resource type="AudioStream" uid="uid://cwivyrbl3y2pm" path="res://dj_music_man/music_files/Mycelius Castle Region_Nathan.ogg" id="6_16jbc"]
 [ext_resource type="Texture2D" uid="uid://bnocwwvskrfk7" path="res://dj_music_man/dj_music_man.png" id="8_3p46t"]
 [ext_resource type="AudioStream" uid="uid://buinft43pup2" path="res://dj_music_man/music_files/Church Dungeon Theme (FULL).ogg" id="8_kty3t"]
+[ext_resource type="AudioStream" uid="uid://cvtwqa05ib5ht" path="res://dj_music_man/music_files/Overworld.ogg" id="9_a28rd"]
 
 [sub_resource type="AudioStreamGenerator" id="AudioStreamGenerator_dcpky"]
 
 [sub_resource type="AudioStreamInteractive" id="AudioStreamInteractive_c6bhg"]
-clip_count = 8
+clip_count = 9
 clip_0/name = &"main-theme"
 clip_0/stream = ExtResource("1_m7dho")
 clip_0/auto_advance = 0
@@ -38,6 +39,9 @@ clip_6/auto_advance = 0
 clip_7/name = &"none"
 clip_7/stream = SubResource("AudioStreamGenerator_dcpky")
 clip_7/auto_advance = 0
+clip_8/name = &"overworld"
+clip_8/stream = ExtResource("9_a28rd")
+clip_8/auto_advance = 0
 _transitions = {
 Vector2i(-1, -1): {
 "fade_beats": 2,
@@ -54,7 +58,6 @@ script = ExtResource("1_pxepr")
 [node name="Music" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
 stream = SubResource("AudioStreamInteractive_c6bhg")
-stream_paused = true
 bus = &"Music"
 
 [node name="Sprite" type="Sprite2D" parent="."]
