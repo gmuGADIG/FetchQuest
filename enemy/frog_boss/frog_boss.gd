@@ -15,7 +15,7 @@ signal health_changed
 signal frog_die
 
 @export var max_health: int = 15
-var health := max_health:
+@onready var health := max_health:
 	set(value):
 		health = value
 		health_changed.emit()
