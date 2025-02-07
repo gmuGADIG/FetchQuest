@@ -2,9 +2,10 @@
 
 [ext_resource type="Script" path="res://dj_music_man/music_players/regional_music_player.gd" id="1_kgg2w"]
 
-[node name="RegionalMusicPlayer" type="Area2D"]
+[node name="RegionalMusicPlayer" type="Area2D" groups=["Hole", "RegionalMusicPlayer"]]
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("1_kgg2w")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
