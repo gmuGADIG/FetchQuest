@@ -1,4 +1,4 @@
-[gd_scene load_steps=114 format=3 uid="uid://c7ck7ril2jix2"]
+[gd_scene load_steps=117 format=3 uid="uid://c7ck7ril2jix2"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_x43mx"]
 [ext_resource type="Script" path="res://player/x_ray.gd" id="3_f3hsb"]
@@ -31,6 +31,7 @@
 [ext_resource type="Texture2D" uid="uid://f6oohtm5b6x0" path="res://player/sprites/margarita/Margarita_RunLeft_Spritesheet.png" id="24_0ukfm"]
 [ext_resource type="Texture2D" uid="uid://cv7to2pfrgt3m" path="res://player/sprites/margarita/Margarita_RunRight_Spritesheet.png" id="25_73gv5"]
 [ext_resource type="PackedScene" uid="uid://c5k5rgonv1752" path="res://ui/mouse_cursor/cursor.tscn" id="29_60imv"]
+[ext_resource type="Script" path="res://player/player_light.gd" id="32_e5i2o"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yvtba"]
 atlas = ExtResource("10_7q0er")
@@ -726,6 +727,17 @@ streams_count = 2
 stream_0/stream = ExtResource("10_jtbrp")
 stream_1/stream = ExtResource("11_wuebg")
 
+[sub_resource type="Gradient" id="Gradient_ut2x2"]
+offsets = PackedFloat32Array(0.166667, 0.739899)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_cl8g0"]
+gradient = SubResource("Gradient_ut2x2")
+width = 256
+height = 256
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 y_sort_enabled = true
 collision_layer = 2
@@ -809,6 +821,12 @@ unique_name_in_owner = true
 stream = SubResource("AudioStreamRandomizer_bu7lb")
 volume_db = -7.0
 bus = &"SFX"
+
+[node name="PlayerLight" type="PointLight2D" parent="."]
+energy = 0.5
+texture = SubResource("GradientTexture2D_cl8g0")
+texture_scale = 1.5
+script = ExtResource("32_e5i2o")
 
 [connection signal="timeout" from="RollTimer" to="." method="stop_roll"]
 [connection signal="timeout" from="FallTimer" to="." method="end_fall"]
