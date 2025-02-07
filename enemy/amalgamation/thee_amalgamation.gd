@@ -69,6 +69,8 @@ signal health_changed
 ## The duration of the vulnerable state
 @export var vulnerable_state_duration:float = 2.0
 
+@onready var _shader: ShaderMaterial = $AnimatedSprite2D.material as ShaderMaterial
+
 func hurt(damage_event: DamageEvent) -> void:
 	# Dont die twice
 	if health <= 0:
