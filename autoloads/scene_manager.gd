@@ -12,31 +12,18 @@
 ##   assert(SceneManager.scene_exists("questbrook"))
 ## 
 ## func _on_some_signal():
-##   SceneTransition.change_scene(SceneManager.get_packed_scene("questbrook"))
+##   SceneTransition.change_scene("questbrook")
 ## [/codeblock]
 ## 
 ## [b][color=yellow]Note:[/color][/b] SceneManager only looks in [code]res://test_scenes/[/code] 
 ## and [code]res://world/[/code] for scenes.
 class_name SceneManager
 
-static var _packed_scene_cache := {}
 static var _scene_dict := {}
-
-static func _load_scenes() -> void:
-	var x := 0
-	for scene: String in _scene_dict.values():
-		x += 1
-		print("[scene_manager] %s/%s" % [x, len(_scene_dict)])
-		var ps: PackedScene = load(scene)
-		_packed_scene_cache[scene] = ps
 
 static func _static_init() -> void:
 	# _update_scene_dict("res://test_scenes/")
 	_update_scene_dict("res://world/levels/")
-	
-
-	await Engine.get_main_loop().process_frame
-	Thread.new().start(_load_scenes)
 
 static func _update_scene_dict(path: String) -> void:	
 	var dir := DirAccess.open(path)
@@ -59,10 +46,5 @@ static func _update_scene_dict(path: String) -> void:
 static func scene_exists(scene_name: String) -> bool:
 	return scene_name in _scene_dict
 
-## Returns the packed scene who's file name corresponds to [param scene_name].
-static func get_packed_scene(scene_name: String) -> PackedScene:
-	var path: String =  _scene_dict[scene_name]
-	if path in _packed_scene_cache:
-		return _packed_scene_cache[path]
-	else:
-		return load(path)
+static func get_scene_path(scene_name: String) -> String:
+	return _scene_dict[scene_name]

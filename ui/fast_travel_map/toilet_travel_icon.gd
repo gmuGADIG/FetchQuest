@@ -27,4 +27,4 @@ func _ready() -> void:
 func _on_pressed() -> void:
 	get_tree().paused = false
 	EntryPoints.current_entry_point = entry_point
-	SceneTransition.change_scene(SceneManager.get_packed_scene(scene_name))
+	SceneTransition.change_scene(scene_name)

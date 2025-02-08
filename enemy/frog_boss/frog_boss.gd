@@ -116,7 +116,7 @@ func on_death() -> void:
 
 	await get_tree().create_timer(2., false).timeout
 	EntryPoints.current_entry_point = "FastTravelGrove"
-	SceneTransition.change_scene(SceneManager.get_packed_scene("overworld"), true)
+	SceneTransition.change_scene("overworld", true)
 
 	# if death_particle_effect != null:
 	# 	var particles: CPUParticles2D = death_particle_effect.instantiate()

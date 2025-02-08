@@ -48,7 +48,7 @@ func _on_quit_pressed() -> void:
 	# Unpause so that everything will work
 	get_tree().paused = false
 	# Go to main menu.
-	SceneTransition.change_scene(load("res://ui/title/title_screen.tscn"))
+	SceneTransition.change_scene_to_path("res://ui/title/title_screen.tscn")
 	
 # When the option menu is hidden, we grab focus of the options button.
 func _on_option_menu_hidden() -> void:
