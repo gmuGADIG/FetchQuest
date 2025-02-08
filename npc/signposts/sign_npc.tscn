@@ -1,0 +1,18 @@
+[gd_scene load_steps=6 format=3 uid="uid://dmu4upvwa7kd4"]
+
+[ext_resource type="PackedScene" uid="uid://dvhfibvbfhnnv" path="res://npc/base_npc.tscn" id="1_lorme"]
+[ext_resource type="Script" path="res://addons/dialogic/Resources/timeline.gd" id="2_ef1p6"]
+[ext_resource type="Texture2D" uid="uid://cm3jr88cjepnk" path="res://npc/signposts/sign_post.png" id="2_nw43e"]
+[ext_resource type="Resource" path="res://npc/signposts/sign_crossroads.dtl" id="3_7wugp"]
+[ext_resource type="Resource" path="res://npc/signposts/sign_character.dch" id="4_mkckm"]
+
+[node name="NPC" instance=ExtResource("1_lorme")]
+
+[node name="TalkingInteractable" parent="." index="1"]
+timeline = Array[ExtResource("2_ef1p6")]([ExtResource("3_7wugp")])
+character = ExtResource("4_mkckm")
+
+[node name="Sprite2D" type="Sprite2D" parent="." index="2"]
+position = Vector2(4, -68)
+scale = Vector2(0.283669, 0.283669)
+texture = ExtResource("2_nw43e")
