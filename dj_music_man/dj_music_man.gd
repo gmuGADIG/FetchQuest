@@ -15,7 +15,8 @@ enum Music {
 	None,
 	Overworld,
 	AmalgamationBoss,
-	FrogBoss
+	FrogBoss,
+	CastleDungeon
 }
 
 func _get_music_id(music: Music) -> int:
@@ -42,6 +43,8 @@ func _get_music_id(music: Music) -> int:
 			return 9
 		Music.FrogBoss:
 			return 11
+		Music.CastleDungeon:
+			return 13
 		_:
 			assert(false, "unreachable")
 			return -1
