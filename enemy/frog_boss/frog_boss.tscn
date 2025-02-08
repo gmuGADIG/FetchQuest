@@ -1,8 +1,11 @@
-[gd_scene load_steps=17 format=3 uid="uid://c4q0hmrfl5yh2"]
+[gd_scene load_steps=22 format=3 uid="uid://c4q0hmrfl5yh2"]
 
 [ext_resource type="Script" path="res://enemy/frog_boss/frog_boss.gd" id="1_rd0g3"]
 [ext_resource type="PackedScene" uid="uid://ds6ix22a4e2va" path="res://enemy/frog_boss/shockwave.tscn" id="2_i6ben"]
 [ext_resource type="Texture2D" uid="uid://cfxhmpam2g3qx" path="res://enemy/frog_boss/sprite_sheet.png" id="3_n6hqq"]
+[ext_resource type="AudioStream" uid="uid://cu5wdj8s0dysk" path="res://enemy/frog_boss/FrogBoss4_Attack.wav" id="4_gqmit"]
+[ext_resource type="AudioStream" uid="uid://bog6pftw3vojk" path="res://enemy/frog_boss/FrogBoss5_Damaged_Hiss.wav" id="5_l4t05"]
+[ext_resource type="AudioStream" uid="uid://cs6qlmvpw3tmc" path="res://enemy/frog_boss/FrogBoss7_Defeated.wav" id="6_tgvl7"]
 
 [sub_resource type="Gradient" id="Gradient_4ga5k"]
 offsets = PackedFloat32Array(0, 0.707763)
@@ -117,6 +120,18 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_llb0f"]
+random_pitch = 1.1
+random_volume_offset_db = 1.0
+streams_count = 1
+stream_0/stream = ExtResource("4_gqmit")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_cgbkh"]
+random_pitch = 1.1
+random_volume_offset_db = 1.0
+streams_count = 1
+stream_0/stream = ExtResource("5_l4t05")
+
 [node name="Frog Boss" type="CharacterBody2D" groups=["Hittable"]]
 collision_layer = 4
 script = ExtResource("1_rd0g3")
@@ -134,8 +149,22 @@ shape = SubResource("RectangleShape2D_kf54t")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(0.2, 0.2)
 sprite_frames = SubResource("SpriteFrames_ycirm")
-animation = &"frog_jump_right"
-frame_progress = 0.63048
+animation = &"frog_jump_left"
 
 [node name="ActionCooldown" type="Timer" parent="."]
 wait_time = 0.75
+
+[node name="AttackSFX" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = SubResource("AudioStreamRandomizer_llb0f")
+volume_db = 7.0
+
+[node name="HurtSFX" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = SubResource("AudioStreamRandomizer_cgbkh")
+volume_db = 7.0
+
+[node name="DeathSFX" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("6_tgvl7")
+volume_db = 15.0

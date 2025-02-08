@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dgt3mun17ri66"]
+[gd_scene load_steps=17 format=3 uid="uid://dgt3mun17ri66"]
 
 [ext_resource type="AudioStream" uid="uid://c61suievtmffo" path="res://dj_music_man/music_files/Fetch Quest Main Theme-Connor.ogg" id="1_m7dho"]
 [ext_resource type="Script" path="res://dj_music_man/dj_music_man.gd" id="1_pxepr"]
@@ -6,7 +6,9 @@
 [ext_resource type="AudioStream" uid="uid://cto02vng6b2wx" path="res://dj_music_man/music_files/Bioluminescent Forest Region Theme_Justin.ogg" id="3_ox7ft"]
 [ext_resource type="AudioStream" uid="uid://bjisb74l4splb" path="res://dj_music_man/music_files/Amalg Boss LOOP.ogg" id="4_ahdgb"]
 [ext_resource type="AudioStream" uid="uid://xtxe2xfgriw5" path="res://dj_music_man/music_files/Caves Music_Connor.ogg" id="4_kybog"]
+[ext_resource type="AudioStream" uid="uid://ba5qownrihaxd" path="res://dj_music_man/music_files/Frog Boss-Intro.ogg" id="5_6uc8g"]
 [ext_resource type="AudioStream" uid="uid://dfehie5jdfv4s" path="res://dj_music_man/music_files/Church Region Theme_Nicole.ogg" id="5_8cmw5"]
+[ext_resource type="AudioStream" uid="uid://don1eyu5vdasn" path="res://dj_music_man/music_files/Frog Boss-LOOP.ogg" id="6_2hprp"]
 [ext_resource type="AudioStream" uid="uid://cwivyrbl3y2pm" path="res://dj_music_man/music_files/Mycelius Castle Region_Nathan.ogg" id="6_16jbc"]
 [ext_resource type="Texture2D" uid="uid://bnocwwvskrfk7" path="res://dj_music_man/dj_music_man.png" id="8_3p46t"]
 [ext_resource type="AudioStream" uid="uid://buinft43pup2" path="res://dj_music_man/music_files/Church Dungeon Theme (FULL).ogg" id="8_kty3t"]
@@ -16,7 +18,7 @@
 [sub_resource type="AudioStreamGenerator" id="AudioStreamGenerator_dcpky"]
 
 [sub_resource type="AudioStreamInteractive" id="AudioStreamInteractive_c6bhg"]
-clip_count = 11
+clip_count = 13
 clip_0/name = &"main-theme"
 clip_0/stream = ExtResource("1_m7dho")
 clip_0/auto_advance = 0
@@ -51,10 +53,22 @@ clip_9/next_clip = 10
 clip_10/name = &"amalgamation-loop"
 clip_10/stream = ExtResource("4_ahdgb")
 clip_10/auto_advance = 0
+clip_11/name = &"frog-boss-intro"
+clip_11/stream = ExtResource("5_6uc8g")
+clip_11/auto_advance = 0
+clip_12/name = &"frog-boss-loop"
+clip_12/stream = ExtResource("6_2hprp")
+clip_12/auto_advance = 0
 _transitions = {
 Vector2i(-1, -1): {
 "fade_beats": 2,
 "fade_mode": 3,
+"from_time": 0,
+"to_time": 1
+},
+Vector2i(11, -1): {
+"fade_beats": 0,
+"fade_mode": 0,
 "from_time": 0,
 "to_time": 1
 }

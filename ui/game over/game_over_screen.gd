@@ -10,8 +10,9 @@ func _ready() -> void:
 #After the sound the "quit" button should play stops playing (the await .finished part), restarts
 func _on_restart_checkpoint_pressed() -> void:
 	await audio_player.finished
-	EntryPoints.current_entry_point = "Entrance"
-	get_tree().change_scene_to_file("res://world/levels/overworld/overworld.tscn")
+	SaveSystem.load_game()
+	# EntryPoints.current_entry_point = "Entrance"
+	# get_tree().change_scene_to_file("res://world/levels/overworld/overworld.tscn")
 		
 # TODO: 
 #make a current save to load back rather than restart the whole game
