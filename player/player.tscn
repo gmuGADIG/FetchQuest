@@ -1,4 +1,4 @@
-[gd_scene load_steps=117 format=3 uid="uid://c7ck7ril2jix2"]
+[gd_scene load_steps=121 format=3 uid="uid://c7ck7ril2jix2"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_x43mx"]
 [ext_resource type="Script" path="res://player/x_ray.gd" id="3_f3hsb"]
@@ -32,6 +32,9 @@
 [ext_resource type="Texture2D" uid="uid://cv7to2pfrgt3m" path="res://player/sprites/margarita/Margarita_RunRight_Spritesheet.png" id="25_73gv5"]
 [ext_resource type="PackedScene" uid="uid://c5k5rgonv1752" path="res://ui/mouse_cursor/cursor.tscn" id="29_60imv"]
 [ext_resource type="Script" path="res://player/player_light.gd" id="32_e5i2o"]
+[ext_resource type="AudioStream" uid="uid://dfd333eneebpg" path="res://player/Dog Hurt 1.wav" id="33_kpleb"]
+[ext_resource type="AudioStream" uid="uid://drdrofakwf4he" path="res://player/Dog Hurt 2.wav" id="34_h603o"]
+[ext_resource type="AudioStream" uid="uid://tgx5wjor4nqb" path="res://player/Dog Whine Dialogue.wav" id="35_k0g12"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yvtba"]
 atlas = ExtResource("10_7q0er")
@@ -738,6 +741,14 @@ height = 256
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_1u1hf"]
+random_pitch = 1.1
+random_volume_offset_db = 2.0
+streams_count = 3
+stream_0/stream = ExtResource("33_kpleb")
+stream_1/stream = ExtResource("34_h603o")
+stream_2/stream = ExtResource("35_k0g12")
+
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 y_sort_enabled = true
 collision_layer = 2
@@ -827,6 +838,11 @@ energy = 0.5
 texture = SubResource("GradientTexture2D_cl8g0")
 texture_scale = 1.5
 script = ExtResource("32_e5i2o")
+
+[node name="HurtSound" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = SubResource("AudioStreamRandomizer_1u1hf")
+volume_db = 3.0
 
 [connection signal="timeout" from="RollTimer" to="." method="stop_roll"]
 [connection signal="timeout" from="FallTimer" to="." method="end_fall"]
