@@ -7,12 +7,17 @@ class_name AmalgamationSuckingState extends AmalgamationState
 ## The duration of this state
 @onready var duration:float = amalgamation.sucking_state_duration;
 
+func _on_anim_sprite_finished() -> void:
+	if amalgamation.anim_sprite.animation == "suck":
+		amalgamation.anim_sprite.play("suck_loop")
+
 func enter() -> void:
 	print("amalgamation_sucking_state.gd: vacuum noises")
 
 	# Turn on the particles and animation
-	amalgamation.animation_player.play("Sucking")
+	amalgamation.anim_sprite.play("suck")
 	sucking_effect.emitting = true
+	amalgamation.anim_sprite.animation_finished.connect(_on_anim_sprite_finished)
 
 	# Idle after sucking for 'duration' seconds
 	await get_tree().create_timer(duration).timeout
@@ -39,13 +44,7 @@ func _on_mouth_area_body_entered(body: Node2D) -> void:
 	if body is Player:
 		amalgamation.state_machine.change_state(self, "Chewing")
 
-	# Wait for the bomb to explode
-	elif body is Bomb:
-		for child in body.get_children():
-			if child is Timer:
-				await child.timeout
-				break;
-
-		# Switch to vulnerable state after explosion
-		if amalgamation.state_machine.current_state == self:
-			amalgamation.state_machine.change_state(self, "Vulnerable")
+func _on_mouth_area_exploded() -> void:
+	# Switch to vulnerable state after explosion
+	if amalgamation.state_machine.current_state == self:
+		amalgamation.state_machine.change_state(self, "Vulnerable")

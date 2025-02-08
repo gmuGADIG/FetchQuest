@@ -22,7 +22,7 @@ var target_scene: PackedScene = null
 func _ready() -> void:
 	$AnimationPlayer.speed_scale = 1.0 / anim_length
 
-func change_scene(scene: PackedScene) -> void:
+func change_scene(scene: PackedScene, boss_transition: bool = false) -> void:
 	# Don't accept a null scene as an argument.
 	if scene == null:
 		return
@@ -35,7 +35,7 @@ func change_scene(scene: PackedScene) -> void:
 	
 	# We've leaving the current scene. This animation MUST have a keyframe that
 	# will trigger _anim_scene_left().
-	$AnimationPlayer.play("LeaveScene")
+	$AnimationPlayer.play("BossLeaveScene" if boss_transition else "LeaveScene")
 
 # Call by the animation player, SceneLeft, when we're ready to change scenes.
 func _anim_scene_left() -> void:

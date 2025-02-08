@@ -7,7 +7,7 @@ class_name AmalgamationChewingState extends AmalgamationState
 
 func enter() -> void:
 	# Play animation
-	amalgamation.animation_player.play("Chewing")
+	amalgamation.anim_sprite.play("idle")
 	
 	print("amalgamation_chewing_state.gd: nom nom nom nom nom")
 	

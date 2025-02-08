@@ -13,7 +13,8 @@ enum Music {
 	CorruptedKingdomOverworld,
 	SinisterThicketDungeon,
 	None,
-	Overworld
+	Overworld,
+	AmalgamationBoss
 }
 
 func _get_music_id(music: Music) -> int:
@@ -36,6 +37,8 @@ func _get_music_id(music: Music) -> int:
 			return 7
 		Music.Overworld:
 			return 8
+		Music.AmalgamationBoss:
+			return 9
 		_:
 			assert(false, "unreachable")
 			return -1

@@ -1,13 +1,13 @@
 [gd_scene load_steps=4 format=3 uid="uid://dd84x31n3uw6i"]
 
 [ext_resource type="Script" path="res://enemy/creep_enemy/creep.gd" id="1_t1wk2"]
-[ext_resource type="Texture2D" uid="uid://ipqd2c6snnqc" path="res://demo_art/creep.png" id="2_xc1fu"]
+[ext_resource type="Texture2D" uid="uid://b43jmqse3bp5d" path="res://enemy/creep_enemy/Goop.PNG" id="2_p1cq8"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_dmixx"]
-radius = 80.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yv3v0"]
+size = Vector2(170.443, 20)
 
 [node name="Creep" type="Area2D"]
-scale = Vector2(0.05, 0.05)
+scale = Vector2(0.481098, 0.481098)
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("1_t1wk2")
@@ -15,7 +15,11 @@ sustain_time = 3.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.319955, 0.319955)
-texture = ExtResource("2_xc1fu")
+texture = ExtResource("2_p1cq8")
+region_enabled = true
+region_rect = Rect2(929.2, 840.828, 563.356, 86.8065)
 
 [node name="DamageCollider" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_dmixx")
+position = Vector2(-1.58583e-05, 0)
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_yv3v0")
