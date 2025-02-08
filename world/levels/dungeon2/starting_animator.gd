@@ -52,5 +52,6 @@ func _on_body_entered(body:Node2D) -> void:
 
 	player.input_locked = false
 	frog_boss.activate()
+	queue_free()
 
 

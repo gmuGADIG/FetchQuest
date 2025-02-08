@@ -1,4 +1,4 @@
-[gd_scene load_steps=75 format=3 uid="uid://b20mrgkaiv8ia"]
+[gd_scene load_steps=76 format=3 uid="uid://b20mrgkaiv8ia"]
 
 [ext_resource type="PackedScene" uid="uid://cnd06dpkgufe4" path="res://world/levels/level_base.tscn" id="1_rgxop"]
 [ext_resource type="PackedScene" uid="uid://c4q0hmrfl5yh2" path="res://enemy/frog_boss/frog_boss.tscn" id="2_5mjho"]
@@ -19,6 +19,7 @@
 [ext_resource type="PackedScene" uid="uid://cexm5ohj0j67i" path="res://ui/boss_health_bar/boss_health_bar.tscn" id="19_s0anr"]
 [ext_resource type="Script" path="res://world/levels/dungeon2/starting_animator.gd" id="20_f0jmn"]
 [ext_resource type="PackedScene" uid="uid://dmrs4pudb0lwa" path="res://world/decoration/bushes/biolum_bushes/bush_blue.tscn" id="20_gexcg"]
+[ext_resource type="Texture2D" uid="uid://b7satv1cyn6xx" path="res://world/objects/breakable_object/rock.png" id="21_elvc7"]
 [ext_resource type="PackedScene" uid="uid://b6ycumade0fwn" path="res://world/decoration/bushes/biolum_bushes/bush_purple.tscn" id="21_u68wy"]
 
 [sub_resource type="Resource" id="Resource_pgo2m"]
@@ -547,7 +548,17 @@ position = Vector2(634, -163)
 [node name="BossHealthBar" parent="." index="17" node_paths=PackedStringArray("boss") instance=ExtResource("19_s0anr")]
 boss = NodePath("../FrogBoss")
 
-[node name="StartingAnimator" type="Area2D" parent="." index="18"]
+[node name="DoorBlock" type="StaticBody2D" parent="." index="18"]
+unique_name_in_owner = true
+
+[node name="Rock" type="Sprite2D" parent="DoorBlock" index="0"]
+position = Vector2(684, 1321)
+texture = ExtResource("21_elvc7")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="DoorBlock" index="1"]
+polygon = PackedVector2Array(519, 1126, 866, 1137, 856, 1466, 480, 1443)
+
+[node name="StartingAnimator" type="Area2D" parent="." index="19"]
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("20_f0jmn")
