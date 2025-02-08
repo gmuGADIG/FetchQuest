@@ -1,4 +1,4 @@
-extends CharacterBody2D
+class_name FrogBoss extends CharacterBody2D
 
 @export var shockwave: Resource
 @export var death_particle_effect: PackedScene
@@ -31,17 +31,23 @@ var num_jumps: int = 0
 var total_actions: int = 0
 var facing_direction: int = 1  # 1 for right, -1 for left
 
-func _ready() -> void:
+var dead := false
+
+func activate() -> void:
 	action_cooldown.start()
 	action_cooldown.timeout.connect(_take_action)
 
 func _take_action() -> void:
-	var distance_to_player: float = (player.global_position - global_position).length()
+	if dead:
+		return
+	var distance_to_player := player.global_position.distance_to(global_position)
 
 	if boss_phase == 1 or boss_phase == 3:
+		# if player is far away and we haven't jumped much
 		if distance_to_player >= 700 and num_jumps <= 5:
 			jump_to(player.global_position)
-		elif num_hops != 0 and num_hops % 5 == 0:
+		# every three hops (except the first)
+		elif num_hops >= 3:
 			num_jumps = 0
 			jump_to(player.global_position)
 			num_hops = 0
@@ -101,19 +107,27 @@ func on_death() -> void:
 	sprite.play("frog_die")
 	frog_die.emit()
 
-	if death_particle_effect:
-		var particles: CPUParticles2D = death_particle_effect.instantiate()
-		particles.global_position = global_position
-		get_parent().add_child(particles)
+	dead = true
+	original_position = position
+	MainCam.shake(020, 30)
 
-	var death_timer: SceneTreeTimer = get_tree().create_timer(2.0)
-	var elapsed_time: float = 0.0
-	var original_position: Vector2 = sprite.position
-	while death_timer.time_left > 0:
-		sprite.position = original_position + Vector2(randi_range(-2, 2), randi_range(-2, 2))
-		await get_tree().create_timer(0.05).timeout
-	sprite.position = original_position
-	queue_free()
+	await get_tree().create_timer(2., false).timeout
+	EntryPoints.current_entry_point = "FastTravelGrove"
+	SceneTransition.change_scene(SceneManager.get_packed_scene("overworld"), true)
+
+	# if death_particle_effect != null:
+	# 	var particles: CPUParticles2D = death_particle_effect.instantiate()
+	# 	particles.global_position = global_position
+	# 	get_parent().add_child(particles)
+	#
+	# var death_timer: SceneTreeTimer = get_tree().create_timer(2.0)
+	# var elapsed_time: float = 0.0
+	# var original_position: Vector2 = sprite.position
+	# while death_timer.time_left > 0:
+	# 	sprite.position = original_position + Vector2(randi_range(-2, 2), randi_range(-2, 2))
+	# 	await get_tree().create_timer(0.05).timeout
+	# sprite.position = original_position
+	# queue_free()
 
 func jump_to(target_position: Vector2) -> void:
 	if velocity != Vector2.ZERO:
@@ -178,10 +192,16 @@ func update_facing_direction(move_direction: Vector2) -> void:
 	elif move_direction.x < 0:
 		facing_direction = -1
 
+var clock := 0.
+var original_position: Vector2
 func _process(delta: float) -> void:
-	move_and_slide()
-	if velocity == Vector2.ZERO:
-		if facing_direction == 1:
-			sprite.play("default_right")
-		else:
-			sprite.play("default_left")
+	if dead:
+		clock = fmod(clock + delta * 5., 1.)
+		position = original_position + (Vector2(20, 0) * sign(clock -.5))
+	else:
+		move_and_slide()
+		if velocity == Vector2.ZERO:
+			if facing_direction == 1:
+				sprite.play("default_right")
+			else:
+				sprite.play("default_left")
