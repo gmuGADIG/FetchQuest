@@ -8,6 +8,8 @@ extends Area2D
 func _on_body_entered(body:Node2D) -> void:
 	if body is not Player: return
 
+	DJMusicMan.play_music(DJMusicMan.Music.None)
+
 	var player := Player.instance
 	player.input_locked = true
 
@@ -25,12 +27,15 @@ func _on_body_entered(body:Node2D) -> void:
 	t = player.global_position.distance_to(second_point.global_position) / player.move_speed
 	tween.tween_property(player, "global_position", second_point.global_position, t)
 	var starting_zoom := MainCam.instance.zoom
-	tween.parallel().tween_property(MainCam.instance, "zoom", starting_zoom * .5, 1.5)
+	DJMusicMan.play_music(DJMusicMan.Music.FrogBoss)
+	var zoom_tween := create_tween()
+	zoom_tween.tween_property(MainCam.instance, "zoom", starting_zoom * .5, 1.5)
 
 	player.play_animation("walk_left")
 	await tween.finished
 	player.play_animation("idle_left")
-	await get_tree().create_timer(1., false).timeout
+	await zoom_tween.finished
+	await get_tree().create_timer(1.43 - .5, false).timeout
 
 	tween = create_tween()
 	tween.tween_property(frog_boss, "global_position", frog_point.global_position, .125)
