@@ -1,4 +1,4 @@
-extends CharacterBody2D
+class_name FrogBoss extends CharacterBody2D
 
 @export var shockwave: Resource
 @export var death_particle_effect: PackedScene
@@ -31,14 +31,15 @@ var num_jumps: int = 0
 var total_actions: int = 0
 var facing_direction: int = 1  # 1 for right, -1 for left
 
-func _ready() -> void:
+func activate() -> void:
 	action_cooldown.start()
 	action_cooldown.timeout.connect(_take_action)
 
 func _take_action() -> void:
-	var distance_to_player: float = (player.global_position - global_position).length()
+	var distance_to_player := player.global_position.distance_to(global_position)
 
 	if boss_phase == 1 or boss_phase == 3:
+		# if player is far away and we haven't jumped much
 		if distance_to_player >= 700 and num_jumps <= 5:
 			jump_to(player.global_position)
 		elif num_hops != 0 and num_hops % 5 == 0:
