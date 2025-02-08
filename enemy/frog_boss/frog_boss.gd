@@ -78,8 +78,11 @@ func hurt(damage_event: DamageEvent) -> void:
 	print("Health of '%s' was lowered to %s/%s" % [get_path(), health, max_health])
 
 	if health <= 0:
+		%DeathSFX.play()
 		on_death()
 		return
+	else:
+		%HurtSFX.play()
 
 	hit_flicker()
 
@@ -149,6 +152,7 @@ func jump_to(target_position: Vector2) -> void:
 	global_position = (global_position - starting_position) + target_position
 	velocity = -velocity
 	await get_tree().create_timer(5.0 / 12.0 * jump_time).timeout
+	%AttackSFX.play()
 	spawn_shockwave()
 	velocity = Vector2.ZERO
 	enable_hitbox()
