@@ -1,4 +1,4 @@
-[gd_scene load_steps=59 format=3 uid="uid://xgwwcejvha1d"]
+[gd_scene load_steps=61 format=3 uid="uid://xgwwcejvha1d"]
 
 [ext_resource type="Script" path="res://enemy/amalgamation/thee_amalgamation.gd" id="1_q0tx4"]
 [ext_resource type="PackedScene" uid="uid://yllbcpq24cl0" path="res://enemy/creep_enemy/creep_enemy.tscn" id="2_kbojl"]
@@ -10,12 +10,14 @@
 [ext_resource type="Script" path="res://enemy/amalgamation/states/amalgamation_spitting_state.gd" id="7_kvuo0"]
 [ext_resource type="Script" path="res://enemy/amalgamation/states/amalgamation_sucking_state.gd" id="8_1g38x"]
 [ext_resource type="Script" path="res://enemy/amalgamation/states/amalgamation_vulnerable_state.gd" id="9_0n3tp"]
+[ext_resource type="Script" path="res://enemy/amalgamation/dead.gd" id="11_7i7ev"]
 [ext_resource type="Texture2D" uid="uid://b4nvtusva66p4" path="res://enemy/amalgamation/sprites/amalgamation_idlesheet.png" id="11_lkvvn"]
 [ext_resource type="Shader" path="res://enemy/amalgamation/thee_amalgamation.gdshader" id="11_u1otb"]
 [ext_resource type="Texture2D" uid="uid://mwj21nxk868f" path="res://enemy/amalgamation/sprites/amalgamation_spitattacksheet.png" id="12_jtu2h"]
 [ext_resource type="Texture2D" uid="uid://ch0ffb24imgwb" path="res://enemy/amalgamation/sprites/amalgamation_pillarattacksheet.png" id="12_kvwdi"]
 [ext_resource type="Texture2D" uid="uid://h7pgcds200vs" path="res://enemy/amalgamation/sprites/amalgamation_suckattacksheet.png" id="13_11tj7"]
 [ext_resource type="Texture2D" uid="uid://boqdlxhg4nnot" path="res://enemy/amalgamation/sprites/sleeping_particle.png" id="15_ecvnk"]
+[ext_resource type="Script" path="res://enemy/amalgamation/mouth_area.gd" id="17_l5kv0"]
 [ext_resource type="Shader" path="res://enemy/amalgamation/amalgamation_pillar_of_light.gdshader" id="17_l6ctt"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_vl62w"]
@@ -445,12 +447,16 @@ script = ExtResource("8_1g38x")
 [node name="Vulnerable" type="Node" parent="StateMachine"]
 script = ExtResource("9_0n3tp")
 
+[node name="Dead" type="Node" parent="StateMachine"]
+script = ExtResource("11_7i7ev")
+
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 material = SubResource("ShaderMaterial_vl62w")
 scale = Vector2(0.07, 0.07)
 sprite_frames = SubResource("SpriteFrames_8wix2")
-animation = &"pillar"
+animation = &"pillar_loop"
 autoplay = "sleeping"
+frame_progress = 0.145323
 
 [node name="SleepingParticles" type="CPUParticles2D" parent="."]
 unique_name_in_owner = true
@@ -476,7 +482,6 @@ shape = SubResource("CircleShape2D_tq8je")
 debug_color = Color(0.757734, 0.454117, 1.34766e-06, 0.42)
 
 [node name="HitboxArea" type="Area2D" parent="."]
-visible = false
 collision_layer = 0
 collision_mask = 2
 
@@ -485,7 +490,6 @@ shape = SubResource("RectangleShape2D_fcu4u")
 
 [node name="VulnerableHurtArea" type="Area2D" parent="."]
 unique_name_in_owner = true
-visible = false
 collision_layer = 4
 collision_mask = 130
 
@@ -495,10 +499,10 @@ debug_color = Color(0.957987, 0, 0.529598, 0.42)
 
 [node name="MouthArea" type="Area2D" parent="."]
 unique_name_in_owner = true
-visible = false
 position = Vector2(0, 6)
-collision_layer = 4
-collision_mask = 130
+collision_layer = 4096
+collision_mask = 2
+script = ExtResource("17_l5kv0")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MouthArea"]
 shape = SubResource("CircleShape2D_roexs")
@@ -533,5 +537,6 @@ material = SubResource("ShaderMaterial_h7w43")
 
 [connection signal="body_entered" from="HitboxArea" to="." method="_on_hitbox_area_body_entered"]
 [connection signal="body_entered" from="VulnerableHurtArea" to="StateMachine/Vulnerable" method="_on_vulnerable_hit_area_body_entered"]
-[connection signal="body_entered" from="MouthArea" to="StateMachine/Asleep" method="_on_mouth_area_body_entered"]
 [connection signal="body_entered" from="MouthArea" to="StateMachine/Sucking" method="_on_mouth_area_body_entered"]
+[connection signal="exploded" from="MouthArea" to="StateMachine/Asleep" method="_on_mouth_area_exploded"]
+[connection signal="exploded" from="MouthArea" to="StateMachine/Sucking" method="_on_mouth_area_exploded"]

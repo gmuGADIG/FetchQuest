@@ -107,3 +107,4 @@ func _on_hitbox_area_body_entered(body: Node2D) -> void:
 
 func die() -> void:
 	print("thee_amalgamation.gd: X_X")
+	state_machine.change_state(state_machine.current_state, "Dead")

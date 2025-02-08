@@ -17,6 +17,11 @@ func explode() -> void:
 	if exploded: return
 	exploded = true
 
+	var explodables := explosion_area.get_overlapping_areas()
+	for e in explodables:
+		if e.has_method("explode"):
+			e.explode()
+
 	var damaged_things := explosion_area.get_overlapping_bodies()
 
 	for thing in damaged_things:

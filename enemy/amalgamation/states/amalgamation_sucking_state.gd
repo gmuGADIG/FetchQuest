@@ -44,13 +44,7 @@ func _on_mouth_area_body_entered(body: Node2D) -> void:
 	if body is Player:
 		amalgamation.state_machine.change_state(self, "Chewing")
 
-	# Wait for the bomb to explode
-	elif body is Bomb:
-		for child in body.get_children():
-			if child is Timer:
-				await child.timeout
-				break;
-
-		# Switch to vulnerable state after explosion
-		if amalgamation.state_machine.current_state == self:
-			amalgamation.state_machine.change_state(self, "Vulnerable")
+func _on_mouth_area_exploded() -> void:
+	# Switch to vulnerable state after explosion
+	if amalgamation.state_machine.current_state == self:
+		amalgamation.state_machine.change_state(self, "Vulnerable")

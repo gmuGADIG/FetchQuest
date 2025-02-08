@@ -23,6 +23,6 @@ func _ready() -> void:
 	# # Remove the creep once it shrinks away
 	# tween.finished.connect(queue_free) 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if overlaps_body(Player.instance):
 		Player.instance.hurt(DamageEvent.new(damage))
