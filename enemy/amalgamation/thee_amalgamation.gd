@@ -93,7 +93,7 @@ func hurt(damage_event: DamageEvent) -> void:
 	
 	# Switch back to vulnerable unless in different state
 	if state_machine.current_state is AmalgamationVulnerableState:
-		animation_player.play("Vulnerable")
+		animation_player.play("RESET")
 	
 	# Die if dead X_X
 	if health <= 0:

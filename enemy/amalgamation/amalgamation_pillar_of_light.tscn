@@ -1,7 +1,28 @@
-[gd_scene load_steps=4 format=3 uid="uid://dtclkg07t3rcj"]
+[gd_scene load_steps=7 format=3 uid="uid://dtclkg07t3rcj"]
 
 [ext_resource type="Script" path="res://enemy/amalgamation/amalgamation_pillar_of_light.gd" id="1_q8s23"]
-[ext_resource type="Texture2D" uid="uid://dymucenpxmluo" path="res://icon.svg" id="2_vv68l"]
+
+[sub_resource type="Gradient" id="Gradient_t5kaj"]
+offsets = PackedFloat32Array(0.495495, 0.558559, 0.644144)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_iak1s"]
+gradient = SubResource("Gradient_t5kaj")
+height = 128
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 1)
+
+[sub_resource type="Gradient" id="Gradient_h7h5l"]
+offsets = PackedFloat32Array(0.558559, 0.644144)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ebxx7"]
+gradient = SubResource("Gradient_h7h5l")
+height = 128
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_huvlp"]
 size = Vector2(126, 128)
@@ -9,9 +30,33 @@ size = Vector2(126, 128)
 [node name="AmalgamationPillarOfLight" type="Node2D"]
 script = ExtResource("1_q8s23")
 
-[node name="ShadowSprite" type="Sprite2D" parent="."]
-modulate = Color(1, 1, 1, 0)
-texture = ExtResource("2_vv68l")
+[node name="RingSprites" type="Node2D" parent="."]
+scale = Vector2(2, 2)
+
+[node name="Sprite2D" type="Sprite2D" parent="RingSprites"]
+texture = SubResource("GradientTexture2D_iak1s")
+
+[node name="Sprite2D3" type="Sprite2D" parent="RingSprites"]
+rotation = 1.0472
+texture = SubResource("GradientTexture2D_iak1s")
+
+[node name="Sprite2D4" type="Sprite2D" parent="RingSprites"]
+rotation = 2.0944
+texture = SubResource("GradientTexture2D_iak1s")
+
+[node name="AttackSprites" type="Node2D" parent="."]
+scale = Vector2(2, 2)
+
+[node name="Sprite2D5" type="Sprite2D" parent="AttackSprites"]
+texture = SubResource("GradientTexture2D_ebxx7")
+
+[node name="Sprite2D6" type="Sprite2D" parent="AttackSprites"]
+rotation = 1.0472
+texture = SubResource("GradientTexture2D_ebxx7")
+
+[node name="Sprite2D7" type="Sprite2D" parent="AttackSprites"]
+rotation = 2.0944
+texture = SubResource("GradientTexture2D_ebxx7")
 
 [node name="PlayerDetector" type="Area2D" parent="."]
 collision_layer = 0

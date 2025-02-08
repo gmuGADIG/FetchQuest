@@ -12,4 +12,3 @@ void fragment() {
 		COLOR.xyz *= color;
 	}
 }
-

@@ -1,4 +1,4 @@
-[gd_scene load_steps=57 format=3 uid="uid://xgwwcejvha1d"]
+[gd_scene load_steps=59 format=3 uid="uid://xgwwcejvha1d"]
 
 [ext_resource type="Script" path="res://enemy/amalgamation/thee_amalgamation.gd" id="1_q0tx4"]
 [ext_resource type="PackedScene" uid="uid://yllbcpq24cl0" path="res://enemy/creep_enemy/creep_enemy.tscn" id="2_kbojl"]
@@ -16,6 +16,7 @@
 [ext_resource type="Texture2D" uid="uid://ch0ffb24imgwb" path="res://enemy/amalgamation/sprites/amalgamation_pillarattacksheet.png" id="12_kvwdi"]
 [ext_resource type="Texture2D" uid="uid://h7pgcds200vs" path="res://enemy/amalgamation/sprites/amalgamation_suckattacksheet.png" id="13_11tj7"]
 [ext_resource type="Texture2D" uid="uid://boqdlxhg4nnot" path="res://enemy/amalgamation/sprites/sleeping_particle.png" id="15_ecvnk"]
+[ext_resource type="Shader" path="res://enemy/amalgamation/amalgamation_pillar_of_light.gdshader" id="17_l6ctt"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_vl62w"]
 shader = ExtResource("11_u1otb")
@@ -277,7 +278,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.05),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [Color(10, 10, 10, 1), Color(1, 1, 1, 1)]
+"values": [Color(4, 4, 4, 1), Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_hgvlx"]
@@ -398,14 +399,18 @@ _data = {
 "Vulnerable": SubResource("Animation_5hnde")
 }
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_h7w43"]
+shader = ExtResource("17_l6ctt")
+
 [node name="Amalgamation" type="Node2D" node_paths=PackedStringArray("sucking_state", "pillar_state", "spit_state")]
+position = Vector2(0, 4)
 scale = Vector2(18.4817, 18.4817)
 script = ExtResource("1_q0tx4")
 max_health = 10
 sucking_state = NodePath("StateMachine/Sucking")
 pillar_state = NodePath("StateMachine/Pillars")
 spit_state = NodePath("StateMachine/Spitting")
-pillar_count = 50
+pillar_count = 20
 spitting_possible_enemies = Array[PackedScene]([ExtResource("2_kbojl")])
 spitting_number = 4
 pillar_state_duration = 7.5
@@ -444,7 +449,7 @@ script = ExtResource("9_0n3tp")
 material = SubResource("ShaderMaterial_vl62w")
 scale = Vector2(0.07, 0.07)
 sprite_frames = SubResource("SpriteFrames_8wix2")
-animation = &"sleeping"
+animation = &"pillar"
 autoplay = "sleeping"
 
 [node name="SleepingParticles" type="CPUParticles2D" parent="."]
@@ -520,6 +525,11 @@ color_ramp = SubResource("Gradient_rareu")
 libraries = {
 "": SubResource("AnimationLibrary_tawbk")
 }
+
+[node name="Node" type="Node" parent="."]
+
+[node name="PillarAttackParent" type="CanvasGroup" parent="Node"]
+material = SubResource("ShaderMaterial_h7w43")
 
 [connection signal="body_entered" from="HitboxArea" to="." method="_on_hitbox_area_body_entered"]
 [connection signal="body_entered" from="VulnerableHurtArea" to="StateMachine/Vulnerable" method="_on_vulnerable_hit_area_body_entered"]

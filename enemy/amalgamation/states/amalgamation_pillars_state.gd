@@ -16,25 +16,39 @@ class_name AmalgamationPillarsState extends AmalgamationState
 ## The current pillars that exist
 var pillars_spawned: Array[Node2D] = []
 
-func _on_anim_sprite_finished() -> void:
-	if amalgamation.anim_sprite.animation == "pillar":
-		amalgamation.anim_sprite.play("pillar_loop")
-
 func enter() -> void:
 	# Play the animation
 	amalgamation.anim_sprite.play("pillar")
-	amalgamation.anim_sprite.animation_finished.connect(_on_anim_sprite_finished)
+	await amalgamation.anim_sprite.animation_finished
+	amalgamation.anim_sprite.play("pillar_loop")
 	
 	print("amalgamation_pillars_state.gd: final destination reference")
 	
 	# Summon the pillars
 	summon_pillars()
-	
-	# Idle after 'duration' seconds
-	await get_tree().create_timer(duration).timeout
-	if amalgamation.state_machine.current_state != self:
-		return
-	amalgamation.state_machine.change_state(self, "Idle")
+
+	while true:
+		await get_tree().process_frame
+		await get_tree().process_frame
+		await get_tree().process_frame
+		await get_tree().process_frame
+		await get_tree().process_frame
+		await get_tree().process_frame
+		await get_tree().process_frame
+		await get_tree().process_frame
+		await get_tree().process_frame
+		await get_tree().process_frame
+
+		var flag := false 
+		for pillar in pillars_spawned:
+			if is_instance_valid(pillar):
+				flag = true
+				break
+		if flag: continue
+		
+		amalgamation.state_machine.change_state(self, "Idle")
+		break
+
 
 func update(_delta:float) -> void:
 	pass
@@ -51,7 +65,8 @@ func spawn_pillar(location:Vector2) -> Node2D:
 	var pillar:Node2D = pillar_scene.instantiate()
 	pillar.global_position = location
 	pillar.fall_time = pillar_fall_time
-	amalgamation.state_machine.get_parent().add_sibling(pillar)
+	amalgamation.get_node("Node/PillarAttackParent").add_child(pillar)
+	# amalgamation.state_machine.get_parent().add_sibling(pillar)
 	
 	# Return the pillar for tracking purposes
 	return pillar
