@@ -42,7 +42,8 @@ func _take_action() -> void:
 		# if player is far away and we haven't jumped much
 		if distance_to_player >= 700 and num_jumps <= 5:
 			jump_to(player.global_position)
-		elif num_hops != 0 and num_hops % 5 == 0:
+		# every three hops (except the first)
+		elif num_hops >= 3:
 			num_jumps = 0
 			jump_to(player.global_position)
 			num_hops = 0
