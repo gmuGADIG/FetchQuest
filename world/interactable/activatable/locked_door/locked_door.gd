@@ -1,4 +1,3 @@
-@tool
 class_name LockedDoor extends Node2D
 
 enum OpenMethod {
@@ -9,17 +8,10 @@ enum OpenMethod {
 
 @export var relockable := false
 @export var open_method := OpenMethod.KEY
-@export var default_sprite_used := true:
-	set(v):
-		default_sprite_used = v
-		default_sprite.visible = v
-
-@onready var default_sprite := %DefaultSprite as Sprite2D
 
 static var doors_opened: Array[NodePath]
 
 func _ready() -> void:
-	default_sprite.visible = default_sprite_used
 	if doors_opened.has(get_path()):
 		unlock()
 

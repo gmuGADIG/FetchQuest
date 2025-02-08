@@ -1,7 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://crqa73o8ye5uo"]
+[gd_scene load_steps=5 format=3 uid="uid://dt3m30r5dehup"]
 
-[ext_resource type="Script" path="res://world/interactable/pickups/property_item_pickup.gd" id="1_m8516"]
-[ext_resource type="Texture2D" uid="uid://bh3mmsiuru6v4" path="res://demo_art/key.png" id="2_6tqxp"]
+[ext_resource type="Script" path="res://world/interactable/pickups/property_item_pickup.gd" id="1_034u0"]
+[ext_resource type="Texture2D" uid="uid://blnvebced8k5o" path="res://world/interactable/pickups/keys/key.png" id="2_x1tv6"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_my72a"]
 radius = 22.0
@@ -10,19 +10,17 @@ radius = 22.0
 radius = 111.803
 
 [node name="pickup_key" type="CharacterBody2D" groups=["Item"]]
-position = Vector2(-1, 0)
 collision_layer = 16
-script = ExtResource("1_m8516")
-item_property = &"boss_door_keys"
+script = ExtResource("1_034u0")
+item_property = &"door_keys"
 single_use = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_my72a")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-modulate = Color(1, 0.368627, 1, 1)
-scale = Vector2(0.134095, 0.134095)
-texture = ExtResource("2_6tqxp")
+scale = Vector2(0.214761, 0.214761)
+texture = ExtResource("2_x1tv6")
 
 [node name="PickupArea" type="Area2D" parent="."]
 collision_layer = 0
