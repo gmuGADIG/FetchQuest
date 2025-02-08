@@ -1,31 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://b7jmjdpsvmi50"]
+[gd_scene load_steps=3 format=3 uid="uid://b7jmjdpsvmi50"]
 
-[ext_resource type="Script" path="res://world/interactable/activatable/locked_door/locked_door.gd" id="1_uhvnk"]
-[ext_resource type="Texture2D" uid="uid://6plxj1jo86sb" path="res://world/interactable/activatable/locked_door/locked_door.png" id="2_h4aoj"]
+[ext_resource type="PackedScene" uid="uid://blh1fs712dql8" path="res://world/interactable/activatable/locked_door/locked_door.tscn" id="1_uy3ab"]
+[ext_resource type="Texture2D" uid="uid://7saer2t1w5xb" path="res://world/interactable/activatable/locked_door/lock_boss.png" id="2_0yiuc"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_kiqxi"]
-size = Vector2(256, 256)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_f2tc6"]
-size = Vector2(258, 258)
-
-[node name="LockedDoor" type="StaticBody2D" groups=["Activatable"]]
-script = ExtResource("1_uhvnk")
+[node name="LockedDoorBoss" instance=ExtResource("1_uy3ab")]
 open_method = 1
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_kiqxi")
-
-[node name="DefaultSprite" type="Sprite2D" parent="."]
-unique_name_in_owner = true
-modulate = Color(1, 0.329412, 1, 1)
-texture = ExtResource("2_h4aoj")
-
-[node name="Area2D" type="Area2D" parent="."]
-unique_name_in_owner = true
-collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource("RectangleShape2D_f2tc6")
-
-[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[node name="LockSprite" parent="Node" index="0"]
+texture = ExtResource("2_0yiuc")

@@ -12,13 +12,7 @@
 [ext_resource type="Script" path="res://addons/rmsmartshape/materials/shape_material.gd" id="10_1rjb0"]
 [ext_resource type="Texture2D" uid="uid://bw81d0u7iionc" path="res://world/interactable/activatable/locked_door/lock_normal.png" id="11_h3yxm"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_kiqxi"]
-size = Vector2(256, 256)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_f2tc6"]
-size = Vector2(258, 258)
-
-[sub_resource type="Resource" id="Resource_5nm1d"]
+[sub_resource type="Resource" id="Resource_gcnlr"]
 script = ExtResource("4_0dktg")
 texture_idx = 0
 flip = false
@@ -29,9 +23,9 @@ script = ExtResource("5_m61g8")
 position = Vector2(-128, -128)
 point_in = Vector2(0, 0)
 point_out = Vector2(0, 0)
-properties = SubResource("Resource_5nm1d")
+properties = SubResource("Resource_gcnlr")
 
-[sub_resource type="Resource" id="Resource_nqldt"]
+[sub_resource type="Resource" id="Resource_o1cyo"]
 script = ExtResource("4_0dktg")
 texture_idx = 0
 flip = false
@@ -42,9 +36,9 @@ script = ExtResource("5_m61g8")
 position = Vector2(128, -128)
 point_in = Vector2(0, 0)
 point_out = Vector2(0, 0)
-properties = SubResource("Resource_nqldt")
+properties = SubResource("Resource_o1cyo")
 
-[sub_resource type="Resource" id="Resource_k5d0x"]
+[sub_resource type="Resource" id="Resource_7gq8p"]
 script = ExtResource("4_0dktg")
 texture_idx = 0
 flip = false
@@ -55,9 +49,9 @@ script = ExtResource("5_m61g8")
 position = Vector2(128, 128)
 point_in = Vector2(0, 0)
 point_out = Vector2(0, 0)
-properties = SubResource("Resource_k5d0x")
+properties = SubResource("Resource_7gq8p")
 
-[sub_resource type="Resource" id="Resource_oa2oj"]
+[sub_resource type="Resource" id="Resource_l3s6c"]
 script = ExtResource("4_0dktg")
 texture_idx = 0
 flip = false
@@ -68,9 +62,9 @@ script = ExtResource("5_m61g8")
 position = Vector2(-128, 128)
 point_in = Vector2(0, 0)
 point_out = Vector2(0, 0)
-properties = SubResource("Resource_oa2oj")
+properties = SubResource("Resource_l3s6c")
 
-[sub_resource type="Resource" id="Resource_6tbg3"]
+[sub_resource type="Resource" id="Resource_cgq73"]
 script = ExtResource("4_0dktg")
 texture_idx = 0
 flip = false
@@ -81,7 +75,7 @@ script = ExtResource("5_m61g8")
 position = Vector2(-128, -128)
 point_in = Vector2(0, 0)
 point_out = Vector2(0, 0)
-properties = SubResource("Resource_6tbg3")
+properties = SubResource("Resource_cgq73")
 
 [sub_resource type="Resource" id="Resource_u8oic"]
 script = ExtResource("6_xecv8")
@@ -155,6 +149,37 @@ fill_texture_angle_offset = 0.0
 fill_mesh_offset = 0.0
 render_offset = 0.0
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kiqxi"]
+size = Vector2(256, 256)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f2tc6"]
+size = Vector2(258, 258)
+
+[sub_resource type="Animation" id="Animation_sk57p"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("LockSprite:offset:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(40, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../SS2D_Shape:modulate:a")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
 [sub_resource type="Animation" id="Animation_rq568"]
 resource_name = "bob"
 length = 1.5
@@ -170,19 +195,16 @@ tracks/0/keys = {
 "points": PackedFloat32Array(40, -0.25, 0, 0.766667, 2, -40, -0.733333, 5, 0.25, 0),
 "times": PackedFloat32Array(0, 1.5)
 }
-
-[sub_resource type="Animation" id="Animation_sk57p"]
-length = 0.001
-tracks/0/type = "bezier"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("LockSprite:offset:y")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(40, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../SS2D_Shape:modulate:a")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.766667, -0.00144994, 0.243137, -0.7, 0.0304485, 0.25, 0),
+"times": PackedFloat32Array(0, 1.5)
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_nlqce"]
@@ -194,29 +216,28 @@ _data = {
 [node name="LockedDoor" type="StaticBody2D" groups=["Activatable"]]
 script = ExtResource("1_ra2qc")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
-shape = SubResource("RectangleShape2D_kiqxi")
-
-[node name="DefaultSprite" type="Sprite2D" parent="."]
-unique_name_in_owner = true
-visible = false
-texture = ExtResource("1_w2s34")
-
-[node name="Area2D" type="Area2D" parent="."]
-unique_name_in_owner = true
-visible = false
-collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource("RectangleShape2D_f2tc6")
-
 [node name="SS2D_Shape" type="Node2D" parent="."]
 script = ExtResource("3_fjnrt")
 _points = SubResource("Resource_u8oic")
 shape_material = SubResource("Resource_j7fby")
 
-[node name="RemoteTransform2D" type="RemoteTransform2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_kiqxi")
+debug_color = Color(0, 0.595, 0.7, 0)
+
+[node name="DefaultSprite" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("1_w2s34")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_f2tc6")
+debug_color = Color(0, 0.595, 0.7, 0)
+
+[node name="LockPosition" type="RemoteTransform2D" parent="."]
+unique_name_in_owner = true
 remote_path = NodePath("../Node/LockSprite")
 update_rotation = false
 update_scale = false
@@ -224,11 +245,13 @@ update_scale = false
 [node name="Node" type="Node" parent="."]
 
 [node name="LockSprite" type="Sprite2D" parent="Node"]
+unique_name_in_owner = true
 scale = Vector2(0.36932, 0.36932)
 texture = ExtResource("11_h3yxm")
 offset = Vector2(0, 40)
 
-[node name="LockAnimator" type="AnimationPlayer" parent="Node"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../Node")
 libraries = {
 "": SubResource("AnimationLibrary_nlqce")
 }

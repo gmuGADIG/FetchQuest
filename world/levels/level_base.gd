@@ -6,5 +6,3 @@ static var instance: Level
 
 func _init() -> void:
 	instance = self
-
-
