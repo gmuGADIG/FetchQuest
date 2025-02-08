@@ -1,12 +1,69 @@
-[gd_scene load_steps=6 format=3 uid="uid://yllbcpq24cl0"]
+[gd_scene load_steps=14 format=3 uid="uid://yllbcpq24cl0"]
 
 [ext_resource type="PackedScene" uid="uid://blpi4x6if673v" path="res://enemy/base_enemy.tscn" id="1_mhp5o"]
 [ext_resource type="Script" path="res://enemy/creep_enemy/creep_enemy.gd" id="2_dr0mb"]
 [ext_resource type="PackedScene" uid="uid://dd84x31n3uw6i" path="res://enemy/creep_enemy/creep.tscn" id="3_mgyv2"]
-[ext_resource type="Texture2D" uid="uid://deern6512fesn" path="res://demo_art/test_enemy.svg" id="3_vgsle"]
+[ext_resource type="Texture2D" uid="uid://cijvfkgelm04u" path="res://enemy/creep_enemy/Snail_Moving.PNG" id="5_pm647"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_dkb7p"]
-size = Vector2(117, 108)
+[sub_resource type="AtlasTexture" id="AtlasTexture_e8xul"]
+atlas = ExtResource("5_pm647")
+region = Rect2(35, 0, 718, 1714)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u4lre"]
+atlas = ExtResource("5_pm647")
+region = Rect2(770, 0, 715, 1714)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t1mee"]
+atlas = ExtResource("5_pm647")
+region = Rect2(1485, 0, 715, 1714)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wk3hq"]
+atlas = ExtResource("5_pm647")
+region = Rect2(2213, 0, 711, 1714)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v4slc"]
+atlas = ExtResource("5_pm647")
+region = Rect2(2924, 0, 711, 1714)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t0v0e"]
+atlas = ExtResource("5_pm647")
+region = Rect2(3620, 0, 700, 1714)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sgp4i"]
+atlas = ExtResource("5_pm647")
+region = Rect2(4320, 0, 700, 1714)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6jvaf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e8xul")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u4lre")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t1mee")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wk3hq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v4slc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t0v0e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sgp4i")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ebyh5"]
+radius = 46.8378
 
 [node name="CreepEnemy" node_paths=PackedStringArray("enemy_sprite") instance=ExtResource("1_mhp5o")]
 scale = Vector2(0.75, 0.75)
@@ -14,19 +71,26 @@ script = ExtResource("2_dr0mb")
 creep_prefab = ExtResource("3_mgyv2")
 creep_spawn_time = 3.0
 roaming_radius = 1000.0
-enemy_sprite = NodePath("Sprite2D")
+enemy_sprite = NodePath("AnimatedSprite2D")
 agressive_target_distance_max = 1
 
-[node name="Sprite2D" type="Sprite2D" parent="." index="0"]
-self_modulate = Color(0, 1, 0.266667, 1)
-texture = ExtResource("3_vgsle")
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="0"]
+position = Vector2(0, -16)
+scale = Vector2(0.171649, 0.171649)
+sprite_frames = SubResource("SpriteFrames_6jvaf")
+autoplay = "default"
+frame_progress = 0.273959
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
-shape = SubResource("RectangleShape2D_dkb7p")
+position = Vector2(0, 8)
+shape = SubResource("CircleShape2D_ebyh5")
 
 [node name="CreepSpawnTimer" type="Timer" parent="." index="2"]
 
 [node name="PlayerDetectionComponent" parent="." index="3"]
 detectable_distance = 600.0
+
+[node name="HittingArea" parent="." index="4"]
+visible = false
 
 [connection signal="timeout" from="CreepSpawnTimer" to="." method="_on_creep_spawn_timer_timeout"]

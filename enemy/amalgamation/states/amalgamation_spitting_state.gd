@@ -46,9 +46,13 @@ func spit() -> void:
 	# Spawn a random enemy in the mouth
 	var enemy:Enemy = possible_enemies.pick_random().instantiate()	
 	enemy.global_position = %MouthArea.global_position - Vector2(300, 0)
+	enemy.enemy_state = Enemy.EnemyState.STUNNED
 	amalgamation.state_machine.get_parent().add_sibling(enemy)
 	
-	# Spit it out towards the player
+	# Spit it out towards the left
 	var tween := create_tween()
-	var direction_to_player := enemy.global_position.direction_to(Player.instance.global_position)
-	tween.tween_property(enemy, "global_position", enemy.global_position + direction_to_player * spitting_distance, 1.5)
+	tween.tween_property(enemy, "global_position", enemy.global_position - Vector2(275, 0), 0.125)
+
+	await tween.finished
+
+	enemy.enemy_state = Enemy.EnemyState.AGRESSIVE
