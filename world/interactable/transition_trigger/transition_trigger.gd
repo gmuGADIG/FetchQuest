@@ -23,8 +23,11 @@ func _ready() -> void:
 	assert(entry_point != "", "Transition trigger at %s has an empty entry point." % self.get_path())
 	if not SceneManager.scene_exists(scene_name):
 		printerr("Transition trigger at %s could not resolve scene name: '%s'" % [self.get_path(), scene_name])
+		return
+	
+	#ResourceLoader.load_threaded_request(SceneManager.get_scene_path(scene_name))
 
 func _on_body_entered(body: Node2D) -> void:
 	if body is Player:
 		EntryPoints.set_entry_point(entry_point)
-		SceneTransition.change_scene(SceneManager.get_packed_scene(scene_name))
+		SceneTransition.change_scene(scene_name)

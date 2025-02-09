@@ -97,7 +97,7 @@ func load_game() -> void:
 	_handle_save_dictionary(save)
 
 	EntryPoints.current_entry_point = save.location.last_entry_point
-	SceneTransition.change_scene(load(save.location.last_scene_path))
+	SceneTransition.change_scene_to_path(save.location.last_scene_path)
 
 func new_game() -> void:
 	print("[save_system] creating new game")

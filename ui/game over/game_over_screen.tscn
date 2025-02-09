@@ -1,54 +1,197 @@
-[gd_scene load_steps=4 format=3 uid="uid://b6jsq4syp4v0w"]
+[gd_scene load_steps=10 format=3 uid="uid://b6jsq4syp4v0w"]
 
-[ext_resource type="FontFile" uid="uid://cc4xli25271fd" path="res://addons/dialogic/Example Assets/Fonts/Roboto-Bold.ttf" id="1_bpwj6"]
 [ext_resource type="Script" path="res://ui/game over/game_over_screen.gd" id="1_xmlm4"]
-[ext_resource type="Texture2D" uid="uid://c6fhrckboswdl" path="res://ui/game over/game_over_dog.png" id="3_811yh"]
+[ext_resource type="PackedScene" uid="uid://rap0uso4fckx" path="res://dj_music_man/music_players/instant_music_player.tscn" id="4_ivha3"]
 
-[node name="Game Over" type="Node2D"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3cn4j"]
+bg_color = Color(0.111197, 0.111197, 0.111197, 1)
+border_width_left = 3
+border_width_top = 1
+border_width_right = 3
+border_width_bottom = 25
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x7bjm"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 3
+border_width_top = 1
+border_width_right = 3
+border_width_bottom = 25
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q3o31"]
+bg_color = Color(0.111197, 0.111197, 0.111197, 1)
+border_width_left = 3
+border_width_top = 1
+border_width_right = 3
+border_width_bottom = 15
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="Theme" id="Theme_utj7i"]
+Button/font_sizes/font_size = 48
+Button/styles/focus = SubResource("StyleBoxFlat_3cn4j")
+Button/styles/hover = SubResource("StyleBoxFlat_3cn4j")
+Button/styles/normal = SubResource("StyleBoxFlat_x7bjm")
+Button/styles/pressed = SubResource("StyleBoxFlat_q3o31")
+
+[sub_resource type="Animation" id="Animation_uyk5o"]
+resource_name = "drop_in"
+length = 2.0
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("UI:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1.93187, 1),
+"update": 0,
+"values": [Vector2(0, -744), Vector2(0, -60)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("UI:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1, 1.2),
+"transitions": PackedFloat32Array(1, 0.482968, 1),
+"update": 0,
+"values": [0.0, 0.0, 0.0900253]
+}
+
+[sub_resource type="Animation" id="Animation_kdrnn"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("UI:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("UI:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8rcyw"]
+_data = {
+"RESET": SubResource("Animation_kdrnn"),
+"drop_in": SubResource("Animation_uyk5o")
+}
+
+[node name="Game Over" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_xmlm4")
+
+[node name="InstantMusicPlayer" parent="." instance=ExtResource("4_ivha3")]
+music_to_play = 7
 
 [node name="GameOverAudioPlayer" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
 bus = &"SFX"
 
-[node name="Game over" type="Label" parent="."]
-modulate = Color(1, 0.0980392, 0.133333, 1)
-offset_left = 195.0
-offset_top = 18.0
-offset_right = 920.0
-offset_bottom = 195.0
-theme_override_fonts/font = ExtResource("1_bpwj6")
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.07, 0.07, 0.07, 1)
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Game over" type="Label" parent="UI"]
+modulate = Color(0.78, 0, 0.026, 1)
+offset_left = 1.0
+offset_top = 42.0
+offset_right = 1152.0
+offset_bottom = 235.0
 theme_override_font_sizes/font_size = 150
 text = "Game over"
+horizontal_alignment = 1
 
-[node name="Restart checkpoint" type="Button" parent="."]
-offset_left = 144.0
-offset_top = 460.0
-offset_right = 529.0
-offset_bottom = 581.0
+[node name="HBoxContainer" type="HBoxContainer" parent="UI"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -178.0
+offset_bottom = -53.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 85
+
+[node name="Expander" type="Control" parent="UI/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Restart checkpoint" type="Button" parent="UI/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(325, 125)
+layout_mode = 2
 focus_neighbor_left = NodePath(".")
 focus_neighbor_right = NodePath("../Quit")
+theme = SubResource("Theme_utj7i")
 text = "Restart"
 
-[node name="Quit" type="Button" parent="."]
-offset_left = 570.0
-offset_top = 461.0
-offset_right = 953.0
-offset_bottom = 579.0
+[node name="Quit" type="Button" parent="UI/HBoxContainer"]
+custom_minimum_size = Vector2(325, 125)
+layout_mode = 2
 focus_neighbor_left = NodePath("../Restart checkpoint")
 focus_neighbor_right = NodePath(".")
+theme = SubResource("Theme_utj7i")
 text = "Quit"
 
-[node name="TextureRect" type="TextureRect" parent="."]
-offset_left = 370.0
-offset_top = 190.0
-offset_right = 741.0
-offset_bottom = 395.0
-texture = ExtResource("3_811yh")
-expand_mode = 1
+[node name="Expander2" type="Control" parent="UI/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
 
-[connection signal="ready" from="." to="." method="_on_ready"]
-[connection signal="pressed" from="Restart checkpoint" to="." method="_on_menu_major_button_pressed"]
-[connection signal="pressed" from="Restart checkpoint" to="." method="_on_restart_checkpoint_pressed"]
-[connection signal="pressed" from="Quit" to="." method="_on_menu_major_button_pressed"]
-[connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_8rcyw")
+}
+autoplay = "drop_in"
+
+[connection signal="pressed" from="UI/HBoxContainer/Restart checkpoint" to="." method="_on_menu_major_button_pressed"]
+[connection signal="pressed" from="UI/HBoxContainer/Restart checkpoint" to="." method="_on_restart_checkpoint_pressed"]
+[connection signal="pressed" from="UI/HBoxContainer/Quit" to="." method="_on_menu_major_button_pressed"]
+[connection signal="pressed" from="UI/HBoxContainer/Quit" to="." method="_on_quit_pressed"]

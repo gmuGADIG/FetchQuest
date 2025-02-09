@@ -6,6 +6,9 @@ func _ready() -> void:
 
 	%ContinueGame.disabled = not SaveSystem.save_valid()
 	
+	# start loading overworld right away, because it can take a second
+	#ResourceLoader.load_threaded_request(SceneManager.get_scene_path("overworld"))
+	
 func _on_quit_pressed() -> void:
 	get_tree().quit()
 	
@@ -27,4 +30,4 @@ func _on_menu_major_button_pressed() -> void:
 
 
 func _on_credits_pressed() -> void:
-	SceneTransition.change_scene(preload("res://ui/credits/credits_screen.tscn"))
+	SceneTransition.change_scene_to_path("ui/credits/credits_screen.tscn")

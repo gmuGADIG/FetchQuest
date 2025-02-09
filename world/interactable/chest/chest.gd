@@ -9,6 +9,7 @@ var player: Player
 
 @onready var closed_sprite: Sprite2D = %ClosedSprite
 @onready var open_sprite: Sprite2D = %OpenSprite
+@onready var open_particles: CPUParticles2D = $OpenParticles
 
 func _ready() -> void:
 	opened = ChestBetweenScenes.check_if_opened(self.get_path()) #See if it has been opened before
@@ -34,6 +35,7 @@ func open_chest() -> void:
 	print("Opening chest: ", get_path())
 	closed_sprite.visible = false
 	open_sprite.visible = true
+	open_particles.restart()
 	
 	ChestBetweenScenes.add_to_opened_chest(self.get_path())
 	

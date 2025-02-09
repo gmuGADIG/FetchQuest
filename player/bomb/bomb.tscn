@@ -1,7 +1,8 @@
-[gd_scene load_steps=15 format=3 uid="uid://b87hmybtuort7"]
+[gd_scene load_steps=16 format=3 uid="uid://b87hmybtuort7"]
 
 [ext_resource type="Script" path="res://player/bomb/bomb.gd" id="1_vvkgt"]
 [ext_resource type="Texture2D" uid="uid://c2jpowrkxuguq" path="res://ui/hud/Health-Stamina-Item-Points Bar/Tennis Bomb.png" id="2_lw5dj"]
+[ext_resource type="AudioStream" uid="uid://v3w284ys7wsv" path="res://player/bomb/bomb_explode.wav" id="3_74khg"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_343g1"]
 radius = 30.0
@@ -83,6 +84,20 @@ tracks/2/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Explosion/ExplosionSound")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [0.0],
+"method": &"play"
+}]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_m5gmp"]
 _data = {
@@ -94,7 +109,8 @@ _data = {
 blend_mode = 1
 
 [sub_resource type="Gradient" id="Gradient_f0305"]
-colors = PackedColorArray(0.969137, 0.969137, 0.969137, 1, 1, 1, 1, 0)
+offsets = PackedFloat32Array(0, 0.969977, 1)
+colors = PackedColorArray(0.969137, 0.969137, 0.969137, 1, 0.969992, 0.969992, 0.969992, 0.972286, 1, 1, 1, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_ogxg1"]
 gradient = SubResource("Gradient_f0305")
@@ -112,7 +128,7 @@ colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
 colors = PackedColorArray(1, 1, 0, 1, 1, 0.501961, 0, 1)
 
 [sub_resource type="Gradient" id="Gradient_17g48"]
-offsets = PackedFloat32Array(0, 0.489796, 0.573284, 0.615955, 0.703154)
+offsets = PackedFloat32Array(0, 0.489796, 0.501124, 0.68764, 0.703154)
 colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 0.0241187, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_xqsgy"]
@@ -180,8 +196,11 @@ texture = SubResource("GradientTexture2D_xqsgy")
 [node name="ExplosionArea" type="Area2D" parent="Explosion"]
 unique_name_in_owner = true
 collision_layer = 0
-collision_mask = 6
+collision_mask = 4102
 
 [node name="ExplosionAreaShape" type="CollisionShape2D" parent="Explosion/ExplosionArea"]
 scale = Vector2(8, 8)
 shape = SubResource("CircleShape2D_wko8c")
+
+[node name="ExplosionSound" type="AudioStreamPlayer2D" parent="Explosion"]
+stream = ExtResource("3_74khg")

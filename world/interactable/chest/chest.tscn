@@ -1,11 +1,24 @@
-[gd_scene load_steps=5 format=3 uid="uid://bom8mopkckp5y"]
+[gd_scene load_steps=8 format=3 uid="uid://bom8mopkckp5y"]
 
-[ext_resource type="Texture2D" uid="uid://c3s0qtshmkl5v" path="res://demo_art/chest_closed.png" id="1_32wps"]
+[ext_resource type="Texture2D" uid="uid://cc8s3o6a0wfvj" path="res://world/interactable/chest/Chest Opened.png" id="2_rviiy"]
 [ext_resource type="Script" path="res://world/interactable/chest/chest.gd" id="2_w6wbf"]
-[ext_resource type="Texture2D" uid="uid://bm1v64xlmk4w0" path="res://demo_art/chest_open.png" id="3_pis7v"]
+[ext_resource type="Texture2D" uid="uid://bwo6lmum6ovp0" path="res://world/interactable/chest/Chest Closed.png" id="3_nwdvh"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_13dwe"]
 radius = 100.0
+
+[sub_resource type="Gradient" id="Gradient_hjcul"]
+interpolation_mode = 1
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_72gqf"]
+gradient = SubResource("Gradient_hjcul")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.944444, 0.512821)
+
+[sub_resource type="Gradient" id="Gradient_fabeq"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
 [node name="Chest" type="Area2D"]
 collision_layer = 0
@@ -14,13 +27,32 @@ script = ExtResource("2_w6wbf")
 
 [node name="OpenSprite" type="Sprite2D" parent="."]
 unique_name_in_owner = true
-scale = Vector2(0.24, 0.24)
-texture = ExtResource("3_pis7v")
+visible = false
+scale = Vector2(0.783564, 0.783564)
+texture = ExtResource("2_rviiy")
 
 [node name="ClosedSprite" type="Sprite2D" parent="."]
 unique_name_in_owner = true
-scale = Vector2(0.24, 0.24)
-texture = ExtResource("1_32wps")
+scale = Vector2(0.784589, 0.784589)
+texture = ExtResource("3_nwdvh")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_13dwe")
+
+[node name="OpenParticles" type="CPUParticles2D" parent="."]
+position = Vector2(-1, -23)
+emitting = false
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+texture = SubResource("GradientTexture2D_72gqf")
+emission_shape = 3
+emission_rect_extents = Vector2(20, 10)
+direction = Vector2(0, -1)
+spread = 33.93
+initial_velocity_min = 310.3
+initial_velocity_max = 377.05
+scale_amount_min = 0.3
+scale_amount_max = 0.7
+color = Color(1, 1, 1, 0.419608)
+color_ramp = SubResource("Gradient_fabeq")

@@ -8,14 +8,20 @@ class_name Bomb extends CharacterBody2D
 @onready var explosion_area: Area2D = %ExplosionArea
 @onready var animator: AnimationPlayer = %AnimationPlayer
 
+var exploded := false
+
 func _ready() -> void:
 	await get_tree().create_timer(time_till_explode).timeout
 	explode()
 
-var exploded := false
 func explode() -> void:
 	if exploded: return
 	exploded = true
+
+	var explodables := explosion_area.get_overlapping_areas()
+	for e in explodables:
+		if e.has_method("explode"):
+			e.explode()
 
 	var damaged_things := explosion_area.get_overlapping_bodies()
 

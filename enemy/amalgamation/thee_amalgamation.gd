@@ -69,6 +69,9 @@ signal health_changed
 ## The duration of the vulnerable state
 @export var vulnerable_state_duration:float = 2.0
 
+@onready var anim_sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var shader: ShaderMaterial = anim_sprite.material as ShaderMaterial
+
 func hurt(damage_event: DamageEvent) -> void:
 	# Dont die twice
 	if health <= 0:
@@ -90,7 +93,7 @@ func hurt(damage_event: DamageEvent) -> void:
 	
 	# Switch back to vulnerable unless in different state
 	if state_machine.current_state is AmalgamationVulnerableState:
-		animation_player.play("Vulnerable")
+		animation_player.play("RESET")
 	
 	# Die if dead X_X
 	if health <= 0:
@@ -104,3 +107,4 @@ func _on_hitbox_area_body_entered(body: Node2D) -> void:
 
 func die() -> void:
 	print("thee_amalgamation.gd: X_X")
+	state_machine.change_state(state_machine.current_state, "Dead")
