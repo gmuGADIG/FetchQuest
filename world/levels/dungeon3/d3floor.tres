@@ -1,0 +1,53 @@
+[gd_resource type="Resource" script_class="SS2D_Material_Shape" load_steps=10 format=3 uid="uid://1a0d1rne03r0"]
+
+[ext_resource type="Script" path="res://addons/rmsmartshape/materials/edge_material_metadata.gd" id="1_7w34s"]
+[ext_resource type="Script" path="res://addons/rmsmartshape/materials/edge_material.gd" id="2_yc655"]
+[ext_resource type="Texture2D" uid="uid://y1urv0hocn88" path="res://world/smart_shapes/dungeon3_floor/FlatStoneTileEdge.png" id="3_rflha"]
+[ext_resource type="Script" path="res://addons/rmsmartshape/normal_range.gd" id="4_d4cbt"]
+[ext_resource type="Texture2D" uid="uid://bcvojai6bgy76" path="res://world/smart_shapes/dungeon3_floor/D3FloorTile.png" id="5_qgtcj"]
+[ext_resource type="Script" path="res://addons/rmsmartshape/materials/shape_material.gd" id="6_vkas2"]
+
+[sub_resource type="Resource" id="Resource_a0vmv"]
+script = ExtResource("2_yc655")
+textures = Array[Texture2D]([ExtResource("3_rflha")])
+textures_corner_outer = Array[Texture2D]([])
+textures_corner_inner = Array[Texture2D]([])
+textures_taper_left = Array[Texture2D]([])
+textures_taper_right = Array[Texture2D]([])
+textures_taper_corner_left = Array[Texture2D]([])
+textures_taper_corner_right = Array[Texture2D]([])
+randomize_texture = false
+use_corner_texture = false
+use_taper_texture = true
+fit_mode = 0
+
+[sub_resource type="Resource" id="Resource_k82q7"]
+script = ExtResource("4_d4cbt")
+begin = 0.0
+distance = 360.0
+edgeRendering = Vector2(0, 0)
+
+[sub_resource type="Resource" id="Resource_2ou7i"]
+script = ExtResource("1_7w34s")
+edge_material = SubResource("Resource_a0vmv")
+normal_range = SubResource("Resource_k82q7")
+weld = false
+taper_sharp_corners = false
+render = true
+z_index = -11
+z_as_relative = true
+offset = 1.5
+
+[resource]
+script = ExtResource("6_vkas2")
+_edge_meta_materials = Array[ExtResource("1_7w34s")]([SubResource("Resource_2ou7i")])
+fill_textures = Array[Texture2D]([ExtResource("5_qgtcj")])
+fill_texture_z_index = -12
+fill_texture_show_behind_parent = false
+fill_texture_scale = 0.34
+fill_texture_absolute_position = false
+fill_texture_absolute_rotation = false
+fill_texture_offset = Vector2(0, 0)
+fill_texture_angle_offset = 0.0
+fill_mesh_offset = 0.0
+render_offset = -1.5
