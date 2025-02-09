@@ -5,7 +5,8 @@ class_name AmalgamationVulnerableState extends AmalgamationState
 
 func enter() -> void:
 	# Play animation
-	amalgamation.animation_player.play("Vulnerable")
+	amalgamation.anim_sprite.play("vuln")
+	amalgamation.shader.set_shader_parameter("enabled", true)
 
 	# Enable taking damage for 'duration' seconds, then idle
 	%VulnerableHurtArea.set_process(true)
@@ -20,6 +21,7 @@ func update(_delta:float) -> void:
 func exit() -> void:
 	# Disable taking damage
 	%VulnerableHurtArea.set_process(false)
+	amalgamation.shader.set_shader_parameter("enabled", false)
 
 # Called when the amalgamation is hit by the player's attacks
 func _on_vulnerable_hit_area_body_entered(body: Node2D) -> void:

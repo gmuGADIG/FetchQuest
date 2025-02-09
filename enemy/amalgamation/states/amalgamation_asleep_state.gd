@@ -6,7 +6,7 @@ func enter() -> void:
 	await get_tree().process_frame
 	
 	# Play animation
-	amalgamation.animation_player.play("Sleeping")
+	amalgamation.anim_sprite.play("sleeping")
 	
 	print("amalgamation_asleep_state.gd: Honk shoooooo mimimimimimimimimi")
 
@@ -22,20 +22,8 @@ func exit() -> void:
 	pass
 
 
-# Called when a bomb or player enters the mouth of the amalgamation
-func _on_mouth_area_body_entered(body: Node2D) -> void:
-	if amalgamation.state_machine.current_state != self:
-		return
-	if body is not Bomb:
-		return
-			
-	# Get the bomb timer and wait until it ends
-	for child in body.get_children():
-		if child is Timer:
-			await child.timeout
-			break
-	
-	# Switch to idle
+func _on_mouth_area_exploded() -> void:
 	if amalgamation.state_machine.current_state == self:
 		%SleepingParticles.emitting = false
 		amalgamation.state_machine.change_state(self, "Idle")
+

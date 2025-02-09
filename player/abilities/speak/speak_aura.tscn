@@ -1,7 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://qgyqqokyd0ia"]
+[gd_scene load_steps=14 format=3 uid="uid://qgyqqokyd0ia"]
 
 [ext_resource type="Script" path="res://player/abilities/speak/speak_aura.gd" id="1_vjeyh"]
 [ext_resource type="FontFile" uid="uid://dxaeux1wbk5l1" path="res://ui/fonts/Chewy-Regular.ttf" id="2_kc4q5"]
+[ext_resource type="AudioStream" uid="uid://c5jktuwixaei2" path="res://player/abilities/speak/Dog Attack 1.wav" id="3_vkpci"]
+[ext_resource type="AudioStream" uid="uid://dle8j64cuvitq" path="res://player/abilities/speak/Dog Attack 2.wav" id="4_bffqn"]
+[ext_resource type="AudioStream" uid="uid://lv5tu07nxrlp" path="res://player/abilities/speak/Dog Bark Dialogue.wav" id="5_0botp"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_r42l4"]
 radius = 6.0
@@ -83,6 +86,14 @@ _data = {
 "bark": SubResource("Animation_by4of")
 }
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_cchdq"]
+random_pitch = 1.1
+random_volume_offset_db = 1.0
+streams_count = 3
+stream_0/stream = ExtResource("3_vkpci")
+stream_1/stream = ExtResource("4_bffqn")
+stream_2/stream = ExtResource("5_0botp")
+
 [node name="SpeakAura" type="Area2D"]
 collision_layer = 0
 collision_mask = 260
@@ -121,5 +132,10 @@ libraries = {
 "": SubResource("AnimationLibrary_qggfp")
 }
 autoplay = "bark"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamRandomizer_cchdq")
+volume_db = 5.0
+autoplay = true
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

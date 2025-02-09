@@ -1,0 +1,61 @@
+[gd_resource type="Resource" script_class="SS2D_Material_Shape" load_steps=11 format=3 uid="uid://bnlcvwx24qk4t"]
+
+[ext_resource type="Script" path="res://addons/rmsmartshape/materials/edge_material_metadata.gd" id="1_v1p1w"]
+[ext_resource type="Script" path="res://addons/rmsmartshape/materials/edge_material.gd" id="2_28fy6"]
+[ext_resource type="Texture2D" uid="uid://y78esc3e16fx" path="res://world/smart_shapes/mountain/mountain_edge.png" id="3_mv8q4"]
+[ext_resource type="Script" path="res://addons/rmsmartshape/normal_range.gd" id="4_jilbq"]
+[ext_resource type="Script" path="res://addons/rmsmartshape/materials/shape_material.gd" id="7_mh813"]
+
+[sub_resource type="Resource" id="Resource_bu0yw"]
+script = ExtResource("2_28fy6")
+textures = Array[Texture2D]([ExtResource("3_mv8q4")])
+textures_corner_outer = Array[Texture2D]([])
+textures_corner_inner = Array[Texture2D]([])
+textures_taper_left = Array[Texture2D]([])
+textures_taper_right = Array[Texture2D]([])
+textures_taper_corner_left = Array[Texture2D]([])
+textures_taper_corner_right = Array[Texture2D]([])
+randomize_texture = false
+use_corner_texture = false
+use_taper_texture = true
+fit_mode = 0
+
+[sub_resource type="Resource" id="Resource_u4sh6"]
+script = ExtResource("4_jilbq")
+begin = 0.0
+distance = 360.0
+edgeRendering = Vector2(0, 0)
+
+[sub_resource type="Resource" id="Resource_yqeu8"]
+script = ExtResource("1_v1p1w")
+edge_material = SubResource("Resource_bu0yw")
+normal_range = SubResource("Resource_u4sh6")
+weld = true
+taper_sharp_corners = false
+render = true
+z_index = 0
+z_as_relative = true
+offset = -0.9
+
+[sub_resource type="Gradient" id="Gradient_ppynx"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0.329412, 0.376471, 0.584314, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_qgti5"]
+gradient = SubResource("Gradient_ppynx")
+width = 4
+height = 4
+
+[resource]
+script = ExtResource("7_mh813")
+_edge_meta_materials = Array[ExtResource("1_v1p1w")]([SubResource("Resource_yqeu8")])
+fill_textures = Array[Texture2D]([SubResource("GradientTexture2D_qgti5")])
+fill_texture_z_index = -1
+fill_texture_show_behind_parent = false
+fill_texture_scale = 1.0
+fill_texture_absolute_position = false
+fill_texture_absolute_rotation = false
+fill_texture_offset = Vector2(0, 0)
+fill_texture_angle_offset = 0.0
+fill_mesh_offset = 0.0
+render_offset = 0.0

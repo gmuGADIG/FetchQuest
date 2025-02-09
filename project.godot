@@ -13,7 +13,10 @@ config_version=5
 config/name="Fetch Quest"
 run/main_scene="res://world/levels/test_levels/latest_demo_2.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
-config/icon="res://dialogic_example/player/player_art_final.png"
+boot_splash/bg_color=Color(0.709804, 0.85098, 0.992157, 1)
+boot_splash/image="res://meta/loading_image.png"
+boot_splash/fullsize=false
+config/icon="res://meta/game_icon.png"
 run/main_scene.release_build="res://ui/title/title_screen.tscn"
 
 [autoload]
@@ -73,7 +76,8 @@ directories/dch_directory={
 "moth_pink": "res://npc/minor_characters/moth_pink/moth_pink.dch",
 "mr_hands": "res://npc/minor_characters/mr_hands/mr_hands.dch",
 "purple_guy": "res://npc/minor_characters/purple_guy/purple_guy.dch",
-"shopkeeper": "res://npc/shopkeeper/shopkeeper.dch"
+"shopkeeper": "res://npc/shopkeeper/shopkeeper.dch",
+"sign_character": "res://npc/signposts/sign_character.dch"
 }
 directories/dtl_directory={
 "Alchemist First Enounter Timeline": "res://npc/doctor/dialogue/Alchemist First Enounter Timeline.dtl",
@@ -102,6 +106,7 @@ directories/dtl_directory={
 "guard_timeline": "res://npc/guard/guard_timeline.dtl",
 "huntress_timeline": "res://npc/huntress/huntress_timeline.dtl",
 "librarian_timeline": "res://npc/librarian/librarian_timeline.dtl",
+"sign_crossroads": "res://npc/signposts/sign_crossroads.dtl",
 "timeline": "res://npc/minor_characters/farmer/timeline.dtl"
 }
 glossary/default_case_sensitive=true
@@ -369,6 +374,7 @@ gbp_debug={
 2d_physics/layer_10="SwordBlocking"
 2d_physics/layer_11="Anti-Block Terrain"
 2d_physics/layer_12="OneWay"
+2d_physics/layer_13="Explodable"
 
 [physics]
 

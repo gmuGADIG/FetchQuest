@@ -292,6 +292,7 @@ func end_fall() -> void:
 func activate_iframes() -> void:
 	invincible = true
 	animation_player.play("hurt_flash")
+	%HurtSound.play()
 	await animation_player.animation_finished
 	invincible = false
 

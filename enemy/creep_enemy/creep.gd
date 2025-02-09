@@ -12,12 +12,17 @@ extends Area2D
 func _ready() -> void:
 	# Animate the creep to grow and shrink at the correct times/speeds
 	var tween := create_tween()
-	tween.tween_property(self, "scale" , fully_grown_scale, abs(scale.distance_to(fully_grown_scale)) / growth)
-	tween.tween_property(self, "scale" , fully_grown_scale, sustain_time)
-	tween.tween_property(self, "scale" , Vector2.ZERO, abs(fully_grown_scale.distance_to(Vector2.ZERO)) / growth)
-	# Remove the creep once it shrinks away
-	tween.finished.connect(queue_free) 
+	tween.tween_property(self, "scale", scale, 2.)
+	tween.tween_property(self, "scale", Vector2.ZERO, 2.)
+	await tween.finished
+	queue_free()
 
-func _process(delta: float) -> void:
+	# tween.tween_property(self, "scale" , fully_grown_scale, abs(scale.distance_to(fully_grown_scale)) / growth)
+	# tween.tween_property(self, "scale" , fully_grown_scale, sustain_time)
+	# tween.tween_property(self, "scale" , Vector2.ZERO, abs(fully_grown_scale.distance_to(Vector2.ZERO)) / growth)
+	# # Remove the creep once it shrinks away
+	# tween.finished.connect(queue_free) 
+
+func _process(_delta: float) -> void:
 	if overlaps_body(Player.instance):
 		Player.instance.hurt(DamageEvent.new(damage))

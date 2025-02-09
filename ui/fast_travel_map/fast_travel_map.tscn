@@ -12,6 +12,33 @@ shadow_size = 2
 shadow_color = Color(0, 0, 0, 0.443137)
 shadow_offset = Vector2(4, 4)
 
+[sub_resource type="Animation" id="Animation_xkr7t"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Label2:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(996, 34)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Label2:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
 [sub_resource type="Animation" id="Animation_n6i6r"]
 resource_name = "new_animation"
 length = 1.5
@@ -39,33 +66,6 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(0, 0, 0, 0), Color(0, 0, 0, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_xkr7t"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Label2:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(996, 34)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Label2:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_nbi1x"]
@@ -146,6 +146,17 @@ focus_neighbor_left = NodePath("../Questbrook")
 focus_neighbor_bottom = NodePath("../../Resume")
 scene_name = "overworld"
 entry_point = "FastTravelGrove"
+
+[node name="CorruptedKingdom" parent="Buttons/Locations" instance=ExtResource("2_hcnld")]
+layout_mode = 1
+offset_left = 701.12
+offset_top = 134.36
+offset_right = 732.12
+offset_bottom = 171.36
+focus_neighbor_left = NodePath("../Questbrook")
+focus_neighbor_bottom = NodePath("../../Resume")
+scene_name = "corrupted_kingdom"
+entry_point = "FastTravel"
 
 [node name="Resume" type="Button" parent="Buttons"]
 layout_mode = 1

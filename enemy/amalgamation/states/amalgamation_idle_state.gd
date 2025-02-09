@@ -17,7 +17,7 @@ var previous_attack_state:AmalgamationState;
 
 func enter() -> void:
 	# Play animation
-	amalgamation.animation_player.play("Idle")
+	amalgamation.anim_sprite.play("idle")
 
 	# Switch to a random attack state after a timer ends
 	desired_state = get_random_attack()

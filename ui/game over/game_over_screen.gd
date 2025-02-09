@@ -1,17 +1,17 @@
-extends Node2D
-
+extends Node
 
 @onready var button_major_sound: AudioStream = preload("res://ui/sounds/SFX UI Bonk 1.wav")
 @onready var audio_player: AudioStreamPlayer = $GameOverAudioPlayer
 
 func _ready() -> void:
-	$"Restart checkpoint".grab_focus()
+	%"Restart checkpoint".grab_focus()
 		
 #After the sound the "quit" button should play stops playing (the await .finished part), restarts
 func _on_restart_checkpoint_pressed() -> void:
 	await audio_player.finished
-	EntryPoints.current_entry_point = "Entrance"
-	get_tree().change_scene_to_file("res://world/levels/overworld/overworld.tscn")
+	SaveSystem.load_game()
+	# EntryPoints.current_entry_point = "Entrance"
+	# get_tree().change_scene_to_file("res://world/levels/overworld/overworld.tscn")
 		
 # TODO: 
 #make a current save to load back rather than restart the whole game

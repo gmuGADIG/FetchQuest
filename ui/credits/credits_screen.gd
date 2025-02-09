@@ -13,10 +13,10 @@ func _ready() -> void:
 		%BackButton.grab_focus()
 
 func _on_back_button_pressed() -> void:
-	SceneTransition.change_scene(load("res://ui/title/title_screen.tscn"))
+	SceneTransition.change_scene_to_path("res://ui/title/title_screen.tscn")
 
 func _on_audio_stream_player_finished() -> void:
 	if launched_from_title_screen:
-		SceneTransition.change_scene(load("res://ui/title/title_screen.tscn"))
+		SceneTransition.change_scene_to_path("res://ui/title/title_screen.tscn")
 	else:
-		SceneTransition.change_scene(SceneManager.get_packed_scene("town_town"))
+		SceneTransition.change_scene("town_town")
