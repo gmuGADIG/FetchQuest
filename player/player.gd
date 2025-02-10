@@ -4,6 +4,7 @@ static var instance: Player
 
 @export var move_speed: float = 500.0 ## Move speed in pixels per second
 @export var bomb_throw_speed: float = 1000.0 ## Bombs are thrown with this much velocity
+@export var bomb_cooldown_duration := 0.4 ## Subsequent bomb throws are disabled for this time after a bomb is thrown
 @export var stamina_recovery_rate: float = 1.0 ## How much stamina
 @export var knockback_friction: float = 5.0 ## How fast the player slows down from knockback
 @export var roll_speed: float = 1000.0
@@ -26,6 +27,7 @@ static var instance: Player
 @onready var roll_sound: AudioStreamPlayer = %RollingSound
 
 var bomb_scene := preload("bomb/bomb.tscn")
+var bomb_cooldown := 0.0
 
 @onready var _animated_sprites: Array[AnimatedSprite2D] = [%Skin1, %Skin2, %Skin3]
 func play_animation(animation: StringName) -> void:
@@ -141,6 +143,7 @@ func throw_sword() -> void:
 	sword.tree_exited.connect(sword_caught.emit)
 
 func _process(delta: float) -> void:
+	bomb_cooldown = move_toward(bomb_cooldown, 0.0, delta)
 	
 	#State where the player is falling
 	if input_locked:
@@ -199,12 +202,13 @@ func _process(delta: float) -> void:
 
 func _input(event: InputEvent) -> void:
 	if(event.is_action_pressed("throw_bomb") and PlayerInventory.bomb_unlocked()):
-		if PlayerInventory.bombs > 0:
+		if bomb_cooldown == 0 and PlayerInventory.bombs > 0:
 			var bomb_instance := bomb_scene.instantiate()
 			bomb_instance.position = position
 			bomb_instance.velocity = get_aim() * bomb_throw_speed
 			add_sibling(bomb_instance)
 			PlayerInventory.bombs-=1
+			bomb_cooldown = bomb_cooldown_duration
 
 ## Called every frame after move_and_slide
 ## Checks for collision with one-way tiles and moves accordingly
