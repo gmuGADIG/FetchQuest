@@ -86,7 +86,7 @@ func spawn_single_child() -> void:
 	# if not, business as usual (welcome to the instantiation station!)
 	var spawned := spawned_enemy.instantiate()
 	spawned.position = position
-	add_sibling(spawned)
+	add_sibling.call_deferred(spawned)
 	
 	# Compute a convenient distance for the raycast
 	var dist := (safe_spawn_distance_from_self + safe_spawn_distance_from_wall * 2.0)

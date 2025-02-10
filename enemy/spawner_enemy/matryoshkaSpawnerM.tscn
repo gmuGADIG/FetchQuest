@@ -1,14 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://clr4so6ak5sq0"]
+[gd_scene load_steps=3 format=3 uid="uid://clr4so6ak5sq0"]
 
 [ext_resource type="PackedScene" uid="uid://bgm4d5pdfuqfb" path="res://enemy/spawner_enemy/matryoshkaSpawnerL.tscn" id="1_ctjy3"]
 [ext_resource type="PackedScene" uid="uid://dcs80bl1rsml2" path="res://enemy/spawner_enemy/matryoshkaSpawnerS.tscn" id="2_27up7"]
-[ext_resource type="PackedScene" uid="uid://duhvhegf6byvr" path="res://enemy/spawner_enemy/spawner_enemy.tscn" id="3_bs768"]
-[ext_resource type="PackedScene" uid="uid://bimerg4hcbya2" path="res://enemy/charging_enemy/charging_enemy.tscn" id="4_78wda"]
 
-[node name="SpawnerEnemy" instance=ExtResource("1_ctjy3")]
+[node name="MatryoshkaMedium" instance=ExtResource("1_ctjy3")]
 scale = Vector2(1.2, 1.2)
 spawned_enemy = ExtResource("2_27up7")
-
-[node name="SpawnerEnemy2" parent="." index="10" instance=ExtResource("3_bs768")]
-visible = false
-spawned_enemy = ExtResource("4_78wda")
