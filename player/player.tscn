@@ -1,4 +1,4 @@
-[gd_scene load_steps=121 format=3 uid="uid://c7ck7ril2jix2"]
+[gd_scene load_steps=119 format=3 uid="uid://c7ck7ril2jix2"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_x43mx"]
 [ext_resource type="Script" path="res://player/x_ray.gd" id="3_f3hsb"]
@@ -448,41 +448,33 @@ animations = [{
 atlas = ExtResource("18_fhmj2")
 region = Rect2(0, 0, 514, 514)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_iqke3"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_65lvb"]
 atlas = ExtResource("18_fhmj2")
-region = Rect2(514, 0, 514, 514)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_c7b18"]
-atlas = ExtResource("18_fhmj2")
-region = Rect2(1028, 0, 514, 514)
+region = Rect2(2056, 0, 514, 514)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_is4ue"]
 atlas = ExtResource("18_fhmj2")
 region = Rect2(1542, 0, 514, 514)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_65lvb"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_iqke3"]
 atlas = ExtResource("18_fhmj2")
-region = Rect2(2056, 0, 514, 514)
+region = Rect2(514, 0, 514, 514)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fl44g"]
 atlas = ExtResource("19_ywkn0")
 region = Rect2(0, 0, 512, 512)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_o2oan"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_6qxc2"]
 atlas = ExtResource("19_ywkn0")
-region = Rect2(512, 0, 512, 512)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ylqga"]
-atlas = ExtResource("19_ywkn0")
-region = Rect2(1024, 0, 512, 512)
+region = Rect2(2048, 0, 512, 512)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_f1sv8"]
 atlas = ExtResource("19_ywkn0")
 region = Rect2(1536, 0, 512, 512)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_6qxc2"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_o2oan"]
 atlas = ExtResource("19_ywkn0")
-region = Rect2(2048, 0, 512, 512)
+region = Rect2(512, 0, 512, 512)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yjhlv"]
 atlas = ExtResource("20_af0im")
@@ -563,12 +555,15 @@ animations = [{
 "texture": SubResource("AtlasTexture_jncv8")
 }, {
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_65lvb")
+}, {
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_is4ue")
+}, {
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_iqke3")
 }, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_c7b18")
-}, {
-"duration": 1.0,
+"duration": 3.0,
 "texture": SubResource("AtlasTexture_is4ue")
 }, {
 "duration": 1.0,
@@ -576,19 +571,22 @@ animations = [{
 }],
 "loop": true,
 "name": &"bark_left",
-"speed": 8.33
+"speed": 17.0
 }, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_fl44g")
 }, {
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_6qxc2")
+}, {
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_f1sv8")
+}, {
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_o2oan")
 }, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ylqga")
-}, {
-"duration": 1.0,
+"duration": 3.0,
 "texture": SubResource("AtlasTexture_f1sv8")
 }, {
 "duration": 1.0,
@@ -596,7 +594,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"bark_right",
-"speed": 8.33
+"speed": 17.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -621,7 +619,7 @@ animations = [{
 "speed": 3.0
 }, {
 "frames": [{
-"duration": 1.0,
+"duration": 2.0,
 "texture": SubResource("AtlasTexture_b0dh4")
 }, {
 "duration": 1.0,
@@ -632,10 +630,10 @@ animations = [{
 }],
 "loop": true,
 "name": &"roll_left",
-"speed": 10.0
+"speed": 30.0
 }, {
 "frames": [{
-"duration": 1.0,
+"duration": 2.0,
 "texture": SubResource("AtlasTexture_c8ea5")
 }, {
 "duration": 1.0,
@@ -646,10 +644,10 @@ animations = [{
 }],
 "loop": true,
 "name": &"roll_right",
-"speed": 10.0
+"speed": 30.0
 }, {
 "frames": [{
-"duration": 1.0,
+"duration": 1.3,
 "texture": SubResource("AtlasTexture_82we2")
 }, {
 "duration": 1.0,
@@ -663,10 +661,10 @@ animations = [{
 }],
 "loop": true,
 "name": &"walk_left",
-"speed": 10.0
+"speed": 13.0
 }, {
 "frames": [{
-"duration": 1.0,
+"duration": 1.3,
 "texture": SubResource("AtlasTexture_cjpet")
 }, {
 "duration": 1.0,
@@ -680,7 +678,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"walk_right",
-"speed": 10.0
+"speed": 13.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_krk6c"]
@@ -780,8 +778,7 @@ visible = false
 position = Vector2(13, 15)
 scale = Vector2(0.23, 0.23)
 sprite_frames = SubResource("SpriteFrames_tomua")
-animation = &"bark_right"
-frame_progress = 0.884062
+animation = &"bark_left"
 
 [node name="XRay" type="Node" parent="SkinChooser/Skin2"]
 script = ExtResource("3_f3hsb")
