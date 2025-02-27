@@ -16,6 +16,9 @@ enum SWITCH_TYPE {
 var _timer: Timer
 var _on_sprite: Sprite2D
 var _off_sprite: Sprite2D
+
+var _activation_cause: Area2D # the area which triggered the activation. can't be re-activated until it's destroyed (to prevent the sword from double-flipping the switch)
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	_timer = get_node("Timer")
@@ -23,6 +26,8 @@ func _ready() -> void:
 	_off_sprite = get_node("OffSprite")
 
 func _on_area_entered(area: Area2D) -> void:
+	if _activation_cause != null: return
+	_activation_cause = area
 	trigger_switch()
 
 func trigger_switch() -> void:

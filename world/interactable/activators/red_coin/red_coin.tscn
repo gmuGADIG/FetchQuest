@@ -1,7 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://gp1o7iklljk2"]
+[gd_scene load_steps=4 format=3 uid="uid://gp1o7iklljk2"]
 
 [ext_resource type="Script" path="res://world/interactable/activators/red_coin/red_coin.gd" id="1_7hdjs"]
-[ext_resource type="Texture2D" uid="uid://pdvgqevj0py3" path="res://demo_art/Red_circle.png" id="2_r1boj"]
 [ext_resource type="Texture2D" uid="uid://d2pcqdgkpq6pg" path="res://world/interactable/activators/red_coin/RedCoin.png" id="3_55jun"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4gm5v"]
@@ -16,12 +15,20 @@ label_visible_time = 0.6
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_4gm5v")
 
+[node name="PickupArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="PickupArea"]
+shape = SubResource("CircleShape2D_4gm5v")
+
 [node name="Sprite2D" type="Sprite2D" parent="."]
-visible = false
-scale = Vector2(0.03, 0.03)
-texture = ExtResource("2_r1boj")
+position = Vector2(-3, 12)
+scale = Vector2(0.348167, 0.348167)
+texture = ExtResource("3_55jun")
 
 [node name="Label" type="Label" parent="."]
+z_index = 50
 offset_left = -19.0
 offset_top = -59.0
 offset_right = 21.0
@@ -30,17 +37,5 @@ theme_override_font_sizes/font_size = 60
 text = "
 "
 horizontal_alignment = 1
-
-[node name="PickupArea" type="Area2D" parent="."]
-collision_layer = 0
-collision_mask = 2
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="PickupArea"]
-shape = SubResource("CircleShape2D_4gm5v")
-
-[node name="RedCoin" type="Sprite2D" parent="."]
-position = Vector2(-3, 13)
-scale = Vector2(0.37, 0.37)
-texture = ExtResource("3_55jun")
 
 [connection signal="body_entered" from="PickupArea" to="." method="_on_pickup_area_body_entered"]
