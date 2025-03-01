@@ -1,7 +1,8 @@
-[gd_scene load_steps=36 format=3 uid="uid://23h7uaou8f05"]
+[gd_scene load_steps=37 format=3 uid="uid://23h7uaou8f05"]
 
 [ext_resource type="PackedScene" uid="uid://bovhexq6t5u8o" path="res://ui/options/options_menu.tscn" id="1_5n5k7"]
-[ext_resource type="Texture2D" uid="uid://vf0s1yxq1yr2" path="res://ui/title/Official Fetch Quest Title Screen.png" id="2_4p1gc"]
+[ext_resource type="Texture2D" uid="uid://ch3ynepf8eb3m" path="res://ui/credits/Sky.png" id="2_p63kq"]
+[ext_resource type="Texture2D" uid="uid://b3f54furxm0ug" path="res://ui/credits/fetch-quest-logo.png" id="3_64khw"]
 [ext_resource type="Texture2D" uid="uid://djws21bxdcpt7" path="res://world/decoration/trees/oak/oak_tree.png" id="3_dkgup"]
 [ext_resource type="FontFile" uid="uid://dxaeux1wbk5l1" path="res://ui/fonts/Chewy-Regular.ttf" id="3_vl0qw"]
 [ext_resource type="Texture2D" uid="uid://u5ff0ws2dnaq" path="res://ui/title/Settings Cog.png" id="5_524n4"]
@@ -238,10 +239,28 @@ Button/styles/pressed = SubResource("StyleBoxTexture_3j6ho")
 [node name="TitleScreen" type="CanvasLayer"]
 script = ExtResource("6_ogkp4")
 
-[node name="Background" type="Sprite2D" parent="."]
-position = Vector2(576, 324.5)
-scale = Vector2(0.6, 0.600926)
-texture = ExtResource("2_4p1gc")
+[node name="Sky" type="TextureRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_p63kq")
+expand_mode = 1
+
+[node name="Title" type="TextureRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 144.0
+offset_top = 31.0
+offset_right = -143.0
+offset_bottom = -131.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_64khw")
+expand_mode = 1
+stretch_mode = 4
 
 [node name="Tree1" type="Sprite2D" parent="."]
 position = Vector2(48, 849)
@@ -317,8 +336,8 @@ visible = false
 
 [connection signal="pressed" from="Panel/ContinueGame" to="." method="_on_continue_game_pressed"]
 [connection signal="pressed" from="Panel/ContinueGame" to="." method="_on_menu_major_button_pressed"]
-[connection signal="pressed" from="Panel/Quit" to="." method="_on_quit_pressed"]
 [connection signal="pressed" from="Panel/Quit" to="." method="_on_menu_major_button_pressed"]
+[connection signal="pressed" from="Panel/Quit" to="." method="_on_quit_pressed"]
 [connection signal="pressed" from="Panel/Credits" to="." method="_on_credits_pressed"]
 [connection signal="pressed" from="Panel/Credits" to="." method="_on_menu_major_button_pressed"]
 [connection signal="pressed" from="Panel/NewGame" to="." method="_on_new_game_pressed"]

@@ -1,7 +1,8 @@
-[gd_scene load_steps=14 format=3 uid="uid://bf5kmm2uk5t8r"]
+[gd_scene load_steps=15 format=3 uid="uid://bf5kmm2uk5t8r"]
 
 [ext_resource type="Script" path="res://ui/skins/skins.gd" id="1_8i4rg"]
 [ext_resource type="Texture2D" uid="uid://djws21bxdcpt7" path="res://world/decoration/trees/oak/oak_tree.png" id="2_lr5ln"]
+[ext_resource type="Texture2D" uid="uid://ch3ynepf8eb3m" path="res://ui/credits/Sky.png" id="2_ovg6d"]
 [ext_resource type="Theme" uid="uid://hft8rbf0e22b" path="res://ui/main_ui_theme.tres" id="3_sjb4j"]
 [ext_resource type="Texture2D" uid="uid://brg4owq1xh3x0" path="res://ui/skins/previews/cata.png" id="4_8555x"]
 [ext_resource type="StyleBox" uid="uid://dlpke1s611hjt" path="res://ui/skins/skinHover.tres" id="4_wdjg8"]
@@ -142,13 +143,14 @@ _data = {
 [node name="Skins" type="CanvasLayer"]
 script = ExtResource("1_8i4rg")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="Sky" type="TextureRect" parent="."]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.729412, 0.984314, 1, 1)
+texture = ExtResource("2_ovg6d")
+expand_mode = 1
 
 [node name="Tree1" type="Sprite2D" parent="."]
 position = Vector2(48, 849)
