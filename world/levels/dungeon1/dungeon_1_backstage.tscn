@@ -1,4 +1,4 @@
-[gd_scene load_steps=86 format=4 uid="uid://bhv7co633qheb"]
+[gd_scene load_steps=87 format=4 uid="uid://bhv7co633qheb"]
 
 [ext_resource type="PackedScene" uid="uid://cnd06dpkgufe4" path="res://world/levels/level_base.tscn" id="1_0upyu"]
 [ext_resource type="Script" path="res://addons/rmsmartshape/shapes/shape.gd" id="2_1hdth"]
@@ -17,6 +17,7 @@
 [ext_resource type="PackedScene" uid="uid://bom8mopkckp5y" path="res://world/interactable/chest/chest.tscn" id="16_o7tpx"]
 [ext_resource type="PackedScene" uid="uid://byskimcgfd88d" path="res://world/decoration/pillars/pillar_wood.tscn" id="16_or552"]
 [ext_resource type="TileSet" uid="uid://nu1j5yl35lda" path="res://world/tilemap/church_tilemap.tres" id="18_nasrm"]
+[ext_resource type="PackedScene" uid="uid://rap0uso4fckx" path="res://dj_music_man/music_players/instant_music_player.tscn" id="18_qdbxi"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oe5ur"]
 size = Vector2(158, 146)
@@ -712,6 +713,9 @@ position = Vector2(-1462, -1097)
 
 [node name="ChargingEnemy2" parent="ArenaRoom" index="3" instance=ExtResource("14_5fxtv")]
 position = Vector2(-1433, -586)
+
+[node name="InstantMusicPlayer" parent="." index="15" instance=ExtResource("18_qdbxi")]
+music_to_play = 6
 
 [connection signal="body_entered" from="Walls/Doors/StageDoor" to="Walls/Doors/StageDoor" method="_on_body_entered"]
 [connection signal="body_entered" from="Walls/Doors/CatacombsDoor" to="Walls/Doors/CatacombsDoor" method="_on_body_entered"]
